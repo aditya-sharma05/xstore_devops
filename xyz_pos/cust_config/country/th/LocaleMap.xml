@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root dtype="Map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="LocaleMap.xsd">
+  <MapEntry key="Document" value="th_TH" />
+  <MapEntry key="PoleDisplay" value="th_TH" />
+  <MapEntry key="Receipt" value="th_TH" />
+  <MapEntry key="View" value="th_TH" />
+  <MapEntry key="Error" value="en_US" />
+  <MapEntry key="Log" value="en_US" />
+  <MapEntry key="FiscalExport" value="th_TH" />
+  <MapEntry key="FiscalDocument" value="th_TH" />
+</Root>

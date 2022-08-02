@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSourceSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DataSourceConfig.xsd">
+
+  <DataSource name="Relate" NetworkScope="WAN">
+    <Enabled dtype="Boolean">false</Enabled>
+    <Strategy dtype="String">relatePersistenceStrategy</Strategy>
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost"/>
+      <Property key="Port" value="8084"/>
+      <Property key="Timeout" value="5000"/>
+    </Ping>
+  </DataSource>
+
+  <DataSource name="Xcenter" NetworkScope="WAN">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">servletPersistenceStrategy</Strategy>
+    <Property key="ConnectionURL" value="http://localhost:8443"/>
+    <Property key="GetObjectByIdPath" value="/xcenter/dtx/GetById" />
+    <Property key="GetObjectByQueryPath" value="/xcenter/dtx/GetByQuery" />
+    <Property key="MakePersistentPath" value="/xcenter/dtx/MakePersistent" />
+    <Property key="GetConfigPathPath" value="/xcenter/configpath/GetConfigPath" />
+    <Property key="GetSystemDateTimePath" value="/xcenter/misc/GetSystemDateTime" />
+    <Property key="Timeout" value="30000" />
+    <Property key="ConnectionUserName" value="" />
+    <Property key="ConnectionPassword" value="" />
+    <Property key="keystore" value="${dtv.util.net.ssl.keyStore}" />
+    <Property key="keystorePassword" value="${dtv.keystore.password}" />
+    <Property key="keyalias" value="xstore" />
+    <Property key="truststore" value="${dtv.util.net.ssl.trustStore}" />
+    <Property key="truststorePassword" value="${dtv.keystore.password}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost"/>
+      <Property key="Port" value="8443"/>
+      <Property key="Timeout" value="1000"/>
+    </Ping>
+  </DataSource>
+
+  <DataSource name="StorePrimary" NetworkScope="LAN">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="" />
+    <Property key="ConnectionPassword" value="" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost"/>
+      <Property key="Port" value="1521"/>
+      <Property key="Timeout" value="1000"/>
+    </Ping>
+  </DataSource>
+
+  <DataSource name="StoreBackup" NetworkScope="LAN">
+    <Enabled dtype="Boolean">false</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="" />
+    <Property key="ConnectionPassword" value="" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost"/>
+      <Property key="Port" value="1521"/>
+      <Property key="Timeout" value="1000"/>
+    </Ping>
+  </DataSource>
+
+  <DataSource name="Local" NetworkScope="LAN" HighAvailability="true">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="" />
+    <Property key="ConnectionPassword" value="" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost"/>
+      <Property key="Port" value="1521"/>
+      <Property key="Timeout" value="1000"/>
+    </Ping>
+  </DataSource>
+
+  <DataSource name="Replication" NetworkScope="LAN" HighAvailability="true">
+    <Enabled dtype="Boolean">true</Enabled>
+    <NetworkScope dtype="String">LAN</NetworkScope>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="" />
+    <Property key="ConnectionPassword" value="" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost"/>
+      <Property key="Port" value="1521"/>
+      <Property key="Timeout" value="1000"/>
+    </Ping>
+  </DataSource>
+
+  <DataSource name="Training" NetworkScope="LAN">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="" />
+    <Property key="ConnectionPassword" value="" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost"/>
+      <Property key="Port" value="1521"/>
+      <Property key="Timeout" value="1000"/>
+    </Ping>
+  </DataSource>
+  
+</DataSourceSet>

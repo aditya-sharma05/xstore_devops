@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SysConfig xmlns="http://micros.com/xstore/config/settings">
+    <Setting name="Email---DefaultMailHost">localhost</Setting>
+    <Setting name="Email---DefaultMailPort">25</Setting>
+    <Setting name="Email---DefaultSender">noreply@xstore.com</Setting>
+    <Setting name="Email---Receipt---From">_receiptEmailFrom</Setting>
+    <Setting name="Email---SmtpDebug">false</Setting>
+    <Setting name="Email---UseSmtpAuth">false</Setting>
+    <Setting name="Location---OvertimeRuleType">WEEKLYOVER40</Setting>
+    <Setting name="SendSale---SendTaxType">DESTINATION</Setting>
+</SysConfig>

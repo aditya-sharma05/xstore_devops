@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src-test"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/xyz_pos"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/config-objects.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/dtv-barcode.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/dtv-event.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/dtv-hardware.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/dtv-ipc.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/dtv-upgrader.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/dtv-util-net.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/dtv-util.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/hardware-service.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/commons-configuration2-2.4.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/commons-lang3-3.9.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/commons-logging-1.2-0548efb.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/guava-28.1-jre.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/failureaccess-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jackson-annotations-2.9.9.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jackson-core-2.9.9.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jackson-databind-2.9.9.3.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jackson-jaxrs-base-2.9.9.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jackson-jaxrs-json-provider-2.9.9.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jackson-module-jaxb-annotations-2.9.9.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jbars.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jna-5.4.0.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jna-platform-5.4.0.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/javapos-1.14.2.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/log4j-1.2-api-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/log4j-api-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/log4j-core-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/log4j-jcl-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/log4j-jul-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/log4j-slf4j-impl-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/zxing.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/javax-websocket-client-impl-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/javax-websocket-server-impl-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/javax.websocket-api-1.0.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-client-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-http-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-io-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-security-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-server-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-servlet-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-servlets-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/jetty-util-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/servlet-api-3.1.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/websocket-api-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/websocket-client-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/websocket-common-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/websocket-server-9.4.2.v20170220.jar"/>
+	<classpathentry kind="lib" path="/release/hwserv/hardware-service/lib/ext/jetty/websocket-servlet-9.4.2.v20170220.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+th>
+>

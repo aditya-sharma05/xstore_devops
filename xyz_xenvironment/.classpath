@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src-test"/>	
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="root/cust_config"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/config-objects.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/config.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-auth-core.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-auth-impl.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-auth-sv.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-avs-qas.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-avs.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-barcode.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-bitmap.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-cheetah.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-countrypack.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-data2.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-dtx.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-event.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-fonts.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-hardware.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-i18n.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-inv-sim.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-inv.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-ipc.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-itm-rxm.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-itm.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-jmxutil.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-jna.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-password.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-posframework.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-pricing2.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-service.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-ui-graphics.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-upgrader.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-util-measurement.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-util-net.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-util-sequence.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-util.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-xst-crm-relate.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-xst-crm.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-xst-opera.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-xst-xom-locate.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-xst-xom.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-xstoregwt-util.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/pos.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-authentication-idcs.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-deployment-objects.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/dtv-util-gs1-databar.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/xenv-objects.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/xenvironment.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/ant-1.10.6.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-codec-1.13.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-collections4-4.3.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-configuration2-2.4.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-lang3-3.9.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-logging-1.2-0548efb.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/commons-pool2-2.7.0.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/dozer-core-6.4.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/dvt-jclient.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/dvt-utils.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/eftlink.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/fontbox-2.0.16.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/gin-2.1.2.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/guava-28.1-jre.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/failureaccess-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/guice-4.2.2.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/guice-assistedinject-4.2.2.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/i18nAPI_v3.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jackson-annotations-2.9.9.jar" />
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jackson-core-2.9.9.jar" />
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jackson-databind-2.9.9.3.jar" />
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jackson-jaxrs-base-2.9.9.jar" />
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jackson-jaxrs-json-provider-2.9.9.jar" />
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jackson-module-jaxb-annotations-2.9.9.jar" />
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/javax.mail-1.5.6.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jdom-2.0.6.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jna-5.4.0.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jna-platform-5.4.0.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/log4j-api-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/log4j-core-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/log4j-jcl-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/log4j-jul-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/log4j-slf4j-impl-2.11.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/mx4j-impl-3.0.2.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/ojdbc8-18.3.0.0.0.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/orai18n-collation.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/orai18n.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/pdfbox-2.0.16.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/quartz-2.3.0.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/share.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/slf4j-api-1.7.26.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-aop-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-beans-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-context-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-context-support-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-core-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-expression-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-tx-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/spring-web-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/mssql-jdbc-7.2.2.jre8.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/ucp-18.3.0.0.0.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/velocity-engine-core-2.1.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/versioninfo.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/xdocore.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="/release/xenvironment/environment/lib/ext/xstream-1.4.11.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+th>
+>

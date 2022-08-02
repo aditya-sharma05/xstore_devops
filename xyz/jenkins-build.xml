@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="customer-build-server" basedir="..">
+  <dirname property="customer-build-server.project.dir" file="${ant.file.customer-build-server}" />
+  <basename property="customer-build-server.project.name" file="${customer-build-server.project.dir}" />
+  <property name="project.prefix" value="${customer-build-server.project.name}_" />
+
+  <target name="distribution" depends="make">
+    <ant dir="${project.prefix}pos" antfile="build.xml" target="installx" />
+    <ant dir="${project.prefix}pos" antfile="build.xml" target="distribute" />
+  </target>
+
+  <target name="continuous-integration" depends="make" />
+
+  <target name="make" depends="clean-all">
+    <ant dir="${project.prefix}pos" antfile="build.xml" target="make" />
+    <subant target="make">
+      <fileset dir="${project.prefix}xenvironment" includes="build.xml" erroronmissingdir="false" />
+    </subant>
+    <subant target="jar">
+      <fileset dir="${project.prefix}xcenter-shared" includes="build.xml" erroronmissingdir="false" />
+    </subant>
+    <subant target="build-overlay">
+      <fileset dir="${project.prefix}hardware-service" includes="build.xml" erroronmissingdir="false" />
+      <fileset dir="${project.prefix}xcenter" includes="build.xml" erroronmissingdir="false" />
+      <fileset dir="${project.prefix}xcenter-admin" includes="build.xml" erroronmissingdir="false" />
+      <fileset dir="${project.prefix}xservices" includes="build.xml" erroronmissingdir="false" />
+    </subant>
+    <subant target="create-custom-war">
+      <fileset dir="${project.prefix}rtlog-generator" includes="build.xml" erroronmissingdir="false" />
+    </subant>
+  </target>
+
+  <target name="clean-all">
+    <ant dir="${project.prefix}pos" antfile="build.xml" target="clean-all" />
+    <subant target="clean-all">
+      <fileset dir="${project.prefix}hardware-service" includes="build.xml" erroronmissingdir="false" />
+      <fileset dir="${project.prefix}xcenter-shared" includes="build.xml" erroronmissingdir="false" />
+      <fileset dir="${project.prefix}xcenter" includes="build.xml" erroronmissingdir="false" />
+      <fileset dir="${project.prefix}xcenter-admin" includes="build.xml" erroronmissingdir="false" />
+      <fileset dir="${project.prefix}xservices" includes="build.xml" erroronmissingdir="false" />
+    </subant>
+    <subant target="clean">
+      <fileset dir="${project.prefix}rtlog-generator" includes="build.xml" erroronmissingdir="false" />
+    </subant>
+  </target>
+</project>

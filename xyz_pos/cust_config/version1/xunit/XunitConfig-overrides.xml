@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XunitConfig xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="../../../../pos/config/dtv/res/config/xunit/XunitConfig.xsd">
+
+  <!-- PARAMETERS -->
+
+  <!-- DATA POOLS -->
+  
+  <!-- TEST SUITES -->
+  
+  <!-- TEST CASES -->
+    
+  <!-- TEST SEQUENCES -->
+
+</XunitConfig>
