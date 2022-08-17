@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://v1.ws.poslog-ext.xcenter.dtv/" xmlns:dtv="http://v1.ws.poslog-ext.xcenter.dtv/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TaxLocationId" type="xs:string"/>
+  <xs:element name="TaxGroupId" type="xs:string"/>
+  <xs:element name="PercentageOfItem" type="dtv:PercentageOfItemType"/>
+  <xs:element name="ReturnType" type="xs:string"/>
+  <xs:element name="ReasonComment" type="xs:string"/>
+  <xs:element name="LineItemProperty" type="dtv:LineItemPropertyType"/>
+  <xs:element name="PosTransactionProperties" type="dtv:PosTransactionPropertiesType" />
+  <xs:element name="ScannedItemID" type="xs:string"/>
+  <xs:element name="OrderType" type="xs:string" />
+  <xs:element name="SerialNumber" type="xs:string" />
+  <xs:element name="DiscountReasonCode" type="xs:string" />
+  <xs:element name="DiscountReasonCodeComment" type="xs:string" />
+  <xs:element name="VoidReason" type="xs:string" />
+  <xs:element name="AuthorizationCode" type="xs:string" />
+  <xs:element name="UserName" type="xs:string" />
+  <xs:element name="PONumber" type="xs:string" />
+  <xs:attribute name="AppVersion" type="xs:string"/>
+  <xs:attribute name="crossChannelReturn" type="xs:boolean"/>
+  <xs:attribute name="TransactionType" type="xs:string" />
+  <xs:attribute name="VoidFlag" type="xs:boolean"/>
+  <xs:attribute name="ChangeFlag" type="xs:boolean"/>
+  <xs:complexType name="PercentageOfItemType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="AssociateID"/>
+      <xs:element type="xs:decimal" name="Percentage"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LineItemPropertyType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="LineItemPropertyCode"/>
+      <xs:element type="xs:string" name="LineItemPropertyValue"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PosTransactionPropertiesType">
+    <xs:sequence>
+      <xs:element name="PosTransactionPropertyCode" type="xs:string" />
+      <xs:element name="PosTransactionPropertyValue" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

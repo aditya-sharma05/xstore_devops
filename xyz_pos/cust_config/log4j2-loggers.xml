@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Loggers>
+  <Logger name="dtv.pos.framework.action.ActionLogger" level="warn" />
+  <!-- DEBUG: Dump data pool contents to Xstore log upon each load -->
+  <Logger name="dtv.xunit.datapool" level="info" />
+  <!-- ***************** -->
+  <!-- ** Significant Application Flow Events ** -->
+  <!-- ***************** -->
+  <Logger name="XSTORE_FLOW" level="debug" />
+
+  <!-- ***************** -->
+  <!-- ** Transaction ** -->
+  <!-- ***************** -->
+  <!-- DEBUG: Time elapsed when persisting data; Transaction writes to temp files INFO: Transaction completed/cancelled 
+    banners -->
+  <Logger name="dtv.pos.common.TransactionHelper" level="info" />
+  <!-- ***************** -->
+  <!-- ** Initialization/Loading ** -->
+  <!-- ***************** -->
+  <Logger name="dtv.pos.framework.StationController" level="info" />
+  <Logger name="dtv.cheetah.CheetahContextListener" level="info" />
+  <Logger name="dtv.util.config.ConfigHelper" level="info" />
+  <Logger name="dtv.pos.framework.reporting.ReportMgr" level="info" />
+  <Logger name="dtv.util.ResourceUtils" level="info" />
+  <Logger name="dtv.servicex.impl.Services" level="info" />
+  <Logger name="dtv.pos.framework.RetailLocationSynchronizer" level="warn" />
+  <!-- ***************** -->
+  <!-- ** Application Interfacing ** -->
+  <!-- ***************** -->
+  <!-- DEBUG: Web service requests/responses via Customer API CWSerenade integration -->
+  <Logger name="com.micros_retail.i11n.v1.cw.customer.service.util.CwWebServiceInvoker" level="debug" />
+  <!-- General logging for Micros-Retail inter-application APIs -->
+  <Logger name="com.micros_retail.i11n" level="warn" />
+  <!-- General logging for Xstore inter-application Customer APIs -->
+  <Logger name="dtv.xst.crm" level="info" />
+  <!-- DEBUG: Web service requests/responses via Xstore inter-application APIs -->
+  <Logger name="dtv.servicex.impl.WSLoggingHandler" level="debug" />
+  <!-- DEBUG: Legacy SOAP requests/responses via Xstore inter-application APIs -->
+  <Logger name="dtv.util.net.SoapRequest" level="debug" />
+
+  <!-- XSTORE-12195 - This is the new way of defining a logger category that uses the WSLoggingHandler. To enable 
+    the logger for a specific request type, set its priority level to DEBUG. -->
+  <!-- Sub-categories for Relate gift card tender integration -->
+  <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_SVC_TRANSACTION_WS" additivity="false" level="info">
+    <AppenderRef ref="AUTH.file" />
+  </Logger>
+
+  <!-- ***************** -->
+  <!-- ** User Interface ** -->
+  <!-- ***************** -->
+  <!-- DEBUG: Entries in ListViewConfig.xml were chosen for rendering list items -->
+  <Logger name="dtv.pos.framework.ui.listview.config.ViewElementFactory" level="warn" />
+  <!-- ***************** -->
+  <!-- ** State/Performance Profiling ** -->
+  <!-- ***************** -->
+  <!-- DEBUG: Time elapsed to change UI, execute operations, etc. -->
+  <Logger name="dtv.util.PerformanceTimer" level="info" />
+  <!-- INFO: Implementation-specific output of Alt+V debugging commands -->
+  <Logger name="dtv.pos.framework.keycommands" level="info" />
+  <!-- ***************** -->
+  <!-- ** Miscellaneous ** -->
+  <!-- ***************** -->
+  <!-- INFO: Which external application is being launched by ExecOp -->
+  <Logger name="dtv.pos.framework.process" level="info" />
+
+  <!-- ********************************************** -->
+  <!-- OpChain/Op/Support flow categories -->
+  <!-- ********************************************** -->
+  <Logger name="OPCHAIN_FLOW" level="debug" />
+
+  <Logger name="com.micros.xstore.config" level="info" />
+  <Logger name="dtv.pos.framework.op.OpChainFactory" level="info" />
+
+   <!-- ********************************************** -->
+   <!-- Event (ctl_event_log) categories -->
+   <!-- ********************************************** -->
+   <Logger name="dtv.xstore" additivity="false" level="info">
+    <AppenderRef ref="EVENT.dtx.critical" />
+  </Logger>
+  <Logger name="dtv.env" additivity="false" level="info">
+    <AppenderRef ref="EVENT.dtx.critical" />
+  </Logger>
+  <Logger name="dtv.sysadmin.data" additivity="false" level="info">
+    <AppenderRef ref="EVENT.dtx.critical" />
+  </Logger>
+  <Logger name="dtv.hardware.vf.VfVersionInfo" additivity="false" level="info">
+    <AppenderRef ref="EVENT.dtx.critical" />
+  </Logger>
+
+  <!-- ********************************************** -->
+  <!-- Authorization communication (Xstore<->Xpay) categories -->
+  <!-- ********************************************** -->
+  <Logger name="TENDER_AUTH" additivity="false" level="info">
+    <AppenderRef ref="Console" />
+    <AppenderRef ref="AUTH.file" />
+  </Logger>
+
+  <Logger name="dtv.tenderretail" level="debug" />
+  <Logger name="dtv.tenderauth.impl.eftlink" level="error" />
+  <Logger name="dtv.tenderauth.impl.xpay.XpayCommunicator" additivity="false" level="error">
+    <AppenderRef ref="EVENT.dtx.critical" />
+  </Logger>
+
+  <!-- ********************************************** -->
+  <!-- Data access/modification categories -->
+  <!-- ********************************************** -->
+  <!-- DEBUG: All JDBC SQL calls -->
+  <Logger name="dtv.data2.access.impl.jdbc.DtvPreparedStatement" level="debug" />
+  <!-- DEBUG: Requests to remote data sources (e.g. Xcenter) -->
+  <Logger name="dtv.data2.access.impl.remote.AbstractHttpDatasource" level="warn" />
+  <Logger name="dtv.data2.dataloader" additivity="false" level="info">
+    <AppenderRef ref="DATALOAD.file" />
+    <AppenderRef ref="Console" />
+  </Logger>
+  <Logger name="dtv.pos.tools.transreplicate.TransactionReplicator" level="info">
+    <AppenderRef ref="TRANSACTION_REPLICATOR.file" />
+  </Logger>
+  <Logger name="dtv.xstore.dataloader.SuccessFile" additivity="false" level="info">
+    <AppenderRef ref="DATALOAD.file.success" />
+  </Logger>
+  <Logger name="dtv.xstore.dataloader.FailuresFile" additivity="false" level="info">
+    <AppenderRef ref="DATALOAD.file.failure" />
+  </Logger>
+  <Logger name="dtv.data2.replication" additivity="false" level="info">
+    <AppenderRef ref="REPLICATION.file" />
+  </Logger>
+  <Logger name="FAILED_PERSISTENCE_LOG" additivity="false" level="all">
+    <AppenderRef ref="PERSIST.file.failure" />
+  </Logger>
+  <Logger name="REPLICATION_AUDIT_LOG" additivity="false" level="info">
+    <AppenderRef ref="REPLICATION.file.audit" />
+  </Logger>
+
+  <!-- ********************************************** -->
+  <!-- Hardware categories -->
+  <!-- ********************************************** -->
+  <Logger name="dtv.hardware" level="info" />
+  <Logger name="CASHDRAWER_LOG" additivity="false" level="info">
+    <AppenderRef ref="CASHDRAWER.file" />
+    <AppenderRef ref="Console" />
+  </Logger>
+  <Logger name="PRINTER_LOG" level="info" />
+  <Logger name="RCPT_LOG" additivity="false" level="info">
+    <AppenderRef ref="RECEIPT_PRINTER.file" />
+  </Logger>
+  <Logger name="dtv.pos.hardware.biometric.fingerprint" additivity="false" level="warn">
+    <AppenderRef ref="BIOMETRIC.file" />
+  </Logger>
+  <Logger name="dtv.pos.hardware.op.ReadMicrOp" level="debug" />
+  <Logger name="com.ingenico" level="error" />
+  <Logger name="com.verifone" level="error" />
+
+  <!-- ********************************************** -->
+  <!-- JMX console access/processing categories -->
+  <!-- ********************************************** -->
+  <Logger name="JMX_HTTP_ACCESS_LOG" additivity="false" level="info">
+    <AppenderRef ref="JMX_ACCESS.file" />
+  </Logger>
+    
+  <!-- ********************************************** -->
+  <!-- Email Templating categories -->
+  <!-- ********************************************** -->
+  <Logger name="dtv.pos.email.template" additivity="false" level="info">
+    <AppenderRef ref="EMAIL.file" />
+  </Logger>
+    
+  <!-- ********************************************** -->
+  <!-- Receipt categories -->
+  <!-- ********************************************** -->
+  <!-- DEBUG:trace receipt building into log -->
+  <Logger name="dtv.pos.hardware.op.BuildRcptsOp" level="debug" />
+  <!-- TRACE:show details for methods not found -->
+  <Logger name="dtv.util.ObjectUtils" level="warn" />
+
+  <!-- ********************************************** -->
+  <!-- Miscellaneous third-party library categories -->
+  <!-- ********************************************** -->
+  <Logger name="org.apache.jcs" level="error" />
+
+  <Logger name="dtv.pos.framework.scope" level="info" />
+  <Logger name="dtv.xst.paypal.AbstractPayPalPOSServiceHandler" level="info" />
+  <Logger name="org.springframework.beans.factory.xml.XmlBeanDefinitionReader" level="info" />
+  <Logger name="org.springframework.beans.factory.support" level="warn" />
+
+  <Logger name="ConfigConverter" additivity="false" level="info">
+    <AppenderRef ref="ConfigConverter" />
+    <AppenderRef ref="ConfigConverterFile" />
+  </Logger>
+
+  <!-- see dtv.cheetah.Util -->
+  <Logger name="XSTOREM_REMOTE_LOGGER" level="warn" />
+
+  <Logger name="dtv.ui.ResourceManager" level="debug" />
+
+  <Logger name="manito.eft" level="info" additivity="false">
+    <AppenderRef ref="EFTLINK.file" />
+  </Logger>
+  <Logger name="dtv.pos.register.refreshpromotions" level="debug" />
+
+  <Root level="error">
+    <AppenderRef ref="Console" />
+    <AppenderRef ref="XSTORE.file" />
+  </Root>
+</Loggers>

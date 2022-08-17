@@ -1,0 +1,17 @@
+# The format of this file is a pair of card numbers 
+#  that are the start and end of a range.
+#  seperated by whitespace.  The first character on a 
+#  range line must be a hyphen (-).
+# A prefix line has the format XXY+ where XX is the 
+# required length (00 = all) and Y is the numeric prefix
+# A comment line is any line that starts with #.
+# 100 - 999 are employee login ids by definition
+031
+032
+033
+034
+035
+036
+037
+038
+039

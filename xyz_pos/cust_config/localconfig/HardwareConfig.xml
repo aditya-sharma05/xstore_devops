@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Hardware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/HardwareConfig.xsd">
+  <PlaySounds dtype="Boolean">false</PlaySounds>
+  <ForceDrawerClose dtype="Boolean">false</ForceDrawerClose>
+  <ShowPrinterDialog dtype="Boolean">false</ShowPrinterDialog>
+
+  <Device type="POSPrinter" use="RECEIPT">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT_BACKUP">
+    <name dtype="String">Generic-Printer-Laser</name>
+  </Device>
+  <Device type="POSPrinter" use="REPORT">
+    <name dtype="String">Generic-ReportPrinter-Laser</name>
+  </Device>
+  <Device type="POSPrinter" use="FLASH_SALES">
+    <name dtype="String">Generic-Printer-Laser</name>
+  </Device>
+  <Device type="CashDrawer" use="CASHDRAWER">
+    <name dtype="String">Virtual-Cashdrawer1-Swing</name>
+  </Device>
+  <Device type="CustomerDisplay" use="CUST_DISPLAY">
+    <name dtype="String">Virtual-LineDisplay-Swing</name>
+  </Device>
+  <Device type="PinPad" use="MAIN_PINPAD">
+    <name dtype="String">Virtual-PINPad-Swing</name>
+    <impl dtype="Class">dtv.hardware.ppad.DtvDukptPinPad</impl>
+  </Device>
+  <Device type="Scanner" use="BARCODE_SCANNER">
+    <name dtype="String">Virtual-Scanner-Swing</name>
+  </Device>
+  <Device type="SignatureCapture" use="SIG_CAP">
+    <name dtype="String">Virtual-SigCap-Swing</name>
+    <width dtype="Integer">480</width>
+    <height dtype="Integer">320</height>
+  </Device>
+  
+  <!-- 216361: uncomment the following lines to enable -->
+  <!--         receipt printer selection               -->
+  <!--   
+  <Device type="POSPrinter" use="RECEIPT1">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT2">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT3">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT4">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT5">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+
+  <DeviceList type="POSPrinter" use="RECEIPT">
+    <DeviceRef use="RECEIPT1" translationkey="_RcptPrinter1"/>
+    <DeviceRef use="RECEIPT2" translationkey="_RcptPrinter2"/>
+    <DeviceRef use="RECEIPT3" translationkey="_RcptPrinter3"/>
+    <DeviceRef use="RECEIPT4" translationkey="_RcptPrinter4"/>
+    <DeviceRef use="RECEIPT5" translationkey="_RcptPrinter5"/>
+  </DeviceList>
+   -->
+   
+  <!-- ******************************************************************** -->
+  <!-- *** AUTHENTEC DEVICE EXAMPLES ************************************** -->
+  <!-- ******************************************************************** -->
+    <!--
+    <Device type="BIOMETRIC" use="FINGERPRINT" name="AES-4000">
+      <impl dtype="Class">dtv.pos.hardware.biometric.fingerprint.authentec.AuthentecFingerDevice</impl>
+      <FingerprintScanCount dtype="Integer">3</FingerprintScanCount>
+      <MaximumEnrolledFingerCount dtype="Integer">4</MaximumEnrolledFingerCount>
+    </Device>
+    -->
+  <!-- ******************************************************************** -->
+  <!-- *** DIGITALPERSONA DEVICE EXAMPLES ************************************** -->
+  <!-- ******************************************************************** -->
+    <!--
+    <Device type="BIOMETRIC" use="FINGERPRINT" name="DP-4500">
+      <impl dtype="Class">dtv.pos.hardware.biometric.fingerprint.digitalpersona.DigitalPersonaFingerDevice</impl>
+      <FingerprintScanCount dtype="Integer">4</FingerprintScanCount>
+      <MaximumEnrolledFingerCount dtype="Integer">4</MaximumEnrolledFingerCount>
+    </Device>
+    -->
+  <!-- ******************************************************************** -->
+  <!-- *** LOGIC CONTROLS DEVICE EXAMPLES ********************************* -->
+  <!-- ******************************************************************** -->
+  <!--
+    <Device type="LineDisplay" use="CUST_DISPLAY">
+      <name dtype="String">LogicControls-LineDisplay-RS232</name>
+      <commComPort dtype="String">COM2</commComPort>
+    </Device>
+-->
+  <!-- ******************************************************************** -->
+  <!-- *** INGENICO Ent1000 DEVICE EXAMPLES *************************************** -->
+  <!-- ******************************************************************** -->
+  <!--
+  the following should be used with enTouch 1000
+  -->
+<!--
+    <Device type="PinPad" use="MAIN_PINPAD">
+      <name dtype="String">Ingenico-Entouch1000-PINPad-RS232</name>
+      <impl dtype="Class">dtv.hardware.ppad.DtvDukptPinPad</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+  
+    <Device type="MSR" use="CUST_MSR">
+      <name dtype="String">Ingenico-Entouch1000-MSR-RS232</name>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+    <Device type="CustomerDisplay" use="CUST_DISPLAY2">
+      <name dtype="String">Ingenico-Entouch1000-Form-RS232</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ent1kFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+    <Device type="SignatureCapture" use="SIG_CAP">
+      <name dtype="String">Ingenico-Entouch1000-Form-RS232</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ent1kFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+  
+    <Device type="QUESTION" use="QUESTION">
+      <name dtype="String">Ingenico-Entouch1000-Form-RS232</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ent1kFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+-->
+
+  <!-- ******************************************************************** -->
+  <!-- *** INGENICO 65XX DEVICE EXAMPLES *************************************** -->
+  <!-- *** S E R I A L   C O M M U N I C A T I O N  **************************** -->
+  <!-- ******************************************************************** -->
+  <!--
+    <Device type="PinPad" use="MAIN_PINPAD">
+      <name dtype="String">Ingenico-65XX-PINPad-RS232</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+  
+    <Device type="MSR" use="CUST_MSR">
+      <name dtype="String">Ingenico-65XX-MSR-RS232</name>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+
+    <Device type="CustomerDisplay" use="CUST_DISPLAY2">
+      <name dtype="String">Ingenico-65XX-Form-RS232</name> 
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+
+    <Device type="SignatureCapture" use="SIG_CAP">
+      <name dtype="String">Ingenico-65XX-Form-RS232</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+
+    <Device type="QUESTION" use="QUESTION">
+      <name dtype="String">Ingenico-65XX-Form-RS232</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">COM1</portName>
+    </Device>
+  -->
+  <!-- ******************************************************************** -->
+  <!-- *** INGENICO 65XX DEVICE EXAMPLES *************************************** -->
+  <!-- *** U S B   C O M M U N I C A T I O N  *********************************** -->
+  <!-- ******************************************************************** -->
+<!--
+    <Device type="PinPad" use="MAIN_PINPAD">
+      <name dtype="String">Ingenico-65XX-PINPad-USB</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+
+    <Device type="MSR" use="CUST_MSR">
+      <name dtype="String">Ingenico-65XX-MSR-USB</name>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+
+    <Device type="CustomerDisplay" use="CUST_DISPLAY2">
+      <name dtype="String">Ingenico-65XX-Form-USB</name> 
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+
+    <Device type="SignatureCapture" use="SIG_CAP">
+      <name dtype="String">Ingenico-65XX-Form-USB</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">/dev/ttyS0</portName>
+    </Device>
+
+    <Device type="QUESTION" use="QUESTION">
+      <name dtype="String">Ingenico-65XX-Form-USB</name>
+      <impl dtype="Class">dtv.hardware.ingenico.jpos.Ingenico65xxFormDevice</impl>
+      <portName dtype="String">COM1</portName>
+    </Device>
+  -->
+
+  <!-- ******************************************************************** -->
+  <!-- *** EPSON DEVICE EXAMPLES ****************************************** -->
+  <!-- ******************************************************************** -->
+  <!--
+  the following should be used with Epson TMH6000 serial printers
+-->
+<!--
+    <Device type="POSPrinter" use="RECEIPT">
+      <name dtype="String">Epson-TMH6000-Printer-RS232</name>
+      <PortName dtype="String">COM1</PortName>
+    </Device>
+-->
+<!--
+****** include following if there is a franking station *******
+-->
+<!--
+    <Device type="POSPrinter" use="VALIDATION">
+      <name dtype="String">Epson-TMH6000-Printer-RS232</name>
+      <PortName dtype="String">COM1</PortName>
+    </Device>
+-->
+<!--
+****** include following if there is a MICR *******
+-->
+<!--
+    <Device type="MICR" use="MAIN_MICR">
+      <name dtype="String">Epson-TMH6000-MICR-RS232</name>
+      <PortName dtype="String">COM1</PortName>
+    </Device>
+-->
+<!--
+****** include the following if a cashdrawer is attached
+-->
+<!--
+    <Device type="CashDrawer" use="CASHDRAWER">
+      <name dtype="String">Epson-TMH6000-Drawer1-RS232</name>
+      <PortName dtype="String">COM1</PortName>
+    </Device>
+  -->
+  <!--
+  the following should be used with Epson TM88 serial printers
+    <Device type="POSPrinter" use="RECEIPT">
+      <name dtype="String">Epson-TM88-Printer-RS232</name>
+      <PortName dtype="String">COM1</PortName>
+    </Device>
+  -->
+  <!--
+  the following should be used with Epson TMH6000 with UB-R02 Wi-Fi adapter
+  -->
+  <!--
+    <Device type="POSPrinter" use="RECEIPT">
+      <name dtype="String">Epson-TMH6000-Printer-Ethernet</name>
+      <PortName dtype="String">192.168.123.168</PortName>
+    </Device>
+    -->
+    <!--
+****** include following if there is a franking station *******
+-->
+<!--
+    <Device type="POSPrinter" use="VALIDATION">
+      <name dtype="String">Epson-TMH6000-Printer-Ethernet</name>
+      <PortName dtype="String">192.168.123.168</PortName>
+    </Device>
+    -->
+    <!--
+****** include following if there is a MICR *******
+-->
+<!--
+    <Device type="MICR" use="MAIN_MICR">
+      <name dtype="String">Epson-TMH6000-MICR-Ethernet</name>
+      <PortName dtype="String">192.168.123.168</PortName>
+    </Device>
+    -->
+    <!--
+****** include the following if a cashdrawer is attached
+-->
+<!--
+    <Device type="CashDrawer" use="CASHDRAWER">
+      <name dtype="String">Epson-TMH6000-Drawer1-Ethernet</name>
+      <PortName dtype="String">192.168.196.168</PortName>
+    </Device>
+  -->
+  <!-- ******************************************************************** -->
+  <!-- *** IBM DEVICE EXAMPLES ******************************************** -->
+  <!-- ******************************************************************** -->
+  <!-- ****************** IBM POS KEYBOARD MSR ************************ -->
+  <!--
+  <Device type="MSR" use="MAIN_MSR">
+    <name dtype="String">Magtek-MSR-RS232</name>
+    <portName dtype="String">COM1</portName>
+  </Device>
+  -->
+  <!--
+  the following should be used with Mx870 connected via RS232
+  -->
+  <!--
+  <Device type="MSR" use="CUST_MSR">
+    <CustomerControlled dtype="Boolean">true</CustomerControlled>
+    <name dtype="String">VeriFone-Mx870-LineDisplay-RS232</name>
+    <impl dtype="Class">dtv.hardware.vf.VerifoneFrmAgentDevice</impl>
+    <MSR dtype="String">VeriFone-FmAgent-MSR-RS232</MSR>
+    <portName dtype="String">COM12</portName>
+    <dtvFileBase dtype="String">_mx870terminalLoad</dtvFileBase>
+    <dtvDeviceStateFile dtype="String">tmp/mx870.ste</dtvDeviceStateFile>
+    <dtvHasRfidCreditReader dtype="Boolean">true</dtvHasRfidCreditReader>
+    <dtvTypeMap dtype="String">OMNI7K-RFID|RFID</dtvTypeMap>
+  </Device>
+  <Device type="SignatureCapture" use="SIG_CAP">
+    <name dtype="String">VeriFone-Mx870-LineDisplay-RS232</name>
+    <impl dtype="Class">dtv.hardware.vf.VerifoneFrmAgentDevice</impl>
+    <SignatureCapture dtype="String">VeriFone-FmAgent-SigCap-RS232</SignatureCapture>
+    <portName dtype="String">COM12</portName>
+    <dtvFileBase dtype="String">_mx870terminalLoad</dtvFileBase>
+    <dtvDeviceStateFile dtype="String">tmp/mx870.ste</dtvDeviceStateFile>
+  </Device>
+  <Device type="CustomerDisplay" use="CUST_DISPLAY2">
+    <name dtype="String">VeriFone-Mx870-LineDisplay-RS232</name>
+    <impl dtype="Class">dtv.hardware.vf.VerifoneFrmAgentDevice</impl>
+    <portName dtype="String">COM12</portName>
+    <dtvFileBase dtype="String">_mx870terminalLoad</dtvFileBase>
+    <dtvDeviceStateFile dtype="String">tmp/mx870.ste</dtvDeviceStateFile>
+  </Device>
+  <Device type="QUESTION" use="QUESTION">
+    <name dtype="String">VeriFone-Mx870-LineDisplay-RS232</name>
+    <impl dtype="Class">dtv.hardware.vf.VerifoneFrmAgentDevice</impl>
+    <portName dtype="String">COM12</portName>
+    <dtvFileBase dtype="String">_mx870terminalLoad</dtvFileBase>
+    <dtvDeviceStateFile dtype="String">tmp/mx870.ste</dtvDeviceStateFile>
+  </Device>
+  <Device type="PinPad" use="MAIN_PINPAD">
+    <name dtype="String">VeriFone-Mx870-LineDisplay-RS232</name>
+    <impl dtype="Class">dtv.hardware.vf.VerifoneFrmAgentDevice</impl>
+    <PinPad dtype="String">VeriFone-FmAgent-PINPad-RS232</PinPad>
+    <portName dtype="String">COM12</portName>
+    <dtvFileBase dtype="String">_mx870terminalLoad</dtvFileBase>
+    <dtvDeviceStateFile dtype="String">tmp/mx870.ste</dtvDeviceStateFile>
+  </Device>
+  -->
+  
+  <!-- <Device type="Scanner" use="BARCODE_SCANNER">
+    <name dtype="String">DataLogic-Scanner-RS232</name>
+  </Device> -->
+</Hardware>

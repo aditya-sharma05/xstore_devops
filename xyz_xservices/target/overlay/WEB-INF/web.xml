@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+        version="3.0">
+        
+  <absolute-ordering />
+
+  <display-name>Oracle Retail Xstore Services</display-name>
+
+  <context-param>
+    <param-name>xcenter.bootstrap.application.name</param-name>
+    <param-value>xservices</param-value>
+  </context-param>
+  <context-param>
+    <param-name>xcenter.config.home</param-name>
+    <param-value>${xservices.config.directory}/</param-value>
+  </context-param>
+  <context-param>
+    <param-name>xcenter.config.properties</param-name>
+    <param-value>xservices.properties</param-value>
+  </context-param>
+  <context-param>
+    <param-name>xcenter.bootstrap.steps</param-name>
+    <param-value>
+      com.micros_retail.xcenter.bootstrap.BootstrapIdpConfiguration;
+      com.micros_retail.xcenter.bootstrap.BootstrapExternalConfigPath;
+      com.micros_retail.xcenter.bootstrap.BootstrapApplicationScopeProperties;
+      com.micros_retail.xcenter.bootstrap.BootstrapXstoreSystemProperties;
+      com.micros_retail.xservices.bootstrap.BootstrapLocationProperties;
+      com.micros_retail.xcenter.bootstrap.BootstrapCiphers;
+      com.micros_retail.xcenter.bootstrap.BootstrapTruststore;
+      com.micros_retail.xcenter.bootstrap.BootstrapVersions;
+      com.micros_retail.xservices.bootstrap.BootstrapBinFile;
+      com.micros_retail.xcenter.bootstrap.BootstrapConfigurationMgr;
+    </param-value>
+  </context-param>
+  <context-param>
+    <param-name>spring.profiles.active</param-name>
+    <param-value>xstore</param-value>
+  </context-param>
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>com.micros_retail.xservices.XservicesApplicationContext</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>xservicesFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter>
+    <filter-name>RequestContextFilter</filter-name>
+    <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    <init-param>
+      <param-name>threadContextInheritable</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>xservicesFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>com.micros_retail.xservices.bootstrap.servlet.XservicesContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>xcenterRESTServices</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>com.micros_retail.xcenter.service.rest.v1;com.micros_retail.xcenter.service.rest.v1.filter</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.provider.classnames</param-name>
+      <param-value>com.micros_retail.xcenter.service.rest.v1.filter.AuthorizationFilter;com.micros_retail.xcenter.service.rest.v1.filter.GzipReaderInterceptor;com.micros_retail.xcenter.service.rest.v1.filter.GzipWriterInterceptor;dtv.servicex.impl.Log4j2LoggingFilter</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>xcenterRESTServices</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>WebServices</servlet-name>
+    <servlet-class>com.micros_retail.xservices.WebServicesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>WebServicePing</servlet-name>
+    <servlet-class>com.micros_retail.xservices.router.WebServicePingServlet</servlet-class>
+    <load-on-startup>4</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>WebServices</servlet-name>
+    <url-pattern>/ws/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WebServicePing</servlet-name>
+    <url-pattern>/ping/*</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <cookie-config>
+      <http-only>true</http-only>
+      <secure>true</secure>
+    </cookie-config>
+  </session-config>
+
+  <security-role>
+      <role-name>ADMIN</role-name>
+  </security-role>
+
+ <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>xservicesLoginModule</realm-name>
+  </login-config>
+
+  <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>Xservices</web-resource-name>
+        <url-pattern>/*</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+          <role-name>ADMIN</role-name>
+      </auth-constraint>
+  </security-constraint>
+
+</web-app>

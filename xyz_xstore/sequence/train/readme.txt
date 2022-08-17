@@ -1,0 +1,1 @@
+This folder is created to contain sequence numbers used for training mode.

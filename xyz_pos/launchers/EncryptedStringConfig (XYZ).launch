@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<stringAttribute key="bad_container_name" value="\_pos"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/release/xstore/xstore/lib/dtv-util.jar"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="dtv.crypto.encrypt.EncryptedStringPanel"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="xyz_pos"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms128m -Xmx600m -Ddtv.CustomerId=XYZ -Ddtv.system.properties.location=${workspace_loc:xyz_pos}/system.properties -Ddtv.util.crypto.SecretKeyCipherManager.keyStoreDirectory=${workspace_loc:xyz_pos}/res/keys -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"/>
+</launchConfiguration>

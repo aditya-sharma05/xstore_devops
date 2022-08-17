@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+encoding//reports/base/byhour/SalesByHourReport.jrxml=UTF-8
+encoding//reports/base/cashdrawerrecon/CashDrawerReconciliationReport.jrxml=UTF-8
+encoding//reports/base/dailysales/DailySalesSummary.jrxml=UTF-8
+encoding//reports/base/giftcertificate/GiftCertificateReport.jrxml=UTF-8
+encoding//reports/base/inventory/InventoryReceivingException.jrxml=UTF-8
+encoding//reports/base/inventory/InventoryShippingException.jrxml=UTF-8
+encoding//reports/base/itemtag/ItemTag5160.jrxml=UTF-8
+encoding//reports/base/itemtag/ItemTag5163.jrxml=UTF-8
+encoding//reports/base/markdown/MarkDown.jrxml=UTF-8
+encoding//reports/base/nightlycontrol/NightlyControl.jrxml=UTF-8
+encoding//reports/base/paidinpaidout/PaidInPaidOut.jrxml=UTF-8
+encoding//reports/base/ship/ShippingDocument.jrxml=UTF-8
+encoding//reports/base/ship/ShippingDocumentDetail.jrxml=UTF-8

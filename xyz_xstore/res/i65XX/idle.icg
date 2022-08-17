@@ -1,0 +1,10 @@
+Ingenico Form Generator - Version 4.00
+Target Device=Ingenico 6550
+InputMethod->[mode:0]
+FormFGColor->[formfgcolor:1]
+FormBGColor->[formbgcolor:0]
+FormAttr->[transparent:0]
+Reference Path Convention->JavaPOS
+Bitmap->[file:./res/i65XX/XSTHeadr.bmp][x:0][y:0][cx:240][cy:46]
+Text->[x:31][y:113][id:1][font:5][italics:0][underline:0][reverse:0][fgcolor:1][bgcolor:0][hyperlink:0][justify:0][len:20][height:1][pad: ][pixels:0][text:Welcome to our store]
+Text->[x:2][y:134][id:2][font:5][italics:0][underline:0][reverse:0][fgcolor:1][bgcolor:0][hyperlink:0][justify:0][len:28][height:1][pad: ][pixels:0][text:Swipe your credit/debit card]

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReceiptDefinitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="RcptConfig.xsd">
+  <receipts>
+    <receipt>
+      <document_id dtype="String">CUSTOMER</document_id>
+      <printer dtype="String">RECEIPT</printer>
+      <printer_backup dtype="String">RECEIPT_BACKUP</printer_backup>
+      <sectionref>CustomerCopy</sectionref>
+      <email_copy dtype="Boolean">true</email_copy>
+    </receipt>
+  </receipts>
+</ReceiptDefinitions>

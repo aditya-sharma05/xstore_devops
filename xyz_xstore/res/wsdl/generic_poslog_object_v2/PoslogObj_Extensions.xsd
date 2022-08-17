@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" 
+elementFormDefault="qualified" 
+targetNamespace="http://v2.ws.poslog-ext.xcenter.dtv/" 
+xmlns:dtv="http://v2.ws.poslog-ext.xcenter.dtv/" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:tns="http://v2.ws.poslog.xcenter.dtv/">
+
+<xs:import namespace="http://v2.ws.poslog.xcenter.dtv/" schemaLocation="PoslogObjReceiverApiService_schema1.xsd" />
+
+  <xs:element name="TaxLocationId" type="xs:string"/>
+  <xs:element name="TaxGroupId" type="xs:string"/>
+  <xs:element name="UnitOfMeasureCode" type="xs:string"/>
+  <xs:element name="PercentageOfItem" type="dtv:PercentageOfItemType"/>
+  <xs:element name="ReturnType" type="xs:string"/>
+  <xs:element name="ReasonComment" type="xs:string"/>
+  <xs:element name="LineItemProperty" type="dtv:LineItemPropertyType"/>
+  <xs:element name="PosTransactionProperties" type="dtv:PosTransactionPropertiesType" />
+  <xs:element name="ScannedItemID" type="xs:string"/>
+  <xs:element name="OrderType" type="xs:string" />
+  <xs:element name="SerialNumber" type="xs:string" />
+  <xs:element name="DiscountReasonCode" type="xs:string" />
+  <xs:element name="DiscountReasonCodeComment" type="xs:string" />
+  <xs:element name="VoidReason" type="xs:string" />
+  <xs:element name="AuthorizationCode" type="xs:string" />
+  <xs:element name="UserName" type="xs:string" />
+  <xs:element name="PONumber" type="xs:string" />
+  <xs:simpleType name="Neighborhood">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="County">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:attribute name="AppVersion" type="xs:string"/>
+  <xs:attribute name="crossChannelReturn" type="xs:boolean"/>
+  <xs:attribute name="TransactionType" type="xs:string" />
+  <xs:attribute name="VoidFlag" type="xs:boolean"/>
+  <xs:attribute name="ChangeFlag" type="xs:boolean"/>
+  <xs:complexType name="PercentageOfItemType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="AssociateID"/>
+      <xs:element type="xs:decimal" name="Percentage"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LineItemPropertyType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="LineItemPropertyCode"/>
+      <xs:element type="xs:string" name="LineItemPropertyValue"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PosTransactionPropertiesType">
+    <xs:sequence>
+      <xs:element name="PosTransactionPropertyCode" type="xs:string" />
+      <xs:element name="PosTransactionPropertyValue" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AssociateAdvanceType">
+    <xs:choice>
+      <xs:sequence>
+        <xs:element name="AssociateID" type="xs:string"/>
+        <xs:element name="Amount" type="tns:AmountType"/>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="OutboundTillID" type="xs:NCName"/>
+        <xs:element maxOccurs="unbounded" name="CashRemainedInTill" type="dtv:CashRemainedInTillType"/>
+      </xs:sequence>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="TillCountType">
+    <xs:sequence>
+      <xs:element name="InboundTillID" type="xs:NCName"/>
+      <xs:element name="InboundTillEmployeePartyID" type="xs:integer"/>
+      <xs:element name="OutboundTillID" type="xs:NCName"/>
+      <xs:element name="OutboundTillEmployeePartyID" type="xs:integer"/>
+      <xs:element maxOccurs="unbounded" name="CashRemainedInTill" type="dtv:CashRemainedInTillType"/>
+      <xs:element maxOccurs="unbounded" name="TenderTypeCount" type="dtv:TenderTypeCountType"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="CashRemainedInTillType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="Currency" type="xs:NCName"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="TenderTypeCountType">
+    <xs:sequence>
+      <xs:element name="TenderTypeTotal" type="dtv:TenderTotalType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TenderCount" type="dtv:TenderCountType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TenderTypeSerializedCount" type="dtv:TenderTypeSerializedCountType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderType" use="required" type="xs:NCName"/>
+  </xs:complexType>
+  
+  <xs:complexType name="TenderTotalType">
+    <xs:sequence>
+      <xs:element name="Amount" type="tns:AmountType"/>
+      <xs:element minOccurs="0" name="DifferenceAmount" type="xs:decimal"/>
+      <xs:element name="LocalCurrencyAmount" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="TenderCountType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TenderTypeSerializedTotal" type="dtv:TenderTypeSerializedTotalType"/>
+      <xs:element minOccurs="0" name="TenderTotal" type="dtv:TenderTotalType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TenderDenominationCount" type="dtv:TenderDenominationCountType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderId" use="required" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="TenderTypeSerializedTotalType">
+    <xs:sequence>
+      <xs:element name="Amount" type="tns:AmountType"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="TenderDenominationCountType">
+    <xs:sequence>
+      <xs:element name="TenderDenominationTotal" type="dtv:TenderDenominationTotalType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderDenominationId" use="required" type="xs:NCName"/>
+  </xs:complexType>
+  
+  <xs:complexType name="TenderDenominationTotalType">
+    <xs:sequence>
+      <xs:element name="Amount" type="tns:AmountType"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="TenderTypeSerializedCountType">
+    <xs:sequence>
+      <xs:element name="TenderCount" type="dtv:TenderCountType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderType" use="required" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="TenderExchangeType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="LineItem" type="tns:LineItemType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TimeClockTransactionType">
+    <xs:sequence>
+      <xs:element name="EntryCode" type="xs:NCName" />
+      <xs:element name="WorkCode" type="xs:NCName" />
+      <xs:element name="TimecardEmployeeId" type="xs:integer" />
+      <xs:element name="ClockInTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ClockOutTime" type="xs:dateTime" />
+      <xs:element name="DeleteFlag" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Comment" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

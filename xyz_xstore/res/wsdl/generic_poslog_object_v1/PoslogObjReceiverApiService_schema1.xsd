@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://v1.ws.poslog.xcenter.dtv/" xmlns:tns="http://v1.ws.poslog.xcenter.dtv/" xmlns:dtv="http://v1.ws.poslog-ext.xcenter.dtv/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:import namespace="http://v1.ws.poslog-ext.xcenter.dtv/" schemaLocation="PoslogObj_Extensions.xsd" />
+
+  <xs:element name="PoslogObjReceiverException" type="tns:PoslogObjReceiverException"/>
+
+  <xs:element name="postTransaction" type="tns:postTransaction"/>
+
+  <xs:element name="postTransactionResponse" type="tns:postTransactionResponse"/>
+
+  <xs:complexType name="postTransaction">
+    <xs:sequence>
+      <xs:element name="transaction" type="tns:TransactionType" minOccurs="0"/> <!-- TWEAKING THIS!!! -->
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="postTransactionResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="PoslogObjReceiverException">
+    <xs:sequence>
+      <xs:element name="errorCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="errorDetails" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+  
+  
+  <!-- beginning of copying from XStorePosLog_Standard.xsd -->
+
+  <xs:complexType name="TransactionType">
+    <xs:sequence>
+      <xs:element name="RetailStoreID" type="xs:string" />
+      <xs:element name="WorkstationID" type="xs:string" />
+      <xs:element name="TillID" type="xs:string" minOccurs="0"/>
+      <xs:element name="SequenceNumber" type="xs:string" />
+      <xs:element name="BusinessDayDate" type="xs:date" />
+      <xs:element name="BeginDateTime" type="xs:dateTime" />
+      <xs:element name="EndDateTime" type="xs:dateTime" />
+      <xs:element name="OperatorID" type="xs:string" />
+      <xs:element name="CurrencyCode" type="xs:string" />
+      <xs:element name="RetailTransaction" type="tns:RetailTransactionType" />
+      <xs:element ref="dtv:PosTransactionProperties" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="CancelFlag" type="xs:boolean" />
+    <xs:attribute name="TrainingModeFlag" type="xs:boolean" />
+    <xs:attribute name="OfflineFlag" type="xs:boolean" />
+    <xs:attribute ref="dtv:TransactionType" />
+    <xs:attribute ref="dtv:AppVersion" />
+    <xs:attribute ref="dtv:crossChannelReturn" />
+  </xs:complexType>
+
+  <xs:complexType name="RetailTransactionType">
+    <xs:sequence>
+      <xs:element name="LineItem" type="tns:LineItemType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Total" type="tns:TotalType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="CustomerAccount" type="tns:CustomerAccountType" />
+      <xs:element name="Customer" type="tns:PoslogCustomerType" />
+      <xs:element name="TransactionLink" type="tns:TransactionLinkType" />
+      <xs:element name="PostVoidReasonCode" type="xs:string" />
+      <xs:element name="PostVoidComment" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:string" />
+    <xs:attribute name="TypeCode" type="xs:string" />
+    <xs:attribute name="TransactionStatus" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="LineItemType">
+    <xs:sequence>
+      <xs:element name="SequenceNumber" type="xs:string" />
+      <xs:element name="BeginDateTime" type="xs:dateTime" minOccurs="0" />
+      <xs:element name="EndDateTime" type="xs:dateTime" minOccurs="0" />
+      <xs:element name="SaleForDelivery" type="tns:SaleForDeliveryType" minOccurs="0" />
+      <xs:element name="Layaway" type="tns:LayawayType" minOccurs="0" />
+      <xs:element name="PreviousLayaway" type="tns:PreviousLayawayType" minOccurs="0" />
+      <xs:element name="PreviousCustomerOrder" type="tns:PreviousCustomerOrderType" minOccurs="0" />
+      <xs:element name="CustomerOrderForDelivery" type="tns:CustomerOrderForDeliveryType" minOccurs="0" />
+      <xs:element name="CustomerOrderForPickup" type="tns:CustomerOrderForPickupType" minOccurs="0" />
+      <xs:element name="Return" type="tns:ReturnType" minOccurs="0" />
+      <xs:element name="Sale" type="tns:SaleType" minOccurs="0" />
+      <xs:element name="Tender" type="tns:TenderType" minOccurs="0" />
+      <xs:element name="Tax" type="tns:TaxType" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="VoidFlag" type="xs:boolean" />
+  </xs:complexType>
+
+  <xs:complexType name="SaleForDeliveryType">
+    <xs:complexContent>
+      <xs:extension base="tns:SaleType">
+        <xs:sequence>
+          <xs:element name="Delivery" type="tns:DeliveryType" />
+        </xs:sequence>
+        <xs:attribute name="OrderStatus" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AssociateType">
+    <xs:sequence>
+      <xs:element name="AssociateID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RetailPriceModifierType">
+    <xs:sequence>
+      <xs:element name="SequenceNumber" type="xs:string" />
+      <xs:element name="Amount" type="tns:AmountType" />
+      <xs:element name="PromotionID" type="xs:string" />
+      <xs:element name="ReasonCode" type="xs:string" />
+      <xs:element ref="dtv:SerialNumber" />
+      <xs:element name="Coupon" type="tns:CouponType" minOccurs="0" />
+      <xs:element ref="dtv:DiscountReasonCode" minOccurs="0" />
+      <xs:element ref="dtv:DiscountReasonCodeComment" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="MethodCode" type="xs:string" />
+    <xs:attribute name="VoidFlag" type="xs:boolean" />
+  </xs:complexType>
+
+  <xs:complexType name="AmountType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="Action" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="StoreStructure">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Level" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="CouponType">
+    <xs:sequence>
+      <xs:element name="ScanCode" type="xs:string" />
+      <xs:element name="ExpirationDate" type="xs:dateTime" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeliveryType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Address" type="tns:PoslogAddressType" />
+      <xs:element name="TelephoneNumber" type="xs:string" />
+      <xs:element name="TrackingNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PickupType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Address" type="tns:PoslogAddressType" />
+      <xs:element name="TelephoneNumber" type="xs:string" />
+      <xs:element name="TrackingNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PoslogAddressType">
+    <xs:sequence>
+      <xs:element name="AddressLine" type="xs:string" />
+      <xs:element name="City" type="xs:string" />
+      <xs:element name="State" type="xs:string" />
+      <xs:element name="PostalCode" type="xs:string" />
+      <xs:element name="CountryCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LayawayType">
+    <xs:complexContent>
+      <xs:extension base="tns:SaleType">
+        <xs:sequence>
+          <xs:element name="AccountNumber" type="xs:string" minOccurs="0" />
+          <xs:element name="Deposit" type="xs:decimal" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PreviousLayawayType">
+    <xs:complexContent>
+      <xs:extension base="tns:SaleType">
+        <xs:sequence>
+          <xs:element name="AccountNumber" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="Action" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PreviousCustomerOrderType">
+    <xs:complexContent>
+      <xs:extension base="tns:SaleType">
+        <xs:sequence>
+          <xs:element name="InventoryReservationID" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="Action" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerOrderForDeliveryType">
+    <xs:complexContent>
+      <xs:extension base="tns:SaleType">
+        <xs:sequence>
+          <xs:element ref="dtv:OrderType" />
+          <xs:element name="Delivery" type="tns:DeliveryType" />
+          <xs:element name="InventoryReservationID" type="xs:string" />
+          <xs:element name="From" type="xs:string" />
+          <xs:element name="AccountNumber" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="OrderStatus" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerOrderForPickupType">
+    <xs:complexContent>
+      <xs:extension base="tns:SaleType">
+        <xs:sequence>
+          <xs:element name="Pickup" type="tns:PickupType" />
+          <xs:element name="InventoryReservationID" type="xs:string" />
+          <xs:element name="From" type="xs:string" />
+          <xs:element name="AccountNumber" type="xs:decimal" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="OrderStatus" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ReturnType">
+    <xs:complexContent>
+      <xs:extension base="tns:SaleType">
+        <xs:sequence>
+          <xs:element name="Disposal" type="xs:string" />
+          <xs:element name="Reason" type="xs:string" />
+          <xs:element ref="dtv:ReturnType" />
+          <xs:element ref="dtv:ReasonComment" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TransactionLinkType">
+    <xs:sequence>
+      <xs:element name="RetailStoreID" type="xs:string" />
+      <xs:element name="WorkstationID" type="xs:string" />
+      <xs:element name="SequenceNumber" type="xs:string" />
+      <xs:element name="BusinessDayDate" type="xs:date" />
+    </xs:sequence>
+    <xs:attribute name="ReasonCode" type="xs:string" />
+    <xs:attribute name="EntryMethod" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="SaleType">
+    <xs:sequence>
+      <xs:element name="ItemID" type="xs:string" />
+      <xs:element name="Description" type="xs:string" minOccurs="0"/>
+      <xs:element name="UnitCostPrice" type="xs:decimal" />
+      <xs:element name="RegularSalesUnitPrice" type="xs:decimal" />
+      <xs:element name="ActualSalesUnitPrice" type="xs:decimal" />
+      <xs:element name="ExtendedAmount" type="xs:decimal" />
+      <xs:element name="Quantity" type="xs:decimal" />
+      <xs:element name="SellingLocation" type="tns:StoreStructure" minOccurs="0"/>
+      <xs:element name="Associate" type="tns:AssociateType" />
+      <xs:element name="RetailPriceModifier" type="tns:RetailPriceModifierType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Tax" type="tns:TaxType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="SerialNumber" type="xs:string" />
+      <xs:element name="TransactionLink" type="tns:TransactionLinkType" />
+      <xs:element name="GiftReceiptFlag" type="xs:boolean" minOccurs="0"/>
+      <xs:element ref="dtv:PercentageOfItem" />
+      <xs:element ref="dtv:VoidReason" />
+      <xs:element ref="dtv:LineItemProperty" maxOccurs="unbounded" minOccurs="0" />
+      <xs:element ref="dtv:AuthorizationCode" minOccurs="0" />
+      <xs:element ref="dtv:ScannedItemID" />
+    </xs:sequence>
+    <xs:attribute name="ItemType" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="TenderType">
+    <xs:sequence>
+      <xs:element name="TenderID" type="xs:string" />
+      <xs:element name="Amount" type="xs:decimal" />
+      <xs:element name="Authorization" type="tns:AuthorizationType" />
+      <xs:element name="CustomerVerification" type="tns:CustomerVerificationType" />
+      <xs:element name="CreditDebit" type="tns:CreditDebitType" minOccurs="0" />
+      <xs:element name="GiftCard" type="tns:GiftCardType" minOccurs="0" />
+      <xs:element name="Voucher" type="tns:VoucherType" minOccurs="0" />
+      <xs:element name="Check" type="tns:CheckType" minOccurs="0" />
+      <xs:element name="Coupon" type="tns:CouponType" minOccurs="0" />
+      <xs:element name="StoreAccount" type="tns:TenderAccountInfo" minOccurs="0" />
+      <xs:element ref="dtv:UserName" minOccurs="0" />
+      <xs:element ref="dtv:PONumber" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="TenderType" type="xs:string" />
+    <xs:attribute name="TypeCode" type="xs:string" />
+    <xs:attribute ref="dtv:ChangeFlag" />
+  </xs:complexType>
+
+  <xs:complexType name="AuthorizationType">
+    <xs:sequence>
+      <xs:element name="RequestedAmount" type="xs:decimal" />
+      <xs:element name="AuthorizationCode" type="xs:string" />
+      <xs:element name="AdjudicationCode" type="xs:string" />
+      <xs:element name="AuthorizationDateTime" type="xs:dateTime" />
+      <xs:element name="ReferenceNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CreditDebitType">
+    <xs:sequence>
+      <xs:element name="PrimaryAccountNumber" type="xs:string" />
+      <xs:element name="ReconciliationCode" type="xs:string" />
+      <xs:element name="ExpirationDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GiftCardType">
+    <xs:sequence>
+      <xs:element name="CardNumber" type="xs:string" />
+      <xs:element name="DateSold" type="xs:string" />
+      <xs:element name="InitialBalance" type="xs:string" />
+      <xs:element name="CurrentBalance" type="xs:string" />
+      <xs:element name="Authorization" type="tns:AuthorizationType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VoucherType">
+    <xs:sequence>
+      <xs:element name="Description" type="xs:string" />
+      <xs:element name="FaceValueAmount" type="xs:decimal" />
+      <xs:element name="SerialNumber" type="xs:string" />
+      <xs:element name="MallCertificate" type="xs:string" />
+      <xs:element name="ExpirationDate" type="xs:dateTime" />
+      <xs:element name="UnspentAmount" type="xs:decimal" />
+    </xs:sequence>
+    <xs:attribute name="TypeCode" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="TenderAccountInfo">
+    <xs:sequence>
+      <xs:element name="AccountID" type="xs:string" />
+      <xs:element name="AccountName" type="xs:string" minOccurs="0" />
+      <xs:element name="AccountFirstName" type="xs:string" minOccurs="0" />
+      <xs:element name="AccountMiddleName" type="xs:string" minOccurs="0" />
+      <xs:element name="AccountLastName" type="xs:string" minOccurs="0" />
+      <xs:element name="SocialSecurityNumber" type="xs:string" minOccurs="0" />
+      <xs:element name="TelephoneNumber" type="xs:string" minOccurs="0" />
+      <xs:element name="AccountNumber" type="xs:string" minOccurs="0" />
+      <xs:element name="ExpirationDate" type="xs:date" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="Action">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Issue" />
+          <xs:enumeration value="Redeem" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerVerificationType">
+    <xs:sequence>
+      <xs:element name="PersonalID" type="tns:PersonalIDType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonalIDType">
+    <xs:sequence>
+      <xs:element name="IDNumber" type="xs:string" />
+      <xs:element name="Issuer" type="xs:string" />
+      <xs:element name="Province" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="IDType" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="CheckType">
+    <xs:sequence>
+      <xs:element name="AccountNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TaxType">
+    <xs:sequence>
+      <xs:element name="TaxAuthority" type="xs:string" />
+      <xs:element name="TaxableAmount" type="xs:decimal" />
+      <xs:element name="Amount" type="xs:decimal" />
+      <xs:element name="Percent" type="xs:decimal" />
+      <xs:element name="TaxExemption" type="tns:TaxExemptionType" />
+      <xs:element name="TaxOverride" type="tns:TaxOverrideType" minOccurs="0" />
+      <xs:element ref="dtv:TaxLocationId" />
+      <xs:element ref="dtv:TaxGroupId" />
+    </xs:sequence>
+    <xs:attribute name="TaxType" type="xs:string" />
+    <xs:attribute ref="dtv:VoidFlag" />
+  </xs:complexType>
+
+  <xs:complexType name="TaxExemptionType">
+    <xs:sequence>
+      <xs:element name="CustomerExemptionID" type="xs:string" />
+      <xs:element name="ExemptTaxAmount" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TaxOverrideType">
+    <xs:sequence>
+      <xs:element name="OriginalPercent" type="xs:decimal" />
+      <xs:element name="OriginalTaxAmount" type="xs:decimal" />
+      <xs:element name="NewTaxPercent" type="xs:decimal" />
+      <xs:element name="NewTaxAmount" type="xs:decimal" />
+      <xs:element name="ReasonCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TotalType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="TotalType" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="CustomerAccountType">
+    <xs:sequence>
+      <xs:element name="LoyaltyAccount" type="tns:LoyaltyAccountType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LoyaltyAccountType">
+    <xs:sequence>
+      <xs:element name="LoyaltyAccountID" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="TypeCode" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="PoslogCustomerType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Address" type="tns:PoslogAddressType" />
+      <xs:element name="TelephoneNumber" type="xs:string" />
+      <xs:element name="eMail" type="xs:string" />
+      <xs:element name="AccountNumber" type="xs:string" />
+      <xs:element name="AlternateKey" type="tns:PoslogAlternateKeyType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PoslogAlternateKeyType">
+    <xs:sequence>
+      <xs:element name="AlternateID" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="TypeCode" type="xs:string" />
+  </xs:complexType>
+
+
+</xs:schema>
+

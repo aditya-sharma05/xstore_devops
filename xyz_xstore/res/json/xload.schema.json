@@ -1,0 +1,171 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://oracle.com/retail/xstore/xload.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "properties": {
+    "header": {
+      "$id": "#/properties/header",
+      "type": "object",
+      "title": "The File Header",
+      "description": "The file header.",
+      "properties": {
+        "download_id": {
+          "$id": "#/properties/header/properties/download_id",
+          "type": "string",
+          "title": "The Download ID",
+          "description": "The download_id attribute is used to identify the download and is used in logging to separate the processing of one download file from another.",
+          "pattern": "^\\S*$"
+        },
+        "application_date": {
+          "$id": "#/properties/header/properties/application_date",
+          "type": "string",
+          "title": "The Application Date",
+          "description": "The date on which the file will be deployed. If the application date attribute is not present, the date that the file is picked up will be used which means the file will be deployed on the same day.",
+          "default": null,
+          "format": "date"
+        },
+        "target_org_node": {
+          "$id": "#/properties/header/properties/target_org_node",
+          "type": "string",
+          "title": "The Target Org Node",
+          "description": "The target_org_node attribute is used to determine to what org node or store collection the file will be deployed.",
+          "default": "*:*",
+          "examples": [
+            "STORE:102",
+            "My Collection"
+          ]
+        },
+         "deployment_name": {
+          "$id": "#/properties/header/properties/deployment_name",
+          "type": "string",
+          "title": "The Deployment Name",
+          "description": "If the deployment_name field is populated, the value will be used as the name for the deployment, otherwise the auto-suggestion name will be used."
+        },
+        "download_time": {
+          "$id": "#/properties/header/properties/download_time",
+          "type": "string",
+          "enum": [
+            "IMMEDIATE",
+            "STORE_CLOSE"
+          ],
+          "title": "The Download Time",
+          "description": "The download_time attribute is used to indicate when the file will be downloaded.",
+          "default": "STORE_CLOSE"
+        },
+        "apply_immediately": {
+          "$id": "#/properties/header/properties/apply_immediately",
+          "type": "boolean",
+          "title": "The Apply Immediately Flag",
+          "description": "The apply_immediately attribute is used to indicate when the file will be applied. If true, the file is loaded immediately, otherwise the file will be applied during the closing processes.",
+          "default": false
+        },
+        "destination": {
+          "$id": "#/properties/header/properties/destination",
+          "type": "string",
+          "enum": [ "XCENTER_ONLY", "XSTORE_ONLY", "ALL" ],
+          "title": "The Destination",
+          "description": "The target destination of the XLOAD file.",
+          "default": "ALL"
+        }
+      }
+    },
+    "commands": {
+      "$id": "#/properties/commands",
+      "type": "array",
+      "title": "The Commands Schema",
+      "description": "An array of commands.",
+      "items": {
+        "$id": "#/properties/commands/items",
+        "type": "array",
+        "title": "The Command Parts Schema",
+        "description": "A container to keep the command header at the front",
+        "items": [
+          {
+            "$id": "#/properties/commands/items/items/0",
+            "type": "object",
+            "title": "The Command Header Schema",
+            "description": "The header of the command",
+            "required": [
+              "v",
+              "table",
+              "action"
+            ],
+            "properties": {
+              "v": {
+                "$id": "#/properties/commands/items/items/0/properties/v",
+                "type": "integer",
+                "enum": [ 1 ],
+                "title": "The Command Version"
+              },
+              "table": {
+                "$id": "#/properties/commands/items/items/0/properties/table",
+                "type": "string",
+                "title": "The Target Table",
+                "description": "The table to which the command should be applied."
+              },
+              "action": {
+                "$id": "#/properties/commands/items/items/0/properties/action",
+                "type": "string",
+                "enum": [
+                  "INSERT",
+                  "UPDATE",
+                  "MERGE",
+                  "DELETE",
+                  "TRUNCATE"
+                ],
+                "title": "The Action Verb",
+                "description": "The action verb of the command."
+              },
+              "fields": {
+                "$id": "#/properties/commands/items/items/0/properties/fields",
+                "type": "array",
+                "title": "The Fields",
+                "description": "An array of field names that define the order of the values in the following value arrays.",
+                "items": {
+                  "$id": "#/properties/commands/items/items/0/properties/fields/items",
+                  "type": "string"
+                }
+              },
+              "where": {
+                "$id": "#/properties/commands/items/items/0/properties/where",
+                "type": "string",
+                "title": "The Where Clause",
+                "description": "If the where field is populated for an UPDATE, this expression will determine the WHERE clause in addition to ORGANIZATION_ID. If not specified, the supplied PK fields will be used to select a record. The expression will be the same as an expression for DTXQL."
+              }
+            }
+          },
+          {
+            "$id": "#/properties/commands/items/items/1",
+            "type": "array",
+            "title": "The array of values arrays",
+            "description": "An array of value arrays. Each inner array should have the same length as the 'fields' array of the command.",
+            "items": {
+              "$id": "#/properties/commands/items/items/1/items",
+              "type": "array",
+              "title": "The value arrays",
+              "description": "An array of values that represents a single row or action.",
+              "items": {
+                "$id": "#/properties/commands/items/items/1/items/items",
+                "type": [
+                  "boolean",
+                  "string",
+                  "number",
+                  "integer",
+                  "null"
+                ],
+                "title": "The values",
+                "description": "The individual values.",
+                "default": null
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "commands"
+  ]
+}

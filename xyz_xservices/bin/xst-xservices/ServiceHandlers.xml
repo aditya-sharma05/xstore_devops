@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/ServiceHandlers.xsd">
+
+  <Service name="RELATE_SOAP">
+    <Parameters dtype="Map">
+      <ServiceURL dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/xmlapi/${dtv.relate.customerId}/</ServiceURL>
+      <!-- This value is made up. -->
+      <ServiceURN dtype="String">http://relate.com/interface/WebService/soap1.1</ServiceURN>
+      <Timeout dtype="Integer">30</Timeout>
+      <CardPrefix dtype="String">54321</CardPrefix>
+      <CardSeries dtype="String">01</CardSeries>  
+    </Parameters>
+  </Service>
+  <Service name="RELATE_CUSTOMER_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v3_0/CustomerServicesApiService?wsdl</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout> 
+    </Parameters>
+  </Service>
+  <Service name="RELATE_CARD_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v3_1/CardServicesApiService?wsdl</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>y>    
+    </Parameters>
+  </Service>
+  <Service name="RELATE_LOYALTY_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v3_3/LoyaltyAccountServicesApiService?wsdl</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>    
+    </Parameters>
+  </Service>
+  <Service name="RELATE_AWARD_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v3_1/AwardAccountServicesApiService?wsdl</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>   
+    </Parameters>
+  </Service>
+  <Service name="RELATE_PROMOTION_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v1_0/SerializedCouponServiceService?wsdl</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>   
+    </Parameters>
+  </Service>
+  <Service name="RELATE_REGISTRY_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v3_1/RegistryServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_TASK_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v1_2/TaskServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_ATTRIBUTE_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v3_1/AttributesServiceApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_GIFT_CARD_SVC_TRANSACTION_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.protocol}://${dtv.relate.host}:${dtv.relate.port}/${dtv.relate.customerId}/OrceWebServices/v3_1/SvcTransactionServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+    </Parameters>
+  </Service>
+  <Service name="LOCATE">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.locate.host}/service/Locate.asmx?WSDL</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+      <Destination dtype="String">loc_sales</Destination>
+      <LocateVersion dtype="String">3.1</LocateVersion>
+    </Parameters>
+  </Service>
+</Services>

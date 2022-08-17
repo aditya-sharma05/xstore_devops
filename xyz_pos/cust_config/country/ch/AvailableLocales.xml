@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root dtype="List">
+  <Locale dtype="String">de_DE</Locale>
+  <Locale dtype="String">fr_CH</Locale>
+  <Locale dtype="String">it_CH</Locale>
+  <Locale dtype="String">en_GB</Locale>
+</Root>

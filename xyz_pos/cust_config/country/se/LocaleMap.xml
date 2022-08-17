@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root dtype="Map">
+  <MapEntry key="Document" value="sv_SE" />
+  <MapEntry key="PoleDisplay" value="sv_SE" />
+  <MapEntry key="Receipt" value="sv_SE" />
+  <MapEntry key="View" value="sv_SE" />
+  <MapEntry key="Error" value="en_GB" />
+  <MapEntry key="Log" value="en_GB" />
+  <MapEntry key="FiscalExport" value="sv_SE" />
+  <MapEntry key="FiscalDocument" value="sv_SE" />
+</Root>

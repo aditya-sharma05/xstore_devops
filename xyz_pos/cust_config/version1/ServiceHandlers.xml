@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../pos/config/dtv/res/config/ServiceHandlers.xsd">
+
+  <Service name="RELATE_CUSTOMER_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v3_0/CustomerServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_CARD_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v3_1/CardServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_LOYALTY_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v3_3/LoyaltyAccountServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_AWARD_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v3_1/AwardAccountServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_PROMOTION_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v1_0/SerializedCouponServiceService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_REGISTRY_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v3_1/RegistryServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_ATTRIBUTE_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v3_1/AttributesServiceApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_TASK_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://relate_host:8443/xst/OrceWebServices/v1_2/TaskServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_GIFT_CARD_SVC_TRANSACTION_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">http://relate_host:8443/xst/OrceWebServices/v3_1/SvcTransactionServicesApiService?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <CardPrefix dtype="String">33333</CardPrefix>
+      <CardSeries dtype="String">01</CardSeries>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_PROMOTE_SERVICES">
+    <Parameters dtype="Map">
+      <TargetUri dtype="String">http://localhost:8084/xst/promote/services</TargetUri>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="LOCATE">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://locate_host:8443/Locate/LocateServices?wsdl</WsdlLocation> 
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+      <Destination dtype="String">Locate</Destination>
+      <LocateVersion dtype="String">15.0</LocateVersion>
+      <AllowSplitOrder dtype="String">true</AllowSplitOrder>
+      <AllowPartialUpdates dtype="String">false</AllowPartialUpdates>
+    </Parameters>
+  </Service>
+  <Service name="SERENADE">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">http://localhost:8080/CWDirectCPService/services/CWMessageIn?WSDL</WsdlLocation> 
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="SIM_STORE_INVENTORY">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://localhost:17015/StoreInventoryBean/StoreInventoryService?WSDL</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="SIM_UIN_STORE_INVENTORY">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://localhost:17015/StoreInventoryUinBean/StoreInventoryUinService?WSDL</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="SIM_POS_TRANSACTION">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://localhost:17015/POSTransactionBean/POSTransactionService?WSDL</WsdlLocation>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="ADDRESS_VERIFICATION">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://localhost/ProOnDemand/V3/ProOnDemandService.asmx?WSDL</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+      <QasEngineTimeout dtype="Integer">10000</QasEngineTimeout>
+      <QasResponseLimit dtype="Integer">30</QasResponseLimit>
+    </Parameters>
+  </Service>
+  <Service name="OPERA">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">https://opera_host:443/Operajserv/Ifc8ws/Ifcws?wsdl</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+      <InConnectStr dtype="String">jdbc/operaoperads</InConnectStr>
+      <InResort dtype="String">LSDH</InResort>
+      <InRowId dtype="Integer">740</InRowId>
+    </Parameters>
+  </Service>
+</Services>

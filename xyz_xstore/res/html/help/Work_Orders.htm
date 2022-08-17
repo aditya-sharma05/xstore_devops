@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Adobe RoboHelp 9" />
+<title>Work Orders</title>
+<link rel="StyleSheet" href="Xstore.css" type="text/css" />
+</head>
+
+<body>
+<h1>Work Orders</h1>
+<p>Work Orders are labor services requested by a customer and performed 
+ by the retailer or an outside contractor. They may be further sub-classified 
+ as repairs or alterations. </p>
+<p>Tasks are the detail operations that are performed on a Work Order item 
+ and can be selected from a list. The system also maintains a fixed rate 
+ of cost for the task, a description, and a free-form comment field that 
+ may be used to describe the task to be performed. For example, a comment 
+ may contain the specific text to engrave or embroider on an item. </p>
+<p>The item for a work order may be added to the transaction from several 
+ sources: </p>
+<ul type="disc">
+	<li class="Bullet"><span style="text-decoration: underline; ">Current 
+	 Transaction</span> - The item is in the current sale transaction. 
+	 This option is only available if there is at least one item in the 
+	 current sale transaction. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Previous 
+	 Transaction with Receipt</span> - The item is identified on the receipt 
+	 from a previous transaction. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">No Receipt</span> 
+	 - The item has no receipt available or is not referenced on a receipt. 
+	 </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Customer 
+	 History</span> - Find the item by searching the customer’s previous 
+	 purchase transaction history. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Item 
+	 Not on File</span> - The item requiring work is not in the system. 
+	 </li>
+</ul>
+<p>Once you have identified the item or items for the work order, you are 
+ prompted to select a work order category. Categories may include repairs, 
+ alterations, or any other categories that are determined by your store 
+ operations. </p>
+<p>The next step is to choose the tasks to be performed on the item. The 
+ list of options will depend upon the work order category you selected. 
+ </p>
+<table style="margin-top: 8px; border-collapse: separate; border-collapse: separate;" 
+		 cellspacing="0" width="100%" border="1">
+	<col style="width: 100%;" />
+	<tr>
+		<td><p>Note: A task may or may not have a cost associated with 
+		 it. If it does not have a cost, it may be an Estimate. All estimates 
+		 must be converted to actual amounts before the customer can pick 
+		 up the item. Price categories such as No Charge and Warranty have 
+		 zero amounts in the Charge column on the Task List form.</p></td>
+	</tr>
+</table>
+<h2>Task Maintenance</h2>
+<p>Task maintenance functions allow you to modify the work order tasks 
+ by adding new tasks, deleting work order tasks, and to add additional 
+ information pertaining to a specific task. </p>
+<ul type="disc">
+	<li class="Bullet"><span style="text-decoration: underline; ">Add Task</span> 
+	 - Select this option to create an additional task on the work order. 
+	 </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Delete 
+	 Task</span> - Select this option to remove a task from the work order. 
+	 </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Convert 
+	 Estimate</span> - Select this option to change an estimated cost amount 
+	 to an actual cost amount. An estimated cost is a best guess about 
+	 what the final cost of performing the task will be, and it is assigned 
+	 when the work order is created. After the task is completed, the actual 
+	 cost is known, and the estimate must be converted so that an accurate 
+	 final price can be calculated. This option is only available when 
+	 an estimated task is on the work order.</li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Add Instruction</span> 
+	 - Select this option to enter informational text instructions for 
+	 the work order. </li>
+</ul>
+<h2>Item Maintenance</h2>
+<p>Item maintenance functions allow you to change the work order item information 
+ by adding new items, deleting items from the work order, or editing an 
+ item’s value and description. The items may come from several different 
+ sources including the current transaction, a previous transaction (with 
+ or without a receipt), customer history, or it may be an item not found 
+ in the database. </p>
+<ul type="disc">
+	<li class="Bullet"><span style="text-decoration: underline; ">Add Item</span> 
+	 - Select this option to add additional items to the work order. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Delete 
+	 Item</span> - Select this option to remove an item from the work order. 
+	 This option is only be available when there are two or more items 
+	 on the work order. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Item Value</span> - Select this option to change the value of an item 
+	 on the work order. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Item Description</span> - Select this option to change the text description 
+	 of an item on the work order. </li>
+</ul>
+<h2>Parts Maintenance</h2>
+<p>The Parts Maintenance functions allow you to add or delete supplementary 
+ parts from a work order. A part may be anything that is required to complete 
+ a task. One or more parts may be associated with a work order, and they 
+ can be added or deleted during or after its creation. If the work order 
+ is still being created, select the Parts Maintenance option while in the 
+ Work Order mode. </p>
+<ul type="disc">
+	<li class="Bullet"><span style="text-decoration: underline; ">Add Parts</span> 
+	 - Select this option to enter an item ID that must be purchased to 
+	 complete the work order. It is included as part of the work order 
+	 record. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Delete 
+	 Parts</span> - Select this option to remove a supplementary part from 
+	 a work order. This option is only available when a part has been added 
+	 to this account. </li>
+</ul>
+<h2>Edit Line Item</h2>
+<p>Edit Line Item functions allow you to change the quantity, price, and 
+ tax on a line item in the work order. A work order may contain one or 
+ more line items, and they can be edited during or after its creation. 
+ If the work order is still being created, select the Edit Line Item option 
+ while in the Work Orders mode. </p>
+<ul type="disc">
+	<li class="Bullet"><span style="text-decoration: underline; ">Change 
+	 Quantity</span> - Select this option to change the quantity of an 
+	 item. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Change 
+	 Price</span> - Select this option to change the price of an item. 
+	 </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Change 
+	 Tax</span> - Select this option to change the tax amount for an item. 
+	 You can change the item’s tax location, change the item to tax exempt, 
+	 or change the item’s tax amount or percent. </li>
+</ul>
+<h2>Work Order Maintenance</h2>
+<p>Work Order maintenance functions allow you to add, change, and maintain 
+ work orders. </p>
+<ul type="disc">
+	<li class="Bullet"><span style="text-decoration: underline; ">New Work 
+	 Order</span> - Select this option from the Work Order Maint menu to 
+	 create a new work order for a customer. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Cancel 
+	 Work Order</span> - Select this option from the Work Order Maint menu 
+	 to cancel an existing work order. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Change 
+	 Price Type</span> - Select this option from the Work Order Maint menu 
+	 to change the price from <span style="font-style: italic;">actual</span> 
+	 to <span style="font-style: italic;">estimated</span> or vice versa, 
+	 or to change from chargeable to warranty. You may also select no charge. 
+	 For example, a customer may not have the warranty information in-hand 
+	 when the work order is set up. If the customer returns at a later 
+	 date with proof of a valid warranty, you can use this option to change 
+	 the work order price from chargeable to $0.00. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Approved Amount</span> - Select this option to change the amount that 
+	 has been pre-approved by the customer for the repair or alteration. 
+	 </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Priority</span> - Select this option to choose a different priority. 
+	 The default priority is Standard when the work order is set up. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Contact Method</span> - Select this option to modify the method of 
+	 communication used to contact a customer. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Notice Date</span> - Select this option to change the date that a 
+	 notice was sent to the customer. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Service Location</span> - Select this option to choose a different 
+	 location where work will be performed. </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Finish Date</span> - Select this option to change the date the finished 
+	 item has been promised to the customer. The date can be changed from 
+	 the default date assigned when the work order was set up originally. 
+	 </li>
+	<li class="Bullet"><span style="text-decoration: underline; ">Edit 
+	 Account Status</span> - Select this option to choose a different status 
+	 for the work order. </li>
+</ul>
+<table style="margin-top: 8px; border-collapse: separate; border-collapse: separate;" 
+		 cellspacing="0" width="100%" border="1">
+	<col style="width: 100%;" />
+	<tr>
+		<td><p>Note: If you try to change the status of the work order 
+		 to Ready For Pickup, the system notifies you if there are any 
+		 tasks with estimated prices on the work order. You must convert 
+		 estimated prices to actual prices before you can continue. Acknowledge 
+		 this prompt and convert all estimated prices to actual prices.</p></td>
+	</tr>
+</table>
+<ul type="disc">
+	<li class="Bullet"><span style="text-decoration: underline; ">Pickup 
+	 Work Order</span> - Select this option when a completed work order 
+	 is ready for customer pickup. This option is only available when the 
+	 work order item is finished and ready for customer pickup. </li>
+</ul>
+<h2>Work Order History </h2>
+<p>Work Order History and Comments functions allow you to view the history 
+ of the work order and add comments to it. </p>
+<ul type="disc">
+	<li><span style="text-decoration: underline; ">View History</span> 
+	 - Select this option to see the work order account history. The information 
+	 shown here includes the account number, setup date, status, and balance 
+	 due. </li>
+	<li><span style="text-decoration: underline; ">View Comments</span> 
+	 - Select this option to see any comments associated with the work 
+	 order. </li>
+	<li><span style="font-family: 'Arial Unicode MS', sans-serif; text-decoration: underline; ">Add 
+	 Comment</span><span style="font-family: 'Arial Unicode MS', sans-serif;"> 
+	 - Select this option to add a comment to this work order.</span> </li>
+</ul>
+</body>
+</html>

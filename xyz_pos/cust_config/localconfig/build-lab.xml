@@ -1,0 +1,125 @@
+<project name="build-db-lab" default="make-lab" basedir=".">
+  <dirname property="database.platform.dir" file="${ant.file.build-db-lab}" />
+  <property name="maindir.xst.database.platform" value="${database.platform.dir}/../../database" />
+  <property file="../../system.properties" />
+  <property file="../../root/system.properties" />
+  <property file="${maindir.xst.database.platform}/build.properties" />
+  <property file="build.properties" />
+  <property name="db.custId" value="${dtv.CustomerId}" />  
+  <property name="project.root" value="../../" />
+  
+  <condition property="ismssql"><equals arg1="${db.platform}" arg2="mssql" trim="true" casesensitive="false" /></condition>
+  <condition property="ismssqlunicode"><equals arg1="${db.platform}" arg2="mssql-unicode" trim="true" casesensitive="false" /></condition>
+  <condition property="isoracle"><equals arg1="${db.platform}" arg2="oracle" trim="true" casesensitive="false" /></condition>
+  <condition property="isoraclepdb"><equals arg1="${db.platform}" arg2="oraclepdb" trim="true" casesensitive="false" /></condition>
+  
+  <target name="make-lab">
+      <antcall target="make-lab-mssql" inheritRefs="true" />
+      <antcall target="make-lab-mssqlunicode" inheritRefs="true" />      
+      <antcall target="make-lab-oracle" inheritRefs="true" />
+      <antcall target="make-lab-oracle-pdb" inheritRefs="true"/>      
+  </target>
+  
+  <target name="make-lab-mssql" if="ismssql">
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xcenter${db.name.version}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+      <property name="db.name.owner" value="" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xtraining${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make-replication" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xstorereplication${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+    </ant>
+  </target>
+  
+  <target name="make-lab-mssqlunicode" if="ismssqlunicode">
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xcenter${db.name.version}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+      <property name="db.name.owner" value="" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xtraining${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make-replication" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xstorereplication${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.schema" value="dtv" />
+    </ant>
+  </target>
+  
+  <target name="make-lab-oracle" if="isoracle">
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+      <property name="db.schema" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xcenter${db.name.version}" />
+      <property name="db.schema" value="${db.custId}_xcenter${db.name.version}" />
+      <property name="db.posuser" value="${db.custId}_xcenter${db.name.version}" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xtraining${db.name.version}${db.name.owner}" />
+      <property name="db.schema" value="${db.custId}_xtraining${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="${db.custId}_xtraining${db.name.version}${db.name.owner}" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make-replication" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_repqueue${db.name.version}${db.name.owner}" />
+      <property name="db.name.replication" value="${db.custId}_repqueue${db.name.version}${db.name.owner}" />
+      <property name="db.schema" value="${db.custId}_repqueue${db.name.version}${db.name.owner}" />
+      <property name="db.posuser" value="${db.custId}_repqueue${db.name.version}${db.name.owner}" />
+    </ant>
+  </target>
+  
+  <target name="make-lab-oracle-pdb" if="isoraclepdb">
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+      <property name="db.schema" value="dtv" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.path.data" value="${db.path.data.prefix}/${db.custId}_xstore${db.name.version}${db.name.owner}" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make-replication" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_repqueue${db.name.version}${db.name.owner}" />
+      <property name="db.schema" value="dtv" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.path.data" value="${db.path.data.prefix}/${db.custId}_repqueue${db.name.version}${db.name.owner}" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make-clone" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xtraining${db.name.version}${db.name.owner}" />
+      <property name="db.schema" value="dtv" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.path.data" value="${db.path.data.prefix}/${db.custId}_xtraining${db.name.version}${db.name.owner}" />
+      <property name="origin.db.name" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+      <property name="origin.db.path.data" value="${db.path.data.prefix}/${db.custId}_xstore${db.name.version}${db.name.owner}" />
+    </ant>
+    <ant antfile="${maindir.xst.database.platform}/build.xml" target="make-clone" inheritRefs="true">
+      <property name="db.name" value="${db.custId}_xcenter${db.name.version}" />
+      <property name="db.schema" value="dtv" />
+      <property name="db.posuser" value="pos" />
+      <property name="db.path.data" value="${db.path.data.prefix}/${db.custId}_xcenter${db.name.version}" />
+      <property name="origin.db.name" value="${db.custId}_xstore${db.name.version}${db.name.owner}" />
+      <property name="origin.db.path.data" value="${db.path.data.prefix}/${db.custId}_xstore${db.name.version}${db.name.owner}" />
+    </ant>
+  </target>
+</project>

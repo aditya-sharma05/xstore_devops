@@ -1,0 +1,12 @@
+Ingenico Form Generator - Version 4.00
+Target Device=Ingenico 6550
+InputMethod->[mode:0]
+FormFGColor->[formfgcolor:1]
+FormBGColor->[formbgcolor:0]
+FormAttr->[transparent:0]
+Reference Path Convention->JavaPOS
+Bitmap->[file:./res/i65XX/XSTHeadr.bmp][x:0][y:2][cx:240][cy:46]
+Bitmap->[file:./res/i65XX/accttype.bmp][x:2][y:60][cx:240][cy:98]
+Button->[x:11][y:123][cx:60][cy:22][id:4][type:0][textid:0][show:0][transparent:0][fgcolor:1][bgcolor:0]
+Button->[x:88][y:124][cx:60][cy:22][id:5][type:0][textid:0][show:0][transparent:0][fgcolor:1][bgcolor:0]
+Button->[x:166][y:123][cx:60][cy:22][id:3][type:0][textid:0][show:0][transparent:0][fgcolor:1][bgcolor:0]
