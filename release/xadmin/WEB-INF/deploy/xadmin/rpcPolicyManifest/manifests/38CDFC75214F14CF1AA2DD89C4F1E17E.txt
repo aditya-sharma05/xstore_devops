@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.receipt.ReceiptService
+path: 36B085E640DAD78D775DE627718FBE8A.gwt.rpc

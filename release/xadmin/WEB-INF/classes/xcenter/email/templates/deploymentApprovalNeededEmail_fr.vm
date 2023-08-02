@@ -1,0 +1,50 @@
+#set ($subject = "Approbation de la vague nécessaire")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+<body>
+<table id="wrapper"><tr><td>
+  <table id="introtxt">
+    <tr>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold;">
+        Le déploiement suivant comporte une vague programmée avec "Approbation requise". </br> <a href="$content.link">Connectez-vous à Xadmin</a> et approuvez cette vague avant la date programmée pour que le déploiement puisse s'exécuter dans les délais.
+      </td>
+    </tr>
+  </table>
+</br>
+  <table id="detail">
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        Déploiement :
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.deploymentName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        Vague :
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        Date de vague programmée
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveDate
+      </td>
+    </tr>
+  </table>
+</br>
+</br>
+</td></tr></table>
+</body>
+</html>

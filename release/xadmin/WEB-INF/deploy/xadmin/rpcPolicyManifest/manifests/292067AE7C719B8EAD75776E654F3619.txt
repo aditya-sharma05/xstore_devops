@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.employee.EmployeeService
+path: 6DDB51378BBE20D7EBB97BDC29AB7672.gwt.rpc

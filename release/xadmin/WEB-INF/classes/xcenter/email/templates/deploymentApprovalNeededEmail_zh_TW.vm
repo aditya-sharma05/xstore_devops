@@ -1,0 +1,50 @@
+#set ($subject = "需要波段核准")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+<body>
+<table id="wrapper"><tr><td>
+  <table id="introtxt">
+    <tr>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold;">
+        下列部署具有排定為「需要核准」的波段。</br> <a href="$content.link">請登入 Xadmin</a> 並在排定的日期之前核准此波段，以便讓部署及時進行。
+      </td>
+    </tr>
+  </table>
+</br>
+  <table id="detail">
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        部署：
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.deploymentName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        波段：
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        排定的波段日期：
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveDate
+      </td>
+    </tr>
+  </table>
+</br>
+</br>
+</td></tr></table>
+</body>
+</html>

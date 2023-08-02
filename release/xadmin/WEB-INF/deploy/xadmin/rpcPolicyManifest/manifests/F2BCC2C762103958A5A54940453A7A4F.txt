@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.support.version.xstore.client.XstoreVersionService
+path: EBEAC803DC2034A6073E01A810467C72.gwt.rpc

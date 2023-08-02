@@ -1,0 +1,13 @@
+.rich-table {
+	border-collapse: separate; /* WOW -- without this, grid lines will not scroll on firefox. */
+}
+
+div.scrollTableContainer {
+	overflow: auto;
+}
+
+.configFeatureLeftPanelGrid, .configFeatureRightPanelGrid {
+	margin:0px; 
+	padding:0px;
+	width:100%;
+}

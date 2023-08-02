@@ -1,0 +1,100 @@
+@FinalFields, false
+com.google.gwt.i18n.shared.impl.DateRecord, true, true, true, true, com.google.gwt.i18n.shared.impl.DateRecord/3173882066, 3173882066
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+com.micros_retail.gwt.shared.deployment.DownloadTime, false, false, true, true, com.micros_retail.gwt.shared.deployment.DownloadTime/3563886226, 3563886226
+com.micros_retail.gwt.shared.entity.AbstractEntity, true, false, true, false, com.micros_retail.gwt.shared.entity.AbstractEntity/3506585559, 3506585559
+com.micros_retail.xadmin.configurator.client.main.ConfiguratorService, false, false, false, false, _, 999961709
+com.micros_retail.xadmin.configurator.client.main.NoConfigurationsFoundException, true, true, false, false, com.micros_retail.xadmin.configurator.client.main.NoConfigurationsFoundException/3790250744, 3790250744
+com.micros_retail.xadmin.configurator.shared.main.ConfiguratorChangeType, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.ConfiguratorChangeType/4209418746, 4209418746
+[Lcom.micros_retail.xadmin.configurator.shared.main.ConfiguratorChangeType;, true, true, false, false, [Lcom.micros_retail.xadmin.configurator.shared.main.ConfiguratorChangeType;/3998491161, 3998491161
+com.micros_retail.xadmin.configurator.shared.main.ConfiguratorFlags, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.ConfiguratorFlags/2456204986, 2456204986
+com.micros_retail.xadmin.configurator.shared.main.CopyInfo, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.CopyInfo/1299563351, 1299563351
+com.micros_retail.xadmin.configurator.shared.main.ProfileChangeDetail, true, true, true, true, com.micros_retail.xadmin.configurator.shared.main.ProfileChangeDetail/913679403, 913679403
+com.micros_retail.xadmin.configurator.shared.main.ProfileChangeDetailResult, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.ProfileChangeDetailResult/4196097266, 4196097266
+[Lcom.micros_retail.xadmin.configurator.shared.main.ProfileChangeDetail;, true, true, false, false, [Lcom.micros_retail.xadmin.configurator.shared.main.ProfileChangeDetail;/3555777533, 3555777533
+com.micros_retail.xadmin.configurator.shared.main.ProfileData, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.ProfileData/2345889659, 2345889659
+com.micros_retail.xadmin.configurator.shared.main.ProfileElementChangeSummary, true, true, true, true, com.micros_retail.xadmin.configurator.shared.main.ProfileElementChangeSummary/560897013, 560897013
+[Lcom.micros_retail.xadmin.configurator.shared.main.ProfileElementChangeSummary;, true, true, false, false, [Lcom.micros_retail.xadmin.configurator.shared.main.ProfileElementChangeSummary;/61260145, 61260145
+com.micros_retail.xadmin.configurator.shared.main.ProfileInfo, false, false, true, true, com.micros_retail.xadmin.configurator.shared.main.ProfileInfo/3090017537, 3090017537
+com.micros_retail.xadmin.configurator.shared.main.ProfileManagementData, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.ProfileManagementData/1018810552, 1018810552
+com.micros_retail.xadmin.configurator.shared.personality.UnableToDeleteAssignedObjectException, true, true, false, false, com.micros_retail.xadmin.configurator.shared.personality.UnableToDeleteAssignedObjectException/1311390945, 1311390945
+com.micros_retail.xadmin.support.version.xstore.shared.VersionDetailModel, true, true, false, false, com.micros_retail.xadmin.support.version.xstore.shared.VersionDetailModel/236250666, 236250666
+[Lcom.micros_retail.xadmin.support.version.xstore.shared.VersionDetailModel;, true, true, false, false, [Lcom.micros_retail.xadmin.support.version.xstore.shared.VersionDetailModel;/546752697, 546752697
+com.micros_retail.xadmin.util.gwt.deployment.DeploymentException, true, true, false, false, com.micros_retail.xadmin.util.gwt.deployment.DeploymentException/471259395, 471259395
+com.micros_retail.xadmin.util.gwt.deployment.DeploymentToken, true, true, false, false, com.micros_retail.xadmin.util.gwt.deployment.DeploymentToken/23317201, 23317201
+com.micros_retail.xadmin.util.gwt.deployment.ScheduleDeploymentData, false, false, true, true, com.micros_retail.xadmin.util.gwt.deployment.ScheduleDeploymentData/88613570, 88613570
+com.micros_retail.xadmin.util.gwt.deployment.ScheduleDeploymentWave, false, false, true, true, com.micros_retail.xadmin.util.gwt.deployment.ScheduleDeploymentWave/1186789420, 1186789420
+[Lcom.micros_retail.xadmin.util.gwt.deployment.ScheduleDeploymentWave;, false, false, true, true, [Lcom.micros_retail.xadmin.util.gwt.deployment.ScheduleDeploymentWave;/2575731750, 2575731750
+com.micros_retail.xadmin.util.gwt.entity.BaseConfigFeature, true, true, false, false, com.micros_retail.xadmin.util.gwt.entity.BaseConfigFeature/3763430199, 3763430199
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.BaseConfigFeature,_featureId,_description,_dependsOnFeatureId,_sortOrder,_dependentFeatures,_parentFeature
+[Lcom.micros_retail.xadmin.util.gwt.entity.BaseConfigFeature;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.entity.BaseConfigFeature;/3953394399, 3953394399
+com.micros_retail.xadmin.util.gwt.entity.ConfigPrivilege, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigPrivilege/1420368523, 1420368523
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ConfigPrivilege,_privilegeId,_description,_shortDescription,_category
+com.micros_retail.xadmin.util.gwt.entity.ConfigRole, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigRole/1096279677, 1096279677
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ConfigRole,_description,_xadminRank,_xstoreRank,_systemFlag,_primaryKey,_configUserOrgRole,_rolePrivileges
+com.micros_retail.xadmin.util.gwt.entity.ConfigRoleId, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigRoleId/944348723, 944348723
+com.micros_retail.xadmin.util.gwt.entity.ConfigRolePrivilege, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigRolePrivilege/2145546211, 2145546211
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ConfigRolePrivilege,_privilege,_role,_primaryKey
+com.micros_retail.xadmin.util.gwt.entity.ConfigRolePrivilegeId, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigRolePrivilegeId/1736485615, 1736485615
+com.micros_retail.xadmin.util.gwt.entity.ConfigUser, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigUser/3658336120, 3658336120
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ConfigUser,userOrganizationId_,loggedInOrganizationName_,userName_,userFirstName_,userLastName_,userLocale_,userEmailAddress_,passwords_,_failedLoginAttempts,_accountLocked,_directoryType,_formattedUserName,_idpResourceId,_userStatus,_userOrgRole
+com.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRole, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRole/3613191186, 3613191186
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRole,_primaryKey,_userRole,_dashboardAsHomePage,_organizationName,_user,_userRoleObject,_orgNodes
+com.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRoleId, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRoleId/481781209, 481781209
+[Lcom.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRole;, false, false, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRole;/719137825, 719137825
+com.micros_retail.xadmin.util.gwt.entity.ConfigUserPassword, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigUserPassword/676150636, 676150636
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ConfigUserPassword,passwordId_,password_,effectiveDate_,_temporaryFlag,parentUser
+[Lcom.micros_retail.xadmin.util.gwt.entity.ConfigUserPassword;, false, false, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.ConfigUserPassword;/651899347, 651899347
+com.micros_retail.xadmin.util.gwt.entity.ConfigUserStatusType, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.ConfigUserStatusType/1452258300, 1452258300
+[Lcom.micros_retail.xadmin.util.gwt.entity.ConfigUser;, false, false, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.ConfigUser;/21263073, 21263073
+com.micros_retail.xadmin.util.gwt.entity.ProfileElement, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.ProfileElement/3716652532, 3716652532
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ProfileElement,_description,_comments,_primaryKey,_group,_configVersion
+com.micros_retail.xadmin.util.gwt.entity.ProfileElementId, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.ProfileElementId/3995912494, 3995912494
+[Lcom.micros_retail.xadmin.util.gwt.entity.ProfileElement;, true, true, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.ProfileElement;/989914955, 989914955
+com.micros_retail.xadmin.util.gwt.entity.ProfileGroup, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.ProfileGroup/1066070295, 1066070295
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.ProfileGroup,_description,_comments,_groupType,_elements,_primaryKey
+com.micros_retail.xadmin.util.gwt.entity.ProfileGroupId, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.ProfileGroupId/1266226171, 1266226171
+[Lcom.micros_retail.xadmin.util.gwt.entity.ProfileGroup;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.entity.ProfileGroup;/2315629405, 2315629405
+com.micros_retail.xadmin.util.gwt.entity.UserOrgNode, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.UserOrgNode/2156808437, 2156808437
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.UserOrgNode,_primaryKey,_userOrgRole
+com.micros_retail.xadmin.util.gwt.entity.UserOrgNodeId, false, false, true, true, com.micros_retail.xadmin.util.gwt.entity.UserOrgNodeId/1678575403, 1678575403
+[Lcom.micros_retail.xadmin.util.gwt.entity.UserOrgNode;, false, false, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.UserOrgNode;/660742508, 660742508
+com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption, true, true, false, false, com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption/4288264881, 4288264881
+[Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;/1601029178, 1601029178
+[Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;/170399506, 170399506
+com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem/806029010, 806029010
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem;/2462117011, 2462117011
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.IListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.IListItem;/986897512, 986897512
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.ISortableListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.ISortableListItem;/3949245016, 3949245016
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.ITitledListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.ITitledListItem;/2038808281, 2038808281
+com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem/540270210, 540270210
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem;/3489892195, 3489892195
+com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem/891107832, 891107832
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem;/2533878243, 2533878243
+java.lang.Boolean, true, true, true, true, java.lang.Boolean/476441737, 476441737
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.Integer, false, false, true, true, java.lang.Integer/3438268394, 3438268394
+java.lang.Long, true, true, true, true, java.lang.Long/4227064769, 4227064769
+java.lang.Number, true, false, true, false, java.lang.Number/300033342, 300033342
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+[Ljava.lang.String;, true, true, true, true, [Ljava.lang.String;/2600011424, 2600011424
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.sql.Date, true, true, true, true, java.sql.Date/730999118, 730999118
+java.sql.Time, true, true, true, true, java.sql.Time/1816797103, 1816797103
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.ArrayList, true, true, true, true, java.util.ArrayList/4159755760, 4159755760
+java.util.Arrays$ArrayList, true, true, true, true, java.util.Arrays$ArrayList/2507071751, 2507071751
+java.util.Collections$EmptyList, true, true, true, true, java.util.Collections$EmptyList/4157118744, 4157118744
+java.util.Collections$EmptyMap, true, true, true, true, java.util.Collections$EmptyMap/4174664486, 4174664486
+java.util.Collections$SingletonList, true, true, true, true, java.util.Collections$SingletonList/1586180994, 1586180994
+java.util.Date, true, true, true, true, java.util.Date/3385151746, 3385151746
+java.util.HashMap, true, true, true, true, java.util.HashMap/1797211028, 1797211028
+java.util.IdentityHashMap, true, true, true, true, java.util.IdentityHashMap/1839153020, 1839153020
+java.util.LinkedHashMap, true, true, true, true, java.util.LinkedHashMap/3008245022, 3008245022
+java.util.LinkedList, true, true, true, true, java.util.LinkedList/3953877921, 3953877921
+java.util.Stack, true, true, true, true, java.util.Stack/1346942793, 1346942793
+java.util.TreeMap, true, true, true, true, java.util.TreeMap/1493889780, 1493889780
+java.util.Vector, true, true, true, true, java.util.Vector/3057315478, 3057315478

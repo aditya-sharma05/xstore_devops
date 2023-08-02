@@ -1,0 +1,11 @@
+#set ($subject = "دعم Xadmin: تنبيهات مهمة")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+  <body>
+    #foreach( $alert in $alerts ) <b>$alert.EventTimestamp : $alert.AlertName حدث $alert.EventCount من المرات في المتجر $alert.RtlLocId Register $alert.WkstnId:</b><br> $alert.EventDetails<br> <br> #end
+  </body>
+<html>

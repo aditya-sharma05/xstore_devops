@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.personality.PersonalityService
+path: 60F26545E186C6DA7174A501DC429CBB.gwt.rpc

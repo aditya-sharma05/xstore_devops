@@ -1,0 +1,67 @@
+@FinalFields, false
+com.google.gwt.i18n.shared.impl.DateRecord, true, true, true, true, com.google.gwt.i18n.shared.impl.DateRecord/3173882066, 3173882066
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+com.micros_retail.gwt.shared.entity.AbstractEntity, true, false, true, false, com.micros_retail.gwt.shared.entity.AbstractEntity/3506585559, 3506585559
+com.micros_retail.xadmin.configurator.client.tender.TenderService, false, false, false, false, _, 3631692380
+com.micros_retail.xadmin.configurator.client.tender.TenderSettingInfo, true, true, false, false, com.micros_retail.xadmin.configurator.client.tender.TenderSettingInfo/576067656, 576067656
+com.micros_retail.xadmin.configurator.shared.main.DuplicateConfiguratorObjectException, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.DuplicateConfiguratorObjectException/321510327, 321510327
+com.micros_retail.xadmin.configurator.shared.main.ProfileInfo, false, false, true, true, com.micros_retail.xadmin.configurator.shared.main.ProfileInfo/3090017537, 3090017537
+com.micros_retail.xadmin.configurator.shared.main.SearchResult, true, true, true, true, com.micros_retail.xadmin.configurator.shared.main.SearchResult/1892798063, 1892798063
+[Lcom.micros_retail.xadmin.configurator.shared.main.SearchResult;, true, true, false, false, [Lcom.micros_retail.xadmin.configurator.shared.main.SearchResult;/20092001, 20092001
+com.micros_retail.xadmin.configurator.shared.tender.TenderContext, true, true, false, false, com.micros_retail.xadmin.configurator.shared.tender.TenderContext/1769753936, 1769753936
+com.micros_retail.xadmin.configurator.shared.tender.TenderInfo, true, true, true, true, com.micros_retail.xadmin.configurator.shared.tender.TenderInfo/3449187526, 3449187526
+com.micros_retail.xadmin.configurator.shared.tender.TenderResult, true, true, false, false, com.micros_retail.xadmin.configurator.shared.tender.TenderResult/3852021140, 3852021140
+com.micros_retail.xadmin.util.gwt.entity.AbstractConfiguratorEntity, true, false, true, false, com.micros_retail.xadmin.util.gwt.entity.AbstractConfiguratorEntity/3662965501, 3662965501
+com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation/1920355893, 1920355893
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation,_organizationId,_profileGroupId,_profileElementId,_translationKey,_locale,_translation,_configVersion
+com.micros_retail.xadmin.util.gwt.entity.MessageTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.MessageTranslation/1792644133, 1792644133
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.MessageTranslation,_organizationId,_profileGroupId,_profileElementId,_translationKey,_locale,_translation,_configVersion
+com.micros_retail.xadmin.util.gwt.entity.TenderAvailabilityChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TenderAvailabilityChange/2723160518, 2723160518
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TenderAvailabilityChange,_organizationId,_profileGroupId,_profileElementId,_changeId,_configVersion,_tenderId,_availabilityCode,_enabled,_tender
+[Lcom.micros_retail.xadmin.util.gwt.entity.TenderAvailabilityChange;, true, true, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.TenderAvailabilityChange;/118609809, 118609809
+com.micros_retail.xadmin.util.gwt.entity.TenderChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TenderChange/1735533213, 1735533213
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TenderChange,_disabled,_tenderId,_tenderAvailabilityCodes,_tenderDenominations,_currencyId,_description,_displayOrder,_tenderTypecode,_flashSalesDisplayOrder,_descriptionTranslations
+com.micros_retail.xadmin.util.gwt.entity.TenderDenominationChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TenderDenominationChange/201845661, 201845661
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TenderDenominationChange,_organizationId,_profileGroupId,_profileElementId,_changeId,_configVersion,_tenderId,_denominationId,_description,_sortOrder,_value,_enabled,_tender
+[Lcom.micros_retail.xadmin.util.gwt.entity.TenderDenominationChange;, true, true, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.TenderDenominationChange;/2515464906, 2515464906
+com.micros_retail.xadmin.util.gwt.entity.TenderOptionsChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TenderOptionsChange/2118306438, 2118306438
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TenderOptionsChange,_tenderId,_fiscalTenderId,_authExpirationDateRequired,_authMethodCode,_authRequired,_custAssociation,_custIdReqCode,_customerSignatureRequired,_dfltToAmountDue,_effectiveDate,_endorsementRequired,_expirationDate,_includeInTypeCount,_magneticSwipeReaderRequired,_maxDaysForReturn,_minDaysForReturn,_minimumDenominationAmount,_openCashDrawerRequired,_pinRequired,_populateSystemCount,_serialIdentificationNbrRequired,_unitCountCode,_suggestDeposit,_suggestedDepositThreshold,_cashChangeLimit,_changeTenderId,_overtenderOverridable,_nonVoidable,_closeCountDiscrepancyThreshold,_cidMsrRequired,_cidKeyedRequired,_postalRequired,_disallowSplitTender,_postVoidOpenCashDrawerRequired,_reportingGroup,_changeAllowedWhenForeign,_roundingMode,_assignCashDrawerRequired,_postVoidAssignCashDrawerRequired
+com.micros_retail.xadmin.util.gwt.entity.TenderUserSettingsChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TenderUserSettingsChange/578041025, 578041025
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TenderUserSettingsChange,_tenderId,_usageCode,_groupId,_entryMethodCode,_onlineFloorApprovalAmount,_onlineCeilingApprovalAmount,_offlineFloorApprovalAmount,_offlineCeilingApprovalAmount,_overTenderLimit,_minAcceptAmount,_maxAcceptAmount,_maxRefundWithReceipt,_maxRefundWithoutReceipt,_enabled
+[Lcom.micros_retail.xadmin.util.gwt.entity.TenderUserSettingsChange;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.entity.TenderUserSettingsChange;/3606438870, 3606438870
+com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption, true, true, false, false, com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption/4288264881, 4288264881
+[Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;/1601029178, 1601029178
+[Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;/170399506, 170399506
+com.micros_retail.xadmin.util.gwt.widgets.i18n.SimpleTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.widgets.i18n.SimpleTranslation/1305973980, 1305973980
+com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem/806029010, 806029010
+com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem/540270210, 540270210
+com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem/891107832, 891107832
+java.lang.Boolean, true, true, true, true, java.lang.Boolean/476441737, 476441737
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.Integer, true, true, true, true, java.lang.Integer/3438268394, 3438268394
+java.lang.Long, true, true, false, false, java.lang.Long/4227064769, 4227064769
+java.lang.Number, true, false, true, false, java.lang.Number/300033342, 300033342
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+[Ljava.lang.String;, true, true, false, false, [Ljava.lang.String;/2600011424, 2600011424
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.math.BigDecimal, true, true, true, true, java.math.BigDecimal/8151472, 8151472
+java.math.BigInteger, true, true, true, true, java.math.BigInteger/927293797, 927293797
+java.sql.Date, true, true, true, true, java.sql.Date/730999118, 730999118
+java.sql.Time, true, true, true, true, java.sql.Time/1816797103, 1816797103
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.ArrayList, true, true, true, true, java.util.ArrayList/4159755760, 4159755760
+java.util.Arrays$ArrayList, true, true, true, true, java.util.Arrays$ArrayList/2507071751, 2507071751
+java.util.Collections$EmptyList, true, true, true, true, java.util.Collections$EmptyList/4157118744, 4157118744
+java.util.Collections$EmptyMap, true, true, true, true, java.util.Collections$EmptyMap/4174664486, 4174664486
+java.util.Collections$SingletonList, true, true, true, true, java.util.Collections$SingletonList/1586180994, 1586180994
+java.util.Date, true, true, true, true, java.util.Date/3385151746, 3385151746
+java.util.HashMap, true, true, true, true, java.util.HashMap/1797211028, 1797211028
+java.util.IdentityHashMap, true, true, true, true, java.util.IdentityHashMap/1839153020, 1839153020
+java.util.LinkedHashMap, true, true, true, true, java.util.LinkedHashMap/3008245022, 3008245022
+java.util.LinkedList, true, true, true, true, java.util.LinkedList/3953877921, 3953877921
+java.util.Stack, true, true, true, true, java.util.Stack/1346942793, 1346942793
+java.util.TreeMap, true, true, true, true, java.util.TreeMap/1493889780, 1493889780
+java.util.Vector, true, true, true, true, java.util.Vector/3057315478, 3057315478

@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.main.ConfiguratorService
+path: 4F23726E2148878E4A1CFE38B261CC10.gwt.rpc

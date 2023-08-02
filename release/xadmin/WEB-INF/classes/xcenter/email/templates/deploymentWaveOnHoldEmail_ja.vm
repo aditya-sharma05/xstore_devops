@@ -1,0 +1,50 @@
+#set ($subject = "ウェーブ承認要 – 保留")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+<body>
+<table id="wrapper"><tr><td>
+  <table id="introtxt">
+    <tr>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold;">
+        次のデプロイメントには、「承認必須」としてスケジュールされたウェーブがあります。 </br> ウェーブがスケジュール日より前に承認されなかったため、デプロイメントは現在保留中です。 デプロイメントを続行できるように、<a href="$content.link">Xadminにサインインし</a>、できるだけ早くこのウェーブを承認してください。
+      </td>
+    </tr>
+  </table>
+</br>
+  <table id="detail">
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        デプロイメント:
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.deploymentName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        ウェーブ:
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        スケジュールされたウェーブ日
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveDate
+      </td>
+    </tr>
+  </table>
+</br>
+</br>
+</td></tr></table>
+</body>
+</html>

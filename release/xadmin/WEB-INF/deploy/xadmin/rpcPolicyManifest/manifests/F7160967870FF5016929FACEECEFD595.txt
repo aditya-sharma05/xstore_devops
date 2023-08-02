@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.util.gwt.service.SessionService
+path: 568FD8E7A844133D199C33E59B17B6C7.gwt.rpc

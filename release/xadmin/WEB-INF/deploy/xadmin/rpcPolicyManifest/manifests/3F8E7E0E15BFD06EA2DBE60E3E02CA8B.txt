@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.support.dashboard.client.SysEventMonitorService
+path: 7246C8A13A9B0256E7367CFA1E7EEE4C.gwt.rpc

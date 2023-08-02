@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.support.dashboard.client.AlertPreferencesService
+path: 585843BC87AAFAB95A661992FA559FA5.gwt.rpc

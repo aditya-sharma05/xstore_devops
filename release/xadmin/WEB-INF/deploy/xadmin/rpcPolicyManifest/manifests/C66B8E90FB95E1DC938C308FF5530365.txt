@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.paybylink.client.HmacCaptureService
+path: 0FE62DE82DF589BA9B82D2DE740F6909.gwt.rpc

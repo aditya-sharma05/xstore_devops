@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.sysconfig.SysCfgService
+path: 6AC23C9C1B41DB27AB14A84185942312.gwt.rpc

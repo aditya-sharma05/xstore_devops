@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.reasoncode.ReasonCodeService
+path: 9972D16E92ACCC746622BCC7AB3A9904.gwt.rpc

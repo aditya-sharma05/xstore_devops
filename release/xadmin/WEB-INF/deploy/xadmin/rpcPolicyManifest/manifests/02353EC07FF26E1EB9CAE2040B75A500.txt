@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.itemmatrix.ItemMatrixService
+path: EE8DC37C90D2528395A7F9F9E9E0713B.gwt.rpc

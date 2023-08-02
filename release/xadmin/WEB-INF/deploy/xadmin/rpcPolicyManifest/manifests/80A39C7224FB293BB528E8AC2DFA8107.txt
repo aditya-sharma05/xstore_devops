@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.main.OcdsDataRefreshService
+path: 13E096E8328FB35152A0836A18B9ED2E.gwt.rpc

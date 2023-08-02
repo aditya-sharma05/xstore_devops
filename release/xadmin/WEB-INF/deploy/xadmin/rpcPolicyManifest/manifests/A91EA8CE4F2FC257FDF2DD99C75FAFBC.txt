@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.logs.client.ApplicationLogsService
+path: 904B70C8FD7D8478FA5602B4EFD20681.gwt.rpc

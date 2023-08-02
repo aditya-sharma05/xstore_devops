@@ -1,0 +1,20 @@
+<jxb:bindings version="2.0"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+    jxb:extensionBindingPrefixes="xjc">
+  <jxb:globalBindings>
+    <xjc:simple />
+    <xjc:serializable uid="1" />
+  </jxb:globalBindings>
+  <jxb:bindings schemaLocation="../../../../../pos/config/dtv/res/config/MenuConfig.xsd" node="/xs:schema">
+    <jxb:schemaBindings>
+      <jxb:package name="com.micros_retail.configurator.feature.menu.model" />
+    </jxb:schemaBindings>
+  </jxb:bindings>
+  <jxb:bindings schemaLocation="../../../../../pos/config/dtv/res/config/DtvConfigLibrary.xsd" node="/xs:schema">
+    <jxb:schemaBindings>
+      <jxb:package name="com.micros_retail.configurator.common.model" />
+    </jxb:schemaBindings>
+  </jxb:bindings>
+</jxb:bindings>

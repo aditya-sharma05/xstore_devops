@@ -1,0 +1,66 @@
+@FinalFields, false
+com.google.gwt.i18n.shared.impl.DateRecord, true, true, true, true, com.google.gwt.i18n.shared.impl.DateRecord/3173882066, 3173882066
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+com.micros_retail.gwt.shared.entity.AbstractEntity, true, false, true, false, com.micros_retail.gwt.shared.entity.AbstractEntity/3506585559, 3506585559
+com.micros_retail.xadmin.datamanager.client.tax.TaxService, false, false, false, false, _, 3818158361
+com.micros_retail.xadmin.datamanager.shared.main.DataManagerObjectType, true, true, false, false, com.micros_retail.xadmin.datamanager.shared.main.DataManagerObjectType/3497711645, 3497711645
+com.micros_retail.xadmin.datamanager.shared.main.DuplicateObjectException, true, true, false, false, com.micros_retail.xadmin.datamanager.shared.main.DuplicateObjectException/2372333675, 2372333675
+com.micros_retail.xadmin.datamanager.shared.tax.TaxBracketResult, true, true, true, true, com.micros_retail.xadmin.datamanager.shared.tax.TaxBracketResult/524683821, 524683821
+[Lcom.micros_retail.xadmin.datamanager.shared.tax.TaxBracketResult;, true, true, false, false, [Lcom.micros_retail.xadmin.datamanager.shared.tax.TaxBracketResult;/875294999, 875294999
+com.micros_retail.xadmin.datamanager.shared.tax.TaxGroupRuleResult, true, true, true, true, com.micros_retail.xadmin.datamanager.shared.tax.TaxGroupRuleResult/149801643, 149801643
+[Lcom.micros_retail.xadmin.datamanager.shared.tax.TaxGroupRuleResult;, true, true, false, false, [Lcom.micros_retail.xadmin.datamanager.shared.tax.TaxGroupRuleResult;/2973134001, 2973134001
+com.micros_retail.xadmin.datamanager.shared.tax.TaxRateRuleData, true, true, false, false, com.micros_retail.xadmin.datamanager.shared.tax.TaxRateRuleData/3360116201, 3360116201
+com.micros_retail.xadmin.datamanager.shared.tax.TaxesContext, true, true, false, false, com.micros_retail.xadmin.datamanager.shared.tax.TaxesContext/109564470, 109564470
+com.micros_retail.xadmin.util.gwt.entity.AbstractDataManagerEntity, true, false, true, false, com.micros_retail.xadmin.util.gwt.entity.AbstractDataManagerEntity/3970312691, 3970312691
+com.micros_retail.xadmin.util.gwt.entity.EntityWrapper, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.EntityWrapper/3958411174, 3958411174
+[Lcom.micros_retail.xadmin.util.gwt.entity.EntityWrapper;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.entity.EntityWrapper;/77952423, 77952423
+com.micros_retail.xadmin.util.gwt.entity.TaxAuthorityChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxAuthorityChange/3800147061, 3800147061
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxAuthorityChange,_taxAuthorityId,_name,_roundingCode,_roundingDigitsQuantity,_orgCode,_orgValue
+com.micros_retail.xadmin.util.gwt.entity.TaxBracketChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxBracketChange/3000657427, 3000657427
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxBracketChange,_taxBracketId,_orgCode,_orgValue,_editable,_taxBrackets
+com.micros_retail.xadmin.util.gwt.entity.TaxBracketDetailChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxBracketDetailChange/269207219, 269207219
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxBracketDetailChange,_organizationId,_targetNode,_targetDate,_sequenceNumber,_recordId,_taxBracketId,_orgCode,_orgValue,_taxBracketSequence,_taxBreakpoint,_taxAmount,_taxBracket,_deletedFlag
+[Lcom.micros_retail.xadmin.util.gwt.entity.TaxBracketDetailChange;, true, true, true, true, [Lcom.micros_retail.xadmin.util.gwt.entity.TaxBracketDetailChange;/332058570, 332058570
+com.micros_retail.xadmin.util.gwt.entity.TaxGroupChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxGroupChange/3074855780, 3074855780
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxGroupChange,_taxGroupId,_description,_name,_orgCode,_orgValue
+com.micros_retail.xadmin.util.gwt.entity.TaxGroupRuleChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxGroupRuleChange/2079607123, 2079607123
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxGroupRuleChange,_taxGroupId,_taxLocationId,_taxRuleSequence,_compound,_compoundSequence,_description,_name,_taxTypeCode,_taxedAtTransLevel,_taxAuthorityId,_orgCode,_orgValue,_fiscalTaxId
+com.micros_retail.xadmin.util.gwt.entity.TaxLocationChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxLocationChange/413278549, 413278549
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxLocationChange,_taxLocationId,_description,_name,_orgCode,_orgValue
+com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleChange/1404284590, 1404284590
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleChange,_taxGroupId,_taxLocationId,_taxRateRuleSequence,_taxRuleSequence,_amount,_breakPointTypeCode,_dailyEndTimeDao,_dailyStartTimeDao,_effectiveDatetimestamp,_expirationDatetimestamp,_percent,_taxRateMaxTaxableAmount,_taxRateMinTaxableAmount,_taxBracketId,_orgCode,_orgValue
+com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleOverrideChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleOverrideChange/2856958081, 2856958081
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleOverrideChange,_expirationDatetimestamp,_taxGroupId,_taxLocationId,_taxRateRuleSequence,_taxRuleSequence,_amount,_breakPointTypeCode,_dailyEndTimeDao,_dailyStartTimeDao,_effectiveDatetimestamp,_percent,_taxRateMaxTaxableAmount,_taxRateMinTaxableAmount,_taxBracketId,_orgCode,_orgValue
+com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption, true, true, false, false, com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption/4288264881, 4288264881
+[Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;/1601029178, 1601029178
+[Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;/170399506, 170399506
+com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem/806029010, 806029010
+com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem/540270210, 540270210
+com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem/891107832, 891107832
+java.lang.Boolean, true, true, true, true, java.lang.Boolean/476441737, 476441737
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.Integer, true, true, true, true, java.lang.Integer/3438268394, 3438268394
+java.lang.Number, true, false, true, false, java.lang.Number/300033342, 300033342
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.math.BigDecimal, true, true, true, true, java.math.BigDecimal/8151472, 8151472
+java.math.BigInteger, true, true, true, true, java.math.BigInteger/927293797, 927293797
+java.sql.Date, true, true, true, true, java.sql.Date/730999118, 730999118
+java.sql.Time, true, true, true, true, java.sql.Time/1816797103, 1816797103
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.ArrayList, true, true, true, true, java.util.ArrayList/4159755760, 4159755760
+java.util.Arrays$ArrayList, true, true, true, true, java.util.Arrays$ArrayList/2507071751, 2507071751
+java.util.Collections$EmptyList, true, true, true, true, java.util.Collections$EmptyList/4157118744, 4157118744
+java.util.Collections$EmptyMap, true, true, false, false, java.util.Collections$EmptyMap/4174664486, 4174664486
+java.util.Collections$SingletonList, true, true, true, true, java.util.Collections$SingletonList/1586180994, 1586180994
+java.util.Date, true, true, true, true, java.util.Date/3385151746, 3385151746
+java.util.HashMap, true, true, false, false, java.util.HashMap/1797211028, 1797211028
+java.util.IdentityHashMap, true, true, false, false, java.util.IdentityHashMap/1839153020, 1839153020
+java.util.LinkedHashMap, true, true, false, false, java.util.LinkedHashMap/3008245022, 3008245022
+java.util.LinkedList, true, true, true, true, java.util.LinkedList/3953877921, 3953877921
+java.util.Stack, true, true, true, true, java.util.Stack/1346942793, 1346942793
+java.util.TreeMap, true, true, false, false, java.util.TreeMap/1493889780, 1493889780
+java.util.Vector, true, true, true, true, java.util.Vector/3057315478, 3057315478

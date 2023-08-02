@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.deployment.client.plan.DeploymentPlanService
+path: 237DA8ED21443C3CCF08F8ADF8E018C3.gwt.rpc

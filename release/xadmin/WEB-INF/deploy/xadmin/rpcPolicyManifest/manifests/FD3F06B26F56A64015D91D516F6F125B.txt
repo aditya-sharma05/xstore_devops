@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.util.gwt.service.DeploymentCommonService
+path: 86BB8FC24D190F52BD666A42307CC3B8.gwt.rpc

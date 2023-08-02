@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.support.ejournal.client.EJournalService
+path: C82EE50BE24954AEA83B200C91224F35.gwt.rpc

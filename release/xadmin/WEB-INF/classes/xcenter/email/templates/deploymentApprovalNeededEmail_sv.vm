@@ -1,0 +1,50 @@
+#set ($subject = "Godkännande av fas krävs")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+<body>
+<table id="wrapper"><tr><td>
+  <table id="introtxt">
+    <tr>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold;">
+        Följande distribuering har en fas som har schemalagts som Godkännande krävs. </br> <a href="$content.link">Logga in på Xadmin</a> och godkänn den här fasen så snart som möjligt så att distribueringen kan fortsätta.
+      </td>
+    </tr>
+  </table>
+</br>
+  <table id="detail">
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        Distribuering:
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.deploymentName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        Fas:
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        Schemalagt fasdatum:
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveDate
+      </td>
+    </tr>
+  </table>
+</br>
+</br>
+</td></tr></table>
+</body>
+</html>

@@ -1,0 +1,50 @@
+#set ($subject = "需要阶段审批 – 暂挂")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+<body>
+<table id="wrapper"><tr><td>
+  <table id="introtxt">
+    <tr>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold;">
+        以下部署具有一个安排为“需要审批”的阶段。</br> 由于此阶段未在安排的日期之前批准，因此部署当前处于暂挂状态。<a href="$content.link">请登录 Xadmin</a> 并尽快批准此阶段，以便部署能够继续。
+      </td>
+    </tr>
+  </table>
+</br>
+  <table id="detail">
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        部署：
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.deploymentName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        阶段：
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveName
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="font-family: Calibri; font-size: 16px; font-weight: bold; text-decoration: underline;">
+        安排的阶段日期：
+      </td>
+      <td style="font-family: Calibri; font-size: 15px; font-weight: bold; font-style: italic;">
+        &nbsp;&nbsp;$content.waveDate
+      </td>
+    </tr>
+  </table>
+</br>
+</br>
+</td></tr></table>
+</body>
+</html>

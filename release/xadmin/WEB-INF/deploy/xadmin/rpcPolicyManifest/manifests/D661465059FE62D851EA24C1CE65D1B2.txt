@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.administration.client.storeauth.StoreAuthorizationService
+path: 0C89FB9EE1A7BF16C1773298D4389523.gwt.rpc

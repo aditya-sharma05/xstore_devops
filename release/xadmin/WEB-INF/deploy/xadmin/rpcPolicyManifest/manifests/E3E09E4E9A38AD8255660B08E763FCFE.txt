@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.deployment.client.fileupload.FileUploadService
+path: 2DFB99ECFE2FA2391E5809BE1DDE6D32.gwt.rpc

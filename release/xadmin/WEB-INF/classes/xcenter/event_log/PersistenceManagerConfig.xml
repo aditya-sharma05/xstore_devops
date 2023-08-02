@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PersistenceManagerTypeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="PersistenceManagerConfig.xsd">
+  <PersistenceManagerType name="EVENT_LOG_ENTRY">
+    <Online dtype="LocationGroup">
+      <LookupLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>1</Order>
+      </LookupLocation>
+
+      <!-- 2012-01-03  JDM   We are changing our Xadmin JMS strategy.  Xadmin needs to
+      be able to create and persist EventLog records directly to the ctl_event_log table,
+      instead of sending it out over a JMS topic.  This is in support of dashboard
+      support alerts; refer to DeviceRegistrationMonitor.java to see where and why
+      Xadmin is creating EventLog records.
+      
+      <PersistenceLocation>
+        <DataSourceName>EventLogJmsDestination</DataSourceName>
+        <Order>1</Order>
+      </PersistenceLocation>
+      -->
+
+      <PersistenceLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>1</Order>
+      </PersistenceLocation>
+    </Online>
+    <Offline dtype="LocationGroup">
+      <LookupLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>1</Order>
+      </LookupLocation>
+      <PersistenceLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>1</Order>
+      </PersistenceLocation>
+    </Offline>
+    <Training dtype="LocationGroup">
+      <LookupLocation>
+        <DataSourceName>Training</DataSourceName>
+        <Order>1</Order>
+      </LookupLocation>
+      <PersistenceLocation>
+        <DataSourceName>Training</DataSourceName>
+        <Order>1</Order>
+      </PersistenceLocation>
+    </Training>    
+  </PersistenceManagerType>
+</PersistenceManagerTypeSet>

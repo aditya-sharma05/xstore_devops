@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.tender.TenderService
+path: 1F5D8979144D6B61052FCDB8D7407C92.gwt.rpc

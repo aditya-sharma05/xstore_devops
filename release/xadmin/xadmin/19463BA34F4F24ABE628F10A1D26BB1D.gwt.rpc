@@ -1,0 +1,58 @@
+@FinalFields, false
+com.google.gwt.i18n.shared.impl.DateRecord, true, true, true, true, com.google.gwt.i18n.shared.impl.DateRecord/3173882066, 3173882066
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+com.micros_retail.gwt.shared.entity.AbstractEntity, true, false, true, false, com.micros_retail.gwt.shared.entity.AbstractEntity/3506585559, 3506585559
+com.micros_retail.xadmin.configurator.client.code.CodeValueService, false, false, false, false, _, 3457636686
+com.micros_retail.xadmin.configurator.shared.code.CodeValueData, true, true, false, false, com.micros_retail.xadmin.configurator.shared.code.CodeValueData/1900746729, 1900746729
+com.micros_retail.xadmin.configurator.shared.main.DuplicateConfiguratorObjectException, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.DuplicateConfiguratorObjectException/321510327, 321510327
+com.micros_retail.xadmin.configurator.shared.main.ProfileInfo, false, false, true, true, com.micros_retail.xadmin.configurator.shared.main.ProfileInfo/3090017537, 3090017537
+com.micros_retail.xadmin.util.gwt.entity.AbstractConfiguratorEntity, true, false, true, false, com.micros_retail.xadmin.util.gwt.entity.AbstractConfiguratorEntity/3662965501, 3662965501
+com.micros_retail.xadmin.util.gwt.entity.CodeCategory, true, true, false, false, com.micros_retail.xadmin.util.gwt.entity.CodeCategory/2818334338, 2818334338
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.CodeCategory,_organizationId,_categoryGroup,_category,_internalFlag,_description,_comments,_usesImageUrl,_usesRank,_privilegeId
+[Lcom.micros_retail.xadmin.util.gwt.entity.CodeCategory;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.entity.CodeCategory;/708645475, 708645475
+com.micros_retail.xadmin.util.gwt.entity.CodeValueChange, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.CodeValueChange/1934029182, 1934029182
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.CodeValueChange,_category,_code,_description,_sortOrder,_hidden,_enabled,_imageUrl,_rank,_descriptionTranslations
+[Lcom.micros_retail.xadmin.util.gwt.entity.CodeValueChange;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.entity.CodeValueChange;/86574126, 86574126
+com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation/1920355893, 1920355893
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation,_organizationId,_profileGroupId,_profileElementId,_translationKey,_locale,_translation,_configVersion
+com.micros_retail.xadmin.util.gwt.entity.MessageTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.MessageTranslation/1792644133, 1792644133
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.MessageTranslation,_organizationId,_profileGroupId,_profileElementId,_translationKey,_locale,_translation,_configVersion
+com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption, true, true, false, false, com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption/4288264881, 4288264881
+[Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;/1601029178, 1601029178
+[Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;/170399506, 170399506
+com.micros_retail.xadmin.util.gwt.widgets.i18n.SimpleTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.widgets.i18n.SimpleTranslation/1305973980, 1305973980
+com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem/806029010, 806029010
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem;/2462117011, 2462117011
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.IListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.IListItem;/986897512, 986897512
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.ISortableListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.ISortableListItem;/3949245016, 3949245016
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.ITitledListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.ITitledListItem;/2038808281, 2038808281
+com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem/540270210, 540270210
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem;/3489892195, 3489892195
+com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem/891107832, 891107832
+[Lcom.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem;/2533878243, 2533878243
+java.lang.Boolean, true, true, true, true, java.lang.Boolean/476441737, 476441737
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.Integer, true, true, true, true, java.lang.Integer/3438268394, 3438268394
+java.lang.Long, true, true, false, false, java.lang.Long/4227064769, 4227064769
+java.lang.Number, true, false, true, false, java.lang.Number/300033342, 300033342
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.sql.Date, true, true, true, true, java.sql.Date/730999118, 730999118
+java.sql.Time, true, true, true, true, java.sql.Time/1816797103, 1816797103
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.ArrayList, true, true, false, false, java.util.ArrayList/4159755760, 4159755760
+java.util.Arrays$ArrayList, true, true, false, false, java.util.Arrays$ArrayList/2507071751, 2507071751
+java.util.Collections$EmptyList, true, true, false, false, java.util.Collections$EmptyList/4157118744, 4157118744
+java.util.Collections$EmptyMap, true, true, true, true, java.util.Collections$EmptyMap/4174664486, 4174664486
+java.util.Collections$SingletonList, true, true, false, false, java.util.Collections$SingletonList/1586180994, 1586180994
+java.util.Date, true, true, true, true, java.util.Date/3385151746, 3385151746
+java.util.HashMap, true, true, true, true, java.util.HashMap/1797211028, 1797211028
+java.util.IdentityHashMap, true, true, true, true, java.util.IdentityHashMap/1839153020, 1839153020
+java.util.LinkedHashMap, true, true, true, true, java.util.LinkedHashMap/3008245022, 3008245022
+java.util.LinkedList, true, true, false, false, java.util.LinkedList/3953877921, 3953877921
+java.util.Stack, true, true, false, false, java.util.Stack/1346942793, 1346942793
+java.util.TreeMap, true, true, true, true, java.util.TreeMap/1493889780, 1493889780
+java.util.Vector, true, true, false, false, java.util.Vector/3057315478, 3057315478

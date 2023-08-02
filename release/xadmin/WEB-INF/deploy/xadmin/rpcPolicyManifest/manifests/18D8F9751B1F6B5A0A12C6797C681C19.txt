@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.code.CodeValueService
+path: 19463BA34F4F24ABE628F10A1D26BB1D.gwt.rpc

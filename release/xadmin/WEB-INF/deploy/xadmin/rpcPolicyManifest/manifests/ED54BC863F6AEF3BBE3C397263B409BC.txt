@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.administration.client.user.UserService
+path: 88B13AB52CF473A9C41971F5AC607857.gwt.rpc

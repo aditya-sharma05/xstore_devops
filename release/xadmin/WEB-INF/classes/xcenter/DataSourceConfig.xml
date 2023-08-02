@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSourceSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DataSourceConfig.xsd">
+
+  <DataSource name="Local"  NetworkScope="LAN" HighAvailability="true">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionUserName" value="${dtv.local.db.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.local.db.password}"/>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionURL" value="${dtv.local.db.url}"/>
+    <Property key="DisableEncryption" value="${dtv.local.db.disableencryption:false}"/>
+  </DataSource>
+  
+  <DataSource name="XcenterAdmin"  NetworkScope="LAN" HighAvailability="true">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionUserName" value="${dtv.xadmin.db.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.xadmin.db.password}"/>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionURL" value="${dtv.xadmin.db.url}"/>
+    <Property key="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>
+    <Property key="ConnectionPoolMinSize" value="2" />
+    <Property key="ConnectionPoolMaxSize" value="10" />
+    <Property key="DisableEncryption" value="${dtv.xadmin.db.disableencryption:false}"/>
+  </DataSource>
+  
+   <DataSource name="XcenterReplication" NetworkScope="LAN" HighAvailability="true">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${dtv.xcrepl.db.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.xcrepl.db.password}"/>
+    <Property key="ConnectionURL" value="${dtv.xcrepl.db.url}" />
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+    <Property key="DisableEncryption" value="${dtv.xcrepl.db.disableencryption:false}"/>
+  </DataSource>
+  
+  <!-- For WebSphere - Also note that the connection factory needs to be setup in WS>  
+  <DataSource name="EventLogJmsDestination"  NetworkScope="WAN">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="Class">dtv.data2.access.impl.remote.jms.JmsPersistenceStrategy</Strategy>
+    <Property key="DesinationName" value="topic/dtv.xst.dao.ctl.IEventLogEntry"/>
+    <Property key="java.naming.provider.url" value="iiop://localhost:40101"/>
+    <Property key="java.naming.factory.initial" value="com.ibm.websphere.naming.WsnInitialContextFactory"/>
+    <Property key="ConnectionFactory" value="jms/xcenterConnection"/>   
+    <Property key="messageProperty:loggerCategory" value="loggerCategory"/>
+  </DataSource>  
+  -->
+  
+  <!-- *********************************************** -->
+  <!-- Disable some base datasources to avoid confusion -->
+  <!-- *********************************************** -->
+  <DataSource name="Relate" enabled="false" />
+  <DataSource name="Xcenter" enabled="false" />
+  <DataSource name="StorePrimary" enabled="false" />
+  <DataSource name="StoreBackup" enabled="false" />
+  <DataSource name="ConcurrentStoreLocal" enabled="false" />
+  <DataSource name="ConcurrentStoreXcenter" enabled="false" />
+  <DataSource name="Replication" enabled="false" />
+  <DataSource name="Training" enabled="false" />
+  <DataSource name="ConcurrentStoreRelate" enabled="false" />
+  <DataSource name="StorePrimaryNoReplication" enabled="false" />
+
+</DataSourceSet>

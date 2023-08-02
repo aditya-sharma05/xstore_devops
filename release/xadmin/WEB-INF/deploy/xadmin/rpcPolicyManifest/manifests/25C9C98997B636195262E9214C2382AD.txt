@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.support.poslog.client.PosLogDocumentService
+path: 6A1EBFC1CAC7E0704F806C11B30D220E.gwt.rpc

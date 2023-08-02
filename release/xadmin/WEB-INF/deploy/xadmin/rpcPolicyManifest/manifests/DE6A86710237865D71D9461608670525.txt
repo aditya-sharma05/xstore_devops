@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.tax.TaxService
+path: B36013AF5BC65B3B73A71DB25068B76A.gwt.rpc

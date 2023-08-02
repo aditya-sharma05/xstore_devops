@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.customization.client.IntegrationConfigService
+path: B547B63A62C143DF400A9F9571903D8E.gwt.rpc

@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.attachment.client.AttachmentService
+path: 016E70ACFE389A53950D61A7DF2E2A7B.gwt.rpc

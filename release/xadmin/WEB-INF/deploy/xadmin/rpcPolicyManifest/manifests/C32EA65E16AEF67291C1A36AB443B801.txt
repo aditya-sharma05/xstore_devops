@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.administration.client.version.XadminVersionService
+path: AFA8EA85682F15D1771B5DC617AD4D90.gwt.rpc

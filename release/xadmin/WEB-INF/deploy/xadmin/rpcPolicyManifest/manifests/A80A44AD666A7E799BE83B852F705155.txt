@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.menu.TabConfigService
+path: 4A95EC8A84CEC9FA45F6EFFEB480220C.gwt.rpc

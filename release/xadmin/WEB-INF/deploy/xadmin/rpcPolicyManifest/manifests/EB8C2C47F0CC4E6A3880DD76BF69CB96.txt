@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.security.SecurityService
+path: 9A62CECAF94A3FE14001DAD17C667286.gwt.rpc

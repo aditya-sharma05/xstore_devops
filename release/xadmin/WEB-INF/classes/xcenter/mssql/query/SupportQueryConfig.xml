@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuerySet xmlns="http://micros.com/xstore/config/query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QueryConfig.xsd">
+ <Queries>
+
+  <Query name="NEW_ARRIVALS_ALERT_SCAN_CTL_EVENT_LOG_BY_CATEGORY" pmType="EVENT_LOG_ENTRY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.support.dashboard.server.CtlEventLogEntry</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="CreateDate" type="Date" />
+    <ResultField name="OperatorPartyId" type="Long" />
+    <ResultField name="LogMessage" type="String" />
+    <ResultField name="LogLevel" type="String" />
+    <ResultField name="Source" type="String" />
+    <ResultField name="ThreadName" type="String" />
+    <ResultField name="LoggerCategory" type="String" />
+    <ResultField name="LogTimestamp" type="Date" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          rtl_loc_id, 
+          wkstn_id,
+          create_date,
+          operator_party_id,
+          log_message,
+          log_level,
+          source,
+          thread_name,
+          logger_category,
+          log_timestamp
+        FROM ctl_event_log
+        WHERE organization_id = ?
+        AND arrival_timestamp >= ?
+        AND arrival_timestamp < ?
+        AND create_date >= ?
+        AND logger_category in ?        
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argStartTimestamp" />
+      <Parameter name="argEndTimestamp" />
+      <Parameter name="argBusinessDateStart" />
+      <Parameter name="@argLoggerCategories" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY create_date DESC, rtl_loc_id, wkstn_id]]></Suffix>
+  </Query>
+
+ </Queries>
+</QuerySet>

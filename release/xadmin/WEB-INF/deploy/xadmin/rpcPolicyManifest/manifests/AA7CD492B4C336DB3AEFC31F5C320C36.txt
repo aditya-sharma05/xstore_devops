@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.discount.DiscountService
+path: 294B6BCABC190DE6C3E2CD5777B03B54.gwt.rpc

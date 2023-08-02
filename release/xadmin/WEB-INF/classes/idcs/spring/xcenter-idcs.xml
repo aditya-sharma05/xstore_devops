@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+  <!-- IDP Secret Regeneration quartz beans -->
+   <bean id="renewIDPCredentialsJobClass" class="java.lang.String">
+      <constructor-arg value="com.micros_retail.xcenter.util.auth.RenewIDPCredentialsJob"/>
+  </bean>
+  
+  <bean id="renewIdpCredsJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" ref="renewIDPCredentialsJobClass" />
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Regenerate the IDP client secret and save to credentials store."/>
+    <property name="jobDataAsMap">
+      <map key-type="java.lang.String" value-type="java.lang.Integer">
+        <!-- threshold and duration are in days -->
+        <entry key="#{T(com.micros_retail.xcenter.util.auth.AbstractRenewIDPCredentials).THRESHOLD}" value="10"/>
+        <entry key="#{T(com.micros_retail.xcenter.util.auth.AbstractRenewIDPCredentials).DURATION}" value="365"/>
+        <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved. 
+        Used only in CFS deployments  -->
+        <entry key="blackoutTime" value="5"/>
+      </map>
+    </property>
+  </bean>
+  <bean id="renewIdpCredsInitializer" class="com.micros_retail.xcenter.util.auth.RenewIDPCredentialsJobInitializer"/>
+  
+  <bean id="renewIdpCredsTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
+    <property name="jobDetail" ref="renewIdpCredsJob" />
+    <!-- Configured to run once every week at 18:00 on Sunday -->
+    <!-- This job should not be scheduled to fire at the same time as job renewRtLogIdpCredsJob -->
+    <property name="cronExpression" value="0 0 18 ? * SUN *" />
+    <!-- Timezones are set to UTC/GMT and cronExpressions are expected to represent that time. -->
+    <property name="timeZone" value="UTC" />
+  </bean>
+
+  <!-- End IDP Secret Regeneration quartz beans -->
+  <util:set id="renewIdpCredsTriggers" value-type="org.quartz.Trigger">
+    <ref bean="renewIdpCredsTrigger"/>
+  </util:set>
+  
+  <bean id="renewIdpCredsJobScheduler" class="org.springframework.beans.factory.config.MethodInvokingBean" depends-on="xadminJobScheduler">
+    <property name="targetObject" ref="renewIdpCredsInitializer"/>
+    <property name="targetMethod" value="initialize"/>
+    <property name="arguments">
+      <list>
+        <ref bean="renewIdpCredsJob"/>
+        <ref bean="renewIdpCredsTriggers"/>
+        <value type="java.lang.Boolean">true</value>
+      </list>
+    </property>
+  </bean>
+</beans>

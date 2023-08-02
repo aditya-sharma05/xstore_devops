@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.reports.client.ReportService
+path: 61B2BDA4E4F127A90FE782A44F796AF8.gwt.rpc

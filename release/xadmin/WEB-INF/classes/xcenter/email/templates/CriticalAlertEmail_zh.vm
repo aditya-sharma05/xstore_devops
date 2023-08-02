@@ -1,0 +1,11 @@
+#set ($subject = "Xadmin 支持：严重警报")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+  <body>
+    #foreach( $alert in $alerts ) <b>$alert.EventTimestamp : $alert.AlertName 在门店 $alert.RtlLocId 收银机 $alert.WkstnId 发生了 $alert.EventCount 次：</b><br> $alert.EventDetails<br> <br> #end
+  </body>
+<html>

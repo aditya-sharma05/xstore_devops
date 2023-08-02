@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.customization.client.BroadcasterConfigService
+path: EB58A94ACAF3725C4E21498AF5DC5C4D.gwt.rpc

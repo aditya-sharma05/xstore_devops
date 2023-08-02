@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.menu.MenuService
+path: 6C046A192268146079C55B36DC57D302.gwt.rpc

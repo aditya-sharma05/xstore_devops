@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d [%t] %-5p %X %c %m%n" header="loading ${log4j:configLocation}%n" />
+    </Console>
+    <!-- define file appender for logging -->
+    <!-- appender name="xcenter.log.appender" class="dtv.util.log4j.DtvDailyRollingFileAppender"> <param name="File" 
+      value="${jboss.server.log.dir}/xcenter-admin.log" /> <param name="MaxBackupIndex" value="14" /> <param name="DatePattern" 
+      value="'.'yyyy-MM-dd"/> <param name="Append" value="true"/> <layout class="org.apache.log4j.PatternLayout"> <param 
+      name="ConversionPattern" value="%d [%t] %-5p %X [%c] %m%n"/> </layout> </appender -->
+    <XadminDataLoaderEventLogAppender name="XadminDataLoaderEventLogAppender" />
+  </Appenders>
+  <Loggers>
+    <Logger name="dtv.util.config.ConfigHelper" level="WARN" />
+    <Logger name="dtv.data2.access.impl.jdbc.DtvPreparedStatement" level="WARN" />
+    <!-- <Logger name="dtv.data2.access.pm.DefaultPersistenceMgr" level="DEBUG"/> -->
+    <Logger name="javax.servlet" level="WARN" />
+
+    <!-- Hibernate debug messages <BEGIN> -->
+    <Logger name="org.hibernate.SQL" level="WARN" />
+    <Logger name="org.hibernate.engine.QueryParameters" level="WARN" />
+    <Logger name="org.hibernate.type" level="WARN" />
+    <Logger name="org.hibernate.engine.query.HQLQueryPlan" level="WARN" />
+    <Logger name="org.hibernate.transaction" level="WARN" />
+    <Logger name="org.hibernate" level="WARN" />
+    <!-- Hibernate debug messages <END> -->
+
+    <!-- JMS debug messages <BEGIN> -->
+    <Logger name="com.micros_retail.xcenter.support" level="WARN" />
+    <Logger name="dtv.data2.access.impl.remote.jms" level="WARN" />
+    <!-- JMS debug messages <END> -->
+
+    <!-- <Logger name="DtxQueryDebugger" level="DEBUG"/> -->
+    <Logger name="com.micros_retail.xcenter" level="WARN" />
+
+    <!-- For development, disable the helpDeskError category. -->
+    <!-- <Logger name="com.micros_retail.xcenter.helpDeskError" additivity="false" level="ALL"/> -->
+
+    <Logger name="FAILED_PERSISTENCE_LOG" additivity="false" level="ALL" />
+    <Logger name="dtv.xstore.dataloader">
+      <AppenderRef ref="XadminDataLoaderEventLogAppender" />
+    </Logger>
+    <!-- associate appenders with root (default) logger -->
+    <Root level="WARN">
+      <!--AppenderRef ref="xcenter.log.appender" / -->
+      <AppenderRef ref="Console" />
+    </Root>
+  </Loggers>
+</Configuration>

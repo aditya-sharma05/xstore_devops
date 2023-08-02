@@ -1,0 +1,106 @@
+.inputValidationError {
+  background-color: #ffdddd;
+  background-image: url('/xadmin/images/error_circle.png');
+  background-repeat: no-repeat;
+  background-position-x: left;
+  background-position-y: center;
+}
+
+.logoReplication {
+  background: #FFF url('/xadmin/images/alerts/replication.png') no-repeat 10px center;
+}
+
+.logoConnectivity {
+  background: #FFF url('/xadmin/images/alerts/connectivity.png') no-repeat 10px center;
+}
+
+.logoApplication {
+  background: #FFF url('/xadmin/images/alerts/app.png') no-repeat 10px center;
+}
+
+.logoHardware {
+  background: #FFF url('/xadmin/images/alerts/hardware.png') no-repeat 10px center;
+}
+
+.logoUpdates {
+  background: #FFF url('/xadmin/images/alerts/updates.png') no-repeat 10px center;
+}
+
+.logoVersioning {
+  background: #FFF url('/xadmin/images/alerts/versioning.png') no-repeat 10px center;
+}
+
+.severityThresholdBlock {
+  padding: 10px;
+}
+
+.severityThresholdModule {
+  margin-top: 30px;
+}
+
+.severityThresholdModuleDescription {
+  color:#333;
+  font: bold 1.1em Arial, Helvetica, sans-serif; /* Needed to override RichFaces settings */
+  height: 1.6em;
+  line-height: 1.6em; /* matches height to get text to vertically center. */
+  padding: 3px 1px 3px 35px;
+  vertical-align: center;
+  background-color: #f2f2f3;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #cbcccd;
+  width: 100%;
+}
+
+.severityThresholdRow {
+  
+}
+
+.severityThresholdRowName {
+  width: 200px;
+  margin-left: 20px;
+}
+
+.severityThresholdRowInput {
+  width: 100px;
+  text-align: right;
+}
+
+.severityThresholdRules {
+}
+
+.section {
+  margin: 2px;
+}
+
+.sectionSelector {
+  top: 5px;
+  padding-right: 10px;
+}
+
+.sectionLabel {
+  font-size: 16px;
+  font-weight: bold;
+  
+  cursor: pointer;
+}
+
+.sectionDescription {
+  font-size: 13px;
+
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #c8c8c8;
+
+  cursor: pointer;
+}
+
+.legend {
+  text-align: center;
+}
+
+.legendMessage {
+}
+
+.legendIcon {
+}

@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.administration.client.availableLocale.AvailableLocaleService
+path: 81D2BD7A75319CB5EB8B2A8A0586DFD2.gwt.rpc

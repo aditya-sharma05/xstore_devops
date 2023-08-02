@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.administration.client.sysmanager.SysManagerService
+path: FF3B3E74728EC26CB6EE0335557B7DE1.gwt.rpc

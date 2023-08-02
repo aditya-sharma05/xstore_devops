@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.orghierarchy.OrgHierarchyDmService
+path: B7876B5CB526A914ED31560DBFD08391.gwt.rpc

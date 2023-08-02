@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        version="3.0">
+
+  <!-- Set absolute-ordering with no named fragments to avoid loading spring-web's web-fragment.xml -->
+  <!-- This is necessary to avoid issues when running on Glassfish.                                 -->
+  <absolute-ordering />
+
+  <context-param>
+    <param-name>xcenter.bootstrap.steps</param-name>
+    <param-value>
+        com.micros_retail.xcenter.bootstrap.BootstrapDatabaseConfiguration;
+        com.micros_retail.xcenter.bootstrap.BootstrapIdpConfiguration;
+        com.micros_retail.xcenter.bootstrap.BootstrapExternalConfigPath;
+        com.micros_retail.xcenter.bootstrap.BootstrapApplicationScopeProperties;
+        com.micros_retail.xcenter.bootstrap.BootstrapXstoreSystemProperties;
+        com.micros_retail.xcenter.bootstrap.BootstrapCiphers;
+        com.micros_retail.xcenter.bootstrap.BootstrapConfigurationMgr;
+        com.micros_retail.xcenter.bootstrap.BootstrapTruststore;
+        com.micros_retail.xcenter.bootstrap.BootstrapVersions;
+    </param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>gwt.xsrf.session_cookie_name</param-name>
+    <param-value>JSESSIONID</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>spring.profiles.active</param-name>
+    <param-value>dataloader</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>xcenter.config.prefix</param-name>
+    <param-value>xcenter</param-value>
+  </context-param>
+
+  <!-- Work-around param to keep jersey-spring3 from initializing a second WebApplicationContext -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value></param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>loggingContextFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loggingContextFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>HttpHeaderSetterFilter</filter-name>
+    <filter-class>com.micros_retail.xadmin.servlet.filter.HttpHeaderSetterFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>HttpHeaderSetterFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>SpringSessionFilter</filter-name>
+    <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    <init-param>
+      <param-name>threadContextInheritable</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SpringSessionFilter</filter-name>
+    <url-pattern>/xadmin/springGwtServices/*</url-pattern>
+    <url-pattern>/receiptviewer/springGwtServices/*</url-pattern>
+    <url-pattern>/xadmin/receiptLogoUpload</url-pattern>
+    <url-pattern>/xadmin/fileUpload</url-pattern>
+    <url-pattern>/xadmin/msgFileUpload</url-pattern>
+    <url-pattern>/xadmin/configFileUpload</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>notLoggedInFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>notLoggedInFilter</filter-name>
+    <url-pattern>/xadmin/springGwtServices/userBased/*</url-pattern>
+    <url-pattern>/xadmin/deferredjs/*</url-pattern>
+    <url-pattern>/receiptviewer/springGwtServices/userBased/*</url-pattern>
+    <url-pattern>/dynamicResource/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>serviceURIValidationFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>serviceURIValidationFilter</filter-name>
+    <url-pattern>/xadmin/springGwtServices/*</url-pattern>
+    <url-pattern>/receiptviewer/springGwtServices/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>serviceAccessFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>serviceAccessFilter</filter-name>
+    <url-pattern>/xadmin/springGwtServices/userBased/*</url-pattern>
+    <url-pattern>/receiptviewer/springGwtServices/userBased/*</url-pattern>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>com.micros_retail.xcenter.bootstrap.servlet.XcenterContextListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>com.micros_retail.xadmin.util.spring.XadminContextLoaderListener</listener-class>
+  </listener>
+
+  <listener>
+   <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>xsrf</servlet-name>
+    <servlet-class>com.micros_retail.xadmin.util.gwt.server.XsrfTokenServiceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>xsrf</servlet-name>
+    <url-pattern>/xadmin/xsrf</url-pattern>
+    <url-pattern>/receiptviewer/xsrf</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>gwtSpringDispatcherServlet</servlet-name>
+    <servlet-class>com.micros_retail.xadmin.util.spring.GwtSpringDispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gwtSpringDispatcherServlet</servlet-name>
+    <url-pattern>/xadmin/springGwtServices/*</url-pattern>
+    <url-pattern>/receiptviewer/springGwtServices/*</url-pattern>
+  </servlet-mapping>
+
+  <!--  public API for XBRi receipt viewer in Xadmin. -->
+  <servlet>
+    <servlet-name>xadminRESTServices</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>  
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>com.micros_retail.xadmin.service.rest.v1</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.provider.classnames</param-name>
+      <param-value>com.micros_retail.xadmin.service.rest.v1.filter.BasicAuthFilter</param-value>
+    </init-param>
+     <load-on-startup>2</load-on-startup>
+     <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>xadminRESTServices</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RestOpenApiServlet</servlet-name>
+    <servlet-class>com.micros_retail.xcenter.servlet.filter.XcenterOpenApiServlet</servlet-class>
+    <init-param>
+      <param-name>ApiAuthType</param-name>
+      <param-value>BASIC</param-value>
+    </init-param>
+    <init-param>
+      <param-name>packages</param-name>
+      <param-value>com.micros_retail.xadmin.service.rest.v1</param-value>
+    </init-param>
+    <init-param>
+      <param-name>server</param-name>
+      <param-value>/xadmin/rest</param-value>
+    </init-param>
+    <init-param>
+      <param-name>title</param-name>
+      <param-value>Xadmin Open API Documentation</param-value>
+    </init-param>
+    <init-param>
+      <param-name>description</param-name>
+      <param-value>Defines API of secured REST resources</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestOpenApiServlet</servlet-name>
+    <url-pattern>/openapi</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>HealthOpenApiServlet</servlet-name>
+    <servlet-class>com.micros_retail.xcenter.servlet.filter.XcenterOpenApiServlet</servlet-class>
+    <init-param>
+      <param-name>ApiAuthType</param-name>
+      <param-value>NONE</param-value>
+    </init-param>
+    <init-param>
+      <param-name>packages</param-name>
+      <param-value>com.micros_retail.xcenter.service.health</param-value>
+    </init-param>
+    <init-param>
+      <param-name>server</param-name>
+      <param-value>/xadmin/health_check</param-value>
+    </init-param>
+    <init-param>
+      <param-name>title</param-name>
+      <param-value>Xadmin health API</param-value>
+    </init-param>
+    <init-param>
+      <param-name>description</param-name>
+      <param-value>Defines the Xadmin health API</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HealthOpenApiServlet</servlet-name>
+    <url-pattern>/openapi/health_check</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>healthServices</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>com.micros_retail.xcenter.service.health</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.provider.classnames</param-name>
+      <param-value>io.swagger.v3.jaxrs2.integration.resources;dtv.servicex.impl.Log4j2LoggingFilter</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>healthServices</servlet-name>
+    <url-pattern>/health_check</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>dynamicResourceServlet</servlet-name>
+    <servlet-class>com.micros_retail.xadmin.util.DynamicResourceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dynamicResourceServlet</servlet-name>
+    <url-pattern>/dynamicResource/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>receiptLogoUploadServlet</servlet-name>
+    <servlet-class>com.micros_retail.xadmin.util.spring.XadminRequestHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>receiptLogoUploadServlet</servlet-name>
+    <url-pattern>/xadmin/receiptLogoUpload</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>fileUploadServlet</servlet-name>
+    <servlet-class>com.micros_retail.xadmin.util.spring.XadminRequestHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fileUploadServlet</servlet-name>
+    <url-pattern>/xadmin/fileUpload</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>msgFileUploadServlet</servlet-name>
+    <servlet-class>com.micros_retail.xadmin.util.spring.XadminRequestHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>msgFileUploadServlet</servlet-name>
+    <url-pattern>/xadmin/msgFileUpload</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>	
+    <servlet-name>configurationExportServletHandler</servlet-name>	
+    <servlet-class>com.micros_retail.xadmin.util.spring.XadminRequestHandlerServlet</servlet-class>	
+  </servlet>	
+  <servlet-mapping>	
+    <servlet-name>configurationExportServletHandler</servlet-name>	
+    <url-pattern>/xadmin/configurationExport</url-pattern>	
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>configurationUploadServletHandler</servlet-name>
+    <servlet-class>com.micros_retail.xadmin.util.spring.XadminRequestHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>configurationUploadServletHandler</servlet-name>
+    <url-pattern>/xadmin/configurationUpload</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>10</session-timeout>
+    <cookie-config>
+      <http-only>true</http-only>
+      <secure>true</secure>
+    </cookie-config>
+  </session-config>
+
+</web-app>

@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.communications.CommunicationsService
+path: 139409F3A6BA157DF9E31F78A8801DF2.gwt.rpc

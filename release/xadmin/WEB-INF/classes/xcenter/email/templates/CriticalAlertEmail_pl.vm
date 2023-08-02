@@ -1,0 +1,11 @@
+#set ($subject = "Asysta techniczna Xadmin: Krytyczne alarmy")
+
+<!DOCTYPE HTML><html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>$subject</title>
+</head>
+  <body>
+    #foreach( $alert in $alerts ) <b>$alert.EventTimestamp : $alert.AlertName wystąpił $alert.EventCount razy w sklepie $alert.RtlLocId Kasa $alert.WkstnId:</b><br> $alert.EventDetails<br> <br> #end
+  </body>
+<html>

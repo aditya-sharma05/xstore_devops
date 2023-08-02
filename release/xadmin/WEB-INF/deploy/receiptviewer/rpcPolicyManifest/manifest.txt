@@ -1,0 +1,5 @@
+# Module receiptviewer
+# RPC service class, partial path of RPC policy file
+com.google.gwt.user.client.rpc.XsrfTokenService, E1EF26ED6384B9AF4934C71870F2E259.gwt.rpc
+com.micros_retail.xadmin.support.ejournal.client.EJournalService, C82EE50BE24954AEA83B200C91224F35.gwt.rpc
+com.micros_retail.xadmin.util.gwt.service.InitializationService, 9EF0E376A15B7CB4F170248551675BB7.gwt.rpc

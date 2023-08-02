@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTE: this file must be named dozerBeanMapping.xml, and it must be somewhere
+     on the classpath accessible to Dozer; given this, then Dozer's DozerBeanMapperSingletonWrapper
+     class should pick up these configs w/o trouble. -->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping https://dozermapper.github.io/schema/bean-mapping.xsd">
+
+  <!-- This additional Dozer bean mapping file is for defining custom converters that rely on session-scoped
+       beans being provided to the converter. Any global configurations simply should go in the 
+       dozerBeanMapping.xml file.  -->
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption</class-a>
+    <class-b>com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption</class-b>
+    <field custom-converter-id="dozerTranslateStringConverter">
+      <a>title</a>
+      <b>title</b>
+    </field>
+    <field custom-converter-id="dozerTranslateStringConverter">
+      <a>description</a>
+      <b>description</b>
+    </field>
+  </mapping>
+</mappings>

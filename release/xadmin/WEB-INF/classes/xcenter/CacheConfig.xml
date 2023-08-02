@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CacheConfig>
+  <!-- disable dtx caches for Xadmin -->
+  <Cache id="dtx-cache" clearable="true">
+    <Impl>dtv.data2.cache.impl.DummyCache</Impl>
+  </Cache>
+  <Cache id="dtx-cache-trans" clearable="true">
+    <Impl>dtv.data2.cache.impl.DummyCache</Impl>
+  </Cache>
+  <Cache id="xadmin-dynamic-resource" clearable="true">
+    <Impl>dtv.data2.cache.impl.GuavaCache</Impl>
+  </Cache>
+  
+  <GlobalProperties>
+    <!-- define a cache for xadmin dynamic resources, which expires records more than 15 minutes old -->
+    <Property key="guavacache.xadmin-dynamic-resource.MaxEntries" value="100" />
+    <Property key="guavacache.xadmin-dynamic-resource.TimeToLiveSeconds" value="900" />
+  </GlobalProperties>
+</CacheConfig>

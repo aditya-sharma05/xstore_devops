@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.customization.client.OrganizationConfigService
+path: 3367C7F66F81130515826F24B21459D5.gwt.rpc

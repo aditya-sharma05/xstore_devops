@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:task="http://www.springframework.org/schema/task"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+  
+  <bean id="storeCalendar" class="dtv.pos.storecalendar.SystemClockStoreCalendar" />
+  <bean id="dataLoaderFileArchiver" class="dtv.data2.dataloader.NoOpArchiver" />
+  <bean id="dataLoaderResultsWriter" class="com.micros_retail.xadmin.deployment.filedrop.XadminDataLoaderResultsWriter" />
+
+  <bean id="AuthenticationFilter" class="com.micros_retail.xadmin.servlet.filter.DefaultAuthenticationFilter" />
+  <bean id="loggingContextFilter" class="com.micros_retail.xadmin.servlet.filter.LoggingContextFilter" />
+  <bean id="notLoggedInFilter" class="com.micros_retail.xadmin.servlet.filter.NotLoggedInFilter" />
+
+  <bean id="authorizationService" class="com.micros_retail.xcenter.service.rest.v1.filter.NoOpAuthorizationService" />
+
+  <!-- Status reporters for support status REST service -->
+  <bean id="dtxStatusReporter" class="com.micros_retail.xcenter.servlet.filter.DtxStatus" scope="prototype" />
+  <bean id="showStatusReporters" class="com.micros_retail.xcenter.servlet.filter.StatusReporterHolder">
+    <property name="map">
+      <map value-type="com.micros_retail.xcenter.servlet.filter.IStatusReporter">
+        <entry key="dtx" value-ref="dtxStatusReporter"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="XcenterAdmin-PersistenceProvider" class="com.micros_retail.xcenter.persist.MrPersistenceProvider" primary="true">
+    <constructor-arg value="XcenterAdmin" />
+  </bean>
+
+  <bean id="XcenterReplication-PersistenceProvider" class="com.micros_retail.xcenter.persist.MrPersistenceProvider">
+    <constructor-arg value="XcenterReplication" />
+  </bean>
+   <bean id="configurationExportServletHandler" class="com.micros_retail.xadmin.customization.server.upload.ConfigurationExportServletHandler" scope="session">
+     <aop:scoped-proxy />
+   </bean>
+
+  <bean id="persistenceDefaults" class="com.micros_retail.xadmin.util.persistence.XcenterAdminPersistenceDefaults" />
+  <bean id="replicationStrategy" class="dtv.data2.replication.NoReplicationStrategy" />
+  <bean id="translationPaths" class="dtv.i18n.TranslationPaths" />
+  <bean id="emailMessageFactory" class="com.micros_retail.xadmin.util.email.VelocityEmailMessageFactory" />
+  <bean id="testHarness" class="dtv.xunit.DummyTestHarness" />
+
+  <!-- This executor service exists because dataloader needs to run single-threaded. -->
+  <bean id="dataLoaderExecutorService" class="com.micros_retail.xadmin.deployment.DataLoaderExecutorService" destroy-method="shutdownNow" />
+
+  
+  <bean id="transDateProvider" class="dtv.pos.framework.systemcycle.TransDateProvider" />
+
+  <bean id="orgHierarchyLoader" class="com.micros_retail.xadmin.util.orghierarchy.OrgHierarchyLoader" />
+  <bean id="xadminConfigManager" class="com.micros_retail.xadmin.util.CfgConfigMgr" />
+  <bean id="xadminAvailableLocalesProvider" class="com.micros_retail.xadmin.util.XadminAvailableLocalesProvider" />
+  <bean id="xadminMenuHolder" class="com.micros_retail.xadmin.util.MenuHolder" init-method="init" />
+  <bean id="sequenceFactory" class="com.micros_retail.xadmin.util.DBSequenceFactory" init-method="init" />
+  <bean id="emailManager" class="com.micros_retail.xadmin.util.email.XadminEmailManager" init-method="create" destroy-method="destroy" />
+  <bean id="fileTransfer" class="com.micros_retail.xadmin.deployment.FileTransferFactoryBean">
+    <property name="baseUrl" value="#{T(com.micros_retail.xcenter.bootstrap.XcenterProperties).getString('dtv.deployment.StagingHostBaseURL')}" />
+    <property name="username" value="#{T(com.micros_retail.xcenter.bootstrap.XcenterProperties).getString('dtv.deployment.StagingHostUsername')}" />
+    <property name="password" value="#{T(com.micros_retail.xcenter.bootstrap.XcenterProperties).getString('dtv.deployment.StagingHostPassword')}" />
+  </bean>
+  <bean id="deploymentManager" class="com.micros_retail.xadmin.deployment.DeploymentManager" />
+  <bean id="retrieveAndTransferDeployFile" class="com.micros_retail.xadmin.deployment.content.RetrieveAndTransferDeployFile" scope="prototype"/>
+  <bean id="dataToCompresedDataTransformer" class="com.micros_retail.xadmin.deployment.translate.DataToCompressedDataTransformer" />
+  <bean id="nullDeploymentTransformer" class="com.micros_retail.xadmin.deployment.translate.NullDeploymentTransformer" />
+  <bean id="deploymentTransformerFactory" class="dtv.util.spring.DefaultProvidingServiceLocatorFactoryBean">
+    <property name="serviceLocatorInterface" value="com.micros_retail.xadmin.deployment.translate.DeploymentTransformerFactory" />
+    <property name="defaultBeans">
+      <props>
+        <prop key="getTransformer">nullDeploymentTransformer</prop>
+      </props>
+    </property>
+    <property name="serviceMappings">
+      <props>
+        <prop key="DATA">dataToCompresedDataTransformer</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="alertObserver" class="com.micros_retail.xadmin.support.dashboard.server.alert.AlertObserver" init-method="init" destroy-method="destroy">
+    <property name="alertReporters">
+      <list value-type="com.micros_retail.xadmin.support.dashboard.server.alert.IAlertReporter">
+        <bean class="com.micros_retail.xadmin.support.dashboard.server.alert.CriticalAlertEmailReporter"></bean>
+      </list>
+    </property>
+  </bean>
+
+  <!-- ======================= -->
+  <!-- SCHEDULED TASKS
+  
+       Xadmin's Quartz-based jobs defined here using Spring's Quartz support. These jobs are intended to be
+       singletons across the deployment, in that if Xadmin is running clustered, only one of the job instances
+       should perform the task. To allow for this, clustering support from Quartz is enabled.
+       http://www.quartz-scheduler.org/documentation/quartz-2.x/configuration/ConfigJDBCJobStoreClustering
+
+       The jobs listed here will usually have three beans defined: a job bean that executes the work, a
+       trigger for when the work will be done, and a optionally a handler for changes to Xadmin's CFG settings
+       that would affect the trigger. 
+
+       Note that xcenter-spring-beans.xml instead uses Spring's core Task Execution and Scheduling and
+       Xcenter's proprietary clustering support. -->
+  <!-- ======================= -->
+  <!-- Alert Observer quartz beans -->
+  <bean id="alertObserverJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.support.dashboard.server.alert.AlertObserver.AlertObservableJob" />
+    <property name="durability" value="true"/>
+    <property name="description" value="Scan system events for reportable alerts."/>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="category" value="SYSTEM"/>
+        <entry key="blackoutTime" value="2"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="alertObserverTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+    <property name="jobDetail" ref="alertObserverJob" />
+    <!-- Configured to run every 60 seconds. -->
+    <property name="startDelay" value="#{ 60 * 1000 }" />
+    <property name="repeatInterval" value="#{ 60 * 1000 }" />
+  </bean>
+  <!-- End alert observer quartz beans -->
+
+  <!-- Auto file deployment quartz beans -->
+  <bean id="autoFileDeploymentJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.deployment.filedrop.AutoFileTransferDeploymentJob" />
+    <property name="jobDataAsMap">
+        <map>
+            <entry key="category" value="DEPLOYMENT"/>
+            <entry key="doNotLoadAutoDroppedFilesIntoXcenter" value="#{T(com.micros_retail.xcenter.bootstrap.XcenterProperties).getBoolean('autoDrop.doNotLoadAutoDroppedFilesIntoXcenter')}" />
+            <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved.  -->
+            <entry key="blackoutTime" value="2"/>
+        </map>
+    </property>  
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Scan AutoFileTransferDirectory for acceptable files to process with DataLoader."/>
+  </bean>
+
+  <bean id="autoFileDeploymentTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+    <property name="jobDetail" ref="autoFileDeploymentJob" />
+    <!-- Configured to run every 15 mins but the trigger will be re-scheduled by CFG settings via JobSettingsHandler. -->
+    <property name="startDelay" value="#{ 15 * 60 * 1000 }" />
+    <property name="repeatInterval" value="#{ 15 * 60 * 1000 }" />
+  </bean>
+
+  <bean id="autoFileDeploymentSettingsListener" class="com.micros_retail.xadmin.util.schedule.JobSettingsHandler" init-method="init" destroy-method="destroy">
+    <property name="scheduler" ref="xadminJobScheduler" />
+    <property name="triggerName" value="autoFileDeploymentTrigger" />
+    <property name="intervalConfigName" value="AutoFileTransferSchedulerInterval" />
+  </bean>
+  <!-- End auto file deployment quartz beans -->
+
+  <!-- Data Manager auto deployment quartz beans -->
+  <bean id="dataManagerAutoDeploymentJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.datamanager.server.main.DataManagerAutoDeploymentJob" />
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Builds and schedules deployments from info in DAT_DATAMANAGER_CHANGE."/>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="category" value="DEPLOYMENT"/>
+        <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved.  -->
+        <entry key="blackoutTime" value="2"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="dataManagerAutoDeploymentTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="jobDetail" ref="dataManagerAutoDeploymentJob" />
+    <!-- Configured to run daily at 21:00 but the trigger will be re-scheduled by CFG settings via JobSettingsHandler. -->
+    <property name="cronExpression" value="#{T(com.micros_retail.xcenter.util.JobsUtil).toCronExpression('21:00')}" />
+    <!-- Timezones are set to UTC/GMT and cronExpressions are expected to represent that time. -->
+    <property name="timeZone" value="UTC" />
+  </bean>
+
+  <bean id="dataManagerAutoDeploymentSettingsHandler" class="com.micros_retail.xadmin.util.schedule.JobSettingsHandler" init-method="init" destroy-method="destroy">
+    <property name="scheduler" ref="xadminJobScheduler" />
+    <property name="triggerName" value="dataManagerAutoDeploymentTrigger" />
+    <property name="enabledConfigName" value="EnableDataManagerAutoDeployment" />
+    <property name="cronExpressionConfigName" value="DataManagerAutoDeploymentStartTime" />
+  </bean>
+  <!-- End data manager auto deployment quartz beans -->
+
+  <!-- Deployment Email Scheduling quartz beans -->
+  <bean id="deploymentEmailSchedulerJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.deployment.server.DeploymentEmailSchedulerJob" />
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Scan DPL_DEPLOYMENT_WAVE for needed approvals and sends emails."/>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="category" value="DEPLOYMENT"/>
+        <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved.  -->
+        <entry key="blackoutTime" value="1"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="deploymentEmailSchedulerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+    <property name="jobDetail" ref="deploymentEmailSchedulerJob" />
+    <!-- Configured to run every hour but the trigger will be re-scheduled by CFG settings via JobSettingsHandler. -->
+    <property name="startDelay" value="#{ 60 * 60 * 1000 }" />
+    <property name="repeatInterval" value="#{ 60 * 60 * 1000 }" />
+  </bean>
+
+  <bean id="deploymentEmailSchedulerSettingsHandler" class="com.micros_retail.xadmin.util.schedule.JobSettingsHandler" init-method="init" destroy-method="destroy">
+    <property name="scheduler" ref="xadminJobScheduler" />
+    <property name="triggerName" value="deploymentEmailSchedulerTrigger" />
+    <property name="intervalConfigName" value="DeploymentAutoEmailInterval" />
+  </bean>
+  <!-- End deployment email scheduling quartz beans -->
+
+  <!-- Device Registration Monitor quartz beans -->
+  <bean id="deviceRegistrationMonitorJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.support.dashboard.server.DeviceRegistrationMonitorJob" />
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Scan CTL_DEVICE_REGISTRATION and creates event logs for missing devices."/>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="category" value="SYSTEM"/>
+        <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved.  -->
+        <entry key="blackoutTime" value="1"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="deviceRegistrationMonitorTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+    <property name="jobDetail" ref="deviceRegistrationMonitorJob" />
+    <!-- Configured to run every 15 mins but the trigger will be re-scheduled by CFG settings via JobSettingsHandler. -->
+    <property name="startDelay" value="#{ 15 * 60 * 1000 }" />
+    <property name="repeatInterval" value="#{ 15 * 60 * 1000 }" />
+  </bean>
+
+  <bean id="deviceRegistrationMonitorSettingsHandler" class="com.micros_retail.xadmin.util.schedule.JobSettingsHandler" init-method="init" destroy-method="destroy">
+    <property name="scheduler" ref="xadminJobScheduler" />
+    <property name="triggerName" value="deviceRegistrationMonitorTrigger" />
+    <property name="intervalConfigName" value="ScanForMissingDevicesEveryXMinutes" />
+  </bean>
+  <!-- End device registration monitor quartz beans -->
+
+  <!-- Purge Runner quartz beans -->
+  <bean id="purgeRunnerJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.support.purge.DataPurgerJob" />
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Executes DataPurger for all data types to prune data older than retention period."/>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="category" value="PURGE"/>
+        <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved. 
+        Used only in CFS deployments  -->
+        <entry key="blackoutTime" value="2"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="purgeRunnerTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="jobDetail" ref="purgeRunnerJob" />
+    <!-- Configured to run daily at 23:00 but the trigger will be re-scheduled by CFG settings via JobSettingsHandler. -->
+    <property name="cronExpression" value="#{T(com.micros_retail.xcenter.util.JobsUtil).toCronExpression('23:00')}" />
+    <!-- Timezones are set to UTC/GMT and cronExpressions are expected to represent that time. -->
+    <property name="timeZone" value="UTC" />
+  </bean>
+
+  <bean id="purgeRunnerSettingsHandler" class="com.micros_retail.xadmin.util.schedule.JobSettingsHandler" init-method="init" destroy-method="destroy">
+    <property name="scheduler" ref="xadminJobScheduler" />
+    <property name="triggerName" value="purgeRunnerTrigger" />
+    <property name="enabledConfigName" value="EnableDataPurge" />
+    <property name="cronExpressionConfigName" value="DataPurgeStartTime" />
+  </bean>
+  <!-- End purge runner quartz beans -->
+
+  <!-- File delete quartz beans -->
+  <bean id="filePurgerJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.support.purge.FilePurgerJob" />
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Deletes files left in specific directories that are older than retention period."/>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="category" value="PURGE"/>
+        <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved. 
+        Used only in CFS deployments  -->
+        <entry key="blackoutTime" value="2"/>
+      </map>
+    </property>
+    <!-- Optionally uncomment "jobAsDataMap" property and specify an additional directory from which to
+         delete files and the file filter to use. The file filter must be an Apache IOFileFilter. This example
+         deletes files named like "MySampleFileName-1.doc" and is older than 30 days from any directory under
+         /tmp/files.
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="customPurgeDirectory" value="/tmp/files"/>
+        <entry key="customPurgeFileFilter">
+          <bean class="org.apache.commons.io.filefilter.AndFileFilter">
+            <constructor-arg index="0">
+              <bean class="org.apache.commons.io.filefilter.RegexFileFilter">
+                <constructor-arg value="^.*SampleFileName-(\\d+)\\.doc$"/>
+              </bean>
+            </constructor-arg>
+            <constructor-arg index="1">
+              <bean class="org.apache.commons.io.filefilter.AgeFileFilter">
+                <constructor-arg value="#{T(java.lang.System).currentTimeMillis() - (30 * 24 * 60 * 60 * 1000) }"/>
+              </bean>
+            </constructor-arg>
+          </bean>
+        </entry>
+      </map>
+    </property -->
+  </bean>
+
+  <bean id="filePurgerTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="jobDetail" ref="filePurgerJob" />
+    <!-- Configured to run daily at 23:00 but the trigger will be re-scheduled by CFG settings via JobSettingsHandler. -->
+    <property name="cronExpression" value="#{T(com.micros_retail.xcenter.util.JobsUtil).toCronExpression('23:00')}" />
+    <!-- Timezones are set to UTC/GMT and cronExpressions are expected to represent that time. -->
+    <property name="timeZone" value="UTC" />
+  </bean>
+
+  <bean id="filePurgerSettingsHandler" class="com.micros_retail.xadmin.util.schedule.JobSettingsHandler" init-method="init" destroy-method="destroy">
+    <property name="scheduler" ref="xadminJobScheduler" />
+    <property name="triggerName" value="filePurgerTrigger" />
+    <!-- Note that currently file purging is enabled like and happens at same time as data purge -->
+    <property name="enabledConfigName" value="EnableDataPurge" />
+    <property name="cronExpressionConfigName" value="DataPurgeStartTime" />
+  </bean>
+  <!-- End file delete quartz beans -->
+  
+    <!-- Auto populate quartz beans -->
+  <bean id="autoPopulateJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <property name="jobClass" value="com.micros_retail.xadmin.support.autopopl.AutoPopulateJob" />
+    <property name="durability" value="true"/>
+    <property name="requestsRecovery" value="true"/>
+    <property name="description" value="Executes auto populator to convert xml configured broadcasters and integrations into db tables."/>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="category" value="AUTOPOPL"/>
+        <!-- Blackout time in minutes when the job should stop triggering/executing on a node to be repaved. 
+        Used only in CFS deployments  -->
+        <entry key="blackoutTime" value="5"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="autoPopulateTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+    <property name="jobDetail" ref="autoPopulateJob" />
+    <property name="startDelay" value="0" />
+    <property name="repeatCount" value="0" />
+  </bean>
+
+  <bean id="XcenterAdmin-DataSource" class="dtv.data2.access.impl.jdbc.JDBCDataSource">
+    <constructor-arg value="XcenterAdmin" />
+  </bean>  
+  
+  <bean id="XcenterReplication-DataSource" class="dtv.data2.access.impl.jdbc.JDBCDataSource">
+    <constructor-arg value="XcenterReplication" />
+  </bean>
+
+ <!-- Extracting job details and job triggers from xadminJobScheduler so they could be overridden if needed --> 
+  <bean id="xadminJobDetails" parent = "baseXadminJobs" class="org.springframework.beans.factory.config.ListFactoryBean"/>  
+  <util:list id="baseXadminJobs" value-type="org.quartz.JobDetail">
+    <ref bean="alertObserverJob" />
+    <ref bean="autoFileDeploymentJob" />
+    <ref bean="dataManagerAutoDeploymentJob" />
+    <ref bean="deploymentEmailSchedulerJob" />
+    <ref bean="deviceRegistrationMonitorJob" />
+    <ref bean="purgeRunnerJob" />
+    <ref bean="filePurgerJob" />
+    <ref bean="autoPopulateJob" />
+   </util:list>
+    
+  <bean id="xadminJobTriggers" parent="baseXadminTriggers" class="org.springframework.beans.factory.config.ListFactoryBean"/>  
+  <util:list id="baseXadminTriggers" value-type="org.quartz.Trigger">
+        <ref bean="alertObserverTrigger" />
+        <ref bean="autoFileDeploymentTrigger" />
+        <ref bean="dataManagerAutoDeploymentTrigger" />
+        <ref bean="deploymentEmailSchedulerTrigger" />
+        <ref bean="deviceRegistrationMonitorTrigger" />
+        <ref bean="purgeRunnerTrigger" />
+        <ref bean="filePurgerTrigger" />
+        <ref bean="autoPopulateTrigger" />
+  </util:list>
+  
+  <!-- The Quartz Scheduler.
+       It is configured with reference to the Xadmin database to enable persisting its jobs and triggers and
+       to enable clustering support. For more information on configuration options see the following urls.
+       http://www.quartz-scheduler.org/documentation/quartz-2.x/configuration/ConfigJDBCJobStoreClustering
+       http://www.quartz-scheduler.org/documentation/quartz-2.x/configuration/ConfigJobStoreTX.html
+    -->
+  <bean id="xadminJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+    <property name="schedulerName" value="XadminQuartzScheduler" />
+    <property name="dataSource" ref="XcenterAdmin-DataSource" />
+    <property name="overwriteExistingJobs" value="true" />
+    <property name="autoStartup" value="true" />
+    <property name="jobFactory">
+      <bean class="com.micros_retail.xcenter.spring.AutowireCapableJobFactory"/>
+    </property>
+    <property name="jobDetails" ref="xadminJobDetails"/>
+    <property name="triggers" ref="xadminJobTriggers"/>
+    <property name="globalTriggerListeners" ref="xofficeTriggerListeners"/>
+    <property name="quartzProperties">
+        <props>
+            <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+            <prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>
+            <prop key="org.quartz.jobStore.isClustered">true</prop>
+            <prop key="org.quartz.jobStore.clusterCheckinInterval">15000</prop>
+            <prop key="org.quartz.jobStore.misfireThreshold">900000</prop>
+            <prop key="org.quartz.jobStore.driverDelegateClass">#{T(com.micros_retail.xcenter.util.JobsUtil).determineDriverDelegate(@'XcenterAdmin-DataSource') }</prop>
+
+            <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+            <!-- Increasing the thread count since each deployment creates a new job  -->
+            <prop key="org.quartz.threadPool.threadCount">20</prop>
+            <prop key="org.quartz.threadPool.makeThreadsDaemons">true</prop>
+
+            <prop key="org.quartz.plugin.triggerHistory.class">org.quartz.plugins.history.LoggingTriggerHistoryPlugin</prop>
+        </props>
+    </property>
+  </bean>
+  
+  <bean id="mutedXcenterJobScheduler" parent="xcenterJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" primary="true">
+    <property name="autoStartup" ref="schedulerAutoStartup" />
+    <property name="jobDetails" ref="jobsList" />
+    <property name="triggers" ref="triggersList" />
+  </bean>
+  
+  <bean id="schedulerAutoStartup" class="java.lang.String" primary="true">
+     <constructor-arg value="false"/>
+  </bean>
+  
+  <bean id="jobsList" class="org.springframework.beans.factory.config.ListFactoryBean" primary="true">
+    <property name="sourceList">
+      <list />
+    </property>
+  </bean>
+  <bean id="triggersList" class="org.springframework.beans.factory.config.ListFactoryBean" primary="true">
+    <property name="sourceList">
+      <list />
+    </property>
+  </bean>
+  
+  <!-- ======================= -->
+  <!-- END SCHEDULED TASKS -->
+  <!-- ======================= -->
+
+  <bean id="xadminAuthenticator" class="com.micros_retail.xadmin.administration.XadminAuthenticator" scope="session" />
+  <bean id="md5Hasher" class="oracle.retail.xstore.passwd.impl.Md5Hasher" />
+  <bean id="ssha2Hasher" class="oracle.retail.xstore.passwd.impl.Ssha2Hasher" />
+  <bean id="passwordHash" class="oracle.retail.xstore.passwd.impl.DefaultPasswordHashSet">
+    <property name="hashers">
+      <list value-type="oracle.retail.xstore.passwd.IPasswordHasher">
+        <ref bean="ssha2Hasher" />
+        <ref bean="md5Hasher" />
+      </list>
+    </property>
+    <property name="defaultHasher" ref="ssha2Hasher" />
+  </bean>
+  <bean id="reportHelper" class="com.micros_retail.xadmin.reports.XadminReportHelper" scope="session" />
+  <bean id="textTranslator" class="com.micros_retail.xadmin.util.XadminTranslator" scope="session">
+     <property name="translationPaths" ref="translationPaths" />
+   </bean>
+  
+  <bean id="xadminCloudDatasetGenerator" parent="xmlDatasetGenerator" class="dtv.pos.framework.reporting.dataset.DatasetGenerator" scope="prototype" primary="true">
+    <property name="context" value="#{T(dtv.pos.framework.reporting.dataset.DatasetGenerator).CENTRAL_CONTEXT}"/>
+  </bean>
+  <bean id="reportFillFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+    <property name="serviceLocatorInterface" value="com.micros_retail.xadmin.reports.server.ReportFillFactory" />
+  </bean>
+  <bean id="xadminQueryReportFill" class="com.micros_retail.xadmin.reports.server.XadminQueryReportFill" scope="prototype">
+    <property name="rtfTransformer" ref="rtfTransformer" />
+    <property name="xslTransformer" ref="xslTransformer" />
+    <property name="xmlDatasetGenerator" ref="xadminCloudDatasetGenerator" />
+  </bean>
+
+  <bean id="stockValuationUtils" class="com.micros_retail.xadmin.reports.server.StockValuationUtils" scope="session" />
+  <bean id="dynamicResourceUtil" class="com.micros_retail.xadmin.util.DynamicResourceUtil" scope="session" />
+  <bean id="systemConfigManager" class="com.micros_retail.xadmin.configurator.server.sysconfig.SystemConfigManager" scope="prototype" init-method="init" />
+
+  <bean id="menuTranslatorFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+    <property name="serviceLocatorInterface" value="com.micros_retail.xadmin.configurator.server.menu.MenuTranslatorFactory" />
+  </bean>
+  <bean id="menuTranslator" class="com.micros_retail.xadmin.configurator.server.menu.MenuTranslator" scope="prototype">
+    <constructor-arg>
+      <util:constant static-field="com.micros_retail.xadmin.util.CfgResourceBundle.TRANSLATION_FILE_NAME" />
+    </constructor-arg>
+  </bean>
+
+  <bean id="globalConfigurationsHolder" class="com.micros.xstore.config.impl.OverridesConfigHolder">
+    <property name="directoryBasedConfigLocator">
+      <bean class="dtv.util.config.locator.GlobalConfigDirectoryBasedLocator" />
+    </property>
+    <property name="fileBasedConfigLocator">
+      <bean class="dtv.util.config.locator.GlobalConfigFileBasedLocator" />
+    </property>
+  </bean>
+
+  <bean id="overrideConfigurationsHolder" class="com.micros.xstore.config.impl.NoConfigHolder" />
+
+  <bean id="sysConfigAccessor" class="dtv.pos.common.SysConfigAccessor" />
+
+  <bean id="sysConfigSettingFactory" class="dtv.pos.common.SysConfigSettingFactory" init-method="initializeConfigurationMgr">
+    <constructor-arg ref="sysConfigMgr" />
+  </bean>
+  
+  <bean id="sysConfigMgr" class="com.micros_retail.xcenter.customization.CustomizationSysConfigMgr" init-method="loadConfigs">
+    <constructor-arg>
+      <bean parent="abstractConfigType">
+        <constructor-arg value="SysConfig" />
+        <constructor-arg type="java.lang.Class" value="com.micros.xstore.config.settings.SysConfig" />
+      </bean>
+    </constructor-arg>
+    <constructor-arg name="argWorkstationId" value="1" />
+    <constructor-arg>
+      <util:constant static-field="dtv.util.common.CommonConstants.FormFactor.desktop" />
+    </constructor-arg>
+    <property name="globalConfigHolder" ref="globalConfigurationsHolder" />
+    <property name="overridesConfigHolder" ref="overrideConfigurationsHolder" />
+  </bean>
+
+   <bean id="menuConfigManager" class="com.micros_retail.xcenter.customization.CustomizationMenuConfigMgr" init-method="loadConfigs">
+    <constructor-arg>
+      <bean parent="abstractConfigType">
+        <constructor-arg value="MenuConfig" />
+        <constructor-arg type="java.lang.Class" value="com.micros.xstore.config.menu.MenuSet" />
+      </bean>
+    </constructor-arg>
+    <constructor-arg name="argWorkstationId" value="1" />
+    <constructor-arg>
+      <util:constant static-field="dtv.util.common.CommonConstants.FormFactor.desktop" />
+    </constructor-arg>
+    <constructor-arg ref="menuItemCascader" />
+    <property name="globalConfigHolder" ref="globalConfigurationsHolder" />
+    <property name="overridesConfigHolder" ref="overrideConfigurationsHolder" />
+  </bean>
+  
+  <!--  Report Customization  -->
+  <bean id="queryFactory" class="com.micros_retail.xcenter.customization.CustomizationQueryFactory" init-method="initialize">
+    <constructor-arg>
+      <bean class="com.micros_retail.xcenter.customization.CustomizationQueryConfigMgr" init-method="loadConfigs">
+        <constructor-arg>
+          <bean parent="abstractConfigType">
+            <constructor-arg value="query" />
+            <constructor-arg name="argDirectoryBased" value="true" />
+            <constructor-arg type="java.lang.Class" value="com.micros.xstore.config.query.QuerySet" />
+          </bean>
+        </constructor-arg>
+        <constructor-arg ref="actionCascader" />
+        <property name="configHolder" ref="globalConfigurationsHolder" />
+      </bean>
+    </constructor-arg>
+  </bean>
+  
+  <bean id="reportManager" class="com.micros_retail.xcenter.customization.CustomizationReportMgr" init-method="init"/>
+  <bean id="dummyReportRunRule" class="com.micros_retail.xadmin.reports.server.DummyReportRunRule" />
+
+  <bean id="reportConfigMgr" class="com.micros_retail.xcenter.customization.CustomizationReportConfigMgr" init-method="loadConfigs">
+    <constructor-arg>
+      <bean parent="abstractConfigType">
+        <constructor-arg value="report" />
+        <constructor-arg name="argDirectoryBased" value="true" />
+        <constructor-arg type="java.lang.Class" value="com.micros.xstore.config.report.ReportDefinitions" />
+      </bean>    
+    </constructor-arg>
+    <property name="configHolder" ref="globalConfigurationsHolder" />
+  </bean>
+  <!--  Report Customization  -->
+  
+  <bean id="xadminMenuConfigManager" class="com.micros_retail.xadmin.configurator.server.menu.MenuConfigMgr" scope="prototype"/>
+
+  <bean id="menuItemCascader" class="com.micros.xstore.config.impl.MenuItemCascader" scope="prototype" />
+  
+  <bean id="actionConfigManager" class="com.micros_retail.xcenter.customization.CustomizationActionConfigMgr" init-method="loadConfigs">
+    <constructor-arg>
+      <bean parent="abstractConfigType">
+        <constructor-arg value="ActionConfig" />
+        <constructor-arg type="java.lang.Class" value="com.micros.xstore.config.action.ActionSet" />
+      </bean>
+    </constructor-arg>
+    <constructor-arg name="argWorkstationId" value="1" />
+    <constructor-arg>
+      <util:constant static-field="dtv.util.common.CommonConstants.FormFactor.desktop" />
+    </constructor-arg>
+    <constructor-arg ref="actionCascader" />
+    <property name="globalConfigHolder" ref="globalConfigurationsHolder" />
+    <property name="overridesConfigHolder" ref="overrideConfigurationsHolder" />
+  </bean>
+  
+  <bean id="xadminActionConfigManager" class="com.micros_retail.xadmin.configurator.server.menu.ActionConfigMgr" scope="prototype"/>
+  
+
+  <bean id="actionCascader" class="com.micros.xstore.config.impl.ActionCascader" scope="prototype" />
+
+  <bean id="componentPropertySetConfigMgr" class="com.micros.xstore.config.impl.ComponentPropertySetConfigMgr" init-method="loadConfigs">
+     <constructor-arg>
+      <bean parent="abstractConfigType">
+        <constructor-arg value="uipropertysets" />
+        <constructor-arg name="argDirectoryBased" value="true" />
+        <constructor-arg type="java.lang.Class" value="com.micros.xstore.config.componentproperty.ComponentPropertySets" />
+      </bean>
+    </constructor-arg>
+    <constructor-arg name="argWorkstationId" value="1" />
+    <constructor-arg>
+      <util:constant static-field="dtv.util.common.CommonConstants.FormFactor.desktop" />
+    </constructor-arg>
+    <property name="globalConfigHolder" ref="globalConfigurationsHolder" />
+    <property name="overridesConfigHolder" ref="overrideConfigurationsHolder" />
+  </bean>
+  
+  <bean id="xadminTabConfigManager" class="com.micros_retail.xadmin.configurator.server.menu.TabConfigMgr" scope="prototype"/>
+  
+  <bean id="receiptTextFactory" class="com.micros_retail.xadmin.configurator.server.receipt.ReceiptTextFactory" scope="session" />
+
+  <!-- The orgIdService is a scoped proxy because the XcenterAdminPersistenceDefaults and purgeRunnerTask
+    beans, which are singletons, need to be able to inject it. -->
+  <bean id="orgIdService" class="com.micros_retail.xadmin.util.OrganizationIdService" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+
+ <bean id="XadminStoreCodeObserver" class="com.micros_retail.xadmin.util.XadminStoreCodeObserver" scope="singleton" init-method="init" destroy-method="destroy"/>
+
+  <bean id="customizationHelper" class="com.micros_retail.xadmin.customization.server.CustomizationHelper" scope="prototype" />
+
+  <!-- The orgHierarchyService and xadminIdentity are scoped proxies because the deploymentManager bean, which 
+    is a singleton, sometimes needs to access the orgHierarchyService for its services. -->
+  <bean id="orgHierarchyService" class="com.micros_retail.xadmin.util.orghierarchy.OrgHierarchyService" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+
+  <bean id="xadminIdentity" class="com.micros_retail.xadmin.administration.XadminUserIdentity" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+
+  <bean id="xadminTranslations" class="com.micros_retail.xadmin.util.CfgResourceBundle" scope="session"/>
+
+  <bean id="xadminPriceProvider" class="com.micros_retail.xadmin.datamanager.server.item.XadminPriceProvider" scope="session" />
+  <bean id="priceCodeProvider" class="dtv.pos.pricing.BasicPriceCodeProvider"/>
+
+  <bean id="dozerDefaultMapper" class="com.github.dozermapper.core.DozerBeanMapperBuilder" factory-method="buildDefault"/>
+  <bean id="translateStringConverter" class="com.micros_retail.xadmin.util.dozer.TranslateStringConverter"/>
+
+  <bean id="dozerBeanMapperBuilderWrapper" class="com.micros_retail.xcenter.util.DozerBeanMapperBuilderWrapper">
+    <property name="mappingFiles">
+      <list>
+        <value>dozerSessionBeanMapping.xml</value>
+      </list>
+    </property>
+    <property name="customConvertersWithId">
+      <map>
+        <entry key="dozerTranslateStringConverter">
+          <ref bean="translateStringConverter" />
+        </entry>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="dozerMenuOptionMapper" factory-bean="dozerBeanMapperBuilderWrapper" factory-method="buildMapper" scope="request"/>
+  <bean id="receiptLogoUploadServlet" class="com.micros_retail.xadmin.configurator.server.receipt.UploadLogoServletHandler" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="fileUploadServlet" class="com.micros_retail.xadmin.deployment.server.fileupload.FileUploadServletHandler" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="msgFileUploadServlet" class="com.micros_retail.xadmin.datamanager.server.item.MsgFileUploadServletHandler" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="odavIcapFileVerifier" class="com.micros_retail.xcenter.file.IFileVerifier.DoNothing" />
+  <bean id="configurationUploadServletHandler" class="com.micros_retail.xadmin.customization.server.upload.ConfigurationUploadServletHandler" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="enrollStoreHelper" class="com.micros_retail.xcenter.idcs.OmniCloudEnrollStoreHelper" />
+  <bean id="loadOrgDataHelper" class="com.micros_retail.xadmin.customization.server.organization.LoadOrganizationDataHelper" />
+  <bean id="omniCloudEnrollService" class="com.micros_retail.xadmin.administration.server.storeauth.OmniCloudEnrollService" scope="session" />
+  <bean id="xofficeCloudEnrollService" class="com.micros_retail.xadmin.administration.server.storeauth.XofficeCloudEnrollService" scope="session" />
+  <bean id="storeAuthManagerService" class="com.micros_retail.xadmin.administration.server.storeauth.StoreAuthorizationServiceImpl" scope="session" />
+  <bean id="cloudEnrollServices" class="oracle.retail.xstore.auth.idcs.enroll.CloudEnrollmentServicesImpl" />
+  <bean id="XCENTER_ENROLL_STORE" class="oracle.retail.xstore.auth.idcs.enroll.EnrollStoreServiceHandler" parent="AbstractXcenterRestServiceBean"/>
+  <bean id="configuratorUtils" class="com.micros_retail.xadmin.configurator.server.Utils" scope="request" />
+  <bean id="securityGroupUtils" class="com.micros_retail.xadmin.util.SecurityGroupUtils" scope="request" />
+  <bean id="configuratorDeploymentBuilder" class="com.micros_retail.xadmin.configurator.server.main.DeploymentBuilder" scope="request" />
+  <bean id="credentialsEncipherment" class="com.micros_retail.xcenter.util.DtvCredentialEncipherment" />
+
+  <bean id="databaseTranslationBundleFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+    <property name="serviceLocatorInterface" value="com.micros_retail.xadmin.util.DatabaseTranslationBundleFactory" />
+  </bean>
+
+  <bean id="databaseTranslationBundle" class="com.micros_retail.xadmin.util.DatabaseTranslationBundle" scope="prototype" />
+
+  <!-- These are the "servlet" beans that correspond to the GWT RPC service interfaces. They should all be session 
+    scoped at most. Maybe even request scope will work. -->
+  <bean id="alertPreferencesService" class="com.micros_retail.xadmin.support.dashboard.server.AlertPreferencesServiceImpl" scope="request" />
+  <bean id="attachmentService" class="com.micros_retail.xadmin.attachment.server.AttachmentServiceImpl" scope="request" />
+  <bean id="availableLocaleService" class="com.micros_retail.xadmin.administration.server.availableLocale.AvailableLocaleServiceImpl" scope="request" />
+  <bean id="broadcasterConfigService" class="com.micros_retail.xadmin.customization.server.broadcast.BroadcasterConfigServiceImpl" scope="request" />
+  <bean id="codeValueService" class="com.micros_retail.xadmin.configurator.server.code.CodeValueServiceImpl" scope="request" />
+  <bean id="communicationsService" class="com.micros_retail.xadmin.datamanager.server.communications.CommunicationsServiceImpl" scope="request" />
+  <bean id="configSettingsService" class="com.micros_retail.xadmin.administration.server.settings.SettingsServiceImpl" scope="request" init-method="init" />
+  <bean id="configurationUploadService" class="com.micros_retail.xadmin.customization.server.upload.ConfigurationUploadServiceImpl" scope="prototype" />
+  <bean id="configuratorService" class="com.micros_retail.xadmin.configurator.server.main.ConfiguratorServiceImpl" scope="request" />
+    <bean id="custDisplayService" class="com.micros_retail.xadmin.configurator.server.custdisplay.CustDisplayServiceImpl" scope="request" />
+  <bean id="dataManagerService" class="com.micros_retail.xadmin.datamanager.server.main.DataManagerServiceImpl" scope="request" />
+  <bean id="deploymentCommonService" class="com.micros_retail.xadmin.util.gwt.server.DeploymentCommonServiceImpl" scope="request" />
+  <bean id="deploymentPlanService" class="com.micros_retail.xadmin.deployment.server.plan.DeploymentPlanServiceImpl" scope="request" />
+  <bean id="deploymentService" class="com.micros_retail.xadmin.util.gwt.server.DeploymentServiceImpl" scope="request" />
+  <bean id="discountService" class="com.micros_retail.xadmin.configurator.server.discount.DiscountServiceImpl" scope="request" />
+  <bean id="ejournalService" class="com.micros_retail.xadmin.support.ejournal.server.EJournalServiceImpl" scope="request" />
+  <bean id="employeeService" class="com.micros_retail.xadmin.datamanager.server.employee.EmployeeServiceImpl" scope="request" />
+  <bean id="exchangeRateService" class="com.micros_retail.xadmin.datamanager.server.exchangerate.ExchangeRateServiceImpl" scope="request" />
+  <bean id="fileUploadService" class="com.micros_retail.xadmin.deployment.server.fileupload.FileUploadServiceImpl" scope="request" />
+  <bean id="initializationService" class="com.micros_retail.xadmin.util.gwt.server.InitializationServiceImpl" scope="request">
+    <property name="beanMapper" ref="dozerMenuOptionMapper"/>
+  </bean>
+  <bean id="itemMatrixService" class="com.micros_retail.xadmin.datamanager.server.itemmatrix.ItemMatrixServiceImpl" scope="request" />
+  <bean id="itemService" class="com.micros_retail.xadmin.datamanager.server.item.ItemServiceImpl" scope="request" />
+  <bean id="jobService" class="com.micros_retail.xadmin.administration.server.sysmanager.job.JobServiceImpl" scope="request" >
+    <property name="xadminScheduler" ref="xadminJobScheduler" />
+    <property name="xcenterScheduler" ref="mutedXcenterJobScheduler" />
+  </bean>
+  <bean id="landscapeService" class="com.micros_retail.xadmin.configurator.server.landscape.LandscapeServiceImpl" scope="request" />
+  <bean id="menuService" class="com.micros_retail.xadmin.configurator.server.menu.MenuServiceImpl" scope="request" />
+  <bean id="merchHierarchyService" class="com.micros_retail.xadmin.datamanager.server.merchhierarchy.MerchHierarchyServiceImpl" scope="request" />
+   <bean id="merchHierarchyLevelsService" class="com.micros_retail.xadmin.datamanager.server.merchhierarchy.MerchHierarchyLevelsServiceImpl" scope="request" />
+  <bean id="orgHierarchyMaintenanceService" class="com.micros_retail.xadmin.datamanager.server.orghierarchy.OrgHierarchyDmServiceImpl" scope="request" />
+  <bean id="personalityService" class="com.micros_retail.xadmin.configurator.server.personality.PersonalityServiceImpl" scope="request" />
+  <bean id="posLogService" class="com.micros_retail.xadmin.support.poslog.server.PosLogDocumentServiceImpl" scope="request" />
+  <bean id="tempStoresService" class="com.micros_retail.xadmin.support.tempStores.TempStoreServiceImpl" scope="request" />
+  <bean id="reasonCodeService" class="com.micros_retail.xadmin.configurator.server.reasoncode.ReasonCodeServiceImpl" scope="request" />
+  <bean id="receiptService" class="com.micros_retail.xadmin.configurator.server.receipt.ReceiptServiceImpl" scope="request" />
+  <bean id="replicationService" class="com.micros_retail.xadmin.support.replication.server.ReplServiceImpl" scope="request" />
+  <bean id="reportService" class="com.micros_retail.xadmin.reports.server.ReportServiceImpl" scope="request" />
+  <bean id="securityService" class="com.micros_retail.xadmin.configurator.server.security.SecurityServiceImpl" scope="request" />
+  <bean id="sessionService" class="com.micros_retail.xadmin.util.gwt.server.SessionServiceImpl" scope="request" />
+  <bean id="storeCollectionService" class="com.micros_retail.xadmin.datamanager.server.storecollection.StoreCollectionServiceImpl" scope="request" />
+  <bean id="storeService" class="com.micros_retail.xadmin.datamanager.server.store.StoreServiceImpl" scope="request" />
+  <bean id="legalEntityService" class="com.micros_retail.xadmin.datamanager.server.legal.LegalEntityServiceImpl" scope="request" />
+  <bean id="systemConfigService" class="com.micros_retail.xadmin.configurator.server.sysconfig.SysCfgServiceImpl" scope="request" />
+  <bean id="systemEventMonitorService" class="com.micros_retail.xadmin.support.dashboard.server.SysEventMonitorServiceImpl" scope="request" />
+  <bean id="tabConfigService" class="com.micros_retail.xadmin.configurator.server.menu.TabConfigServiceImpl" scope="request" />
+  <bean id="taxService" class="com.micros_retail.xadmin.datamanager.server.tax.TaxServiceImpl" scope="request" />
+  <bean id="tenderService" class="com.micros_retail.xadmin.configurator.server.tender.TenderServiceImpl" scope="request" />
+  <bean id="userService" class="com.micros_retail.xadmin.administration.server.user.UserServiceImpl" scope="request" />
+  <bean id="vendorService" class="com.micros_retail.xadmin.datamanager.server.vendor.VendorServiceImpl" scope="request" />
+  <bean id="xadminVersionService" class="com.micros_retail.xadmin.administration.server.version.XadminVersionServiceImpl" scope="request" />
+  <bean id="xstoreVersionService" class="com.micros_retail.xadmin.support.version.xstore.server.XstoreVersionServiceImpl" scope="request" /> 
+  <bean id="ocdsDataRefreshService" class="com.micros_retail.xadmin.datamanager.server.main.OcdsDataRefreshServiceImpl" scope="request" />
+  <bean id="avataxDataRefreshService" class="com.micros_retail.xadmin.datamanager.server.main.AvataxDataRefreshServiceImpl" scope="request" />
+  <bean id="ocdsOrgHierarchySeeder" class="com.micros_retail.xcenter.ocds.chain.OrganizationHiearchySeeder"/>
+  <bean id="mfcsOcdsPaths" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+      <property name="properties"><props><prop key="ORG_HIERARCHY">/MerchIntegrations/services/foundation/omnichannel/orghier</prop></props></property>
+  </bean>
+  <bean id="sysmanagerService" class="com.micros_retail.xadmin.administration.server.sysmanager.SysManagerServiceImpl" scope="request" />
+  <bean id="applicationLogsHelper" class="com.micros_retail.xadmin.logs.server.ApplicationLogsHelper" scope="prototype" />
+  <bean id="applicationLogsService" class="com.micros_retail.xadmin.logs.server.ApplicationLogsServiceImpl" scope="request" />
+  <bean id="hmacCaptureService" class="com.micros_retail.xadmin.paybylink.server.HmacCaptureServiceImpl" scope="request" />
+  <bean id="appLogsExportServletHandler" class="com.micros_retail.xadmin.logs.server.AppLogsExportServletHandler" scope="session">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="organizationConfigService" class="com.micros_retail.xadmin.customization.server.organization.OrganizationConfigServiceImpl" scope="request" />
+  <bean id="serviceURIValidationFilter" class="com.micros_retail.xadmin.servlet.filter.ServiceURIValidationFilter">
+    <property name="excludedServices">
+      <util:set value-type="java.lang.String">
+        <value>sessionService</value>
+        <value>initializationService</value>
+      </util:set>
+    </property>
+  </bean>
+  <bean id="merchandiseHierarchyInfo" class="dtv.pos.common.MerchHierarchyLevelInfo" scope="session" init-method="initialize" />
+  <bean id="serviceAccessFilter" class="com.micros_retail.xadmin.servlet.filter.ServiceAccessFilter">
+    <constructor-arg>
+      <props>
+        <prop key="alertPreferencesService">SPT_SUPPORT_SETTINGS</prop>
+        <prop key="attachmentService">ADMN_ATTACHMENTS</prop>
+        <prop key="availableLocaleService">ADMN_AVAILABLE_LOCALES</prop>
+        <prop key="broadcasterConfigService">ADMN_BROADCASTERS</prop>
+        <prop key="codeValueService">CFG_CODE</prop>
+        <prop key="communicationsService">CFG_COMMUNICATIONS</prop>
+        <prop key="configSettingsService">XADMIN_SETTINGS</prop>
+        <prop key="configurationUploadService">ADMN_CUSTOMIZATIONS</prop>
+        <prop key="configuratorService">CFG_PROFILE_CONFIGURATION</prop>
+        <prop key="custDisplayService">CFG_CUSTDISPLAYS</prop>
+        <prop key="dataManagerService">CFG_EDIT_SESSION</prop>
+        <prop key="deploymentCommonService">VIEW_ONLY_DEPLOYMENT_PLAN</prop>
+        <prop key="deploymentPlanService">EDIT_DEPLOYMENT_PLAN</prop>
+        <prop key="deploymentService">FILE_DEPLOY</prop>
+        <prop key="discountService">CFG_DISCOUNTS</prop>
+        <prop key="ejournalService">SPT_EJOURNAL</prop>
+        <prop key="employeeService">CFG_EMPLOYEE</prop>
+        <prop key="exchangeRateService">CFG_CURRENCY_EXCHANGE</prop>
+        <prop key="fileUploadService">SPT_FILE_UPLOAD</prop>
+        <prop key="initializationService">BASIC_ACCESS</prop>
+        <prop key="integrationConfigService">ADMN_INTEGRATIONS</prop>
+        <prop key="itemMatrixService">CFG_ITEM_MATRIX</prop>
+        <prop key="itemService">CFG_ITEM</prop>
+        <prop key="jobService">ADMN_JOB_MANAGEMENT</prop>
+        <prop key="landscapeService">CFG_LANDSCAPE_MAINTENANCE</prop>
+        <prop key="menuService">CFG_MENU_CONFIG</prop>
+        <prop key="merchHierarchyService">CFG_MERCH_HIERARCHY_MAINT</prop>
+        <prop key="merchHierarchyLevelsService">CFG_MERCHANDISE_HIERARCHY</prop>
+        <prop key="organizationConfigService">ADMN_ORGANIZATIONS</prop>
+        <prop key="orgHierarchyMaintenanceService">CFG_ORG_HIERARCHY_MAINTENANCE</prop>
+        <prop key="personalityService">CFG_PERSONALITY_MAINTENANCE</prop>
+        <prop key="posLogService">SPT_POSLOG_BUILDER</prop>
+        <prop key="reasonCodeService">CFG_REASON_CODE</prop>
+        <prop key="receiptService">CFG_RECEIPT_CONFIG</prop>
+        <prop key="replicationService">SPT_REPL_VIEWER</prop>
+        <prop key="reportService">RPT_GENERAL_ACCESS</prop>
+        <prop key="securityService">CFG_SECURITY_PERMISSION</prop>
+        <prop key="selectUserService">FILE_DEPLOY</prop>
+        <prop key="sessionService">BASIC_ACCESS</prop>
+        <prop key="storeCollectionService">CFG_STORE_COLLECTIONS</prop>
+        <prop key="storeService">CFG_STORES</prop>
+        <prop key="legalEntityService">CFG_LEGAL_ENTITY</prop>
+        <prop key="systemConfigService">CFG_SYSCONFIG</prop>
+        <prop key="systemEventMonitorService">SPT_VIEW_SUPPORT_DASHBOARD</prop>
+        <prop key="applicationLogsService">ADMN_VIEW_LOGS</prop>
+        <prop key="hmacCaptureService">ADMN_PBL_SETUP</prop>
+        <prop key="tabConfigService">CFG_TAB_CONFIG</prop>
+        <prop key="taxService">CFG_TAXES</prop>
+        <prop key="tenderService">CFG_TENDER</prop>
+        <prop key="tempStoresService">SPT_TEMP_STORES</prop>
+        <prop key="userService">XADMIN_USERS</prop>
+        <prop key="vendorService">CFG_VENDOR</prop>
+        <prop key="xadminVersionService">BASIC_ACCESS</prop>
+        <prop key="xstoreVersionService">SPT_VERSIONINFO_DASHBOARD</prop>
+        <prop key="sysmanagerService">SYSTEM_MANAGER</prop>
+        <prop key="ocdsDataRefreshService">CFG_OCDS_DATA_REFRESH</prop>
+        <prop key="avataxDataRefreshService">CFG_AVATAX_DATA_REFRESH</prop>
+        <prop key="storeAuthManagerService">ADMN_STORE_AUTH_MANAGER</prop>
+      </props>
+    </constructor-arg>
+  </bean>
+
+  <!-- These beans really should not need to be defined for Xadmin and they are really just here so I can continue 
+    with the Spring integration. Ideally, these beans would be removed from this file either after the config library 
+    has been rebuilt or after the Xstore classes that Xadmin needs have been modified to not require them. I hope that 
+    makes sense. -->
+  <bean id="loyaltyUtils" class="dtv.pos.customer.loyalty.LoyaltyUtils" />
+  <bean id="stationState" class="dtv.pos.iframework.security.StationState" />
+
+  <bean id="addressDataSource" class="dtv.util.address.datasource.FileAddressDataSource" />
+
+  <bean id="addressService" class="dtv.util.address.AddressService" factory-method="getInternalInstance">
+    <property name="dataSource" ref="addressDataSource" />
+  </bean>
+
+  <bean id="printParser" class="dtv.hardware.posprinting.PrintParser" scope="request" />
+  <bean id="ArabicLineTransformer" class="dtv.hardware.posprinting.ArabicLineTransformer" />
+  <bean id="HtmlArabicLineTransformer" class="dtv.hardware.posprinting.HtmlArabicLineTransformer" />
+
+  <bean id="lineTransformerResolver" class="dtv.hardware.posprinting.LineTransformerResolver">
+    <property name="lineTransformers">
+      <map>
+        <entry key="ar" value-ref="ArabicLineTransformer" />
+      </map>
+    </property>
+    <property name="htmlLineTransformers">
+      <map>
+        <entry key="ar" value-ref="HtmlArabicLineTransformer" />
+      </map>
+    </property>
+  </bean>
+  <bean id="reprintTextMgr" class="dtv.hardware.posprinting.ReprintTextMgr" />
+  <bean id="htmlRcptHelper" class="com.micros_retail.xadmin.configurator.server.receipt.HtmlRcptHelper" scope="request" />
+  <bean id="pdfReceiptBuilder" class="dtv.pos.framework.pdf.PdfReceiptBuilder" scope="request" />
+
+  <!-- This serviceRetryProcessor bean is defined here simply to prevent it from being scheduled within Xadmin, 
+    hence the lack of an init method. It's allowed to exist, but it should not do anything. If you have any other questions 
+    about why this is here, please ask before doing anything with it. -->
+  <bean id="serviceRetryProcessor" class="dtv.servicex.impl.ServiceRetryProcessor" />
+  
+    <bean id="queryHandlerFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+    <property name="serviceLocatorInterface" value="dtv.data2.access.query.IQueryHandlerFactory" />
+    <property name="serviceMappings">
+      <props>
+        <prop key="dtv.data2.access.query.SqlQueryHandler">sqlQueryHandler</prop>
+        <prop key="dtv.data2.access.query.DtxQueryHandler">dtxQueryHandler</prop>
+      </props>
+    </property>
+  </bean>
+
+  <!-- The integrationConfigService bean corresponds to the GWT RPC service interface for integration configuration. -->
+  <bean id="integrationConfigService" class="com.micros_retail.xadmin.customization.server.integration.IntegrationConfigServiceImpl" scope="request" />
+  <bean id="sftpClient" class="com.micros_retail.xcenter.sftp.MinaSftp" scope="prototype" />
+  <bean id="keyStoreManager" class="oracle.retail.xstore.cred.opss.NoOpKeyStoreManager" />
+  <bean id="keyStoreUtility" class="oracle.retail.xstore.util.KeyStoreUtility" />
+  <bean id="integrationStatusChangeNotifier" class="com.micros_retail.xadmin.customization.server.integration.CfgIntegrationChangeNotifier" />
+  <bean id="orobRestIntegrationVerifier" class="com.micros_retail.xadmin.customization.server.integration.verifiers.OrobRestIntegrationVerifier">
+    <property name="exceptionHandler" ref="standardJaxRsExceptionHandler" />
+    <property name="appendSequenceFileTypeSet">
+      <set>
+        <value>PRODUCT_LOCATION</value>
+      </set>
+    </property>
+  </bean>
+  <bean id="ocdsServiceClientUtil" class="com.micros_retail.xcenter.ocds.service.OcdsServiceClientUtil" >
+    <property name="serviceId" value="OCDS_REST" />
+    <property name="exceptionHandler" ref="standardJaxRsExceptionHandler" />
+  </bean>
+  <bean id="ocdsJobHelper" class="com.micros_retail.xcenter.ocds.OcdsJobHelper" >
+    <constructor-arg type="java.lang.String" name="argCreateUpdateUserId" value="XADMIN_OCDS" />
+    <property name="refreshDatePaths">
+         <map key-type="java.lang.String" value-type="java.lang.String">
+            <entry key="RICS" value="/v1/refreshdate"/>
+            <entry key="MFCS" value="/MerchIntegrations/services/omnichannel/refreshdate"/>
+        </map>
+    </property>
+    <property name="retryDelays" >
+      <list value-type="java.lang.Long">
+        <value>500</value>
+        <value>1000</value>
+        <value>2000</value>
+        <value>4000</value>
+        <value>8000</value>
+        <value>16000</value>
+        <value>32000</value>
+        <value>64000</value>
+        <value>128000</value>
+      </list>
+    </property>
+  </bean>
+  <bean id="ocdsIntegrationVerifier" class="com.micros_retail.xadmin.customization.server.integration.verifiers.OcdsIntegrationVerifier" >
+    <property name="serviceClientUtil" ref="ocdsServiceClientUtil" />
+  </bean>
+  <bean id ="avalaraIntegrationVerifier" class="com.micros_retail.xadmin.customization.server.integration.verifiers.AvalaraIntegrationVerifier"/>
+  <bean id="sftpIntegrationVerifier" class="com.micros_retail.xadmin.customization.server.integration.verifiers.SftpIntegrationVerifier">
+    <property name="keyStoreName" value="sftp_keys" />
+    <property name="keyStoreStripeName" value="xscs_sftp" />
+  </bean>
+  <bean id="orceRestIntegrationVerifier" class="com.micros_retail.xadmin.customization.server.integration.verifiers.OrceRestIntegrationVerifier">
+    <property name="exceptionHandler" ref="standardJaxRsExceptionHandler" />
+  </bean>
+  <util:list id="cfgIntegrationVerifiers" value-type="com.micros_retail.xadmin.customization.server.integration.ICfgIntegrationVerifier">
+    <ref bean="orceRestIntegrationVerifier"/>
+    <ref bean="orobRestIntegrationVerifier"/>
+    <ref bean="ocdsIntegrationVerifier"/>
+    <ref bean="sftpIntegrationVerifier"/>
+    <ref bean="avalaraIntegrationVerifier"/>
+  </util:list>
+  <bean id="ocdsIntegrationSetupHandler" class="com.micros_retail.xadmin.customization.server.integration.confighandlers.OCDSIntegrationConfigSetupHandler" >
+    <property name="serviceClientUtil" ref="ocdsServiceClientUtil" />
+  </bean>
+  <util:list id="cfgIntegrationConfigSetupHandlers" value-type="com.micros_retail.xadmin.customization.server.integration.ICfgIntegrationConfigSetupHandler">
+    <ref bean="ocdsIntegrationSetupHandler"/>
+  </util:list>
+  <bean id="ocdsIntegrationListenerHandler" class="com.micros_retail.xadmin.customization.server.integration.confighandlers.OCDSIntegrationConfigListenerHandler" init-method="init" />
+  <util:list id="cfgIntegrationConfigListenerHandlers" value-type="com.micros_retail.xadmin.customization.server.integration.ICfgIntegrationConfigListenerHandler">                                                                                                                    
+    <ref bean="ocdsIntegrationListenerHandler"/>
+  </util:list>  
+<!--
+*********************************** 
+BASE EXTENDED PROPERTIES SECTION
+***********************************
+-->  
+  <!-- Base extended properties, do not remove extended property declaration -->
+  <bean id="baseExtendedProperties" class="com.micros_retail.xadmin.util.extendedProperties.server.ExtendedPropertiesMgr" init-method="init" scope="session">
+    <constructor-arg name="argRtlLocRelatedExtProps">
+      <list>
+        <bean id="br_ie" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="BR::IE" />
+          <constructor-arg name="argCountryToMatch" value="BR" />
+        </bean>
+        <bean id="br_im" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="BR::IM" />
+          <constructor-arg name="argCountryToMatch" value="BR" />
+        </bean>
+        <bean id="br_corp_name" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="BR::CORP_NAME" />
+          <constructor-arg name="argCountryToMatch" value="BR" />
+        </bean>
+        <bean id="br_corp_fantasy_name" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="BR::CORP_FANTASY_NAME" />
+          <constructor-arg name="argCountryToMatch" value="BR" />
+        </bean>
+        <bean id="br_crt" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="BR::CRT" />
+          <constructor-arg name="argCountryToMatch" value="BR" />
+        </bean>
+        <bean id="fr_siret" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="FR_SIRET" />
+          <constructor-arg name="argCountryToMatch" value="FR" />
+        </bean>
+        <bean id="pt_saft_business_name" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="PT_SAFT_BUSINESS_NAME" />
+          <constructor-arg name="argCountryToMatch" value="PT" />
+        </bean>
+        <bean id="pt_tax_country_region" class="com.micros_retail.xadmin.util.extendedProperties.entity.RtlLocExtPropForCountry">
+          <constructor-arg name="argPropertyName" value="PT_TAX_COUNTRY_REGION" />
+          <constructor-arg name="argCountryToMatch" value="PT" />
+        </bean>
+      </list>
+    </constructor-arg>
+    <constructor-arg name="argReasonCodeRelatedExtProps">
+      <list>
+        <bean id="it_rt_exemption_id" class="com.micros_retail.xadmin.util.extendedProperties.entity.ReasonCodeExtProp">
+          <constructor-arg name="argPropertyName" value="IT_FP_EXEMPTCODE" />
+          <constructor-arg name="argReasonTypeCodeToMatch" value="TAX_EXEMPT" />
+        </bean>
+      </list>
+    </constructor-arg>
+  </bean>
+  <bean id="loadFileUploadTypes" class="com.micros_retail.xadmin.datamanager.shared.item.FileUploadTypes" />
+<!--
+*********************************** 
+BASE EXTENDED PROPERTIES SECTION END
+**************************************
+-->
+
+<!-- 
+****************************************
+AVALARA properties for on-demand BEGIN
+****************************************
+ -->
+<bean id="avataxIntegrationTaskTemplate" class="com.micros_retail.xcenter.avatax.AvataxDataFetchTask" scope="prototype" />
+
+<!-- 
+****************************************
+AVALARA properties for on-demand END
+****************************************
+-->
+<!--   cfg_base_feature visibility -->
+  <bean id="baseConfigFeatureVisibilityCheck" class="com.micros_retail.xadmin.configurator.server.BaseConfigFeatureVisibilityCheck">
+    <property name="blackList">
+        <list>
+<!-- enhancedemail is a cloud only base feature -->
+          <value>enhancedemail</value>
+        </list>
+    </property>
+  </bean>
+
+
+</beans>

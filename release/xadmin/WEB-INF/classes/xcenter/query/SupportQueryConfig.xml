@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuerySet xmlns="http://micros.com/xstore/config/query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QueryConfig.xsd">
+ <Queries>
+
+  <Query name="DEPLOYED_XSTORE_VERSIONS" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="organizationId" type="Long" />
+    <ResultField name="xstoreVersion" type="String" />
+    <ResultField name="retailLocationCount" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          organization_id, 
+          xstore_version, 
+          COUNT(distinct rtl_loc_id) 
+        FROM ctl_device_registration 
+        WHERE (? = -1 OR organization_id = ?) 
+        GROUP BY
+          organization_id, 
+          xstore_version
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY organization_id ASC, xstore_version ASC]]></Suffix>
+  </Query>
+
+  <Query name="DEPLOYED_XSTORE_VERSIONS_STORES" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="organizationId" type="Long" />
+    <ResultField name="xstoreVersion" type="String" />
+    <ResultField name="retailLocationCount" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          organization_id, 
+          xstore_version, 
+          COUNT(distinct rtl_loc_id)
+        FROM ctl_device_registration 
+        WHERE (? = -1 OR organization_id = ?) 
+        AND rtl_loc_id IN ?
+        GROUP BY
+          organization_id, 
+          xstore_version
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRetailLocationIdList" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY organization_id ASC, xstore_version ASC]]></Suffix>
+  </Query>
+
+  <Query name="STORES_BY_VERSION" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.impl.RetailLocationModel</ResultClass>
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="StoreName" type="String" />
+    <ResultField name="Telephone1" type="String" />
+    <ResultField name="Address1" type="String" />
+    <ResultField name="Address2" type="String" />
+    <ResultField name="City" type="String" />
+    <ResultField name="State" type="String" />
+    <ResultField name="PostalCode" type="String" />
+    <ResultField name="Country" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT 
+          t.organization_id, 
+          t.rtl_loc_id, 
+          t.store_name, 
+          t.telephone1, 
+          t.address1, 
+          t.address2, 
+          t.city, 
+          t.state, 
+          t.postal_code, 
+          t.country      
+        FROM loc_rtl_loc t 
+          JOIN ctl_device_registration r 
+            ON t.organization_id = r.organization_id
+            AND t.rtl_loc_id = r.rtl_loc_id 
+            AND t.organization_id = ?
+            AND /*UPPER*/ r.xstore_version LIKE ?       
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argXstoreVersion%" />
+    </SQL>
+  </Query>
+
+  <Query name="STORE_VERSION_DETAIL" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="workstationId" type="Long" />
+    <ResultField name="xstoreVersion" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          wkstn_id, 
+          xstore_version 
+        FROM ctl_device_registration 
+        WHERE organization_id = ? 
+        AND rtl_loc_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY wkstn_id ASC]]></Suffix>
+  </Query>
+
+  <Query name="STORES_WITH_MIXED_VERSIONS" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="organizationId" type="Long" />
+    <ResultField name="retailLocationId" type="Long" />
+    <ResultField name="xstoreVersion" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT 
+          a.organization_id, 
+          a.rtl_loc_id, 
+          a.xstore_version 
+        FROM ctl_device_registration a 
+          JOIN ctl_device_registration b 
+            ON a.organization_id = b.organization_id 
+            AND a.rtl_loc_id = b.rtl_loc_id 
+        WHERE /*UPPER*/ a.xstore_version != /*UPPER*/ b.xstore_version
+      ]]></Statement>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY a.organization_id ASC, a.rtl_loc_id ASC, a.xstore_version ASC]]></Suffix>
+  </Query>
+
+  <Query name="VERSION_BY_STORE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="xstoreVersion" type="String" />
+    <ResultField name="count" type="Integer" />
+    <SQL>
+      <Statement dtype="String">
+      <![CDATA[
+          SELECT xstore_version,
+          COUNT(*) AS COUNT
+   		  FROM ctl_device_registration
+              WHERE organization_id = ?  
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argPrimaryRegisterFlag"><![CDATA[primary_register_flag = ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[GROUP BY xstore_version ORDER BY xstore_version]]></Suffix>
+  </Query>
+
+
+  <Query name="VERSION_DETAILS_BY_STORE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="retailLocationId" type="Long" />
+    <ResultField name="phoneNumber" type="String" />
+    <ResultField name="storeName" type="String" />
+    <ResultField name="address1" type="String" />
+    <ResultField name="city" type="String" />
+    <ResultField name="state" type="String" />
+    <ResultField name="postalCode" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT t2.rtl_loc_id,
+                        loc.telephone1,
+                        loc.store_name,
+                        loc.address1,
+                        loc.city,
+                        loc.state,
+                        loc.postal_code
+        FROM  loc_rtl_loc loc
+        RIGHT JOIN ctl_device_registration t2 On t2.rtl_loc_id = loc.rtl_loc_id
+        AND t2.organization_id = loc.organization_id
+        WHERE t2.organization_id = ?
+        AND /*UPPER*/ t2.xstore_version = ?        
+      
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argXstoreVersion" />
+      <Expression trigger="argPrimaryRegisterFlag"><![CDATA[t2.primary_register_flag = ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY t2.rtl_loc_id]]></Suffix>
+  </Query>
+
+
+
+
+  <Query name="ALERT_SCAN_CTL_EVENT_LOG_BY_CATEGORY" pmType="EVENT_LOG_ENTRY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.support.dashboard.server.CtlEventLogEntry</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="CreateDate" type="Date" />
+    <ResultField name="OperatorPartyId" type="Long" />
+    <ResultField name="LogMessage" type="String" />
+    <ResultField name="LogLevel" type="String" />
+    <ResultField name="Source" type="String" />
+    <ResultField name="ThreadName" type="String" />
+    <ResultField name="LoggerCategory" type="String" />
+    <ResultField name="LogTimestamp" type="Date" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          rtl_loc_id, 
+          wkstn_id,
+          create_date,
+          operator_party_id,
+          log_message,
+          log_level,
+          source,
+          thread_name,
+          logger_category,
+          log_timestamp
+        FROM ctl_event_log
+        WHERE organization_id = ?
+        AND arrival_timestamp >= ?
+        AND arrival_timestamp < ?
+        AND /*UPPER*/ logger_category in ?         
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argStartTimestamp" />
+      <Parameter name="argEndTimestamp" />
+      <Parameter name="@argLoggerCategories" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY create_date DESC, rtl_loc_id, wkstn_id]]></Suffix>
+  </Query>
+  <Query name="NEW_ARRIVALS_ALERT_SCAN_CTL_EVENT_LOG_BY_CATEGORY" pmType="EVENT_LOG_ENTRY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.support.dashboard.server.CtlEventLogEntry</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="CreateDate" type="Date" />
+    <ResultField name="OperatorPartyId" type="Long" />
+    <ResultField name="LogMessage" type="String" />
+    <ResultField name="LogLevel" type="String" />
+    <ResultField name="Source" type="String" />
+    <ResultField name="ThreadName" type="String" />
+    <ResultField name="LoggerCategory" type="String" />
+    <ResultField name="LogTimestamp" type="Date" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          rtl_loc_id, 
+          wkstn_id,
+          create_date,
+          operator_party_id,
+          log_message,
+          log_level,
+          source,
+          thread_name,
+          logger_category,
+          log_timestamp
+        FROM ctl_event_log
+        WHERE organization_id = ?
+        AND arrival_timestamp >= ?
+        AND arrival_timestamp < ?
+        AND arrival_timestamp >= ?
+        AND /*UPPER*/ logger_category in ?        
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argStartTimestamp" />
+      <Parameter name="argEndTimestamp" />
+      <Parameter name="argBusinessDateStart" />
+      <Parameter name="@argLoggerCategories" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY create_date DESC, rtl_loc_id, wkstn_id]]></Suffix>
+  </Query>
+  <Query name="ALERT_SCAN_CTL_DEVICE_REGISTRATION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.ctl.DeviceRegistrationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+          WHERE update_date >= ?
+          AND update_date < ?
+      ]]></WhereClause>
+      <Parameter name="argStartTimestamp" />
+      <Parameter name="argEndTimestamp" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY update_date DESC, organization_id, rtl_loc_id, wkstn_id]]></Suffix>
+  </Query>
+
+
+ </Queries>
+</QuerySet>

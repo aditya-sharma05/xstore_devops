@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.custdisplay.CustDisplayService
+path: 43DB0EA70D32C07527DA9B9596446926.gwt.rpc

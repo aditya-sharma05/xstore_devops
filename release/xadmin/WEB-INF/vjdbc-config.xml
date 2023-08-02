@@ -1,0 +1,9 @@
+<vjdbc-configuration>
+    <connection
+       id=""
+       driver=""
+       url=""
+       user=""
+       password="">
+    </connection>
+</vjdbc-configuration>

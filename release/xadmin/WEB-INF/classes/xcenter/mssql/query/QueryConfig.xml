@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuerySet xmlns="http://micros.com/xstore/config/query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QueryConfig.xsd">
+  <Queries>
+
+    <Query name="DATA_MANAGER_REDEPLOY_DATA_LEVEL">
+      <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+      <SQL>
+        <WhereClause dtype="String"><![CDATA[WHERE t.organization_id = ?]]></WhereClause>
+        <Parameter name="argOrganizationId" />
+        <Expression trigger="@levelNodeList"><![CDATA[t.level_code + ':' + t.level_value IN ?]]></Expression>
+      </SQL>
+    </Query>
+  </Queries>
+</QuerySet>

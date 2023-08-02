@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="XcenterAdmin" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <non-jta-data-source>jdbc/XcenterAdmin</non-jta-data-source><!-- used on Java EE containers -->
+    
+    <!-- shared class list begins here-->
+    <class>com.micros_retail.gwt.shared.entity.BroadcasterConfig</class>
+    <class>com.micros_retail.gwt.shared.entity.ConfigCodeValue</class>
+    <class>com.micros_retail.gwt.shared.entity.Customization</class>
+    <class>com.micros_retail.gwt.shared.entity.Deployment</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentEmail</class> 
+    <class>com.micros_retail.gwt.shared.entity.DeploymentFile</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentFileStatus</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentTarget</class>   
+    <class>com.micros_retail.gwt.shared.entity.DeploymentWave</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentWaveApprovalLog</class>
+    <class>com.micros_retail.gwt.shared.entity.IntegrationConfig</class>
+    <class>com.micros_retail.gwt.shared.entity.IntegrationConfigProperty</class>
+    <class>com.micros_retail.gwt.shared.entity.Landscape</class>
+    <class>com.micros_retail.gwt.shared.entity.LandscapeGroup</class>
+    <class>com.micros_retail.gwt.shared.entity.LandscapeRange</class>
+    <class>com.micros_retail.gwt.shared.entity.OcdsJobHistory</class>
+    <class>com.micros_retail.gwt.shared.entity.OcdsOnDemand</class>
+    <class>com.micros_retail.gwt.shared.entity.OcdsSubtaskDetails</class>
+    <class>com.micros_retail.gwt.shared.entity.RetailLocationCollection</class>
+    <class>com.micros_retail.gwt.shared.entity.RetailLocationCollectionElement</class>
+    <class>com.micros_retail.gwt.shared.entity.Personality</class>
+    <class>com.micros_retail.gwt.shared.entity.PersonalityBaseFeature</class>
+    <class>com.micros_retail.gwt.shared.entity.PersonalityElement</class>
+    <class>com.micros_retail.gwt.shared.entity.StorePersonality</class>
+    <class>com.micros_retail.gwt.shared.entity.XadminConfigSetting</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxDefinition</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxField</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxRelationship</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxRelationshipField</class>
+    <class>com.micros_retail.gwt.shared.entity.PayByLinkConfig</class>
+    <class>com.micros_retail.gwt.shared.entity.AttachmentTypeConfig</class>
+    <!-- generated class list begins here -->
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigUser</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.EmployeeChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.StockRollUp</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.LegalEntityChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.AddressChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.AttachedItemChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.BaseConfigFeature</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.CodeCategory</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.CodeValueChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigAlertSeverityThreshold</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigCriticalAlertEmailRecipient</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigPrivilege</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigReasonCodeType</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigResource</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigRole</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigRolePrivilege</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigSequence</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigSequencePart</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigUserOrgRole</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfigUserPassword</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ConfiguratorChanges</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DataManagerChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DeploymentPlan</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DeploymentPlanEmails</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DeploymentPlanWave</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DeploymentPlanWaveTarget</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DiscountChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DiscountGroupMappingChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.DiscountValidItemTypeChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.EmployeeCustomerGroupChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.EmployeeStoreChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.EmployeeTaskChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ExchangeRateChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.FileUploadRecord</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemMessageChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemMsgCrossReferenceChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemMsgTypesChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemOptionsChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemPriceChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemRestrictCalendarChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemRestrictMappingChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemRestrictTypeChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemRestrictionChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ItemUpcChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.MatrixSortOrderChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.MerchandiseHierarchyChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.MessageChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.MessageTranslation</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.NonPhysicalItemChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.OrgHierarchyLevel</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ProfileElement</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ProfileElementVersion</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ProfileGroup</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ReasonCodeChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ReasonCodePropertyChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.ReceiptTextChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.RetailLocRepositoryChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.RetailLocRepositoryFloatChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.RetailLocationChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.RetailLocWorkstationChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.RetailLocationPropertyChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.SecurityGroupChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.SecurityPrivilegeChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TabProperty</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxAuthorityChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxBracketChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxBracketDetailChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxGroupChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxGroupRuleChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxLocationChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleOverrideChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TenderAvailabilityChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TenderChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TenderDenominationChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TenderOptionsChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TenderTypeCategory</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.TenderUserSettingsChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.UserOrgNode</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.VendorChange</class>
+    <class>com.micros_retail.xadmin.util.gwt.entity.XcenterMenuConfig</class>
+  </persistence-unit>
+     
+  <persistence-unit name="XcenterReplication" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <non-jta-data-source>jdbc/XcenterReplication</non-jta-data-source><!-- used on Java EE containers -->
+    
+    <class>com.micros_retail.gwt.shared.replentity.ReplObject</class>
+    <class>com.micros_retail.gwt.shared.replentity.PosLogWorkItem</class><!-- used by broadcaster -->
+    <class>com.micros_retail.gwt.shared.replentity.BSQItem</class><!-- used by broadcaster service -->
+    <class>com.micros_retail.gwt.shared.replentity.ApplicationLog</class> <!-- used by View Logs -->
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+  </persistence-unit>
+</persistence>

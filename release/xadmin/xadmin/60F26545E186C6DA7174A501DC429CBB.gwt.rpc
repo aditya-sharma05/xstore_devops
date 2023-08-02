@@ -1,0 +1,63 @@
+@FinalFields, false
+com.google.gwt.i18n.shared.impl.DateRecord, true, true, true, true, com.google.gwt.i18n.shared.impl.DateRecord/3173882066, 3173882066
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+com.micros_retail.gwt.shared.entity.AbstractEntity, true, false, true, false, com.micros_retail.gwt.shared.entity.AbstractEntity/3506585559, 3506585559
+com.micros_retail.gwt.shared.entity.Personality, true, true, true, true, com.micros_retail.gwt.shared.entity.Personality/3491462763, 3491462763
+@ClientFields,com.micros_retail.gwt.shared.entity.Personality,_organizationId,_personalityId,_description,_comments,_elements,_baseFeatures
+com.micros_retail.gwt.shared.entity.PersonalityBaseFeature, true, true, true, true, com.micros_retail.gwt.shared.entity.PersonalityBaseFeature/2305330441, 2305330441
+@ClientFields,com.micros_retail.gwt.shared.entity.PersonalityBaseFeature,_organizationId,_personalityId,_featureId,_personality,_sortOrder
+[Lcom.micros_retail.gwt.shared.entity.PersonalityBaseFeature;, true, true, true, true, [Lcom.micros_retail.gwt.shared.entity.PersonalityBaseFeature;/2751841308, 2751841308
+com.micros_retail.gwt.shared.entity.PersonalityElement, true, true, true, true, com.micros_retail.gwt.shared.entity.PersonalityElement/3263263066, 3263263066
+@ClientFields,com.micros_retail.gwt.shared.entity.PersonalityElement,_organizationId,_groupId,_elementId,_personalityId,_personality,_sortOrder
+[Lcom.micros_retail.gwt.shared.entity.PersonalityElement;, true, true, true, true, [Lcom.micros_retail.gwt.shared.entity.PersonalityElement;/4276103640, 4276103640
+[Lcom.micros_retail.gwt.shared.entity.Personality;, true, true, false, false, [Lcom.micros_retail.gwt.shared.entity.Personality;/4010326068, 4010326068
+com.micros_retail.gwt.shared.entity.StorePersonality, true, true, false, false, com.micros_retail.gwt.shared.entity.StorePersonality/2893433003, 2893433003
+@ClientFields,com.micros_retail.gwt.shared.entity.StorePersonality,_organizationId,_storeNumber,_personalityId,_landscapeId
+com.micros_retail.xadmin.configurator.client.personality.PersonalityService, false, false, false, false, _, 3103921221
+com.micros_retail.xadmin.configurator.shared.main.DuplicateConfiguratorObjectException, true, true, false, false, com.micros_retail.xadmin.configurator.shared.main.DuplicateConfiguratorObjectException/321510327, 321510327
+com.micros_retail.xadmin.configurator.shared.personality.SPFilterData, false, false, true, true, com.micros_retail.xadmin.configurator.shared.personality.SPFilterData/2804263850, 2804263850
+com.micros_retail.xadmin.configurator.shared.personality.SPFilterData$FilterType, false, false, true, true, com.micros_retail.xadmin.configurator.shared.personality.SPFilterData$FilterType/733451743, 733451743
+com.micros_retail.xadmin.configurator.shared.personality.SPNodeInfo, true, true, false, false, com.micros_retail.xadmin.configurator.shared.personality.SPNodeInfo/1609828717, 1609828717
+[Lcom.micros_retail.xadmin.configurator.shared.personality.SPNodeInfo;, true, true, false, false, [Lcom.micros_retail.xadmin.configurator.shared.personality.SPNodeInfo;/671172205, 671172205
+com.micros_retail.xadmin.configurator.shared.personality.StorePersonalityData, true, true, false, false, com.micros_retail.xadmin.configurator.shared.personality.StorePersonalityData/4156636528, 4156636528
+com.micros_retail.xadmin.configurator.shared.personality.UnableToDeleteAssignedObjectException, true, true, false, false, com.micros_retail.xadmin.configurator.shared.personality.UnableToDeleteAssignedObjectException/1311390945, 1311390945
+com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption, true, true, false, false, com.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption/4288264881, 4288264881
+[Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.DefaultMenuOption;/1601029178, 1601029178
+[Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.menu.IMenuOption;/170399506, 170399506
+com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.EnhancedListItem/806029010, 806029010
+com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SimpleListItem/540270210, 540270210
+com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.list.SortableListItem/891107832, 891107832
+com.micros_retail.xadmin.util.gwt.widgets.tree.MrTreeNode, true, true, false, false, com.micros_retail.xadmin.util.gwt.widgets.tree.MrTreeNode/4139257496, 4139257496
+[Lcom.micros_retail.xadmin.util.gwt.widgets.tree.MrTreeNode;, true, true, false, false, [Lcom.micros_retail.xadmin.util.gwt.widgets.tree.MrTreeNode;/909915578, 909915578
+java.lang.Boolean, true, true, false, false, java.lang.Boolean/476441737, 476441737
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.Integer, true, true, false, false, java.lang.Integer/3438268394, 3438268394
+[Ljava.lang.Integer;, true, true, false, false, [Ljava.lang.Integer;/1574882222, 1574882222
+java.lang.Long, true, true, false, false, java.lang.Long/4227064769, 4227064769
+java.lang.Number, true, false, false, false, java.lang.Number/300033342, 300033342
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+[Ljava.lang.String;, true, true, false, false, [Ljava.lang.String;/2600011424, 2600011424
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.sql.Date, true, true, true, true, java.sql.Date/730999118, 730999118
+java.sql.Time, true, true, true, true, java.sql.Time/1816797103, 1816797103
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.ArrayList, true, true, true, true, java.util.ArrayList/4159755760, 4159755760
+java.util.Arrays$ArrayList, true, true, true, true, java.util.Arrays$ArrayList/2507071751, 2507071751
+java.util.Collections$EmptyList, true, true, true, true, java.util.Collections$EmptyList/4157118744, 4157118744
+java.util.Collections$EmptyMap, true, true, false, false, java.util.Collections$EmptyMap/4174664486, 4174664486
+java.util.Collections$EmptySet, true, true, false, false, java.util.Collections$EmptySet/3523698179, 3523698179
+java.util.Collections$SingletonList, true, true, true, true, java.util.Collections$SingletonList/1586180994, 1586180994
+java.util.Date, true, true, true, true, java.util.Date/3385151746, 3385151746
+java.util.HashMap, true, true, false, false, java.util.HashMap/1797211028, 1797211028
+java.util.HashSet, true, true, false, false, java.util.HashSet/3273092938, 3273092938
+java.util.IdentityHashMap, true, true, false, false, java.util.IdentityHashMap/1839153020, 1839153020
+java.util.LinkedHashMap, true, true, false, false, java.util.LinkedHashMap/3008245022, 3008245022
+java.util.LinkedHashSet, true, true, false, false, java.util.LinkedHashSet/95640124, 95640124
+java.util.LinkedList, true, true, true, true, java.util.LinkedList/3953877921, 3953877921
+java.util.Stack, true, true, true, true, java.util.Stack/1346942793, 1346942793
+java.util.TreeMap, true, true, false, false, java.util.TreeMap/1493889780, 1493889780
+java.util.TreeSet, true, true, false, false, java.util.TreeSet/4043497002, 4043497002
+java.util.Vector, true, true, true, true, java.util.Vector/3057315478, 3057315478

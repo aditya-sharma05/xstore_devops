@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTE: this file must be named dozerBeanMapping.xml, and it must be somewhere
+     on the classpath accessible to Dozer; given this, then Dozer's DozerBeanMapperSingletonWrapper
+     class should pick up these configs w/o trouble. -->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping https://dozermapper.github.io/schema/bean-mapping.xsd">
+
+  <configuration>
+    <custom-converters>
+      <!-- This dozer "converter" exists to get around maven dep. challenges; see
+           http://sourceforge.net/tracker/index.php?func=detail&aid=3206169&group_id=133517&atid=727368
+           for details.  The gist is: you might need to doze 2 objects, each have an XMLGregorianCalendar,
+           however each has a different *implementation class* of XMLGregorianCalendar (sun vs. apache),
+           and dozer gets confused.
+           -->
+      <converter type="com.micros_retail.xcenter.util.DozerXmlGregorianCalendarConverter">
+        <class-a>javax.xml.datatype.XMLGregorianCalendar</class-a>
+        <class-b>javax.xml.datatype.XMLGregorianCalendar</class-b>
+      </converter>
+    </custom-converters>
+  </configuration>
+  
+  <mapping>
+    <class-a>dtv.xst.cleanbean.dsc.DiscountGroupMapping</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.dsc.IDiscountGroupMapping</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>dtv.xst.cleanbean.dsc.DiscountTypeEligibility</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.dsc.IDiscountTypeEligibility</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.DiscountGroupMappingChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.dsc.IDiscountGroupMapping</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.DiscountValidItemTypeChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.dsc.IDiscountTypeEligibility</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.TenderAvailabilityChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxUpdateBeanFactory">dtv.xst.dao.tnd.ITenderAvailability</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.TenderDenominationChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxUpdateBeanFactory">dtv.xst.dao.tnd.ITenderDenomination</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>dtv.xst.cleanbean.sec.Privilege</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.sec.IPrivilege</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.ITranslation</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.TranslationBeanFactory">com.micros_retail.xadmin.util.gwt.entity.ITranslation</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.DiscountChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.dsc.IDiscount</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDatetime</a>
+      <b>effectiveDatetime</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>expirationDatetime</a>
+      <b>expirationDatetime</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.ReceiptTextChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.com.IReceiptText</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDate</a>
+      <b>effectiveDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>expirationDate</a>
+      <b>expirationDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.TenderOptionsChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.tnd.ITenderOptions</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDate</a>
+      <b>effectiveDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>expirationDate</a>
+      <b>expirationDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.AttachedItemChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.itm.IAttachedItems</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>beginDatetime</a>
+      <b>beginDatetime</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>endDatetime</a>
+      <b>endDatetime</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.ItemRestrictTypeChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.itm.IRestrictionType</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDate</a>
+      <b>effectiveDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>expirationDate</a>
+      <b>expirationDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>dateValue</a>
+      <b>dateValue</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.ItemRestrictCalendarChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.itm.IRestrictionCalendar</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.JustTimeToStringConverter">
+      <a>startTime</a>
+      <b>startTime</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.JustTimeToStringConverter">
+      <a>endTime</a>
+      <b>endTime</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.EmployeeChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.hrs.IEmployee</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>activeDate</a>
+      <b>activeDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>hireDate</a>
+      <b>hireDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>lastReviewDate</a>
+      <b>lastReviewDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>nextReviewDate</a>
+      <b>nextReviewDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>terminatedDate</a>
+      <b>terminatedDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.EmployeeChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.crm.IParty</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>birthDate</a>
+      <b>birthDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.EmployeeStoreChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.hrs.IEmployeeStore</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>beginDate</a>
+      <b>beginDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>endDate</a>
+      <b>endDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.EmployeeTaskChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.hrs.IEmployeeTask</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>endDate</a>
+      <b>endDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.JustTimeToStringConverter">
+      <a>endTime</a>
+      <b>endDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>startDate</a>
+      <b>startDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.JustTimeToStringConverter">
+      <a>startTime</a>
+      <b>startDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.ItemPriceChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.itm.IItemPrices</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDate</a>
+      <b>effectiveDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>expirationDate</a>
+      <b>expirationDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.ItemPriceChange</class-a>
+    <class-b>dtv.xst.dao.itm.ItemPricesId</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDate</a>
+      <b>effectiveDate</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.MessageChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.hrs.IEmployeeMessage</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>endDate</a>
+      <b>endDate</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>startDate</a>
+      <b>startDate</b>
+    </field>
+  </mapping>
+  
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleOverrideChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.tax.ITaxRateRuleOverride</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>dailyEndTimeDao</a>
+      <b>dailyEndTimeDao</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>dailyStartTimeDao</a>
+      <b>dailyStartTimeDao</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDatetimestamp</a>
+      <b>effectiveDatetimestamp</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>expirationDatetimestamp</a>
+      <b>expirationDatetimestamp</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.TaxRateRuleChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.tax.ITaxRateRule</class-b>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>dailyEndTimeDao</a>
+      <b>dailyEndTimeDao</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>dailyStartTimeDao</a>
+      <b>dailyStartTimeDao</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>effectiveDatetimestamp</a>
+      <b>effectiveDatetimestamp</b>
+    </field>
+    <field custom-converter="com.micros_retail.xadmin.util.dozer.StringDateConverter">
+      <a>expirationDatetimestamp</a>
+      <b>expirationDatetimestamp</b>
+    </field>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.ReasonCodePropertyChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.com.IReasonCodeProperty</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.RetailLocationPropertyChange</class-a>
+    <class-b bean-factory="com.micros_retail.xadmin.util.dozer.DtxBeanFactory">dtv.xst.dao.loc.IRetailLocationProperty</class-b>
+  </mapping>
+  
+  <mapping>
+    <class-a>com.micros_retail.xadmin.util.gwt.entity.RetailLocationChange</class-a>
+    <class-b>dtv.xst.dao.tax.impl.RetailLocationTaxMappingModel</class-b>
+    <field-exclude> 
+      <a>properties</a> 
+      <b>properties</b> 
+    </field-exclude> 
+  </mapping> 
+</mappings>

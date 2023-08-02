@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.support.tempStores.client.TempStoreService
+path: 791D062B0A4ABE46D2B1B2F7A2FA2126.gwt.rpc

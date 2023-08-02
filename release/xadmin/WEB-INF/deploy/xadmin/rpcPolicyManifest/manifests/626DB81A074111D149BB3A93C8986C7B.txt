@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.configurator.client.landscape.LandscapeService
+path: 9409FCCF8F756B3AF6E6D54225154832.gwt.rpc

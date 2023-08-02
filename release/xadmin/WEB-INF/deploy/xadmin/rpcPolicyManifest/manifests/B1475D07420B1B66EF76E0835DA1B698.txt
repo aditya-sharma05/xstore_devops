@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.store.StoreService
+path: AA8FDEBFD78BE07A46F1165C03E8F684.gwt.rpc

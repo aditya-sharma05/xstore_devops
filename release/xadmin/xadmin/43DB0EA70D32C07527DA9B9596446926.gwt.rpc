@@ -1,0 +1,27 @@
+@FinalFields, false
+com.google.gwt.i18n.shared.impl.DateRecord, true, true, true, true, com.google.gwt.i18n.shared.impl.DateRecord/3173882066, 3173882066
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+com.micros_retail.gwt.shared.entity.AbstractEntity, true, false, true, false, com.micros_retail.gwt.shared.entity.AbstractEntity/3506585559, 3506585559
+com.micros_retail.xadmin.configurator.client.custdisplay.CustDisplayService, false, false, false, false, _, 3334707227
+com.micros_retail.xadmin.configurator.shared.custdisplay.CustDisplayData, true, true, false, false, com.micros_retail.xadmin.configurator.shared.custdisplay.CustDisplayData/3494412812, 3494412812
+com.micros_retail.xadmin.configurator.shared.main.ProfileInfo, false, false, true, true, com.micros_retail.xadmin.configurator.shared.main.ProfileInfo/3090017537, 3090017537
+com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation/1920355893, 1920355893
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.DescriptionTranslation,_organizationId,_profileGroupId,_profileElementId,_translationKey,_locale,_translation,_configVersion
+com.micros_retail.xadmin.util.gwt.entity.MessageTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.entity.MessageTranslation/1792644133, 1792644133
+@ClientFields,com.micros_retail.xadmin.util.gwt.entity.MessageTranslation,_organizationId,_profileGroupId,_profileElementId,_translationKey,_locale,_translation,_configVersion
+com.micros_retail.xadmin.util.gwt.widgets.i18n.SimpleTranslation, true, true, true, true, com.micros_retail.xadmin.util.gwt.widgets.i18n.SimpleTranslation/1305973980, 1305973980
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.sql.Date, true, true, true, true, java.sql.Date/730999118, 730999118
+java.sql.Time, true, true, true, true, java.sql.Time/1816797103, 1816797103
+java.sql.Timestamp, true, true, true, true, java.sql.Timestamp/3040052672, 3040052672
+java.util.Collections$EmptyMap, true, true, true, true, java.util.Collections$EmptyMap/4174664486, 4174664486
+java.util.Date, true, true, true, true, java.util.Date/3385151746, 3385151746
+java.util.HashMap, true, true, true, true, java.util.HashMap/1797211028, 1797211028
+java.util.IdentityHashMap, true, true, true, true, java.util.IdentityHashMap/1839153020, 1839153020
+java.util.LinkedHashMap, true, true, true, true, java.util.LinkedHashMap/3008245022, 3008245022
+java.util.TreeMap, true, true, true, true, java.util.TreeMap/1493889780, 1493889780

@@ -1,0 +1,2762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuerySet xmlns="http://micros.com/xstore/config/query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QueryConfig.xsd">
+ <Queries>
+  <Query name="RECEIPT_TYPE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.trn.ReceiptDataId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+WHERE t.organization_id = ? 
+  AND t.rtl_loc_id = ?
+  AND t.wkstn_id = ?
+  AND t.business_date = ? 
+  AND t.trans_seq = ?
+  AND t.receipt_id NOT IN ('CFDI_XML')
+      ]]></WhereClause>
+  <!-- The above NOT IN clause is intended to be removed, but not so soon -->
+  <!-- The CFDI_XML receipt_id was inappropriately used for some XML data -->
+  <!-- It will be moved somewhere else                                    -->
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argWorkstationId" />
+      <Parameter name="argDate" />
+      <Parameter name="argTransSeq" />
+    </SQL>
+  </Query>
+  <Query name="TRANSACTION_BUSINESS_DATE_BY_TRANS_DATE">    
+    <Select from="PosTransaction" as="tt">
+      <ResultField name="tt.businessDate" as="businessDate" type="Date"/>
+    </Select>
+    <Where>
+      <Required field="organizationId" parameter="argOrganizationId"/>
+      <Required field="retailLocationId" parameter="argRetailLocationId"/>
+      <Required field="workstationId" parameter="argWorkstationId"/>
+      <Required field="transactionSequence" parameter="argTransSeq" />
+      <Required field="transactionDate" parameter="argDate" />
+    </Where>
+  </Query>
+ 
+  <Query name="REPORT_TYPE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.trn.ITransactionReportData</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+WHERE t.organization_id = ? 
+  AND t.rtl_loc_id = ?
+  AND t.wkstn_id = ?
+  AND t.business_date = ? 
+  AND t.trans_seq = ?
+  AND t.internal_data_flag = 0
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argWorkstationId" />
+      <Parameter name="argDate" />
+      <Parameter name="argTransSeq" />
+    </SQL>
+  </Query>
+
+  <Query name="ORG_HIERARCHY_CODES" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultField name="org_code" type="String" />
+    <ResultField name="level_order" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT 
+          org_code, 
+          level_order 
+        FROM loc_org_hierarchy 
+        WHERE organization_id = ? 
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY level_order ASC]]></Suffix>
+  </Query>
+
+  <Query name="ORG_HIERARCHY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.OrgHierarchyId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+          AND NOT (t.parent_code IS NULL 
+          AND t.parent_value IS NULL
+          AND t.level_order <> 0 
+          AND t.org_value = 'TEMP')
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argOrgCode"><![CDATA[t.org_code = ?]]></Expression>
+      <Expression parameters="argParentCode, argParentValue" trigger="argParentCode"><![CDATA[/*UPPER*/ t.parent_code = ? AND /*UPPER*/ t.parent_value = ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY level_order ASC, sort_order ASC]]></Suffix>
+  </Query>
+
+  <Query name="AIRPORT_ZONE_INFO" pmType="AIRLINE_INFO">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="ZoneInfo" type="String" />
+    <ResultField name="ZoneDescription" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          zone_id,description
+        FROM
+          com_airport_zone
+        WHERE
+          organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+
+  <Query name="ORG_HIERARCHY_SQL_HANDLER" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.util.orghierarchy.OrgHierarchyWrapperModel</ResultClass>
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="LevelCode" type="String" />
+    <ResultField name="LevelValue" type="String" />
+    <ResultField name="ParentCode" type="String" />
+    <ResultField name="ParentValue" type="String" />
+    <ResultField name="Inactive" type="Boolean" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="LevelManager" type="String" />
+    <ResultField name="LevelOrder" type="Integer" />
+    <ResultField name="SortOrder" type="Integer" />
+    <ResultField name="CreateDate" type="Date" />
+    <ResultField name="CreateUserId" type="String" />
+    <ResultField name="UpdateDate" type="Date" />
+    <ResultField name="UpdateUserId" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT organization_id,
+              org_code,
+              org_value,
+              parent_code,
+              parent_value,
+              inactive_flag,
+              description,
+              level_mgr,
+              level_order,
+              sort_order,
+              create_date,
+              create_user_id,
+              update_date,
+              update_user_id              
+        FROM loc_org_hierarchy t
+        WHERE t.organization_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argOrgCode"><![CDATA[t.org_code = ?]]></Expression>
+      <Expression parameters="argParentCode, argParentValue" trigger="argParentCode"><![CDATA[/*UPPER*/ t.parent_code = ? AND /*UPPER*/ t.parent_value = ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY level_order ASC, sort_order ASC]]></Suffix>
+  </Query>
+
+  <Query name="ORG_HIERARCHY_ROOT">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.OrgHierarchyId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+          AND t.parent_code IS NULL
+          AND t.parent_value IS NULL
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  
+  <Query name="ALL_ORG_HIERARCHY_ROOT">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.OrgHierarchyId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.parent_code IS NULL
+          AND t.parent_value IS NULL
+      ]]></WhereClause>
+    </SQL>
+  </Query>
+  
+  <Query name="ALL_ORG_HIERARCHY" >
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="Class">dtv.xst.dao.loc.impl.OrgHierarchyModel</ResultClass>
+    <ResultField name="OrganizationId" type="Long"/>
+    <ResultField name="description" type="String"/>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT organization_id, description
+        FROM loc_org_hierarchy where org_code = ? and org_value = ?
+      ]]></Statement>
+      <Parameter name="argOrgCode" />
+      <Parameter name="argOrgValue" />
+       <Expression trigger="@argOrgIds"><![CDATA[organization_id IN ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="REASON_CODES_BY_TYPE" pmType="CODES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.com.ReasonCodeId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ? 
+          AND reason_typcode = ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argReasonCodeType" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY sort_order ASC]]></Suffix>
+  </Query>
+
+  <Query name="STORE_CURRENCIES" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultField name="currency_id" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT 
+          t.currency_id 
+        FROM loc_rtl_loc t
+        WHERE organization_id = ? 
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="@storeList"><![CDATA[t.rtl_loc_id IN ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="STORE_LOCALES" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultField name="currency_id" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT 
+          t.locale 
+        FROM loc_rtl_loc t 
+        WHERE organization_id = ? 
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="@storeList"><![CDATA[t.rtl_loc_id IN ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="SECURITY_GROUPS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.sec.GroupId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE organization_id = ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY bitmap_position ASC]]></Suffix>
+  </Query>
+
+  <Query name="TRANSACTION_SEARCH_WITH_LAST_4_DIGITS_CREDITCARD" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.DefaultTransactionSummaryModel</ResultClass>
+    <ResultField name="TransactionDate" type="Date" />
+    <ResultField name="BusinessDate" type="Date" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="TransactionTypeCodeStringOnly" type="String" />
+    <ResultField name="TenderControlTypeCode" type="String" />
+    <ResultField name="SessionControlTypeCode" type="String" />
+    <ResultField name="BeginDatetimestamp" type="Date" />
+    <ResultField name="EndDatetimestamp" type="Date" />
+    <ResultField name="OperatorId" type="String" />
+    <ResultField name="TransactionStatusCodeStringOnly" type="String" />
+    <ResultField name="Total" type="BigDecimal" />
+    <ResultField name="FirstName" type="String" />
+    <ResultField name="LastName" type="String" />
+    <ResultField name="PostVoid" type="Boolean" />
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="CurrencyId" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          t.trans_date,
+          t.business_date AS businessDate,
+          t.rtl_loc_id AS retailLocationId,
+          t.wkstn_id AS workstationId,
+          t.trans_seq AS transactionSequence,
+          t.trans_typcode AS transactionTypeCode,
+          tct.typcode AS tenderControlTranTypeCode,
+          sct.typcode AS sessionControlTranTypeCode,
+          t.begin_datetime AS beginDatetimestamp,
+          t.end_datetime AS endDatetimestamp,
+          ep.employee_id AS operatorId,
+          t.trans_statcode AS transactionStatusCode,
+          t.total AS total,
+          cp.first_name AS fName,
+          cp.last_name AS lName,
+          t.post_void_flag AS postVoid,
+          t.organization_id AS organizationId,
+          loc.currency_id AS currencyId
+        FROM trn_trans t
+          LEFT JOIN loc_rtl_loc loc
+            ON t.organization_id = loc.organization_id
+            AND t.rtl_loc_id = loc.rtl_loc_id
+          LEFT JOIN trl_rtrans rt
+            ON t.organization_id = rt.organization_id
+            AND t.business_date = rt.business_date
+            AND t.rtl_loc_id = rt.rtl_loc_id
+            AND t.wkstn_id = rt.wkstn_id
+            AND t.trans_seq = rt.trans_seq
+          LEFT JOIN tsn_tndr_control_trans tct
+            ON t.organization_id = tct.organization_id
+            AND t.business_date = tct.business_date
+            AND t.rtl_loc_id = tct.rtl_loc_id
+            AND t.wkstn_id = tct.wkstn_id
+            AND t.trans_seq = tct.trans_seq
+          LEFT JOIN tsn_session_control_trans sct
+            ON t.organization_id = sct.organization_id
+            AND t.business_date = sct.business_date
+            AND t.rtl_loc_id = sct.rtl_loc_id
+            AND t.wkstn_id = sct.wkstn_id
+            AND t.trans_seq = sct.trans_seq
+          LEFT JOIN crm_party cp
+            ON rt.organization_id = cp.organization_id
+            AND rt.cust_party_id = cp.party_id
+          LEFT JOIN crm_party ep
+            ON t.organization_id = ep.organization_id
+            AND t.operator_party_id = ep.party_id
+        WHERE t.organization_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="argStartRetailLocationId, argEndRetailLocationId" trigger="argStartRetailLocationId"><![CDATA[? <= t.rtl_loc_id and t.rtl_loc_id <= ?]]></Expression>
+      <Expression trigger="@argRetailLocationIdList"><![CDATA[t.rtl_loc_id IN ?]]></Expression>
+      <Expression parameters="argStartDate, argEndDate" trigger="argStartDate"><![CDATA[t.trans_date between ? and ?]]></Expression>
+      <Expression parameters="argStartTime, argEndTime" trigger="argStartTime"><![CDATA[t.begin_time_int between ? and ?]]></Expression>
+      <Expression parameters="argStartWorkstationId, argEndWorkstationId" trigger="argStartWorkstationId"><![CDATA[? <= t.wkstn_id and t.wkstn_id <= ?]]></Expression>
+      <Expression parameters="argStartTranSeq, argEndTranSeq" trigger="argStartTranSeq"><![CDATA[? <= t.trans_seq and t.trans_seq <= ?]]></Expression>
+      <Expression parameters="argStartEmployeeId, argEndEmployeeId" trigger="argEmployeeRange"><![CDATA[/*UPPER*/ ep.employee_id between ? and ?]]></Expression>
+      <Expression trigger="argStartEmployeeId"><![CDATA[/*UPPER*/ ep.employee_id >= ?]]></Expression>
+      <Expression trigger="argEndEmployeeId"><![CDATA[/*UPPER*/ ep.employee_id <= ?]]></Expression>
+      <Expression parameters="argCustomerId, argCustomerId" trigger="argCustomerId"><![CDATA[/*UPPER*/ cp.last_name = ? or /*UPPER*/ cp.cust_id = ?]]></Expression>
+      <Expression trigger="argTenderId"><![CDATA[EXISTS (SELECT * FROM ttr_tndr_lineitm tl
+        inner join trl_rtrans_lineitm trl
+          ON tl.organization_id = trl.organization_id
+          AND tl.business_date = trl.business_date
+          AND tl.rtl_loc_id = trl.rtl_loc_id
+          AND tl.wkstn_id = trl.wkstn_id
+          AND tl.trans_seq = trl.trans_seq
+          AND tl.rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+        WHERE tl.organization_id = t.organization_id
+          AND tl.business_date = t.business_date
+          AND tl.rtl_loc_id = t.rtl_loc_id
+          AND tl.wkstn_id = t.wkstn_id
+          AND tl.trans_seq = t.trans_seq
+          AND /*UPPER*/ tl.tndr_id = ?
+          AND trl.void_flag = 0)
+      ]]></Expression>
+      <Expression trigger="@argEncrypted"><![CDATA[/*UPPER*/ cdtl.acct_nbr IN ?]]></Expression>
+      <Expression trigger="argTranType"><![CDATA[/*UPPER*/ t.trans_typcode = ?]]></Expression>
+      <Expression trigger="argCreditLastFourDigits"><![CDATA[EXISTS (SELECT * FROM ttr_credit_debit_tndr_lineitm cdtl
+        LEFT JOIN trl_rtrans_lineitm_p TLP
+          ON TLP.organization_id = cdtl.organization_id
+          AND TLP.rtl_loc_id = cdtl.rtl_loc_id
+          AND TLP.wkstn_id = cdtl.wkstn_id
+          AND TLP.business_date = cdtl.business_date
+          AND TLP.trans_seq = cdtl.trans_seq
+          AND TLP.rtrans_lineitm_seq = cdtl.rtrans_lineitm_seq
+          AND TLP.property_code = 'MASKED_ACCOUNT_NUMBER'
+        WHERE t.organization_id = cdtl.organization_id 
+          AND t.business_date = cdtl.business_date 
+          AND t.rtl_loc_id = cdtl.rtl_loc_id 
+          AND t.wkstn_id = cdtl.wkstn_id 
+          AND  t.trans_seq = cdtl.trans_seq 
+          AND /*UPPER*/ TLP.string_value like ?)
+      ]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY t.begin_datetime DESC]]></Suffix>
+  </Query>
+
+  <Query name="TRANSACTION_SEARCH" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.DefaultTransactionSummaryModel</ResultClass>
+    <ResultField name="TransactionDate" type="Date" />
+    <ResultField name="BusinessDate" type="Date" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="TransactionTypeCodeStringOnly" type="String" />
+    <ResultField name="TenderControlTypeCode" type="String" />
+    <ResultField name="SessionControlTypeCode" type="String" />
+    <ResultField name="BeginDatetimestamp" type="Date" />
+    <ResultField name="EndDatetimestamp" type="Date" />
+    <ResultField name="OperatorId" type="String" />
+    <ResultField name="TransactionStatusCodeStringOnly" type="String" />
+    <ResultField name="Total" type="BigDecimal" />
+    <ResultField name="FirstName" type="String" />
+    <ResultField name="LastName" type="String" />
+    <ResultField name="PostVoid" type="Boolean" />
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="CurrencyId" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT  
+          t.trans_date,
+          t.business_date AS businessDate,
+          t.rtl_loc_id AS retailLocationId,
+          t.wkstn_id AS workstationId,
+          t.trans_seq AS transactionSequence,
+          t.trans_typcode AS transactionTypeCode,
+          tct.typcode AS tenderControlTranTypeCode,
+          sct.typcode AS sessionControlTranTypeCode,
+          t.begin_datetime AS beginDatetimestamp,
+          t.end_datetime AS endDatetimestamp,
+          ep.employee_id AS operatorId,
+          t.trans_statcode AS transactionStatusCode,
+          t.total AS total,
+          cp.first_name AS fName,
+          cp.last_name AS lName,
+          t.post_void_flag AS postVoid,
+          t.organization_id AS organizationId,
+          loc.currency_id AS currencyId
+        FROM trn_trans t
+          LEFT JOIN loc_rtl_loc loc
+            ON t.organization_id = loc.organization_id
+            AND t.rtl_loc_id = loc.rtl_loc_id
+          LEFT JOIN trl_rtrans rt
+            ON t.organization_id = rt.organization_id
+            AND t.business_date = rt.business_date
+            AND t.rtl_loc_id = rt.rtl_loc_id
+            AND t.wkstn_id = rt.wkstn_id
+            AND t.trans_seq = rt.trans_seq
+          LEFT JOIN tsn_tndr_control_trans tct
+            ON t.organization_id = tct.organization_id
+            AND t.business_date = tct.business_date
+            AND t.rtl_loc_id = tct.rtl_loc_id
+            AND t.wkstn_id = tct.wkstn_id
+            AND t.trans_seq = tct.trans_seq
+          LEFT JOIN tsn_session_control_trans sct
+            ON t.organization_id = sct.organization_id
+            AND t.business_date = sct.business_date
+            AND t.rtl_loc_id = sct.rtl_loc_id
+            AND t.wkstn_id = sct.wkstn_id
+            AND t.trans_seq = sct.trans_seq
+          LEFT JOIN crm_party cp
+            ON rt.organization_id = cp.organization_id
+            AND rt.cust_party_id = cp.party_id
+          LEFT JOIN crm_party ep
+            ON t.organization_id = ep.organization_id
+            AND t.operator_party_id = ep.party_id
+        WHERE t.organization_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="argStartRetailLocationId, argEndRetailLocationId" trigger="argStartRetailLocationId"><![CDATA[? <= t.rtl_loc_id and t.rtl_loc_id <= ?]]></Expression>
+      <Expression trigger="@argRetailLocationIdList"><![CDATA[t.rtl_loc_id IN ?]]></Expression>
+      <Expression parameters="argStartDate, argEndDate" trigger="argStartDate"><![CDATA[t.trans_date between ? and ?]]></Expression>
+      <Expression parameters="argStartTime, argEndTime" trigger="argStartTime"><![CDATA[t.begin_time_int between ? and ?]]></Expression>
+      <Expression parameters="argStartWorkstationId, argEndWorkstationId" trigger="argStartWorkstationId"><![CDATA[? <= t.wkstn_id and t.wkstn_id <= ?]]></Expression>
+      <Expression parameters="argStartTranSeq, argEndTranSeq" trigger="argStartTranSeq"><![CDATA[? <= t.trans_seq and t.trans_seq <= ?]]></Expression>
+      <Expression parameters="argStartEmployeeId, argEndEmployeeId" trigger="argEmployeeRange"><![CDATA[/*UPPER*/ ep.employee_id between ? and ?]]></Expression>
+      <Expression trigger="argStartEmployeeId"><![CDATA[/*UPPER*/ ep.employee_id >= ?]]></Expression>
+      <Expression trigger="argEndEmployeeId"><![CDATA[/*UPPER*/ ep.employee_id <= ?]]></Expression>
+      <Expression parameters="argCustomerId, argCustomerId" trigger="argCustomerId"><![CDATA[/*UPPER*/ cp.last_name = ? or /*UPPER*/ cp.cust_id = ?]]></Expression>
+      <Expression trigger="argTenderId"><![CDATA[EXISTS (SELECT * FROM ttr_tndr_lineitm tl
+        inner join trl_rtrans_lineitm trl
+          ON tl.organization_id = trl.organization_id
+          AND tl.business_date = trl.business_date
+          AND tl.rtl_loc_id = trl.rtl_loc_id
+          AND tl.wkstn_id = trl.wkstn_id
+          AND tl.trans_seq = trl.trans_seq
+          AND tl.rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+        WHERE tl.organization_id = t.organization_id
+          AND tl.business_date = t.business_date
+          AND tl.rtl_loc_id = t.rtl_loc_id
+          AND tl.wkstn_id = t.wkstn_id
+          AND tl.trans_seq = t.trans_seq
+          AND /*UPPER*/ tl.tndr_id = ?
+          AND trl.void_flag = 0)
+      ]]></Expression>
+      <Expression trigger="argTranType"><![CDATA[/*UPPER*/ t.trans_typcode = ?]]></Expression>
+      <Expression trigger="argFiscalNumber"><![CDATA[/*UPPER*/ t.fiscal_number = ?]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+    <Suffix dtype="String"><![CDATA[ORDER BY t.begin_datetime DESC]]></Suffix>
+  </Query>
+
+  <Query name="RECEIPT_TRANS_SEARCH" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.DefaultTransactionSummaryModel</ResultClass>
+    <ResultField name="TransactionDate" type="Date" />
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="BusinessDate" type="Date" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="EndDatetimestamp" type="Date" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT  
+          trn_trans.trans_date,
+          trn_trans.organization_id,
+          trn_trans.rtl_loc_id, 
+          trn_trans.wkstn_id, 
+          trn_trans.business_date, 
+          trn_trans.trans_seq, 
+          trn_trans.end_datetime
+        FROM trn_trans JOIN loc_rtl_loc
+          ON trn_trans.organization_id = loc_rtl_loc.organization_id
+         AND trn_trans.rtl_loc_id = loc_rtl_loc.rtl_loc_id 
+         AND /*UPPER*/ loc_rtl_loc.locale = ?
+       WHERE trn_trans.organization_id = ?
+         AND end_datetime = (SELECT MAX(end_datetime) 
+                               FROM trn_trans trn JOIN loc_rtl_loc loc2
+                                 ON trn.organization_id = loc2.organization_id
+                                AND trn.rtl_loc_id = loc2.rtl_loc_id 
+                                AND /*UPPER*/ loc2.locale = ?
+                              WHERE trn.organization_id = ?
+                                AND /*UPPER*/ trans_typcode = ?
+                                AND /*UPPER*/ trans_statcode = 'COMPLETE'
+      ]]></Statement>
+      <Parameter name="argReceiptLocale" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argReceiptLocale" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTransTypecode" />
+      <Expression parameters="argVoidFlag" trigger="argHasCreditCard"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM ttr_credit_debit_tndr_lineitm cred JOIN trl_rtrans_lineitm trl 
+                         ON cred.organization_id = trl.organization_id
+                        AND cred.rtl_loc_id = trl.rtl_loc_id
+                        AND cred.wkstn_id = trl.wkstn_id
+                        AND cred.business_date = trl.business_date
+                        AND cred.trans_seq = trl.trans_seq
+                        AND cred.rtrans_lineitm_seq = trl.rtrans_lineitm_seq 
+                      WHERE cred.organization_id = trn.organization_id
+                        AND cred.rtl_loc_id = trn.rtl_loc_id
+                        AND cred.wkstn_id = trn.wkstn_id
+                        AND cred.business_date = trn.business_date
+                        AND cred.trans_seq = trn.trans_seq
+                        AND trl.void_flag = ?)
+      ]]></Expression>
+      <Expression parameters="argVoidFlag" trigger="argHasTaxExemption"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM trl_sale_tax_lineitm tax
+                      WHERE tax.organization_id = trn.organization_id
+                        AND tax.rtl_loc_id = trn.rtl_loc_id
+                        AND tax.wkstn_id = trn.wkstn_id
+                        AND tax.business_date = trn.business_date
+                        AND tax.trans_seq = trn.trans_seq
+                        AND tax.tax_exemption_id IS NOT NULL
+                        AND tax.void_flag = ?)
+      ]]></Expression>
+      <Expression parameters="argVoidFlag" trigger="argHasBounceBack"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM doc_document_lineitm doc JOIN trl_rtrans_lineitm trl
+                         ON doc.organization_id = trl.organization_id
+                        AND doc.rtl_loc_id = trl.rtl_loc_id
+                        AND doc.wkstn_id = trl.wkstn_id
+                        AND doc.business_date = trl.business_date
+                        AND doc.trans_seq = trl.trans_seq
+                        AND doc.rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+                      WHERE doc.organization_id = trn.organization_id
+                        AND doc.rtl_loc_id = trn.rtl_loc_id
+                        AND doc.wkstn_id = trn.wkstn_id
+                        AND doc.business_date = trn.business_date
+                        AND doc.trans_seq = trn.trans_seq
+                        AND /*UPPER*/ doc.document_type = 'BOUNCE_BACK_COUPON'
+                        AND /*UPPER*/ doc.activity_code = 'ISSUED'
+                        AND trl.void_flag = ?)
+      ]]></Expression>
+      <Expression parameters="argVoidFlag" trigger="argHasGiftCertificate"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM trl_voucher_sale_lineitm vou JOIN trl_rtrans_lineitm trl
+                         ON vou.organization_id = trl.organization_id
+                        AND vou.rtl_loc_id = trl.rtl_loc_id
+                        AND vou.wkstn_id = trl.wkstn_id
+                        AND vou.business_date = trl.business_date
+                        AND vou.trans_seq = trl.trans_seq
+                        AND vou.rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+                      WHERE vou.organization_id = trn.organization_id
+                        AND vou.rtl_loc_id = trn.rtl_loc_id
+                        AND vou.wkstn_id = trn.wkstn_id
+                        AND vou.business_date = trn.business_date
+                        AND vou.trans_seq = trn.trans_seq
+                        AND /*UPPER*/ vou.voucher_typcode = 'GIFT_CERTIFICATE'
+                        AND /*UPPER*/ vou.activity_code = 'ISSUED'
+                        AND trl.void_flag = ?)
+      ]]></Expression>
+      <Expression parameters="argVoidFlag" trigger="argHasAR"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM ttr_ar_tndr_lineitm ar JOIN trl_rtrans_lineitm trl
+                         ON ar.organization_id = trl.organization_id
+                        AND ar.rtl_loc_id = trl.rtl_loc_id
+                        AND ar.wkstn_id = trl.wkstn_id
+                        AND ar.business_date = trl.business_date
+                        AND ar.trans_seq = trl.trans_seq
+                        AND ar.rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+                      WHERE ar.organization_id = trn.organization_id
+                        AND ar.rtl_loc_id = trn.rtl_loc_id
+                        AND ar.wkstn_id = trn.wkstn_id
+                        AND ar.business_date = trn.business_date
+                        AND ar.trans_seq = trn.trans_seq
+                        AND trl.void_flag = ?)
+      ]]></Expression>
+      <Expression parameters="argCustAcctCode, argVoidFlag" trigger="argCustAcctCode"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM trl_cust_item_acct_mod acct JOIN trl_rtrans_lineitm trl 
+                         ON acct.organization_id = trl.organization_id
+                        AND acct.rtl_loc_id = trl.rtl_loc_id
+                        AND acct.wkstn_id = trl.wkstn_id
+                        AND acct.business_date = trl.business_date
+                        AND acct.trans_seq = trl.trans_seq
+                        AND acct.rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+                      WHERE acct.organization_id = trn.organization_id
+                        AND acct.rtl_loc_id = trn.rtl_loc_id
+                        AND acct.wkstn_id = trn.wkstn_id
+                        AND acct.business_date = trn.business_date
+                        AND acct.trans_seq = trn.trans_seq
+                        AND /*UPPER*/ acct.cust_acct_code = ?
+                        AND trl.void_flag = ?)
+      ]]></Expression>
+      <Expression parameters="argVoidFlag" trigger="argHasOrder"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM xom_order_mod xom JOIN trl_rtrans_lineitm trl 
+                         ON xom.organization_id = trl.organization_id
+                        AND xom.rtl_loc_id = trl.rtl_loc_id
+                        AND xom.wkstn_id = trl.wkstn_id
+                        AND xom.business_date = trl.business_date
+                        AND xom.trans_seq = trl.trans_seq
+                        AND xom.rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+                      WHERE xom.organization_id = trn.organization_id
+                        AND xom.rtl_loc_id = trn.rtl_loc_id
+                        AND xom.wkstn_id = trn.wkstn_id
+                        AND xom.business_date = trn.business_date
+                        AND xom.trans_seq = trn.trans_seq
+                        AND trl.void_flag = ?)
+      ]]></Expression>
+      <Expression parameters="argVoidFlag" trigger="argHasWarranty"><![CDATA[
+             EXISTS (SELECT 1
+                       FROM itm_warranty iwt JOIN trl_rtrans_lineitm trl 
+                         ON iwt.organization_id = trl.organization_id
+                        AND iwt.warranty_line_rtl_loc_id = trl.rtl_loc_id
+                        AND iwt.warranty_line_wkstn_id = trl.wkstn_id
+                        AND iwt.warranty_line_business_date = trl.business_date
+                        AND iwt.warranty_line_trans_seq = trl.trans_seq
+                        AND iwt.warranty_rtrans_lineitm_seq = trl.rtrans_lineitm_seq
+                      WHERE iwt.organization_id = trn.organization_id
+                        AND iwt.warranty_line_rtl_loc_id = trn.rtl_loc_id
+                        AND iwt.warranty_line_wkstn_id = trn.wkstn_id
+                        AND iwt.warranty_line_business_date = trn.business_date
+                        AND iwt.warranty_line_trans_seq = trn.trans_seq
+                        AND trl.void_flag = ?)
+      ]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[)]]></Suffix>
+  </Query>
+  <Query name="DATABASE_TRANSLATIONS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.com.DatabaseTranslationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+          AND t.translation_key = ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTranslationKey" />
+    </SQL>
+  </Query>
+  <Query name="DATABASE_TRANSLATIONS_ALL_OF_LOCALE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.com.DatabaseTranslationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+          AND (t.locale = ? OR t.locale = 'DEFAULT')
+          AND t.translation_key in ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argLocale" />
+      <Parameter name="@argTranslationKeys" />
+    </SQL>
+  </Query>
+  <Query name="RETAIL_LOCATIONS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.RetailLocationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="@argRetailLocationIds"><![CDATA[t.rtl_loc_id IN ?]]></Expression>
+      <Expression trigger="@argExcludedLocationIds"><![CDATA[t.rtl_loc_id NOT IN ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="DATALOADER_EVENTS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.ctl.EventLogEntryId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[        
+          WHERE t.organization_id = ?
+            AND /*UPPER*/ logger_category LIKE /*UPPER*/ 'dtv.xstore.dataloader.download_id%'        
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argCutOffDate"><![CDATA[t.log_timestamp >= ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="POSLOG_DATA_COUNT" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="Count" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT count(*)
+        FROM trn_poslog_data t
+         LEFT JOIN trn_trans trans
+         ON t.organization_id = trans.organization_id
+         AND t.rtl_loc_id = trans.rtl_loc_id
+         AND t.wkstn_id = trans.wkstn_id
+         AND t.trans_seq = trans.trans_seq
+         AND t.business_date = trans.business_date
+        WHERE t.organization_id = ?
+          AND t.business_date >= ?
+          AND t.business_date <= ? ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argFromBusinessDate" />
+      <Parameter name="argToBusinessDate" />
+      <Expression trigger="@argStoreIds"><![CDATA[t.rtl_loc_id IN ?]]></Expression>
+      <Expression trigger="argWorkstationId"><![CDATA[t.wkstn_id = ?]]></Expression>
+      <Expression trigger="argTransSeq"><![CDATA[t.trans_seq = ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="POSLOG_DATA_SMARTPAGES" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.support.poslog.server.PosLogQueryResult</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="BusinessDateDate" type="Date" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="TransTypeCode" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT rtl_loc_id,
+               business_date,
+               wkstn_id,
+               trans_seq,
+               COALESCE(trans_typcode, 'NULL')
+        FROM (
+             SELECT t.rtl_loc_id,
+                   t.business_date,
+                   t.wkstn_id,
+                   t.trans_seq,
+                   trans.trans_typcode,
+                   ROW_NUMBER() over(order by t.rtl_loc_id, t.wkstn_id, t.trans_seq) as rn
+             FROM trn_poslog_data t
+               LEFT JOIN trn_trans trans
+               ON t.organization_id = trans.organization_id
+               AND t.rtl_loc_id = trans.rtl_loc_id
+               AND t.wkstn_id = trans.wkstn_id
+               AND t.trans_seq = trans.trans_seq
+               AND t.business_date = trans.business_date
+             WHERE t.organization_id = ?
+              AND t.business_date >= ?
+              AND t.business_date <= ? ]]>
+        <!-- AND t.rtl_loc_id IN ?]]> -->
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argFromBusinessDate" />
+      <Parameter name="argToBusinessDate" />
+      <!-- <Parameter name="@argStoreIds" /> -->
+    </SQL>
+    <SQL required="false">
+      <Statement dtype="String"><![CDATA[
+              AND t.rtl_loc_id IN ?]]></Statement>
+      <Parameter name="@argStoreIds" />
+    </SQL>
+    <SQL required="false">
+      <Statement dtype="String"><![CDATA[
+              AND t.wkstn_id = ?]]></Statement>
+      <Parameter name="argWorkstationId" />
+    </SQL>
+    <SQL required="false">
+      <Statement dtype="String"><![CDATA[
+              AND t.trans_seq = ?]]></Statement>
+      <Parameter name="argTransSeq" />
+    </SQL>
+    <SQL>
+      <!-- SQLServer and Oracle have different syntax for modulo, so I had to write it in a generic way using the 
+        floor function. Yay SQL, the "standard" rdbms language! -->
+      <Statement dtype="String"><![CDATA[
+      ) PosLogData
+        WHERE PosLogData.rn <= ? 
+        AND ((PosLogData.rn-1) - ? * floor((PosLogData.rn-1) / ?)) = 0
+      ]]>
+      </Statement>
+      <Parameter name="argMaxRows" />
+      <Parameter name="argPageSize" />
+      <!-- Thanks to the afore mentioned modulo syntax debacle, we need to provide the same parameter twice, but 
+        we need to give it different parameter names. UGH!! -->
+      <Parameter name="argSamePageSizeAgain" />
+    </SQL>
+  </Query>
+
+  <Query name="POSLOG_DATA_ONEPAGE" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.support.poslog.server.PosLogQueryResult</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="BusinessDateDate" type="Date" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="TransTypeCode" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT rtl_loc_id,
+               business_date,
+               wkstn_id,
+               trans_seq,
+               COALESCE(trans_typcode, 'NULL')
+        FROM (
+             SELECT t.rtl_loc_id,
+                   t.business_date,
+                   t.wkstn_id,
+                   t.trans_seq,
+                   trans.trans_typcode,
+                   ROW_NUMBER() over(order by t.rtl_loc_id, t.wkstn_id, t.trans_seq) as rn
+             FROM trn_poslog_data t
+               LEFT JOIN trn_trans trans
+               ON t.organization_id = trans.organization_id
+               AND t.rtl_loc_id = trans.rtl_loc_id
+               AND t.wkstn_id = trans.wkstn_id
+               AND t.trans_seq = trans.trans_seq
+               AND t.business_date = trans.business_date
+             WHERE t.organization_id = ?
+              AND t.business_date >= ?
+              AND t.business_date <= ? ]]>
+        <!-- AND t.rtl_loc_id IN ?]]> -->
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argFromBusinessDate" />
+      <Parameter name="argToBusinessDate" />
+      <!-- <Parameter name="@argStoreIds" /> -->
+    </SQL>
+    <SQL required="false">
+      <Statement dtype="String"><![CDATA[
+              AND t.rtl_loc_id IN ?]]></Statement>
+      <Parameter name="@argStoreIds" />
+    </SQL>
+    <SQL required="false">
+      <Statement dtype="String"><![CDATA[
+              AND t.wkstn_id = ?]]></Statement>
+      <Parameter name="argWorkstationId" />
+    </SQL>
+    <SQL required="false">
+      <Statement dtype="String"><![CDATA[
+              AND t.trans_seq = ?]]></Statement>
+      <Parameter name="argTransSeq" />
+    </SQL>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      ) PosLogData
+        WHERE PosLogData.rn BETWEEN ? AND ?
+      ]]>
+      </Statement>
+      <Parameter name="argFirstRowNumber" />
+      <Parameter name="argLastRowNumber" />
+    </SQL>
+  </Query>
+
+  <Query name="DISCOUNTS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.dsc.DiscountId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+                 
+          WHERE t.organization_id = ?
+            AND /*UPPER*/ t.typcode <> 'COUPON'        
+        
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argApplicationMethod"><![CDATA[/*UPPER*/ t.app_mthd_code = ?]]></Expression>
+      <Expression trigger="argDiscountCode"><![CDATA[t.discount_code = ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY t.sort_order ASC]]></Suffix>
+  </Query>
+
+  <Query name="BROADCASTER_OPTIONS">
+    <Select from="BroadcasterOption"/>
+    <Where>
+      <Required field="organizationId"/>
+    </Where>
+  </Query>
+
+  <Query name="CONFIGURATOR_TENDER_TYPES" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tnd.TenderTypeId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String">
+        <![CDATA[
+          WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argHidden"><![CDATA[t.hidden_flag = ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="CONFIGURATOR_TENDER_USER_SETTINGS" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tnd.TenderUserSettingsId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String">
+        <![CDATA[
+          WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+
+  <Query name="CONFIGURATOR_TENDERS" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tnd.TenderId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?         
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argTenderType"><![CDATA[/*UPPER*/ t.tndr_typcode = ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="CONFIGURATOR_CHANGE_TENDERS" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tnd.impl.TenderModel</ResultClass>
+    <ResultField name="TenderId" type="String" />
+    <ResultField name="Description" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT t.tndr_id,
+               t.description
+          FROM tnd_tndr t
+            INNER JOIN tnd_tndr_availability ta
+            ON t.organization_id = ta.organization_id
+            AND t.tndr_id = ta.tndr_id
+         WHERE t.organization_id = ?
+         AND /*UPPER*/ t.tndr_typcode <> 'CURRENCY'
+         AND ta.availability_code = 'CHANGE'
+      
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+
+  <!-- The expressions on this query may look a little different than other queries. It uses the direct replacement 
+    parameters to supply dynamic operators for the conditional expressions and support the notion of a dynamic query. 
+    The operators are specifed in the value of the parameter prefixed with $. Crazy, you say? There is a fine line 
+    between that and genius, and I walk it carefully. -->
+  <Query name="DATA_MANAGER_ITEMS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.ItemModel</ResultClass>
+    <ResultField name="ItemId" type="String" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="MerchLevel1Id" type="String" />
+    <ResultField name="MerchLevel2Id" type="String" />
+    <ResultField name="MerchLevel3Id" type="String" />
+    <ResultField name="MerchLevel4Id" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          item_id,
+          org_code,
+          org_value,
+          description,
+          merch_level_1,
+          merch_level_2,
+          merch_level_3,
+          merch_level_4
+        FROM
+          itm_item t
+        WHERE
+          organization_id = ? ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="$itemIdOp, itemId" trigger="itemId"><![CDATA[t.item_id {$itemIdOp} ?]]></Expression>
+      <Expression parameters="$merchLevel1IdOp, merchLevel1Id" trigger="merchLevel1Id"><![CDATA[/*UPPER*/ t.merch_level_1 {$merchLevel1IdOp} ?]]></Expression>
+      <Expression parameters="$merchLevel2IdOp, merchLevel2Id" trigger="merchLevel2Id"><![CDATA[/*UPPER*/ t.merch_level_2 {$merchLevel2IdOp} ?]]></Expression>
+      <Expression parameters="$merchLevel3IdOp, merchLevel3Id" trigger="merchLevel3Id"><![CDATA[/*UPPER*/ t.merch_level_3 {$merchLevel3IdOp} ?]]></Expression>
+      <Expression parameters="$merchLevel4IdOp, merchLevel4Id" trigger="merchLevel4Id"><![CDATA[/*UPPER*/ t.merch_level_4 {$merchLevel4IdOp} ?]]></Expression>
+      <Expression parameters="$descriptionOp, description" trigger="description"><![CDATA[/*UPPER*/ t.description {$descriptionOp} ?]]></Expression>
+      <Expression parameters="$itemTypeCodeOp, itemTypeCode" trigger="itemTypeCode"><![CDATA[/*UPPER*/ t.item_typcode {$itemTypeCodeOp} ?]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+  </Query>
+  <!-- The expressions on this query may look a little different than other queries. It uses the direct replacement 
+    parameters to supply dynamic operators for the conditional expressions and support the notion of a dynamic query. 
+    The operators are specifed in the value of the parameter prefixed with $. Crazy, you say? There is a fine line 
+    between that and genius, and I walk it carefully. -->
+  <Query name="DATA_MANAGER_ITEM_RESTRICTIONS_CATEGORIES" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.RestrictionModel</ResultClass>
+    <ResultField name="RestrictionId" type="String" />
+    <ResultField name="RestrictionDescription" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          restriction_id,
+          restriction_description
+        FROM
+          itm_restriction t
+        WHERE
+          organization_id = ? ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="$restrictionIdOp, restrictionId" trigger="restrictionId"><![CDATA[t.restriction_id {$restrictionIdOp} ?]]></Expression>
+      <Expression parameters="$itemIdOp, itemId" trigger="itemId"><![CDATA[
+          EXISTS (SELECT 1 
+                    FROM itm_restriction_mapping irm 
+                   WHERE irm.organization_id = t.organization_id 
+                     AND irm.restriction_id = t.restriction_id
+                     AND irm.merch_hierarchy_level = 'ITEM' 
+                     AND irm.merch_hierarchy_id {$itemIdOp} ?)
+      ]]></Expression>
+      <Expression parameters="merchLevel1, $merchLevel1IdOp, merchLevel1Id" trigger="merchLevel1Id"><![CDATA[
+          EXISTS (SELECT 1 
+                    FROM itm_restriction_mapping irm 
+                   WHERE irm.organization_id = t.organization_id 
+                     AND irm.restriction_id = t.restriction_id
+                     AND irm.merch_hierarchy_level = ? 
+                     AND irm.merch_hierarchy_id {$merchLevel1IdOp} ?)
+      ]]></Expression>
+      <Expression parameters="merchLevel2, $merchLevel2IdOp, merchLevel2Id" trigger="merchLevel2Id"><![CDATA[
+          EXISTS (SELECT 1 
+                    FROM itm_restriction_mapping irm 
+                   WHERE irm.organization_id = t.organization_id 
+                     AND irm.restriction_id = t.restriction_id
+                     AND irm.merch_hierarchy_level = ? 
+                     AND irm.merch_hierarchy_id {$merchLevel2IdOp} ?)
+      ]]></Expression>
+      <Expression parameters="merchLevel3, $merchLevel3IdOp, merchLevel3Id" trigger="merchLevel3Id"><![CDATA[
+          EXISTS (SELECT 1 
+                    FROM itm_restriction_mapping irm 
+                   WHERE irm.organization_id = t.organization_id 
+                     AND irm.restriction_id = t.restriction_id
+                     AND irm.merch_hierarchy_level = ? 
+                     AND irm.merch_hierarchy_id {$merchLevel3IdOp} ?)
+      ]]></Expression>
+      <Expression parameters="merchLevel4, $merchLevel4IdOp, merchLevel4Id" trigger="merchLevel4Id"><![CDATA[
+          EXISTS (SELECT 1 
+                    FROM itm_restriction_mapping irm 
+                   WHERE irm.organization_id = t.organization_id 
+                     AND irm.restriction_id = t.restriction_id
+                     AND irm.merch_hierarchy_level = ? 
+                     AND irm.merch_hierarchy_id {$merchLevel4IdOp} ?)
+      ]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+  </Query>
+  <Query name="DATA_MANAGER_RESTRICTION_CALENDARS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.RestrictionCalendarId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argRestrictionId"><![CDATA[t.restriction_id = ?]]></Expression>
+      <Expression trigger="argRestrictionType"><![CDATA[t.restriction_typecode = ?]]></Expression>
+      <Expression trigger="argDayCode"><![CDATA[t.day_code = ?]]></Expression>
+      <Expression trigger="argOrgCode"><![CDATA[/*UPPER*/ t.org_code = ?]]></Expression>
+      <Expression trigger="argOrgValue"><![CDATA[/*UPPER*/ t.org_value = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_RESTRICTION_MAPPINGS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.RestrictionMappingId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argRestrictionId"><![CDATA[t.restriction_id = ?]]></Expression>
+      <Expression trigger="argMerchHierarchyLevel"><![CDATA[t.merch_hierarchy_level = ?]]></Expression>
+      <Expression trigger="argMerchHierarchyId"><![CDATA[t.merch_hierarchy_id = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_RESTRICTION_TYPES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.RestrictionTypeId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argRestrictionId"><![CDATA[t.restriction_id = ?]]></Expression>
+      <Expression trigger="argRestrictionTypeCode"><![CDATA[t.restriction_typecode = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_ITEM_PRICES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.ItemPricesId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+          AND item_id = ?
+          AND level_code = ?
+          AND level_value = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argItemId" />
+      <Parameter name="argLevelCode" />
+      <Parameter name="argLevelValue" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_ATTACHED_ITEMS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.AttachedItemsId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+          AND sold_item_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argSoldItemId" />
+      <Expression trigger="argLevelCode"><![CDATA[level_code = ?]]></Expression>
+      <Expression trigger="argLevelValue"><![CDATA[level_value = ?]]></Expression>
+      <Expression trigger="argAttachedItemId"><![CDATA[attached_item_id = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_UPCS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.ItemCrossReferenceModel</ResultClass>
+    <ResultField name="ItemId" type="String" />
+    <ResultField name="ManufacturerUpc" type="String" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          item_id,
+          manufacturer_upc,
+          org_code,
+          org_value
+        FROM
+          itm_item_cross_reference t
+        WHERE organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argOrgCode"><![CDATA[/*UPPER*/ org_code = ?]]></Expression>
+      <Expression trigger="argOrgValue"><![CDATA[/*UPPER*/ org_value = ?]]></Expression>
+      <Expression trigger="argUpc"><![CDATA[manufacturer_upc = ?]]></Expression>
+      <Expression trigger="argItemId"><![CDATA[/*UPPER*/ item_id = ?]]></Expression>
+      <Expression trigger="argNotItemId"><![CDATA[/*UPPER*/ item_id != ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_MERCH_HIERARCHY" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.MerchandiseHierarchyModel</ResultClass>
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <ResultField name="LevelCode" type="String" />
+    <ResultField name="HierarchyId" type="String" />
+    <ResultField name="ParentId" type="String" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="SortOrder" type="Integer" />
+    <ResultField name="Hidden" type="Boolean" />
+    <ResultField name="DisallowItemMatrixDisplay" type="Boolean" />
+    <ResultField name="ItemMatrixColor" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          org_code,
+          org_value,
+          level_code,
+          hierarchy_id,
+          parent_id,
+          description,
+          sort_order,
+          hidden_flag,
+          disallow_matrix_display_flag,
+          item_matrix_color
+        FROM
+          itm_merch_hierarchy t
+        WHERE organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argHiddenFlag"><![CDATA[t.hidden_flag = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_GROUPS" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxGroupId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+          WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <!-- The expressions on this query may look a little different than other queries. It uses the direct replacement 
+    parameters to supply dynamic operators for the conditional expressions and support the notion of a dynamic query. 
+    The operators are specifed in the value of the parameter prefixed with $. Crazy, you say? There is a fine line 
+    between that and genius, and I walk it carefully. -->
+  <Query name="DATA_MANAGER_VENDORS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="VendorId" type="String" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <ResultField name="Name" type="String" />
+    <ResultField name="Contact" type="String" />
+    <ResultField name="City" type="String" />
+    <ResultField name="State" type="String" />
+    <ResultField name="Country" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          t.vendor_id,
+          t.org_code,
+          t.org_value,
+          t.name,
+          t.contact,
+          ca.city,
+          ca.territory,
+          ca.country
+        FROM
+          itm_vendor t
+        LEFT OUTER JOIN com_address ca
+          ON t.organization_id = ca.organization_id
+          AND /*UPPER*/ t.address_id = ca.address_id
+        WHERE
+          t.organization_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="$vendor_idOp, vendor_id" trigger="vendor_id"><![CDATA[t.vendor_id {$vendor_idOp} ?]]></Expression>
+      <Expression parameters="$nameOp, name" trigger="name"><![CDATA[/*UPPER*/ t.name {$nameOp} ?]]></Expression>
+      <Expression parameters="$contactOp, contact" trigger="contact"><![CDATA[/*UPPER*/ t.contact {$contactOp} ?]]></Expression>
+      <Expression parameters="$cityOp, city" trigger="city"><![CDATA[/*UPPER*/ ca.city {$cityOp} ?]]></Expression>
+      <Expression parameters="$territoryOp, territory" trigger="territory"><![CDATA[/*UPPER*/ ca.territory {$territoryOp} ?]]></Expression>
+      <Expression parameters="$countryOp, country" trigger="country"><![CDATA[/*UPPER*/ ca.country {$countryOp} ?]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+  </Query>
+  <Query name="DATA_MANAGER_VENDOR_ITEMS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.ItemOptionsId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+                 
+          WHERE t.organization_id = ?
+            AND /*UPPER*/ t.vendor = ?        
+        
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argVendorId" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_EMPLOYEES" pmType="EMPLOYEE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="employeeId" type="String" />
+    <ResultField name="firstName" type="String" />
+    <ResultField name="lastName" type="String" />
+    <ResultField name="employeeStatusCode" type="String" />
+    <ResultField name="primaryGroupId" type="String" />
+    <ResultField name="groupMembership" type="String" />
+    <SQL>
+      <Statement dtype="String">
+        <![CDATA[
+          SELECT emp.employee_id,
+                 party.first_name,
+                 party.last_name,
+                 emp.employee_statcode,
+                 emp.primary_group,
+                 emp.group_membership
+            FROM hrs_employee emp JOIN crm_party party 
+              ON emp.organization_id = party.organization_id 
+             AND emp.party_id = party.party_id
+           WHERE emp.organization_id = ?
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="$employeeIdOp, employeeId" trigger="employeeId"><![CDATA[emp.employee_id {$employeeIdOp} ?]]></Expression>
+      <Expression parameters="$firstNameOp, firstName" trigger="firstName"><![CDATA[/*UPPER*/ party.first_name {$firstNameOp} ?]]></Expression>
+      <Expression parameters="$lastNameOp, lastName" trigger="lastName"><![CDATA[/*UPPER*/ party.last_name {$lastNameOp} ?]]></Expression>
+      <Expression trigger="retailLocationId"><![CDATA[
+        
+          EXISTS (SELECT 1 
+                    FROM hrs_employee_store store 
+                   WHERE store.organization_id = emp.organization_id 
+                     AND store.employee_id = emp.employee_id 
+                     AND store.rtl_loc_id = ?)
+        
+      ]]></Expression>
+      <Expression trigger="@storeIds"><![CDATA[
+        
+          EXISTS (SELECT 1 
+                    FROM hrs_employee_store store 
+                   WHERE store.organization_id = emp.organization_id 
+                     AND store.employee_id = emp.employee_id 
+                     AND store.rtl_loc_id IN ?)
+        
+      ]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_EMPLOYEE_TASKS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.hrs.EmployeeTaskId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[        
+          WHERE t.organization_id = ?
+            AND t.void_flag = 0        
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argRetailLocationId"><![CDATA[t.rtl_loc_id = ?]]></Expression>
+      <Expression trigger="argTaskType"><![CDATA[/*UPPER*/ t.typcode = ?]]></Expression>
+      <Expression trigger="argPriority"><![CDATA[/*UPPER*/ t.priority = ?]]></Expression>
+      <Expression trigger="argVisibility"><![CDATA[/*UPPER*/ t.visibility = ?]]></Expression>
+      <Expression trigger="argStatusCode"><![CDATA[/*UPPER*/ t.status_code = ?]]></Expression>
+      <Expression trigger="argStartDate"><![CDATA[t.start_date <= ?]]></Expression>
+      <Expression trigger="@argStoreIds"><![CDATA[t.rtl_loc_id IN ?]]></Expression>
+      <Expression trigger="@argExcludedTaskIds"><![CDATA[t.task_id NOT IN ?]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+  </Query>
+  <Query name="DATA_MANAGER_EMPLOYEE_TASK_NOTES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.hrs.EmployeeTaskNoteId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[        
+          WHERE t.organization_id = ?
+          AND t.rtl_loc_id = ?
+          AND t.task_id = ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argTaskId" />
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+  </Query>
+  <Query name="DATA_MANAGER_EMPLOYEE_MESSAGES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.hrs.EmployeeMessageId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[        
+          WHERE t.organization_id = ?
+            AND t.void_flag = 0        
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argRegisterId"><![CDATA[t.wkstn_id = ?]]></Expression>
+      <Expression trigger="argStartDate"><![CDATA[t.start_date <= ?]]></Expression>
+      <Expression trigger="argEndDate"><![CDATA[t.end_date >= ?]]></Expression>
+      <Expression trigger="@ExcludedMessageIds"><![CDATA[t.message_id NOT IN ?]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+  </Query>
+  <Query name="DATA_MANAGER_EXCHANGE_RATES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tnd.TenderExchangeRateId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String">
+        <![CDATA[         
+          WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argLevelCode"><![CDATA[t.level_code = ?]]></Expression>
+      <Expression trigger="argLevelValue"><![CDATA[t.level_value = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_LOCATIONS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxLocationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String">
+        <![CDATA[         
+          WHERE t.organization_id = ?
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <Query name="ORG_HIERARCHY_UNASSIGNED_STORES" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.impl.RetailLocationModel</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="StoreName" type="String" />
+    <ResultField name="City" type="String" />
+    <ResultField name="State" type="String" />
+    <ResultField name="StoreManager" type="String" />
+    <ResultField name="Country" type="String" />
+    <SQL>
+      <Statement dtype="String">
+        <![CDATA[
+          SELECT rtl_loc_id, 
+                 store_name, 
+                 city, 
+                 state,
+                 store_manager,
+                 country
+            FROM loc_rtl_loc 
+           WHERE organization_id = ?
+             AND rtl_loc_id <> 0 
+             AND rtl_loc_id NOT IN (SELECT org_value FROM loc_org_hierarchy WHERE org_code = 'STORE')
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_ITEM_MATRIX_ITEMS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultFilter dtype="String">levelCodeLevelValueResultFilter</ResultFilter>
+    <ResultClass dtype="String">com.micros_retail.xadmin.datamanager.shared.item.ItemModelQueryResult</ResultClass>
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="ItemId" type="String" />
+    <ResultField name="ClassName" type="String" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <ResultField name="MerchLevel3Id" type="String" />
+    <ResultField name="MerchLevel1Id" type="String" />
+    <ResultField name="DescriptionDao" type="String" />
+    <ResultField name="ItemLevelCode" type="String" />
+    <ResultField name="ItemTypeCode" type="String" />
+    <ResultField name="SerializedItem" type="Boolean" />
+    <ResultField name="MerchLevel4Id" type="String" />
+    <ResultField name="MerchLevel2Id" type="String" />
+    <ResultField name="ParentItemId" type="String" />
+    <ResultField name="Name" type="String" />
+    <ResultField name="DimensionSystem" type="String" />
+    <ResultField name="DisallowItemMatrixDisplay" type="Boolean" />
+    <ResultField name="ItemMatrixColor" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          organization_id,
+          item_id,
+          dtv_class_name,
+          org_code,
+          org_value,
+          merch_level_3,
+          merch_level_1,
+          description,
+          item_lvlcode,
+          item_typcode,
+          serialized_item_flag,
+          merch_level_4,
+          merch_level_2,
+          parent_item_id,
+          name,
+          dimension_system,
+          disallow_matrix_display_flag,
+          item_matrix_color
+        FROM itm_item 
+        WHERE organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argMerchLevel1Id"><![CDATA[/*UPPER*/ merch_level_1 = ? and merch_level_2 is null and merch_level_3 is null and merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel2Id"><![CDATA[/*UPPER*/ merch_level_2 = ? and merch_level_3 is null and merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel3Id"><![CDATA[/*UPPER*/ merch_level_3 = ? and merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel4Id"><![CDATA[/*UPPER*/ merch_level_4 = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_ITEM_MATRIX_ITEM_COUNT" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="ItemCount" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          count(*)
+        FROM
+          itm_item t
+        WHERE
+          t.organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argMerchLevel1Id"><![CDATA[/*UPPER*/ t.merch_level_1 = ? and t.merch_level_2 is null and t.merch_level_3 is null and t.merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel2Id"><![CDATA[/*UPPER*/ t.merch_level_2 = ? and t.merch_level_3 is null and t.merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel3Id"><![CDATA[/*UPPER*/ t.merch_level_3 = ? and t.merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel4Id"><![CDATA[/*UPPER*/ t.merch_level_4 = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_ITEM_MATRIX_SORT_ORDER_ITEM_MERCH" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.MatrixSortOrderModel</ResultClass>
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="MatrixSortType" type="String" />
+    <ResultField name="MatrixSortId" type="String" />
+    <ResultField name="SortOrder" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          imso.organization_id,
+          imso.matrix_sort_type,
+          imso.matrix_sort_id,
+          imso.sort_order
+        FROM
+          itm_matrix_sort_order imso
+        WHERE
+          imso.organization_id = ?
+          AND imso.matrix_sort_type = 'ITEM_MERCH']]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_ITEM_MATRIX_SORT_ORDER_ITEM" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.MatrixSortOrderModel</ResultClass>
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="MatrixSortType" type="String" />
+    <ResultField name="MatrixSortId" type="String" />
+    <ResultField name="SortOrder" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT
+          imso.organization_id,
+          imso.matrix_sort_type,
+          imso.matrix_sort_id,
+          imso.sort_order
+        FROM
+          itm_matrix_sort_order imso
+            INNER JOIN itm_item t
+              ON imso.organization_id = t.organization_id
+              AND imso.matrix_sort_id = t.item_id
+              AND imso.matrix_sort_type = 'ITEM'
+        WHERE
+          imso.organization_id = ?
+          AND imso.matrix_sort_type = 'ITEM']]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argMerchLevel1Id"><![CDATA[/*UPPER*/ t.merch_level_1 = ? and t.merch_level_2 is null and t.merch_level_3 is null and t.merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel2Id"><![CDATA[/*UPPER*/ t.merch_level_2 = ? and t.merch_level_3 is null and t.merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel3Id"><![CDATA[/*UPPER*/ t.merch_level_3 = ? and t.merch_level_4 is null]]></Expression>
+      <Expression trigger="argMerchLevel4Id"><![CDATA[/*UPPER*/ t.merch_level_4 = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_STORES" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="StoreName" type="String" />
+    <ResultField name="City" type="String" />
+    <ResultField name="State" type="String" />
+    <ResultField name="StoreManager" type="String" />
+    <ResultField name="Country" type="String" />
+    <SQL>
+      <Statement dtype="String">
+        <![CDATA[
+          SELECT rtl_loc_id, 
+                 store_name, 
+                 city, 
+                 state,
+                 store_manager,
+                 country
+            FROM loc_rtl_loc 
+           WHERE organization_id = ?
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="$store_nameOp, store_name" trigger="store_name"><![CDATA[/*UPPER*/ store_name {$store_nameOp} ?]]></Expression>
+      <Expression parameters="$cityOp, city" trigger="city"><![CDATA[/*UPPER*/ city {$cityOp} ?]]></Expression>
+      <Expression parameters="$stateOp, state" trigger="state"><![CDATA[/*UPPER*/ state {$stateOp} ?]]></Expression>
+      <Expression parameters="$countryOp, country" trigger="country"><![CDATA[/*UPPER*/ country {$countryOp} ?]]></Expression>
+      <Expression trigger="@storeIds"><![CDATA[rtl_loc_id IN ?]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[200]]></Value>
+    </Property>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_AUTHORITY" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxAuthorityId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_LOCATION" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxLocationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="@ExcludedTaxLocationIds"><![CDATA[t.tax_loc_id NOT IN ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_LOCATION_MAP" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.RetailLocationTaxMappingId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argTaxLocationId"><![CDATA[/*UPPER*/ t.tax_loc_id = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_GROUP" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxGroupId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_GROUP_RULES" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxGroupRuleId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.tax_loc_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTaxLocationId" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_RATE_RULES" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxRateRuleId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.tax_group_id = ?
+        AND t.tax_loc_id = ?
+        and t.tax_rule_seq_nbr = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTaxGroupId" />
+      <Parameter name="argTaxLocationId" />
+      <Parameter name="argTaxGroupRuleSeqNbr" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY t.tax_rate_rule_seq ASC]]></Suffix>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_RATE_RULE_OVERRIDES" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxRateRuleOverrideId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.tax_group_id = ?
+        AND t.tax_loc_id = ?
+        and t.tax_rule_seq_nbr = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTaxGroupId" />
+      <Parameter name="argTaxLocationId" />
+      <Parameter name="argTaxGroupRuleSeqNbr" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY t.tax_rate_rule_seq ASC]]></Suffix>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_BRACKETS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.impl.TaxBracketModel</ResultClass>
+    <ResultField name="TaxBracketId" type="String" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT
+          tb.tax_bracket_id,
+          tb.org_code,
+          tb.org_value
+        FROM tax_tax_bracket tb
+        WHERE tb.organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="@deletedTaxBracketIds"><![CDATA[tb.tax_bracket_id NOT IN ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_TAX_BRACKET" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tax.TaxBracketId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.tax_bracket_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTaxBracketId" />
+    </SQL>
+  </Query>
+
+  <Query name="CODE_VALUES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.com.CodeValueId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argCategory"><![CDATA[t.category = ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY sort_order ASC]]></Suffix>
+  </Query>
+
+  <Query name="DATA_MANAGER_NON_PHYSICAL_ITEMS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.NonPhysicalItemModel</ResultClass>
+    <ResultField name="ItemId" type="String" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="MerchLevel1Id" type="String" />
+    <ResultField name="MerchLevel2Id" type="String" />
+    <ResultField name="MerchLevel3Id" type="String" />
+    <ResultField name="MerchLevel4Id" type="String" />
+    <ResultField name="NonPhysicalItemTypeCode" type="String" />
+    <ResultField name="NonPhysicalItemSubtype" type="String" />
+    <ResultField name="DisplayOrder" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          t.item_id,
+          t.org_code,
+          t.org_value,
+          t.description,
+          t.merch_level_1,
+          t.merch_level_2,
+          t.merch_level_3,
+          t.merch_level_4,
+          n.non_phys_item_typcode,
+          n.non_phys_item_subtype,
+          n.display_order
+        FROM
+          itm_item t, itm_non_phys_item n
+        WHERE
+          n.organization_id = ?
+          AND t.organization_id = n.organization_id 
+          AND t.item_id = n.item_id]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argItemId"><![CDATA[t.item_id = ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <!-- Stock Roll-Up / Stock Valuation Queries -->
+  <Query name="YEAR_END_ROLLUP_COUNT" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.reports.stockvaluation.RollUpCountQueryResult</ResultClass>
+    <ResultField name="PostedCount" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT COUNT(*) as count
+    FROM 
+      inv_cst_item_yearend
+    WHERE 
+      organization_id = ? AND
+      rtl_loc_id IN ?
+          ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRtlLocIdSet" />
+      <Expression trigger="argFiscalYear"><![CDATA[fiscal_year = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="YEAR_END_ROLLUP_DELETE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      DELETE 
+      FROM inv_cst_item_yearend
+      WHERE 
+        organization_id = ? AND
+        rtl_loc_id IN ?
+          ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRtlLocIdSet" />
+      <Expression trigger="argFiscalYear"><![CDATA[fiscal_year = ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="YEAR_END_ROLLUP_INSERT" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      INSERT INTO 
+        inv_cst_item_yearend (
+          organization_id, 
+          fiscal_year, 
+          rtl_loc_id, 
+          item_id, 
+          wac_qty_rcvd, 
+          wac_value_rcvd, 
+          pwac_qty_onhand_endofyear, 
+          pwac_value_onhand_endofyear)
+      SELECT 
+        a.organization_id, 
+        ?, 
+        a.rtl_loc_id, 
+        a.item_id, 
+        a.unit_count, 
+        a.unit_cost, 
+          a.pwac_qty_onhand_endofyear, 
+          b.pwac_value_onhand_endofyear
+      FROM
+        (SELECT
+          allitems.organization_id, 
+          allitems.rtl_loc_id, 
+          allitems.inventory_item_id as item_id, 
+          allitems.unit_count + inv_icy.wac_qty_rcvd as unit_count,
+          allitems.unit_cost + inv_icy.wac_value_rcvd as unit_cost,
+          COALESCE(inv_stck_acct.unitcount, 0) as pwac_qty_onhand_endofyear
+        FROM (
+          SELECT 
+            MAX(doc.document_subtypcode) AS subtypcode,
+            doc.organization_id AS organization_id,
+            doc.rtl_loc_id AS rtl_loc_id,
+            line.inventory_item_id AS inventory_item_id,
+            MAX(line.invctl_document_id) AS invctl_document_id,
+            SUM(COALESCE(line.unit_count, 0)) AS unit_count,
+            SUM(COALESCE(line.unit_cost, 0) * COALESCE(line.unit_count, 0)) AS unit_cost
+          FROM 
+            inv_invctl_document doc 
+          INNER JOIN
+            inv_invctl_document_lineitm line
+          ON 
+            doc.organization_id = line.organization_id AND 
+            doc.rtl_loc_id = line.rtl_loc_id AND
+            doc.document_typcode = line.document_typcode AND
+            doc.invctl_document_id = line.invctl_document_id
+            
+          WHERE 
+            /*UPPER*/ document_subtypcode = 'ASN' AND 
+            line.create_date BETWEEN ? AND ? AND 
+            line.organization_id = ? AND
+            line.rtl_loc_id IN ?
+            
+          GROUP BY 
+            doc.organization_id, doc.rtl_loc_id, line.inventory_item_id
+            
+          ) allitems
+          
+          INNER JOIN
+            inv_stock_ledger_acct inv_stck_acct
+          ON
+            inv_stck_acct.organization_id = allitems.organization_id AND 
+            inv_stck_acct.rtl_loc_id = allitems.rtl_loc_id AND 
+            inv_stck_acct.item_id = /*UPPER*/ allitems.inventory_item_id
+            
+          LEFT OUTER JOIN
+            inv_cst_item_yearend inv_icy
+          ON inv_icy.organization_id = allitems.organization_id AND
+             inv_icy.rtl_loc_id = allitems.rtl_loc_id AND 
+             COALESCE(inv_icy.fiscal_year, ? - 1) = ? - 1
+             AND inv_icy.item_id = /*UPPER*/ allitems.inventory_item_id
+             
+          WHERE inv_stck_acct.bucket_id = 'ON_HAND') a
+                    
+        INNER JOIN 
+        
+            (SELECT
+            allitems.organization_id, 
+            allitems.inventory_item_id as item_id, 
+            ((SUM(inv_icy.pwac_qty_onhand_endofyear) * MAX(inv_icy.pwac_value_onhand_endofyear)) + MAX(allitems.unit_cost))
+             /(SUM(inv_icy.pwac_qty_onhand_endofyear) + MAX(allitems.unit_count)) AS pwac_value_onhand_endofyear
+          FROM (
+            SELECT 
+              MAX(doc.document_subtypcode) AS subtypcode,
+              doc.organization_id AS organization_id,
+              MAX(doc.rtl_loc_id) AS rtl_loc_id,
+              line.inventory_item_id AS inventory_item_id,
+              MAX(line.invctl_document_id) AS invctl_document_id,
+              SUM(COALESCE(line.unit_count, 0)) AS unit_count,
+              SUM(COALESCE(line.unit_cost, 0) * COALESCE(line.unit_count, 0)) AS unit_cost
+            FROM 
+              inv_invctl_document doc 
+              INNER JOIN
+              inv_invctl_document_lineitm line
+            ON 
+              doc.organization_id = line.organization_id AND 
+              doc.rtl_loc_id = line.rtl_loc_id AND
+              doc.document_typcode = line.document_typcode AND
+              doc.invctl_document_id = line.invctl_document_id
+        
+            WHERE 
+              /*UPPER*/ document_subtypcode = 'ASN' AND 
+              line.create_date BETWEEN ? AND ? AND 
+              line.organization_id = ? AND
+              line.rtl_loc_id IN ?
+              
+              GROUP BY 
+              doc.organization_id, line.inventory_item_id
+              
+            ) allitems
+                        
+         INNER JOIN
+              inv_stock_ledger_acct inv_stck_acct
+            ON
+              inv_stck_acct.organization_id = allitems.organization_id AND 
+              inv_stck_acct.rtl_loc_id = allitems.rtl_loc_id AND 
+              inv_stck_acct.item_id = /*UPPER*/ allitems.inventory_item_id
+            
+              LEFT OUTER JOIN
+                inv_cst_item_yearend inv_icy
+            ON inv_icy.organization_id = allitems.organization_id AND
+               inv_icy.organization_id = ? AND
+               inv_icy.rtl_loc_id IN ? AND
+               COALESCE(inv_icy.fiscal_year, ? - 1) = ? - 1
+               AND inv_icy.item_id = /*UPPER*/ allitems.inventory_item_id
+               
+            WHERE inv_stck_acct.bucket_id = 'ON_HAND'
+            GROUP BY allitems.organization_id, allitems.inventory_item_id
+            ) b
+        
+          ON a.organization_id = b.organization_id
+          AND a.item_id = b.item_id
+          ]]></Statement>
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argStartDate" />
+      <Parameter name="argEndDate" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRtlLocIdSet" />
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argStartDate" />
+      <Parameter name="argEndDate" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRtlLocIdSet" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRtlLocIdSet" />
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argFiscalYear" />
+    </SQL>
+  </Query>
+  <Query name="YEAR_END_ROLLUP_NO_MOVEMENT" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      INSERT INTO 
+        inv_cst_item_yearend (
+          organization_id, 
+          fiscal_year, 
+          rtl_loc_id, 
+          item_id, 
+          wac_qty_rcvd, 
+          wac_value_rcvd, 
+          pwac_qty_onhand_endofyear, 
+          pwac_value_onhand_endofyear)
+      SELECT  inv_stock.organization_id,
+              ?, 
+              inv_stock.rtl_loc_id, 
+              inv_stock.item_id, 
+            COALESCE(inv_icy.wac_qty_rcvd,0) as unit_count,
+            COALESCE(inv_icy.wac_value_rcvd,0)  as unit_cost,
+            COALESCE(inv_stock.unitcount,0) as qty_onhand_endofyear, 
+            COALESCE(inv_icy.pwac_value_onhand_endofyear,0) AS value_onhand_endofyear
+          FROM
+              inv_stock_ledger_acct inv_stock
+      INNER JOIN
+          inv_cst_item_yearend inv_icy
+      ON 
+        inv_icy.organization_id = inv_stock.organization_id AND
+          inv_icy.rtl_loc_id = inv_stock.rtl_loc_id  AND
+        inv_icy.item_id = inv_stock.item_id
+
+        WHERE NOT EXISTS 
+          (SELECT * FROM inv_cst_item_yearend yearend WHERE fiscal_year = ?
+           AND yearend.organization_id = inv_icy.organization_id 
+           AND yearend.rtl_loc_id = inv_icy.rtl_loc_id 
+           AND yearend.item_id = inv_icy.item_id)
+          AND COALESCE(inv_icy.fiscal_year, ? - 1) = ? - 1
+          AND inv_icy.rtl_loc_id IN ?
+          AND inv_icy.organization_id = ?
+          ]]></Statement>
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argFiscalYear" />
+      <Parameter name="@argRtlLocIdSet" />
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <Query name="YEAR_END_ZERO_INSERT" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      INSERT INTO 
+        inv_cst_item_yearend (
+          organization_id, 
+          fiscal_year, 
+          rtl_loc_id, 
+          item_id, 
+          wac_qty_rcvd, 
+          wac_value_rcvd, 
+          pwac_qty_onhand_endofyear, 
+          pwac_value_onhand_endofyear)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      
+          ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argFiscalYear" />
+      <Parameter name="argRetailLocation" />
+      <Parameter name="argItemId" />
+      <Parameter name="argQuantityReceived" />
+      <Parameter name="argValueReceived" />
+      <Parameter name="argQuantityOnHandEndOfYear" />
+      <Parameter name="argValueOnHandEndOfYear" />
+    </SQL>
+  </Query>
+  <Query name="YEAR_END_IS_OPEN_DOCUMENT" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      SELECT COUNT(*) 
+      FROM inv_invctl_document
+      WHERE organization_id = ?
+      AND rtl_loc_id IN ? 
+      AND /*UPPER*/ document_subtypcode = 'ASN'
+      AND create_date BETWEEN ? AND ?
+      AND /*UPPER*/ status_code IN ('OPEN', 'IN_PROCESS')
+          ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRtlLocIdSet" />
+      <Parameter name="argStartDate" />
+      <Parameter name="argEndDate" />
+    </SQL>
+  </Query>
+  <Query name="YEAR_END_LAST_CONSOLIDATED" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      SELECT COALESCE(MAX(fiscal_year) + 1, 0)
+      FROM inv_cst_item_yearend
+      WHERE organization_id = ?
+      AND rtl_loc_id IN ? 
+          ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="@argRtlLocIdSet" />
+    </SQL>
+  </Query>
+  <Query name="DELETE_FIFO_DATA" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      DELETE FROM rpt_fifo
+            WHERE  user_name = ?
+            AND organization_id = ?;
+      DELETE FROM rpt_fifo_detail
+            WHERE  user_name = ?
+            AND organization_id = ?;
+          ]]></Statement>
+      <Parameter name="argUserName" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argUserName" />
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <!-- End of Stock Roll-Up / Stock Valuation Queries -->
+  
+  <Query name="DELETE_EXTERNAL_SYSTEM_CODES" pmType="CODES">
+   <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+       DELETE FROM com_external_system_map
+       WHERE  organization_id = ?
+          AND system_id = ?]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argSystemId" />
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_REDEPLOY_DATA">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_REDEPLOY_DATA_LEVEL">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="@levelNodeList"><![CDATA[CONCAT(t.level_code,concat(':', t.level_value)) IN ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_REDEPLOY_DATA_EMPLOYEE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argRetailLocationId">
+        <![CDATA[
+          EXISTS (SELECT 1 
+                    FROM hrs_employee_store store 
+                   WHERE store.organization_id = t.organization_id 
+                     AND store.employee_id = t.employee_id 
+                     AND store.rtl_loc_id = ?)
+        ]]>
+      </Expression>
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_REDEPLOY_DATA_ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND /*UPPER*/ t.item_typcode <> 'NON_PHYSICAL']]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  <Query name="DATA_MANAGER_REDEPLOY_DATA_NON_PHYSICAL">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND /*UPPER*/ t.item_typcode = 'NON_PHYSICAL']]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+
+  <Query name="INVENTORY_LOCATION_ID" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.inv.impl.InventoryLocationModel</ResultClass>
+    <ResultField name="LocationId" type="String" />
+    <ResultField name="Name" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT a.inv_location_id, a.name
+        FROM inv_location a
+        WHERE a.rtl_loc_id = (SELECT MAX(rtl_loc_id) 
+                              FROM inv_location b
+                              WHERE a.organization_id = b.organization_id 
+                              AND a.inv_location_id = b.inv_location_id)
+        AND a.organization_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY a.name ASC]]></Suffix>
+  </Query>
+
+  <Query name="INVENTORY_BUCKET_ID" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.inv.impl.InventoryBucketModel</ResultClass>
+    <ResultField name="BucketId" type="String" />
+    <ResultField name="Name" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT a.bucket_id, a.name
+        FROM inv_bucket a
+        WHERE a.rtl_loc_id = (SELECT MAX(rtl_loc_id) FROM inv_bucket b
+                              WHERE a.organization_id = b.organization_id 
+                              AND a.bucket_id = b.bucket_id)
+        AND a.organization_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY a.name ASC]]></Suffix>
+  </Query>
+
+  <Query name="ANY_STORES_FOR_ORG" pmType="LOCATION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.GenericAggregateResult</ResultClass>
+    <ResultField name="AggregateValue" type="BigDecimal" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT count(1)
+          FROM loc_rtl_loc t
+         WHERE t.organization_id = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="@argExcludedLocationIds"><![CDATA[t.rtl_loc_id NOT IN ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_LOC_WORKSTATION" pmType="LOCATION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.WorkstationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.rtl_loc_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_STORE_REPOSITORY" pmType="SESSIONS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tsn.TenderRepositoryId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.rtl_loc_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_STORE_REPOSITORY_FLOAT" pmType="SESSIONS">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tsn.TenderRepositoryFloatId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.rtl_loc_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Expression trigger="argTenderRepositoryId"><![CDATA[t.tndr_repository_id = ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="CONFIG_VERSION_BY_STORE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="configVersion" type="String" />
+    <ResultField name="count" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      
+       SELECT cast(log_message  as varchar(4000)) as log_message,COUNT(*) AS COUNT FROM
+             (SELECT  rtl_loc_id,wkstn_id, max(arrival_timestamp) as arrival_timestamp
+              FROM ctl_event_log
+              WHERE /*UPPER*/ logger_category = ? 
+              AND organization_id = ? 
+              AND /*UPPER*/ log_message LIKE ?
+              GROUP BY rtl_loc_id,wkstn_id ) t2
+        INNER JOIN ctl_event_log m
+              ON m.arrival_timestamp = t2.arrival_timestamp
+              AND m.rtl_loc_id = t2.rtl_loc_id
+              AND m.wkstn_id = t2.wkstn_id  
+         WHERE /*UPPER*/ log_message LIKE ?
+      ]]></Statement>
+      <Parameter name="argLoggerCategory" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argLogMessage" />
+      <Parameter name="argLogMessage1" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[GROUP BY cast(log_message as varchar(4000)) ORDER BY log_message]]></Suffix>
+  </Query>
+
+  <Query name="CONFIG_VERSION_DETAILS_BY_STORE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xadmin.configurator.server.main.ConfigVersionDetailQueryResult</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="PhoneNumber" type="String" />
+    <ResultField name="StoreName" type="String" />
+    <ResultField name="Address1" type="String" />
+    <ResultField name="City" type="String" />
+    <ResultField name="State" type="String" />
+    <ResultField name="PostalCode" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT DISTINCT t2.rtl_loc_id,
+                        loc.telephone1,
+                        loc.store_name,
+                        loc.address1,
+                        loc.city,
+                        loc.state,
+                        loc.postal_code
+        FROM  loc_rtl_loc loc
+        RIGHT JOIN
+         (SELECT t1.organization_id,t1.rtl_loc_id FROM 
+            (SELECT organization_id,rtl_loc_id,wkstn_id, max(arrival_timestamp)as arrival_timestamp
+              FROM ctl_event_log
+              WHERE /*UPPER*/ logger_category = ? 
+              AND organization_id = ? 
+              AND cast(log_message  as varchar(4000)) LIKE ?
+             GROUP BY organization_id,rtl_loc_id,wkstn_id )t1
+          INNER JOIN ctl_event_log m 
+              ON m.arrival_timestamp = t1.arrival_timestamp
+              AND m.organization_id = t1.organization_id
+              AND m.rtl_loc_id = t1.rtl_loc_id
+              AND m.wkstn_id = t1.wkstn_id
+              AND cast(m.log_message  as varchar(4000)) = ?) t2  
+          ON t2.rtl_loc_id = loc.rtl_loc_id
+          AND t2.organization_id = loc.organization_id      
+      
+      ]]></Statement>
+      <Parameter name="argLoggerCategory" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argLogMessage" />
+      <Parameter name="argLogMessage1" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY t2.rtl_loc_id]]></Suffix>
+  </Query>
+
+  <Query name="DELETE_XCENTER_EMPLOYEE_STORES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.hrs.EmployeeStoreId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND t.employee_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argEmployeeId" />
+      <Expression trigger="@ExcludedStoreIds"><![CDATA[t.rtl_loc_id NOT IN ?]]></Expression>
+    </SQL>
+  </Query>
+
+  
+  <Query name="AIRPORT_CODE_INFO" pmType="AIRLINE_INFO">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="AirportCode" type="String" />
+    <ResultField name="AirportName" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          airport_code, 
+          airport_name
+        FROM 
+          com_airport
+        WHERE
+            organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_DATA_RECORD_COUNT" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="TotalCount" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          count(1)
+        FROM
+          {%TABLE%} t
+        WHERE
+          t.organization_id = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_DATA_RECORD_COUNT_ITEM" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="TotalCount" type="Integer" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT SUM(a.total) 
+        FROM
+        (
+          SELECT 
+            COUNT(1) total 
+          FROM 
+            itm_item t 
+          WHERE t.organization_id = ? 
+            AND /*UPPER*/ t.item_typcode <> 'NON_PHYSICAL'
+          UNION
+            SELECT 
+              count(1) total 
+            FROM 
+              itm_item_cross_reference t 
+            WHERE 
+              t.organization_id = ?
+        ) a
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argOrganizationId" />
+    </SQL>
+  </Query>
+  
+  <Query name="DATA_MANAGER_ITEM_MESSAGES_CROSS_REFERENCE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+     <ResultClass dtype="String">dtv.xst.dao.itm.impl.ItemMessageCrossReferenceModel</ResultClass> 
+     <ResultField name="OrganizationId" type="Long" />   
+     <ResultField name="ItemId" type="String" />
+     <ResultField name="MessageId" type="String" />
+     <ResultField name="OrgCode" type="String" />
+     <ResultField name="OrgValue" type="String" />
+     <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+        organization_id,
+        item_id,
+        msg_id,
+        org_code,
+        org_value
+        FROM
+          itm_item_msg_cross_reference 
+        WHERE
+          organization_id = ?
+          AND  msg_id= ?
+          AND item_id= ?
+          AND /*UPPER*/ org_code=?
+          AND /*UPPER*/ org_value=?
+          ]]>
+      </Statement>      
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argMsgId" />
+      <Parameter name="argItemId" />
+      <Parameter name="argOrgCode" />
+      <Parameter name="argOrgValue" />  
+    </SQL>
+  </Query>
+  
+  <Query name="DATA_MANAGER_RETRIEVE_ITEMS_FOR_MESSAGE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.ItemMessageCrossReferenceModel</ResultClass> 
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="ItemId" type="String" />
+    <ResultField name="MessageId" type="String" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+        organization_id,
+        item_id,
+        msg_id,
+        org_code,
+        org_value
+        FROM
+          itm_item_msg_cross_reference 
+        WHERE
+          organization_id = ?
+          AND  msg_id= ?
+          AND /*UPPER*/ org_code=?
+          AND /*UPPER*/ org_value=?
+          ]]>
+      </Statement>      
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argMsgId" />
+      <Parameter name="argOrgCode" />
+      <Parameter name="argOrgValue" />  
+    </SQL>
+  </Query>
+  
+  <Query name="DATA_MANAGER_EXISTING_MESSAGE_ID">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="MessageId" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+        msg_id
+    
+        FROM
+          itm_item_msg 
+        WHERE
+          organization_id = ?
+          AND msg_id = ?
+          AND /*UPPER*/ org_code = ?
+          AND /*UPPER*/ org_value = ?
+          ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argMsgId"/>
+      <Parameter name="argOrgCode" />
+      <Parameter name="argOrgValue" />
+    </SQL>
+  </Query>
+        
+  
+  <Query name="DATA_MANAGER_ITEM_MESSAGE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.impl.ItemMessageModel</ResultClass>   
+    <ResultField name="MessageId" type="String" />
+    <ResultField name="EffectiveDate" type="Date" />
+    <ResultField name="OrgCode" type="String" />
+    <ResultField name="OrgValue" type="String" />
+    <ResultField name="ExpirationDate" type="Date" />
+    <ResultField name="MessageKey" type="String" /> 
+    <ResultField name="TitleKey" type="String" /> 
+    <ResultField name="ContentType" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+        msg_id,
+        effective_datetime,
+        org_code,
+        org_value,
+        expr_datetime,
+        msg_key,
+        title_key,
+        content_type
+        FROM
+          itm_item_msg t
+        WHERE
+          organization_id = ?          
+          ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />      
+      <Expression parameters="$messageIdOp, messageId" trigger="messageId"><![CDATA[t.msg_id {$messageIdOp} ?]]></Expression>
+      <Expression parameters="$titleKeyOp, titleKey" trigger="titleKey"><![CDATA[/*UPPER*/ t.title_key {$titleKeyOp} ?]]></Expression>   
+    </SQL>
+  </Query>
+
+  <Query name="DATA_MANAGER_LEGAL_ENTITY" pmType="LOCATION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="LegalEntityId" type="String" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="City" type="String" />
+    <ResultField name="State" type="String" />
+    <ResultField name="Country" type="String" />
+    <SQL>
+      <Statement dtype="String">
+        <![CDATA[
+          SELECT legal_entity_id, 
+                 description, 
+                 city, 
+                 state,
+                 country
+            FROM loc_legal_entity 
+           WHERE organization_id = ?
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="$legal_entity_idOp, legal_entity_id" trigger="legal_entity_id"><![CDATA[legal_entity_id {$legal_entity_idOp} ?]]></Expression>
+      <Expression parameters="$descriptionOp, description" trigger="description"><![CDATA[/*UPPER*/ description {$descriptionOp} ?]]></Expression>
+      <Expression parameters="$cityOp, city" trigger="city"><![CDATA[/*UPPER*/ city {$cityOp} ?]]></Expression>
+      <Expression parameters="$stateOp, state" trigger="state"><![CDATA[/*UPPER*/ state {$stateOp} ?]]></Expression>
+      <Expression parameters="$countryOp, country" trigger="country"><![CDATA[/*UPPER*/ country {$countryOp} ?]]></Expression>
+    </SQL>
+  </Query>
+  
+  <Query name="STORES_WITH_LEGAL_ENTITY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.loc.RetailLocationId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+        WHERE t.organization_id = ?
+        AND /*UPPER*/ t.legal_entity_id = ?]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argLegalEntityId" />
+    </SQL>
+  </Query>
+  
+   <Query name="UPDATE_XADMIN_STORES_CODES">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+          UPDATE loc_rtl_loc
+             SET country = ?,
+                 currency_id = ?
+           WHERE rtl_loc_id = 0
+      ]]></Statement>
+      <Parameter name="argCountryCode" />
+      <Parameter name="argCurrencyId" />
+    </SQL>
+  </Query>
+  
+  <Query name="ALL_MOBILE_SERVERS">
+    <Select from="MobileServer" />
+    <Where>
+      <Required field="organizationId" parameter="argOrganizationId" />
+    </Where>
+    <Sort field="alias" order="ASC" />
+  </Query>
+  
+  <Query name="POSLOG_WORKITEM_TRANS_TYPE" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="TransType" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          trans_typcode
+        FROM 
+          trn_trans
+        WHERE
+            organization_id = ?
+            AND trans_seq = ?
+            AND rtl_loc_id = ?
+            AND wkstn_id = ?
+            AND business_date = ?]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTransSeq" />
+      <Parameter name="argRetailLocation" />
+      <Parameter name="argWkstnId" />
+      <Parameter name="argBusinessDate" />
+    </SQL>
+  </Query>
+  
+  <Query name="GET_ALL_TRANSLATIONS_BY_KEY"> 
+    <Select from="DatabaseTranslation" />
+    <Where>
+      <Required field="organizationId" parameter="argOrganizationId" />
+      <Required field="translationKey" parameter="argTranslationKey" />
+    </Where>
+  </Query>
+  
+   <Query name="UPDATE_TRANSLATION_BY_KEY"> 
+    <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement><![CDATA[
+      UPDATE com_translations
+      SET translation = ?,
+      update_user_id = ?,
+      update_date = ?
+      WHERE organization_id = ?
+      AND locale = ?
+      AND translation_key = ?
+       ]]></Statement>
+      <Parameter name="argDescription" />
+      <Parameter name="argUpdateUserId" />
+      <Parameter name="argUpdateDate" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argLocale" />
+      <Parameter name="argTranslationKey" />
+    </SQL>
+    <Property>
+    <Key>DisableCaseHandling</Key>
+    <Value><![CDATA[True]]></Value>
+    </Property>
+  </Query>
+  
+  <Query name="DELETE_TRANSLATIONS_BY_KEY">
+   <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement><![CDATA[
+      DELETE FROM com_translations
+      WHERE organization_id = ?
+      AND translation_key = ?
+       ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argTranslationKey" />
+    </SQL>
+    <Property>
+    <Key>DisableCaseHandling</Key>
+    <Value><![CDATA[True]]></Value>
+    </Property>
+  </Query>
+  
+  <Query name="DELETE_MERCH_HIERARCHY_LEVEL"> 
+    <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement><![CDATA[
+      DELETE FROM itm_merch_hierarchy_levels
+      WHERE organization_id = ?
+      AND level_id = ?
+       ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argLevelId" />
+    </SQL>
+  </Query>
+  
+   <Query name="UPDATE_MERCH_HIERARCHY_LEVEL"> 
+    <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <SQL>
+      <Statement><![CDATA[
+      UPDATE itm_merch_hierarchy_levels
+      SET level_code = ?,
+      description = ?,
+      update_user_id = ?,
+      update_date = ?
+      WHERE organization_id = ?
+      AND level_id = ?
+       ]]></Statement>
+      <Parameter name="argLevelCode" />
+      <Parameter name="argDescription" />
+      <Parameter name="argUpdateUserId" />
+      <Parameter name="argUpdateDate" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argLevelId" />
+    </SQL>
+  </Query>
+  
+  <Query name="TENDERS">
+    <QueryHandler>dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass>dtv.xst.dao.tnd.TenderId</ResultClass>
+    <SQL>
+      <WhereClause><![CDATA[
+        WHERE t.organization_id = ?         
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+    </SQL>
+    <Suffix><![CDATA[ORDER BY COALESCE(t.display_order, 0), t.tndr_id ASC]]></Suffix>
+  </Query>
+  
+  <Query name="LOOKUP_HIERARCHICAL_PRICE">
+    <QueryHandler>dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass>dtv.xst.dao.itm.ItemPricesId</ResultClass>
+    <SQL>
+      <WhereClause><![CDATA[        
+          WHERE organization_id = ?
+            AND item_id = ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argItemId" />
+      <Expression parameters="argLevelCode" trigger="argLevelCode"><![CDATA[level_code = ?]]></Expression>
+      <Expression parameters="argLevelValue" trigger="argLevelValue"><![CDATA[level_value = ?]]></Expression>
+      <Expression parameters="argBusinessDate, argBusinessDate" trigger="argBusinessDate"><![CDATA[effective_date <= ? 
+            AND (expiration_date IS NULL OR expiration_date >= ?)]]></Expression>
+      <Expression parameters="argBusinessStartDate" trigger="argBusinessStartDate"><![CDATA[effective_date <= ?]]></Expression>
+      <Expression trigger="argEarliestActiveDate"><![CDATA[(expiration_date IS NULL OR expiration_date >= ?)]]></Expression>
+      <Expression trigger="@argPriceTypes"><![CDATA[t.itm_price_property_code IN ?]]></Expression>
+      <Expression trigger="argPricingQty"><![CDATA[t.price_qty <= ?]]></Expression>
+    </SQL>
+    <Suffix><![CDATA[ORDER BY effective_date DESC]]></Suffix>
+  </Query>
+  
+  <Query name="ALL_EXTERNAL_SYSTEM_CODES" pmType="CODES">
+    <Select from="ExternalSystemMap" />
+  </Query>
+  
+  <Query name="GET_MERCH_HIERARCHY_LEVEL_COUNT"> 
+    <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass>dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="Count" type="Integer" />
+    <SQL>
+      <Statement><![CDATA[
+        SELECT count(*)
+        FROM itm_merch_hierarchy_levels]]>
+      </Statement>
+    </SQL>
+  </Query>
+  
+  <Query name="GET_BROADCASTER_OPTION_COUNT"> 
+    <QueryHandler>dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass>dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="Count" type="Integer" />
+    <SQL>
+      <Statement><![CDATA[
+        SELECT count(*)
+        FROM com_broadcaster_options]]>
+      </Statement>
+    </SQL>
+  </Query>
+  
+ </Queries>
+</QuerySet>

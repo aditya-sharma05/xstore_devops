@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.main.AvataxDataRefreshService
+path: 3469D70AB7E0FDC1FF2E36E69A2AA06A.gwt.rpc

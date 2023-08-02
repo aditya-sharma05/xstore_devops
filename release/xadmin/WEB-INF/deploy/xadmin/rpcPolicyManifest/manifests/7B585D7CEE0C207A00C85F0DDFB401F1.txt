@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.datamanager.client.item.ItemService
+path: A20BD0CC6F9D6C9279B99FBA631ECFC9.gwt.rpc

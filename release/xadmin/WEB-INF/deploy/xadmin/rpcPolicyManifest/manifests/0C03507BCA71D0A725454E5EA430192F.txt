@@ -1,0 +1,2 @@
+serviceClass: com.micros_retail.xadmin.customization.client.ConfigurationUploadService
+path: F420DE43F85B0B760161B964130B07F3.gwt.rpc
