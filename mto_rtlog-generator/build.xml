@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="customer-rtlog-generator" basedir="." default="create-custom-war">
+  <!-- import the core script -->
+  <property name="core.project" location="${basedir}/../mto" />
+  <import file="${core.project}/core.xml"/>
+	
+  <!-- source paths -->
+  <property name="src.dir" location="${basedir}/src" />
+  <property name="base.war.dir" location="${release.dir}/rtlog-generator" />
+	
+	<!-- simple sanity check -->
+  <available property="rtloggenerator.artifact.dir.exists" file="${base.war.dir}" />
+  <fail unless="rtloggenerator.artifact.dir.exists" message="Expected to find an rtlog generator folder at ${base.war.dir} but couldn't find it." />
+
+
+  <!-- output details -->
+  <!--Change the property file.name value as per the customer requirement--> 	
+  <property file="${basedir}/buildoverrides.properties" />
+  <property name="file.name"             value="rtlog_generator"  />
+  <property name="output.dir"            location="${basedir}/target" />
+  <property name="jar.name"              value="${build.customerId.lc}-${file.name}.jar"/>
+  <property name="jar.path"              value="${output.dir}/${jar.name}"/>
+  <property name="war.name"              value="${build.customerId.lc}-${file.name}.war" />
+  <property name="war.path"              location="${output.dir}/${war.name}" />
+  <property name="latest.build.location" value="${basedir}/../../latestBuild" />
+
+  <property name="classes.staging.dir" location="${output.dir}/classes" />
+  <property name="build.sysclasspath" value="last" />
+  <property environment="env"/>
+
+  <!-- jar file locations -->
+  <property name="lib.folder" location="${basedir}/build-lib" />
+    
+  <!-- set up classpaths -->
+  <path id="project.classpath" description="a classpath that includes all of the deps that will be included in the application">
+    <fileset dir="${lib.folder}" includes="*.jar" />
+  </path>
+  <path id="build.classpath" description="a comprehensive classpath for building the application">
+    <path refid="project.classpath" />
+  	<pathelement location="${base.war.dir}/WEB-INF/classes"/>
+    <fileset dir="${base.war.dir}/WEB-INF/lib" includes="*.jar" />
+  </path>
+
+  <!--cleaning starts here-->	
+  <target name="clean" description="clean the locations that we will use during building" depends="clean-classes,clean-classes,clean-war" />
+  <target name="clean-classes" description="clean the classes output directory that we will use">
+    <delete dir="${classes.staging.dir}" />
+  </target>
+  <target name="clean-jar" description="clean the jar file">
+	    <delete file="${jar.path}" />
+  </target>
+  <target name="clean-war" description="clean the jar file">
+		    <delete file="${war.path}" />
+  </target>
+  <target name="compile" depends="clean-classes" description="compile main java code">
+    <mkdir dir="${classes.staging.dir}" />
+    <javac srcdir="${src.dir}" memoryinitialsize="128m" memorymaximumsize="512m" fork="true" destdir="${classes.staging.dir}" debug="true">
+      <classpath refid="build.classpath" />
+    </javac>
+  </target>
+	
+  <!-- targets start here -->
+  <target name="create-custom-jar" depends="clean-jar,compile">
+	  <jar basedir="${output.dir}/classes" destfile="${jar.path}">
+		  <manifest>
+		  	<attribute name="Build-Number" value="${env.BUILD_NUMBER}"/>
+		   </manifest>
+	   <fileset dir="." includes="**/spring/**" />
+	  </jar>
+  </target>
+	
+  <target name="create-custom-war" depends="create-custom-jar,clean-war">
+  	<war destfile="${war.path}" needxmlfile="false" update="true">
+  	  <lib dir="${output.dir}">
+  	    <include name="${jar.name}"/>
+  	  </lib>
+  	  <zipfileset dir="${base.war.dir}" />
+  	</war>
+  </target>
+</project>
