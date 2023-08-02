@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="customer-xcenter-shared" basedir="." default="jar">
+  <!-- import the core script -->
+  <property name="core.project" location="${basedir}/../mto" />
+  <import file="${core.project}/core.xml"/>
+
+  <!-- input properties -->
+  <property name="resources.dir" location="${basedir}/resources" />
+  <property name="src.dir" location="${basedir}/src" />
+
+  <!-- output properties -->
+  <property name="output.dir" location="${basedir}/target" />
+  <property name="generated.sources.dir" location="${output.dir}/generated-sources" />
+  <property name="classes.staging.dir" location="${output.dir}/classes" />
+  <property name="jar.file" location="${output.dir}/${build.customerId.lc}-xcenter-shared.jar" />
+
+  <!-- dependency properties -->
+  <property name="xcenter.war.lib" location="${xcenter.artifact.dir}/WEB-INF/lib" />
+  <property name="cust.xstore.overlay.lib.folder" location="${xstore.overlay.dir}/lib" />
+  
+  <!-- support injecting additional targets by extension if a build-custom.xml file is provided -->
+  <import optional="true" file="build-custom.xml" />
+  
+  <!--classpaths -->
+  <path id="base.libs">
+    <fileset dir="${xcenter.war.lib}" includes="*.jar" />
+  </path>
+  <path id="cust.libs">
+    <fileset dir="${cust.xstore.overlay.lib.folder}">
+      <include name="${customer.id.lc}-*.jar" />
+      <include name="ops-*.jar" />
+	</fileset>
+  </path>
+  <path id="build.classpath">
+    <path refid="cust.libs" />
+    <path refid="base.libs" />
+  </path>
+  
+  <!-- build targets -->
+  <target name="clean-all">
+    <delete dir="${output.dir}" />
+  </target>
+
+  <target name="clean-gen" description="Cleans the generated-sources directory.">
+    <delete dir="${generated.sources.dir}" />
+  </target>
+
+  <target name="clean-classes" description="Cleans the classes directory.">
+    <delete dir="${classes.staging.dir}" />
+  </target>
+
+  <extension-point name="generate-sources" depends="clean-gen" description="Generate any necessary sources.  Note: Users of this extension point are expected to create the generated sources directory." />
+
+  <target name="compile" depends="generate-sources,clean-classes" description="Compiles the code.">
+    <condition property="javac.path.set" value="${src.dir}:${generated.sources.dir}" else="${src.dir}">
+    	<available file="${generated.sources.dir}" />
+    </condition>
+    <mkdir dir="${classes.staging.dir}" />
+    <javac srcdir="${javac.path.set}" destdir="${classes.staging.dir}" deprecation="true" debug="true" classpathref="build.classpath" />
+  </target>
+
+  <target name="jar" depends="compile" description="Builds the jar distribution.">
+    <jar jarfile="${jar.file}" compress="true">
+      <manifest>
+        <attribute name="Built-By" value="${user.name}" />
+        <attribute name="Build-Time" value="${env.BUILD_ID}" />
+        <attribute name="Build-VM-Vendor" value="${java.vm.vendor}" />
+        <attribute name="Build-VM-Name" value="${java.vm.name}" />
+        <attribute name="Build-VM-Version" value="${java.vm.version}" />
+        <attribute name="Build-OS" value="${os.name} (${os.arch}) version ${os.version}" />
+        <attribute name="Build-Server-Job-Name" value="${env.JOB_NAME}" />
+        <attribute name="Build-Server-Job-Number" value="${env.BUILD_NUMBER}" />
+        <attribute name="SVN-Revision" value="${env.SVN_REVISION}" />
+        <attribute name="Xstore-Customer" value="${cust}" />
+      </manifest>
+      <fileset dir="${classes.staging.dir}" />
+      <fileset dir="${resources.dir}" />
+    </jar>
+  </target>
+</project>
