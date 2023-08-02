@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <!-- ********************************************** -->
+    <!-- Data access/modification appenders -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="TRANSACTION_REPLICATOR.file" fileName="${sys:user.dir}/log/transreplicate.log"
+      filePattern="${sys:user.dir}/log/transreplicate.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%-5p %-25d %m :: %c [%t]%n" 
+        header="**LOG BEGUN     %date%nloading ${log4j:configLocation}%n" footer="**LOG STOPPED   %date%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+    <!-- ********************************************** -->
+    <!-- Event (ctl_event_log) appenders -->
+    <!-- ********************************************** -->
+    <DtxAppender name="EVENT.dtx.critical" guaranteedDelivery="true" />
+  </Appenders>
+  <Loggers>
+    <Logger name="dtv.pos.tools.transreplicate.TransactionReplicator" level="info" />
+    <Logger name="dtv.util.spring.SingletonValidatorBeanPostProcessor" level="fatal" />
+    <!-- ********************************************** -->
+    <!-- Miscellaneous third-party library categories -->
+    <!-- ********************************************** -->
+    <Logger name="org.apache.jcs" level="error" />
+    <!-- **************************************************************** -->
+    <!-- **************************************************************** -->
+    <!-- ** ROOT ** -->
+    <!-- **************************************************************** -->
+    <!-- **************************************************************** -->
+    <Root level="warn">
+      <AppenderRef ref="TRANSACTION_REPLICATOR.file" />
+    </Root>
+  </Loggers>
+</Configuration>

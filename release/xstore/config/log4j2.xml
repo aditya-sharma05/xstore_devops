@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+  </Properties>
+  <Appenders>
+    <XstRollingRandomAccessFile name="XSTORE.file" fileName="${sys:user.dir}/${sys:log.dir.name}/xstore.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/xstore.%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="%X{wkstn_id} %-5level [%-6X{trans}] %date %msg :: %c [%thread]%n"
+        header="**LOG BEGUN     %date%nloading ${log4j:configLocation}%n" footer="**LOG STOPPED   %date%n" />
+      <DefaultRolloverStrategy max="30" />
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <OnStartupTriggeringPolicy />
+      </Policies>
+    </XstRollingRandomAccessFile>
+    <XstRollingRandomAccessFile name="XUNIT.file" fileName="${sys:user.dir}/${sys:log.dir.name}/xunit.out"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/xunit.%d{yyyy-MM-dd}-%i.out">
+      <PatternLayout pattern="%d  %m%n" />
+      <OnStartupTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+    <!-- ********************************************** -->
+    <!-- Event (ctl_event_log) appenders -->
+    <!-- ********************************************** -->
+    <DtxAppender name="EVENT.dtx.critical" guaranteedDelivery="true" />
+
+    <!-- ********************************************** -->
+    <!-- Authorization communication (Xstore<->Xpay) appenders -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="AUTH.file.raw" fileName="${sys:user.dir}/${sys:log.dir.name}/auth.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/auth.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%X{wkstn_id} %d %c %-5p %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+
+    <Rewrite name="AUTH.file">
+      <AppenderRef ref="AUTH.file.raw" />
+      <SensitiveDataRewritePolicy tags="AccountNumber,4;Track1,0;Track2,0" />
+    </Rewrite>
+
+    <!-- ********************************************** -->
+    <!-- Authorization communication (Xstore<->EFTLink) appenders -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="EFTLINK.file" fileName="${sys:user.dir}/${sys:log.dir.name}/eftlink.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/eftlink.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%X{wkstn_id} %d %c %-5p %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+
+    <!-- ********************************************** -->
+    <!-- Data access/modification appenders -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="PERSIST.file.failure" fileName="${sys:user.dir}/${sys:log.dir.name}/failedPersistence.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/failedPersistence.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d [%t] %-5p %-70l %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+    <XstRollingRandomAccessFile name="REPLICATION.file" fileName="${sys:user.dir}/${sys:log.dir.name}/repl.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/repl.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+    <XstRollingRandomAccessFile name="REPLICATION.file.audit" fileName="${sys:user.dir}/${sys:log.dir.name}/replicationAudit.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/replicationAudit.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d [%t] %-5p %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+    
+    <!-- ********************************************** -->
+    <!-- Hardware appenders -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="BIOMETRIC.file" fileName="${sys:user.dir}/${sys:log.dir.name}/biometric.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/biometric.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d [%t] %-5p %-70l %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+    <XstRollingRandomAccessFile name="CASHDRAWER.file" fileName="${sys:user.dir}/${sys:log.dir.name}/cashdrawer.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/cashdrawer.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+    <XstRollingRandomAccessFile name="RECEIPT_PRINTER.file" fileName="${sys:user.dir}/${sys:log.dir.name}/ejournal.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/ejournal.%d{yyyy-MM-dd}.log">
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+
+    <!-- ********************************************** -->
+    <!-- Xstore Mobile -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="CHEETAHAPI.file" fileName="${sys:user.dir}/${sys:log.dir.name}/cheetahapi.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/cheetahapi.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d [%t] %-5p wkstn-%X{wkstn_id} %n%m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+
+    <!-- ********************************************** -->
+    <!-- JMX console access/processing appenders -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="JMX_ACCESS.file" fileName="${sys:user.dir}/${sys:log.dir.name}/jmxHttpAccess.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/jmxHttpAccess.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+
+    <!-- ********************************************** -->
+    <!-- Email Templating appenders -->
+    <!-- ********************************************** -->
+    <XstRollingRandomAccessFile name="EMAIL.file" fileName="${sys:user.dir}/${sys:log.dir.name}/email.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/email.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d %m%n" />
+      <TimeBasedTriggeringPolicy />
+      <DefaultRolloverStrategy max="14" />
+    </XstRollingRandomAccessFile>
+
+    <XstRollingRandomAccessFile name="DEAL_ENGINE.file" fileName="${sys:user.dir}/${sys:log.dir.name}/deal_engine.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/deal_engine.%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="%X{wkstn_id} %-5level [%-6X{trans}] %date %msg %n"
+        header="**LOG BEGUN     %date%nloading ${log4j:configLocation}%n" footer="**LOG STOPPED   %date%n" />
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <OnStartupTriggeringPolicy />
+      </Policies>
+    </XstRollingRandomAccessFile>
+
+  </Appenders>
+  <Loggers>
+    <!-- ********************************************** -->
+    <!-- Xstore general application categories -->
+    <!-- ********************************************** -->
+    <!-- ***************** -->
+    <!-- ** Xunit ** -->
+    <!-- ***************** -->
+    <Logger name="dtv.xunit.XunitOutputFile" additivity="false" level="info">
+      <AppenderRef ref="XUNIT.file" />
+    </Logger>
+    <Logger name="dtv.xunit.XunitTestMgr" level="DEBUG" />
+    <!-- INFO: Capture Xstore technical details for reference within Xunit test definition files -->
+    <Logger name="dtv.pos.framework.event.ActionLogger" level="warn" />
+    <!-- ***************** -->
+    <!-- ** Significant Application Flow Events ** -->
+    <!-- ***************** -->
+    <Logger name="XSTORE_FLOW" level="info" />
+    <!-- ***************** -->
+    <!-- ** Transaction ** -->
+    <!-- ***************** -->
+    <!-- DEBUG: Time elapsed when persisting data; Transaction writes to temp files INFO: Transaction completed/cancelled 
+      banners -->
+    <Logger name="dtv.pos.common.TransactionHelper" level="info" />
+    <!-- ***************** -->
+    <!-- ** Initialization/Loading ** -->
+    <!-- ***************** -->
+    <Logger name="dtv.pos.framework.StationController" level="info" />
+    <Logger name="dtv.cheetah.CheetahContextListener" level="info" />
+    <Logger name="dtv.cheetah.CheetahWebApplicationContext" level="info" />
+    <Logger name="dtv.cheetah.CheetahXstoreImpl" level="info" />
+    <Logger name="dtv.cheetah.PreconnectServlet" level="info" />
+    <Logger name="dtv.cheetah.CheetahXstoreBridge" level="info" />
+    <Logger name="org.springframework.beans.factory.wiring.BeanConfigurerSupport" level="info" />
+    <Logger name="dtv.util.config.ConfigHelper" level="info" />
+    <Logger name="com.micros.xstore.config" level="info" />
+    <Logger name="dtv.pos.framework.op.OpChainFactory" level="info" />
+    <Logger name="dtv.pos.framework.reporting.ReportMgr" level="info" />
+    <Logger name="dtv.util.ResourceUtils" level="info" />
+    <Logger name="dtv.servicex.impl.Services" level="info" />
+    <Logger name="dtv.pos.framework.appmanagement.preflight.check.CustomerVersionPreFlightCheck" level="error"
+      additivity="false">
+      <AppenderRef ref="EVENT.dtx.critical" />
+    </Logger>
+    <Logger name="dtv.pos.framework.RetailLocationSynchronizer" level="warn" />
+    <Logger name="dtv.util.config.locator.ConfigPathLogger" level="info" />
+    <Logger name="oracle.retail.xstore.rest.helidon.RestServiceApp" level="info" />
+
+    <!-- ATTN: do not set this below INFO or mobile server will crash at startup.
+      (tries to print bean information of bean which requires a session during startup) -->
+    <Logger name="org.springframework.beans.factory.support" level="warn" />
+
+    <!-- ***************** -->
+    <!-- ** Application Interfacing ** -->
+    <!-- ***************** -->
+    <!-- DEBUG: Web service requests/responses via Customer API CWSerenade integration -->
+    <Logger name="com.micros_retail.i11n.v1.cw.customer.service.util.CwWebServiceInvoker" level="warn" />
+    <!-- General logging for Micros-Retail inter-application APIs -->
+    <Logger name="com.micros_retail.i11n" level="warn" />
+    <!-- General logging for Xstore inter-application Customer APIs -->
+    <Logger name="dtv.xst.crm" level="warn" />
+    <!-- DEBUG: Web service requests/responses via Xstore inter-application APIs -->
+    <Logger name="dtv.servicex.impl.WSLoggingHandler" level="warn" />
+    <!-- XSTORE-12195 - This is the new way of defining a logger category that uses the WSLoggingHandler. To enable 
+      the logger for a specific request type, set its priority level to DEBUG. -->
+    <!-- Sub-categories for Relate gift card tender integration -->
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_SVC_TRANSACTION_WS" level="info"
+      additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_ACTIVATE" level="info"
+      additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_BALANCE_INQUIRY" level="info"
+      additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_REDEEM" level="info" additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_CASHOUT" level="info" additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_RELOAD" level="info" additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_VOID" level="info" additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.RELATE_GIFT_CARD_REVERSE" level="info" additivity="false">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+    <!-- DEBUG: Requests to Xcenter REST services -->
+    <Logger name="dtv.servicex.impl.WSLoggingHandler.XCENTER_REST" level="warn" />
+
+    <!-- DEBUG: Legacy SOAP requests/responses via Xstore inter-application APIs -->
+    <Logger name="dtv.util.net.SoapRequest" level="warn" />
+    <!-- ***************** -->
+    <!-- ** User Interface ** -->
+    <!-- ***************** -->
+    <!-- DEBUG: Entries in ListViewConfig.xml were chosen for rendering list items -->
+    <Logger name="dtv.pos.framework.ui.listview.config.ViewElementFactory" level="warn" />
+    <!-- ***************** -->
+    <!-- ** State/Performance Profiling ** -->
+    <!-- ***************** -->
+    <!-- DEBUG: Time elapsed to change UI, execute operations, etc. -->
+    <Logger name="dtv.util.PerformanceTimer" level="info" />
+    <!-- INFO: Implementation-specific output of Alt+V debugging commands -->
+    <Logger name="dtv.pos.framework.keycommands" level="info" />
+    <!-- ***************** -->
+    <!-- ** Miscellaneous ** -->
+    <!-- ***************** -->
+    <!-- INFO: Which external application is being launched by ExecOp -->
+    <Logger name="dtv.pos.framework.process" level="info" />
+
+    <!-- ********************************************** -->
+    <!-- OpChain/Op/Support flow categories -->
+    <!-- ********************************************** -->
+    <Logger name="OPCHAIN_FLOW" level="info" />
+
+    <!-- ********************************************** -->
+    <!-- Event (ctl_event_log) categories -->
+    <!-- ********************************************** -->
+    <Logger name="dtv.xstore" additivity="false" level="info">
+      <AppenderRef ref="EVENT.dtx.critical" />
+    </Logger>
+    <Logger name="dtv.env" additivity="false" level="info">
+      <AppenderRef ref="EVENT.dtx.critical" />
+    </Logger>
+    <Logger name="dtv.sysadmin.data" additivity="false" level="info">
+      <AppenderRef ref="EVENT.dtx.critical" />
+    </Logger>
+    <Logger name="dtv.hardware.vf.VfVersionInfo" additivity="false" level="info">
+      <AppenderRef ref="EVENT.dtx.critical" />
+    </Logger>
+
+    <!-- ********************************************** -->
+    <!-- Authorization communication (Xstore<->Xpay) categories -->
+    <!-- ********************************************** -->
+    <Logger name="TENDER_AUTH" additivity="false" level="info">
+      <AppenderRef ref="AUTH.file" />
+    </Logger>
+
+    <Logger name="dtv.tenderretail" level="error" />
+    <Logger name="dtv.tenderauth.impl.eftlink" level="error" />
+    <Logger name="dtv.tenderauth.impl.xpay.XpayCommunicator" additivity="false" level="error">
+      <AppenderRef ref="EVENT.dtx.critical" />
+    </Logger>
+
+    <!-- ********************************************** -->
+    <!-- Data access/modification categories -->
+    <!-- ********************************************** -->
+    <!-- DEBUG: All JDBC SQL calls -->
+    <Logger name="dtv.data2.access.impl.jdbc.DtvPreparedStatement" level="warn" />
+    <Logger name="dtv.data2.replication" additivity="false" level="info">
+      <AppenderRef ref="REPLICATION.file" />
+    </Logger>
+    <Logger name="DEAL_ENGINE" additivity="false" level="warn">
+      <AppenderRef ref="DEAL_ENGINE.file" />
+    </Logger>
+    <Logger name="FAILED_PERSISTENCE_LOG" additivity="false" level="all">
+      <AppenderRef ref="PERSIST.file.failure" />
+    </Logger>
+    <Logger name="REPLICATION_AUDIT_LOG" additivity="false" level="info">
+      <AppenderRef ref="REPLICATION.file.audit" />
+    </Logger>
+
+    <!-- ********************************************** -->
+    <!-- Hardware categories -->
+    <!-- ********************************************** -->
+    <Logger name="dtv.hardware" level="info" />
+    <Logger name="CASHDRAWER_LOG" additivity="false" level="info">
+      <AppenderRef ref="CASHDRAWER.file" />
+    </Logger>
+    <Logger name="RCPT_LOG" additivity="false" level="info">
+      <AppenderRef ref="RECEIPT_PRINTER.file" />
+    </Logger>
+    <Logger name="dtv.hardware.biometric" additivity="false" level="warn">
+      <AppenderRef ref="BIOMETRIC.file" />
+    </Logger>
+    <Logger name="dtv.pos.hardware.biometric" additivity="false" level="warn">
+      <AppenderRef ref="BIOMETRIC.file" />
+    </Logger>
+    <Logger name="dtv.pos.hardware.op.ReadMicrOp" level="debug" />
+    <Logger name="com.verifone" level="error" />
+    <Logger name="dtv.util.spring.SingletonValidatorBeanPostProcessor" level="fatal" />
+
+    <!-- ********************************************** -->
+    <!-- Xstore Mobile -->
+    <!-- ********************************************** -->
+    <!-- DEBUG: All data in each Cheetah Screen sent to mobile client -->
+    <Logger name="CHEETAHAPI" additivity="false" level="warn">
+      <AppenderRef ref="CHEETAHAPI.file" />
+    </Logger>
+
+    <!-- ********************************************** -->
+    <!-- JMX console access/processing categories -->
+    <!-- ********************************************** -->
+    <Logger name="JMX_HTTP_ACCESS_LOG" additivity="false" level="info">
+      <AppenderRef ref="JMX_ACCESS.file" />
+    </Logger>
+
+    <!-- ********************************************** -->
+    <!-- Email Templating categories -->
+    <!-- ********************************************** -->
+    <Logger name="dtv.email" additivity="false" level="info">
+      <AppenderRef ref="EMAIL.file" />
+    </Logger>
+    <Logger name="dtv.pos.email" additivity="false" level="info">
+      <AppenderRef ref="EMAIL.file" />
+    </Logger>
+
+    <!-- ********************************************** -->
+    <!-- Miscellaneous third-party library categories -->
+    <!-- ********************************************** -->
+    <Logger name="net.sf.ehcache" level="error" />
+    <Logger name="org.springframework.beans.factory.xml.XmlBeanDefinitionReader" level="info" />
+
+    <!--com.microsretail.xstoremgwt.server.RemoteLoggingServiceUtil" -->
+    <Logger name="XSTOREM_REMOTE_LOGGER" level="warn" />
+    <Logger name="XSTOREM_CLIENT_LOGGER" level="warn" />
+
+    <Logger name="manito.eft" additivity="false" level="info">
+      <AppenderRef ref="EFTLINK.file" />
+    </Logger>
+
+    <!-- ********************************************** -->
+    <!-- Extension Stores (Temp Stores) DTXWS           -->
+    <!-- ********************************************** -->
+    <Logger name="dtv.data2.access.impl.dtxwebsocket" level="info"/>
+    <Logger name="dtv.util.net.cxnmaint" level="info"/>
+    <Logger name="dtv.pos.common.ExtensionStoreConnectivityCheck" level="info"/>
+    <Logger name="dtv.data2.replication.dtximpl" level="info"/>
+
+    <Root level="warn">
+      <AppenderRef ref="XSTORE.file" />
+    </Root>
+  </Loggers>
+</Configuration>
+
