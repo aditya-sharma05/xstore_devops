@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<!-- =============================================================== -->
+<!-- Configure the Jetty Server                                      -->
+<!--                                                                 -->
+<!-- Documentation of this file format can be found at:              -->
+<!-- http://wiki.eclipse.org/Jetty/Reference/jetty.xml_syntax        -->
+<!--                                                                 -->
+<!-- Additional configuration files are available in $JETTY_HOME/etc -->
+<!-- and can be mixed in.  For example:                              -->
+<!--   java -jar start.jar etc/jetty-ssl.xml                         -->
+<!--                                                                 -->
+<!-- See start.ini file for the default configuraton files           -->
+<!-- =============================================================== -->
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+  <!-- =========================================================== -->
+  <!-- Enable/Disable HTTP request logging                         -->
+  <!-- =========================================================== -->
+  <Call class="java.lang.System" name="setProperty">
+    <Arg type="java.lang.String">com.sun.xml.ws.transport.http.HttpAdapter.dump</Arg>
+    <Arg type="java.lang.String">true</Arg>
+  </Call>
+   
+  <!-- =========================================================== -->
+  <!-- Configure log directory                                     -->
+  <!-- =========================================================== -->
+  <Call class="java.lang.System" name="setProperty">
+    <Arg type="java.lang.String">jetty.logs</Arg>
+    <Arg type="java.lang.String"><SystemProperty name="user.dir" default="."/>/log</Arg>
+  </Call>
+   
+  <!-- =========================================================== -->
+  <!-- Configure config directory                                  -->
+  <!-- =========================================================== -->
+  <Call class="java.lang.System" name="setProperty">
+    <Arg type="java.lang.String">xservices.config.directory</Arg>
+    <Arg type="java.lang.String"><SystemProperty name="user.dir" default="."/>/xservices-config-dev</Arg>
+  </Call>
+   
+  <!-- =========================================================== -->
+  <!-- Configure config directory                                  -->
+  <!-- =========================================================== -->
+  <Call class="java.lang.System" name="setProperty">
+    <Arg type="java.lang.String">java.security.auth.login.config</Arg>
+    <Arg type="java.lang.String"><SystemProperty name="user.dir" default="."/>/xservices-config-dev/login.conf</Arg>
+  </Call>
+   
+  <!-- =========================================================== -->
+  <!-- Create a log directory if necessary                         -->
+  <!-- =========================================================== -->
+  <New class="java.io.File">
+    <Arg><SystemProperty name="user.dir" default="."/>/log</Arg>
+    <Call name="mkdir" />
+  </New>
+   
+  <!-- =========================================================== -->
+  <!-- Create tmp and tmp/saf folders if necessary                 -->
+  <!-- =========================================================== -->
+  <New class="java.io.File">
+    <Arg><SystemProperty name="user.dir" default="."/>/tmp</Arg>
+    <Call name="mkdir" />
+  </New>
+  <New class="java.io.File">
+    <Arg><SystemProperty name="user.dir" default="."/>/tmp/saf</Arg>
+    <Call name="mkdir" />
+  </New>
+   
+  <!-- =========================================================== -->
+  <!-- Server Thread Pool                                          -->
+  <!-- =========================================================== -->
+  <Get name="ThreadPool">
+    <Set name="minThreads" type="int">5</Set>
+    <Set name="maxThreads" type="int">25</Set>
+    <Set name="idleTimeout" type="int">60000</Set>
+    <Set name="detailedDump">false</Set>
+  </Get>
+  
+  <!-- =========================================================== -->
+  <!-- Set connectors                                              -->
+  <!-- =========================================================== -->
+  <Call name="addConnector">
+    <Arg>
+      <New class="org.eclipse.jetty.server.ServerConnector">
+        <Arg name="server">
+          <Ref refid="Server" />
+        </Arg>
+        <Arg name="sslContextFactory">
+          <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory$Server">
+            <Set name="KeyStorePath"><Property name="jetty.keystore.file" default="xservices.keystore"/></Set>
+            <Set name="TrustStorePath"><Property name="jetty.keystore.file" default="xservices.keystore"/></Set>
+            <Set name="KeyStorePassword"><Property name="jetty.keystore.password" default="allgoodthings"/></Set>
+            <Set name="KeyManagerPassword"><Property name="jetty.keystore.password" default="allgoodthings"/></Set>
+            <Set name="IncludeCipherSuites">
+              <Array type="java.lang.String">
+                <Item>TLS_AES_256_GCM_SHA384</Item>
+                <Item>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</Item>
+                <Item>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</Item>
+                <Item>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</Item>
+                <Item>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</Item>
+                <Item>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA</Item>
+                <Item>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA</Item>
+                <Item>TLS_RSA_WITH_AES_256_GCM_SHA384</Item>
+                <Item>TLS_RSA_WITH_AES_256_CBC_SHA256</Item>
+                <Item>TLS_RSA_WITH_AES_256_CBC_SHA</Item>
+              </Array>
+            </Set>
+            <Set name="includeProtocols">
+              <Array type="java.lang.String">
+                <Item>TLSv1.2</Item>
+                <Item>TLSv1.3</Item>
+              </Array>
+            </Set>
+            <Set name="certAlias"><Property name="jetty.keystore.alias" default="xservices"/></Set>
+          </New>
+        </Arg>
+        <Arg name="factories">
+          <Array type="org.eclipse.jetty.server.ConnectionFactory">
+            <Item>
+              <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                <Arg name="config">
+                  <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
+                    <Set name="secureScheme">https</Set>
+                    <Set name="securePort">8443</Set>
+                    <Set name="outputBufferSize">32768</Set>
+                    <Set name="requestHeaderSize">8192</Set>
+                    <Set name="responseHeaderSize">8192</Set>
+                    <Set name="sendServerVersion">false</Set>
+                    <Set name="sendDateHeader">false</Set>
+                    <Set name="headerCacheSize">512</Set>
+                    <Call name="addCustomizer">
+                      <Arg>
+                        <New class="org.eclipse.jetty.server.SecureRequestCustomizer" />
+                      </Arg>
+                    </Call>
+                  </New>
+                </Arg>
+              </New>
+            </Item>
+          </Array>
+        </Arg>
+        <Set name="port">8443</Set>
+        <Set name="idleTimeout">30000</Set>
+      </New>
+    </Arg>
+  </Call>
+
+
+  <!-- =========================================================== -->
+  <!-- Set handler Collection Structure                            --> 
+  <!-- =========================================================== -->
+  <Set name="handler">
+    <New class="org.eclipse.jetty.webapp.WebAppContext">
+      <Set name="copyWebDir">false</Set>
+      <Set name="descriptor"><SystemProperty name="user.dir" default="."/>/src/main/webapp/WEB-INF/web.xml</Set>
+      <Set name="resourceBase"><SystemProperty name="user.dir" default="."/>/src/main/webapp</Set>
+      <Set name="contextPath">/</Set>
+      <Set name="sessionHandler">
+        <New class="org.eclipse.jetty.server.session.SessionHandler" />
+      </Set>
+      <Set name="overrideDescriptor"><SystemProperty name="user.dir" default="."/>/xservices-config-dev/web-override.xml</Set>
+    </New>
+  </Set>
+  
+  <!-- =========================================================== -->
+  <!-- extra options                                               -->
+  <!-- =========================================================== -->
+  <Set name="stopAtShutdown">true</Set>
+  <Set name="stopTimeout">30000</Set>
+  <Set name="dumpAfterStart">false</Set>
+  <Set name="dumpBeforeStop">false</Set>
+</Configure>

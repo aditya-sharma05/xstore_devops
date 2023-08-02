@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="customer-xservices" default="build-overlay" basedir=".">
+  <!-- import the core script -->
+  <property name="core.project" location="${basedir}/../mto" />
+  <import file="${core.project}/core.xml" />
+
+  <!-- input properties -->
+  <property name="resources.dir" location="${basedir}/src/main/resources" />
+  <property name="src.dir" location="${basedir}/src/main/java" />
+  <property name="webapp.dir" location="${basedir}/src/main/webapp" />
+  <property name="xservices.config.src.dir" location="${basedir}/src/main/xservices-install/xservices-config" />
+
+  <!-- base input properties -->
+  <property name="xservices-install.lib.dir" location="${xservices-install.artifact.dir}/xservices/lib" />
+
+  <!-- xservices overlay input properties -->
+  <property name="xservices.overlay.lib" location="${basedir}/lib" />
+  <property name="xservices.overlay.lib.ext" location="${xservices.overlay.lib}/ext" />
+  <property name="xservices.overlay.build.lib" location="${basedir}/build-lib" />
+  <property name="xservices.overlay.build.lib.ext" location="${xservices.overlay.build.lib}/ext" />
+
+  <!-- output properties -->
+  <property name="output.dir" location="${basedir}/target" />
+  <property name="classes.dir" location="${output.dir}/classes" />
+  <property name="staging.dir" location="${output.dir}/overlay" />
+  <property name="lib.staging.dir" location="${staging.dir}/WEB-INF/lib" />
+  <property name="classes.staging.dir" location="${staging.dir}/WEB-INF/classes" />
+  <property name="xservices.config.dev.dir" location="${basedir}/xservices-config-dev" />
+
+  <!-- filesets referencing overlay input dependencies -->
+  <fileset id="xservices.overlay.lib.fileset" dir="${xservices.overlay.lib}" includes="*.jar" erroronmissingdir="false" />
+  <fileset id="xservices.overlay.lib.ext.fileset" dir="${xservices.overlay.lib.ext}" includes="*.jar" erroronmissingdir="false" />
+  <fileset id="xservices.overlay.build.lib.fileset" dir="${xservices.overlay.build.lib}" includes="*.jar" erroronmissingdir="false" />
+  <fileset id="xservices.overlay.build.lib.ext.fileset" dir="${xservices.overlay.build.lib.ext}" includes="*.jar" erroronmissingdir="false" />
+
+  <!-- create proprties that identify various paths in the customer overlay project that contain potential build dependencies. -->
+  <property name="cust.xstore.overlay.lib.folder" location="${xstore.overlay.dir}/lib" />
+  <property name="cust.overlay.lib" location="${basedir}/lib" />
+  <property name="cust.overlay.lib.ext" location="${cust.overlay.lib}/ext" />
+  <property name="cust.overlay.build.lib" location="${basedir}/build-lib" />
+  <property name="cust.overlay.build.lib.ext" location="${cust.overlay.build.lib}/ext" />
+  <condition property="cust.overlay.bin.dir" value="${xstore.overlay.dir}/classes" else="${xstore.overlay.dir}/bin">
+    <isset property="running.on.build.server" />
+  </condition>
+
+  <!-- base xservices app references -->
+  <property name="xservices.war.classes" location="${xservices.artifact.dir}/WEB-INF/classes" />
+  <property name="xservices.war.lib" location="${xservices.artifact.dir}/WEB-INF/lib" />
+
+  <!-- sanity check to confirm that the war file was provided -->
+  <fail message="Expected to find the contents of a base xservices war file at ${xservices.artifact.dir} but could not find them in that location.">
+    <condition>
+      <not>
+        <and>
+          <available file="${xservices.war.classes}" />
+          <available file="${xservices.war.lib}" />
+        </and>
+      </not>
+    </condition>
+  </fail>
+
+  <!-- check if dev configs were staged -->
+  <available property="dev.configs.staged" file="${xservices.config.dev.dir}" />
+
+  <!-- classpaths -->
+  <path id="project.base.classpath" description="Set up a classpath that includes the base deps that are included in the application">
+    <pathelement location="${xservices.war.classes}" />
+    <fileset dir="${xservices.war.lib}" includes="*.jar" />
+    <fileset dir="${xservices-install.lib.dir}" includes="servlet*.jar" />
+  </path>
+  <path id="project.xservices.overlay.classpath" description="Sets up a classpath that includes libraries within the overlay.">
+    <fileset refid="xservices.overlay.lib.fileset" />
+    <fileset refid="xservices.overlay.lib.ext.fileset" />
+    <fileset refid="xservices.overlay.build.lib.fileset" />
+    <fileset refid="xservices.overlay.build.lib.ext.fileset" />
+  </path>
+  <path id="project.overlay.classpath" description="Set up a classpath that includes the overlay deps that will be included in the application">
+    <pathelement location="${cust.overlay.bin.dir}" />
+    <fileset dir="${cust.xstore.overlay.lib.folder}">
+      <include name="${customer.id.lc}-*.jar" />
+      <include name="ops-*.jar" />
+    </fileset>
+    <fileset dir="${cust.overlay.lib}" includes="*.jar" erroronmissingdir="false" />
+    <fileset dir="${cust.overlay.build.lib}" includes="*.jar" erroronmissingdir="false" />
+    <fileset dir="${cust.overlay.lib.ext}" includes="*.jar" erroronmissingdir="false" />
+    <fileset dir="${cust.overlay.build.lib.ext}" includes="*.jar" erroronmissingdir="false" />
+  </path>
+  <path id="build.classpath" description="The classpath that is used for java compilation.">
+    <path refid="project.xservices.overlay.classpath" />
+    <path refid="project.overlay.classpath" />
+    <path refid="project.base.classpath" />
+  </path>
+
+  <!-- build targets -->
+  <target name="clean-all" description="Removes the target directory.">
+    <delete dir="${output.dir}" />
+  </target>
+  <target name="clean-staging" description="Cleans the directory where the overlay is staged.">
+    <delete dir="${staging.dir}" />
+  </target>
+
+  <target name="clean-classes" description="Cleans the directory where classes are generated">
+    <delete dir="${classes.dir}" />
+  </target>
+  <target name="build-overlay-withmistore" depends="build-overlay" description="Stages an overlay including a mistore ipa">
+    <get src="${build.mistore.repo.path}/com/micros_retail/${build.customerId.lc}-mistore/${build.mistore.version}/${build.customerId.lc}-mistore-${build.mistore.version}.ipa" dest="${classes.staging.dir}/ISTORE.ipa" />
+  </target>
+  <target name="build-overlay" depends="compile,clean-staging" description="Stages an overlay">
+    <mkdir dir="${staging.dir}" />
+    <copy todir="${classes.staging.dir}">
+      <fileset dir="${resources.dir}" />
+      <fileset dir="${classes.dir}" />
+    </copy>
+    <copy todir="${staging.dir}">
+      <fileset dir="${webapp.dir}" />
+    </copy>
+    <copy todir="${lib.staging.dir}">
+      <fileset refid="xservices.overlay.lib.fileset" />
+      <fileset refid="xservices.overlay.lib.ext.fileset" />
+    </copy>
+  </target>
+  <target name="compile" depends="clean-classes" description="Compiles code into the staging directory">
+    <mkdir dir="${classes.dir}" />
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true" classpathref="build.classpath" />
+  </target>
+  <target name="stage-dev-configs" description="Stages configurations for use when developing Xservices" unless="dev.configs.staged">
+    <copy todir="${basedir}/res">
+      <fileset dir="${xservices-install.artifact.dir}/xservices/res" />
+    </copy>
+    <copy todir="${xservices.config.dev.dir}">
+      <fileset dir="${xservices.config.src.dir}" excludes="**/.svn/**" />
+    </copy>
+    <echo file="${xservices.config.dev.dir}/web-override.xml">
+      <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+      <web-app>
+        <context-param>
+          <param-name>xcenter.config.home</param-name>
+          <param-value>${xservices.config.dev.dir}</param-value>
+        </context-param>
+      </web-app>
+    	]]></echo>
+    <echo file="${xservices.config.dev.dir}/xservices-log4j2.xml">
+      <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <DtxAppender name="EVENT_LOG_CRITICAL" guaranteedDelivery="true" />
+    <RollingFile name="xservices.log.appender" fileName="${sys:jetty.logs}/xservices.log"        filePattern="${sys:jetty.logs}/xservices.log.%d{.yyyy-MM-dd}-%i.zip">
+      <PatternLayout pattern="%d %-5p [%t] [%c] %m%n" header="loading ${log4j:configLocation}%n" />
+      <DefaultRolloverStrategy max="14" />
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <OnStartupTriggeringPolicy />
+      </Policies>
+    </RollingFile>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%highlight{%d [%t] %-5p %c %m%n}{FATAL=bright magenta, ERROR=bright red, WARN=yellow, INFO=default, DEBUG=cyan, TRACE=white}" />
+    </Console>
+    <RollingFile name="AuthEncFile" fileName="${sys:jetty.logs}/auth.enc"
+    filePattern="${sys:jetty.logs}/auth.enc.%d{.yyyy-MM-dd}-%i.zip" createOnDemand="true">
+      <PatternLayout pattern="%d %c %-5p %n{log4jenc}%n" />
+      <DefaultRolloverStrategy max="14" />
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <OnStartupTriggeringPolicy />
+      </Policies>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="dtv" level="WARN" />
+    <Logger name="dtv.pos.Version" level="FATAL" />
+    <Logger name="dtv.data2.access.DataModelFactory" level="ERROR" />
+    <Logger name="dtv.hardware.audio.FileSound" level="ERROR" />
+    <Logger name="dtv.util.config.ConfigHelper" level="INFO" />
+    <Logger name="istore.critical" level="INFO">
+      <appender-ref ref="EVENT_LOG_CRITICAL" />
+    </Logger>
+    <Logger name="com.micros_retail.xcenter" level="info">
+      <AppenderRef ref="xservices.log.appender" />
+    </Logger>
+    <Logger name="dtv.servicex.impl.WSLoggingHandler" level="DEBUG" />
+    <Logger name="dtv.data2.access.impl.remote.AbstractHttpDatasource" level="DEBUG" />
+    <Logger name="dtv.data2.access.impl.jdbc.DtvPreparedStatement" level="DEBUG" />
+    <Root level="info">
+      <AppenderRef ref="Console" />
+      <AppenderRef ref="xservices.log.appender" />
+    </Root>
+  </Loggers>
+</Configuration>
+    ]]></echo>
+    <echo file="${xservices.config.dev.dir}/login.conf">
+      <![CDATA[xservicesLoginModule {
+   oracle.retail.xstore.passwd.jaas.XsuiteLoginModule required debug=true
+   passwordProvider="com.micros_retail.xservices.login.DatabaseUserPasswordProvider"
+   passwordVerifier="com.micros_retail.xservices.login.XservicesPasswordVerifier"
+   passwordHasherSetImpl="oracle.retail.xstore.passwd.impl.DefaultPasswordHashSet"
+   passwordHashers="oracle.retail.xstore.passwd.impl.Ssha2Hasher"
+   passwordLifespanInDays="90"
+   passwordFailureLockoutLifespanInMinutes="30"
+   passwordFailuresAllowed="2";
+};
+      ]]>
+    </echo>
+    <echo message="A new xservices configuration directory was created in ${xservices.config.dev.dir}.  Please take a moment to configure it" />
+  </target>
+</project>

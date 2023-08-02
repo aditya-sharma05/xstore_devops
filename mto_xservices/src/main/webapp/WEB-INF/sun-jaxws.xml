@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints
+  xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
+  version="2.0">
+
+  <endpoint
+    name="RetailLocationServices"
+    implementation="com.micros_retail.xservices.retaillocation.RetailLocationServices"
+    url-pattern="/ws/RetailLocationServices" />  
+
+  <endpoint
+    name="AddressServices"
+    implementation="com.micros_retail.xservices.address.AddressServices"
+    url-pattern="/ws/AddressServices" />
+
+  <endpoint
+    name="CustomerServices"
+    implementation="com.micros_retail.xservices.customer.CustomerServices"
+    url-pattern="/ws/CustomerServices" />
+
+  <endpoint
+    name="EmployeeServices"
+    implementation="com.micros_retail.xservices.employee.EmployeeServices"
+    url-pattern="/ws/EmployeeServices" />
+
+  <endpoint
+    name="ItemServices"
+    implementation="com.micros_retail.xservices.item.ItemServices"
+    url-pattern="/ws/ItemServices" />
+
+  <endpoint
+    name="HouseAccountServices"
+    implementation="com.micros_retail.xservices.customer.account.house.HouseAccountServices"
+    url-pattern="/ws/HouseAccountServices" />
+
+  <endpoint
+    name="TransServices"
+    implementation="com.micros_retail.xservices.trans.TransServices"
+    url-pattern="/ws/TransServices" />
+
+  <endpoint
+    name="TenderServices"
+    implementation="com.micros_retail.xservices.tender.TenderServices"
+    url-pattern="/ws/TenderServices" />
+
+  <endpoint
+    name="ConfigurationServices"
+    implementation="com.micros_retail.xservices.configuration.ConfigurationServices"
+    url-pattern="/ws/ConfigurationServices" />
+
+  <endpoint
+    name="DiscountServices"
+    implementation="com.micros_retail.xservices.discount.DiscountServices"
+    url-pattern="/ws/DiscountServices" />
+
+  <endpoint
+    name="ReasonCodeServices"
+    implementation="com.micros_retail.xservices.reasoncode.ReasonCodeServices"
+    url-pattern="/ws/ReasonCodeServices" />
+
+  <endpoint
+    name="InputServices"
+    implementation="com.micros_retail.xservices.input.InputServices"
+    url-pattern="/ws/InputServices" />
+
+  <endpoint
+    name="TimeclockServices"
+    implementation="com.micros_retail.xservices.employee.TimeclockServices"
+    url-pattern="/ws/TimeclockServices" />
+
+  <endpoint
+    name="InventoryServices"
+    implementation="com.micros_retail.xservices.inventory.InventoryServices"
+    url-pattern="/ws/InventoryServices" />
+
+  <endpoint
+    name="ReceivingServices"
+    implementation="com.micros_retail.xservices.inventory.receiving.ReceivingServices"
+    url-pattern="/ws/ReceivingServices" />
+
+  <endpoint
+    name="ShippingServices"
+    implementation="com.micros_retail.xservices.inventory.shipping.ShippingServices"
+    url-pattern="/ws/ShippingServices" />
+
+  <endpoint
+    name="PrintingServices"
+    implementation="com.micros_retail.xservices.printer.PrintingServices"
+    url-pattern="/ws/PrintingServices" />
+
+  <endpoint
+    name="LoggingServices"
+    implementation="com.micros_retail.xservices.logging.LoggingServices"
+    url-pattern="/ws/LoggingServices" />    
+
+  <endpoint
+    name="RegisterServices"
+    implementation="com.micros_retail.xservices.register.RegisterServices"
+    url-pattern="/ws/RegisterServices" />  
+
+  <endpoint
+    name="PingServices"
+    implementation="com.micros_retail.xservices.support.PingServices"
+    url-pattern="/ws/PingServices" /> 
+
+  <endpoint
+    name="InventoryCountServices"
+    implementation="com.micros_retail.xservices.inventory.count.InventoryCountServices"
+    url-pattern="/ws/InventoryCountServices" />  
+
+  <endpoint
+    name="TaxServices"
+    implementation="com.micros_retail.xservices.tax.TaxServices"
+    url-pattern="/ws/TaxServices" /> 
+
+  <endpoint
+    name="InvAdjustServices"
+    implementation="com.micros_retail.xservices.inventory.adjustment.InvAdjustServices"
+    url-pattern="/ws/InvAdjustServices" />
+
+  <endpoint
+    name="ClientelingServices"
+    implementation="com.micros_retail.xservices.clienteling.ClientelingServices"
+    url-pattern="/ws/ClientelingServices" />
+
+  <endpoint
+    name="OrderServices"
+    implementation="com.micros_retail.xservices.order.OrderServices"
+    url-pattern="/ws/OrderServices" />
+
+</endpoints>

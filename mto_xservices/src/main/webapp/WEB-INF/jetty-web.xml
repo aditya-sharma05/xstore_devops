@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- File: web-app/WEB-INF/jetty-web.xml 
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+-->
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<Set name="contextPath">/</Set>
+	<Get name="securityHandler">
+		<Set name="loginService">
+			<New id="XservicesLoginService" class="org.eclipse.jetty.jaas.JAASLoginService">
+				<Set name="Name">Xservices login module</Set>
+				<Set name="LoginModuleName">xservicesLoginModule</Set>
+				<Set name="RoleClassNames">
+					<Array type="java.lang.String">
+						<Item>oracle.retail.xstore.passwd.jaas.SimpleRole</Item>
+					</Array>
+				</Set>
+			</New>
+		</Set>
+	</Get>
+</Configure>

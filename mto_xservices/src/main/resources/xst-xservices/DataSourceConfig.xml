@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSourceSet>
+  <DataSource name="Xcenter">
+    <Enabled dtype="Boolean">true</Enabled>
+    <NetworkScope dtype="String">WAN</NetworkScope>
+    <Strategy dtype="String">servletPersistenceStrategy</Strategy>
+    <Property key="ConnectionURL" value="${dtv.xcenter.url}"/>
+    <Property key="GetObjectByIdPath" value="/xcenter/dtx/GetById" />
+    <Property key="GetObjectByQueryPath" value="/xcenter/dtx/GetByQuery" />
+    <Property key="MakePersistentPath" value="/xcenter/dtx/MakePersistent" />
+        <Property key="GetConfigPathPath" value="/xcenter/configpath/GetConfigPath" />
+    <Property key="Timeout" value="30000" />
+    <!-- the following two values need to be encrypted -->
+    <Property key="ConnectionUserName" value="${dtv.xcenter.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.xcenter.password}"/>
+    <Property key="keystore" value="${dtv.xcenter.keystore.location}" />
+    <Property key="keystorePassword" value="${dtv.xcenter.keystore.password}"/>
+    <Property key="keyalias" value="xstore" />
+    <Property key="truststore" value="${dtv.xcenter.truststore.location}" />
+    <Property key="truststorePassword" value="${dtv.xcenter.truststore.password}"/>
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${dtv.xcenter.host}"/>
+      <Property key="Port" value="${dtv.xcenter.port}"/>
+      <Property key="Timeout" value="30000"/>
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="ConcurrentStoreLocal">
+    <Enabled dtype="Boolean">true</Enabled>
+    <NetworkScope dtype="String">LAN</NetworkScope>
+    <Strategy dtype="String">concurrentWritePersistenceStrategy</Strategy>
+    <Property key="DataSource1" value="Local" />
+    <Property key="ExcludeFromStatusReporting" value="true" />
+  </DataSource>
+  
+  <DataSource name="StorePrimary"  NetworkScope="LAN" HighAvailability="true">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${dtv.primary.db.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.primary.db.password}"/>
+    <Property key="ConnectionURL" value="${dtv.primary.db.url}"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+  </DataSource>  
+  
+  <DataSource name="Local"  NetworkScope="LAN" HighAvailability="true">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${dtv.primary.db.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.primary.db.password}"/>
+    <Property key="ConnectionURL" value="${dtv.primary.db.url}"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+  </DataSource>  
+
+  <DataSource name="Replication"  NetworkScope="LAN" HighAvailability="true">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${dtv.repl.db.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.repl.db.password}"/>
+    <Property key="ConnectionURL" value="${dtv.repl.db.url}"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+  </DataSource>  
+  
+  <DataSource name="StoreBackup"  NetworkScope="LAN">
+    <Enabled dtype="Boolean">true</Enabled>
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="${dtv.datasource.connectionfactory}" />
+    <Property key="ConnectionUserName" value="${dtv.storebackup.db.user}"/>
+    <Property key="ConnectionPassword" value="${dtv.storebackup.db.password}"/>
+    <Property key="ConnectionURL" value="${dtv.storebackup.db.url}"/>
+    <Property key="jdbc:SetBigStringTryClob" value="true" />
+  </DataSource>    
+  
+  <DataSource name="Relate">
+    <Enabled dtype="Boolean">true</Enabled>
+    <NetworkScope dtype="String">WAN</NetworkScope>
+    <Strategy dtype="String">relatePersistenceStrategy</Strategy>
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${dtv.relate.host}"/>
+      <Property key="Port" value="${dtv.relate.port}"/>
+      <Property key="Timeout" value="30000"/>
+    </Ping>
+  </DataSource>
+  
+  <!-- disable base Xcenter central datasources -->
+  <DataSource name="DtxPersistenceDestination">
+    <Enabled dtype="Boolean">false</Enabled>
+  </DataSource> 
+  <DataSource name="EventLogJmsDestination">
+    <Enabled dtype="Boolean">false</Enabled>
+  </DataSource>   
+  <DataSource name="XstoreLogDestination">
+    <Enabled dtype="Boolean">false</Enabled>
+  </DataSource>     
+  
+    
+</DataSourceSet>

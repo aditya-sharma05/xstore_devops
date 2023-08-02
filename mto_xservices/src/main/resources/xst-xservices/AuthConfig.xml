@@ -1,0 +1,116 @@
+<AuthConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AuthConfig.xsd">
+  <!-- 
+  NOTE: Presently, this file only exists to override AuthConfig.xml entries from pos/config/authprocessor/*
+  so that primarily store-specific settings may be assigned to external property values.  This differs from 
+  the standard InstallX mechanism whereby the Xstore distribution is actually "cracked open" and the raw 
+  values are directly modified using Xpath expressions (an "outside-in" configuration model).  Here, InstallX 
+  only modifies the external property files whose keys are referenced dynamically from this (unmodified) file 
+  at runtime (an "inside-out" model).  At some point, we might all want to get on the same page as to how 
+  we're going to handle system configurations shared across multiple applications...
+  
+  In any case, the important point here is that this file should ideally rarely need to be modified except to 
+  add support for a new processor/authorization type (which is an unfortunate maintenance cost in itself, 
+  given the boilerplate involved).  Xservices' config path should, as Xstore's does, include an 
+  ":authprocessor/<processorType>" config path entry for each appropriate authorization processor. All non-
+  overridden settings from the Xstore base will thus be inherited by an Xservices installation.
+  -->
+
+  <AuthProcess name="XPAY_HOST" Abstract="true">
+    <Parameter name="communicatorHosts">
+      <param_value dtype="List">
+        <!-- the timeout value in the host string is the connect timeout -->
+        <IPHost dtype="String">${dtv.auth.Host1}</IPHost>
+      </param_value>
+    </Parameter>
+    <Parameter name="connectionEnabled" value="true" />
+    <Parameter name="communicatorReceiveTimeoutMillis" value="60000" />
+    <Parameter name="partialApprovals" value="Y" />
+    <!-- Set "trackBalance" to "true" if remaining balances reported by Xpay should be captured. -->
+    <Parameter name="trackBalance" value="false" />
+    <Parameter name="manualAuthValidation.length.maximum" value="30" />
+    
+    <!-- This is the credential that is passed to Xpay and gets authenticated -->
+    <Parameter name="connectionUserName">
+      <param_value dtype="EncryptedString" encrypted="${dtv.auth.xpay.ConnectionUserName}" />
+    </Parameter>
+    <Parameter name="connectionPassword">
+       <param_value dtype="EncryptedString" encrypted="${dtv.auth.xpay.ConnectionPassword}" />
+    </Parameter>
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- AJB                                                    -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="AJB_CREDIT_STORE_SETTINGS" extends="AJB_CREDIT" Abstract="true">
+    <Parameter name="merchantNumber" value="${dtv.auth.credit.MerchantNumber}" />
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- CHASE PAYMENTECH                                       -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="XPAY_CREDIT_PAYMENTECH_STORE_SETTINGS" extends="XPAY_CREDIT_REQUESTS" Abstract="true">
+    <Parameter name="merchantNumber" value="${dtv.auth.credit.MerchantNumber}" />
+    <Parameter name="TerminalID" value="${dtv.auth.credit.TerminalID}" />
+    <Parameter name="ClientID" value="${dtv.auth.credit.ClientID}" />
+  </AuthProcess>
+  
+  <AuthProcess name="XPAY_GIFT_CARD_PAYMENTECH_STORE_SETTINGS" extends="XPAY" Abstract="true">
+    <Parameter name="merchantNumber" value="${dtv.auth.giftcard.MerchantNumber}" />
+    <Parameter name="TerminalID" value="${dtv.auth.giftcard.TerminalID}" />
+    <Parameter name="ClientID" value="${dtv.auth.giftcard.ClientID}" />
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- FDMS                                                   -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="XPAY_CREDIT_FDMS_STORE_SETTINGS" extends="XPAY_CREDIT_REQUESTS" Abstract="true">
+    <Parameter name="merchantNumber" value="${dtv.auth.credit.MerchantNumber}" />
+    <Parameter name="TerminalID" value="${dtv.auth.credit.TerminalID}" />
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- MERCHANT LINK                                          -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="XPAY_CREDIT_MERCHANTLINK_STORE_SETTINGS" extends="XPAY_CREDIT_REQUESTS" Abstract="true">
+    <Parameter name="TokenizationEnabled" value="true" />
+    <Parameter name="manualAuthValidation.length.maximum" value="6" />
+    <Parameter name="manualAuthValidation.length.minimum" value="2" />
+    <Parameter name="organizationName" value="${dtv.auth.organizationName}" />
+    <Parameter name="TerminalID" value="${dtv.auth.credit.TerminalID}" />
+    <Parameter name="SiteID" value="${dtv.auth.SiteID}" /> 
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- MERCHANT WAREHOUSE                                     -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="XPAY_CREDIT_MWHSE_STORE_SETTINGS" extends="XPAY_CREDIT_REQUESTS" Abstract="true">
+    <Parameter name="TokenizationEnabled" value="true" />
+    <Parameter name="merchantNumber" value="${dtv.auth.credit.MerchantNumber}" />
+    <Parameter name="organizationName" value="${dtv.auth.organizationName}" />
+    <Parameter name="SiteID" value="${dtv.auth.SiteID}" />
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- RELATE through Xpay                                                 -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="XPAY_GIFT_CARD_RELATE_STORE_SETTINGS" extends="XPAY" Abstract="true">
+    <Parameter name="merchantNumber" value="${dtv.auth.giftcard.MerchantNumber}" />
+    <Parameter name="TerminalID" value="${dtv.auth.giftcard.TerminalID}" />
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- RELATE by-passing Xpay                                              -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="GIFT_CARD_RELATE_STORE_SETTINGS" extends="RELATE" Abstract="true">
+    <Parameter name="merchantNumber" value="${dtv.auth.giftcard.MerchantNumber}" />
+    <Parameter name="TerminalID" value="${dtv.auth.giftcard.TerminalID}" />
+  </AuthProcess>
+  
+  <!-- ****************************************************** -->
+  <!-- TENDER RETAIL                                          -->
+  <!-- ****************************************************** -->
+  <AuthProcess name="TENDER_RETAIL_STORE_SETTINGS" extends="TENDER_RETAIL" Abstract="true">
+    <Parameter name="merchantNumber" value="${dtv.auth.credit.MerchantNumber}" />
+    <Parameter name="TerminalID" value="${dtv.auth.credit.TerminalID}" />
+  </AuthProcess>
+</AuthConfig>
