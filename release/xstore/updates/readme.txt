@@ -1,0 +1,1 @@
+This directory is for xstore/environment xcenter-update artifact transfer.

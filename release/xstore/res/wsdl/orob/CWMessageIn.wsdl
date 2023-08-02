@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://com.cwi.framework.webservice.javabean" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://com.cwi.framework.webservice.javabean" xmlns:intf="http://com.cwi.framework.webservice.javabean" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://dom.w3c.org" xmlns:tns2="http://axis.apache.org">
+  <wsdl:types>
+    <schema targetNamespace="http://dom.w3c.org"
+      xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <element name="performAction" nillable="true" type="xsd:string"/>
+      <element name="performActionReturn" nillable="true" type="xsd:string"/>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="performActionRequest">
+    <wsdl:part element="tns1:performAction" name="performAction"/>
+  </wsdl:message>
+  <wsdl:message name="performActionReturn">
+    <wsdl:part element="tns1:performActionReturn" name="performActionReturn"/>
+  </wsdl:message>
+  <wsdl:portType name="CWMessageIn">
+    <wsdl:operation name="performAction">
+      <wsdl:input message="impl:performActionRequest" name="performActionRequest"/>
+      <wsdl:output message="impl:performActionReturn" name="performActionReturn"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CWMessageInSoapBinding" type="impl:CWMessageIn">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="performAction">
+      <wsdlsoap:operation soapAction="" style="document"/>
+      <wsdl:input name="performActionRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="performActionReturn">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CWMessageInService">
+    <wsdl:port binding="impl:CWMessageInSoapBinding" name="CWMessageIn">
+      <wsdlsoap:address location="http://localhost:8080/CWDirectCPService/services/CWMessageIn"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

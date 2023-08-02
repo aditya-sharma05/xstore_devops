@@ -1,0 +1,767 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.11-b150616.1732 svn-revision#a247ba216861f2c0baac9a3657c5690bce0c744d. --><xs:schema xmlns:tns="http://v1_2.task.webservices.csx.dtv.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://v1_2.task.webservices.csx.dtv.com/">
+
+<xs:element name="RelateProcessingException" type="tns:RelateProcessingException"/>
+
+<xs:element name="addTaskNotes" type="tns:addTaskNotes"/>
+
+<xs:element name="addTaskNotesResponse" type="tns:addTaskNotesResponse"/>
+
+<xs:element name="getTaskList" type="tns:getTaskList"/>
+
+<xs:element name="getTaskListResponse" type="tns:getTaskListResponse"/>
+
+<xs:element name="getTaskNotes" type="tns:getTaskNotes"/>
+
+<xs:element name="getTaskNotesResponse" type="tns:getTaskNotesResponse"/>
+
+<xs:element name="getTaskPriorityCodes" type="tns:getTaskPriorityCodes"/>
+
+<xs:element name="getTaskPriorityCodesResponse" type="tns:getTaskPriorityCodesResponse"/>
+
+<xs:element name="getTaskStatusCodes" type="tns:getTaskStatusCodes"/>
+
+<xs:element name="getTaskStatusCodesResponse" type="tns:getTaskStatusCodesResponse"/>
+
+<xs:element name="getTaskTypeCodes" type="tns:getTaskTypeCodes"/>
+
+<xs:element name="getTaskTypeCodesResponse" type="tns:getTaskTypeCodesResponse"/>
+
+<xs:element name="saveOrUpdateTask" type="tns:saveOrUpdateTask"/>
+
+<xs:element name="saveOrUpdateTaskResponse" type="tns:saveOrUpdateTaskResponse"/>
+
+<xs:element name="saveTaskStatus" type="tns:saveTaskStatus"/>
+
+<xs:element name="saveTaskStatusResponse" type="tns:saveTaskStatusResponse"/>
+
+<xs:complexType name="getTaskTypeCodes">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getTaskTypeCodesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskAttributesType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskAttributesType">
+<xs:sequence>
+<xs:element name="attributeType" type="xs:string"/>
+<xs:element name="attributeValue" type="xs:string"/>
+<xs:element name="sortOrder" type="xs:int"/>
+<xs:element name="hiddenFlag" type="xs:boolean"/>
+<xs:element name="createDate" type="xs:date" minOccurs="0"/>
+<xs:element name="createUserId" type="xs:string" minOccurs="0"/>
+<xs:element name="updateDate" type="xs:date" minOccurs="0"/>
+<xs:element name="updateUserId" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="RelateProcessingException">
+<xs:sequence>
+<xs:element name="faultDetail" type="xs:string" minOccurs="0"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+<xs:element name="relateExceptionCode" type="tns:relateExceptionCode" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addTaskNotes">
+<xs:sequence>
+<xs:element name="taskNoteType" type="tns:TaskNoteType" minOccurs="0"/>
+<xs:element name="userId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskNoteType">
+<xs:sequence>
+<xs:element name="taskId" type="xs:long"/>
+<xs:element name="note" type="xs:string"/>
+<xs:element name="noteType" type="xs:string"/>
+<xs:element name="createUserId" type="xs:string" minOccurs="0"/>
+<xs:element name="createDate" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addTaskNotesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskNoteType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTaskNotes">
+<xs:sequence>
+<xs:element name="taskId" type="xs:long"/>
+<xs:element name="type" type="xs:string" minOccurs="0"/>
+<xs:element name="userId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTaskNotesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskNoteType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveOrUpdateTask">
+<xs:sequence>
+<xs:element name="userId" type="xs:string"/>
+<xs:element name="taskType" type="tns:TaskRequestType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskRequestType">
+<xs:sequence>
+<xs:element name="taskId" type="xs:long"/>
+<xs:element name="subject" type="xs:string"/>
+<xs:element name="retailLocationId" type="xs:string" minOccurs="0"/>
+<xs:element name="startDateTime" type="xs:dateTime"/>
+<xs:element name="endDateTime" type="xs:dateTime"/>
+<xs:element name="itemStatusValue" type="xs:string"/>
+<xs:element name="itemTypeValue" type="xs:string"/>
+<xs:element name="itemPriorityValue" type="xs:string"/>
+<xs:element name="taskRelateUsers" type="tns:TaskRelateUserRequestType" maxOccurs="unbounded"/>
+<xs:element name="taskCustomers" type="tns:TaskCustomerRequestType" maxOccurs="unbounded"/>
+<xs:element name="taskNotes" type="tns:TaskNoteRequestType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="promotions" type="tns:TaskPromotionRequestType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskRelateUserRequestType">
+<xs:sequence>
+<xs:element name="userId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskCustomerRequestType">
+<xs:sequence>
+<xs:element name="custId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskNoteRequestType">
+<xs:sequence>
+<xs:element name="note" type="xs:string"/>
+<xs:element name="noteType" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskPromotionRequestType">
+<xs:sequence>
+<xs:element name="campaignId" type="xs:long"/>
+<xs:element name="promotionId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveOrUpdateTaskResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskType">
+<xs:sequence>
+<xs:element name="taskId" type="xs:long"/>
+<xs:element name="subject" type="xs:string" minOccurs="0"/>
+<xs:element name="retailLocationId" type="xs:string" minOccurs="0"/>
+<xs:element name="startDateTime" type="xs:dateTime"/>
+<xs:element name="endDateTime" type="xs:dateTime"/>
+<xs:element name="itemStatusValue" type="xs:string"/>
+<xs:element name="itemTypeValue" type="xs:string"/>
+<xs:element name="itemPriorityValue" type="xs:string"/>
+<xs:element name="taskRelateUser" type="tns:TaskRelateUserType" minOccurs="0"/>
+<xs:element name="taskRelateUsers" type="tns:TaskRelateUserType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="taskCustomers" type="tns:TaskCustomerType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="taskNotes" type="tns:TaskNoteType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskRelateUserType">
+<xs:sequence>
+<xs:element name="userId" type="xs:string"/>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="email" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskCustomerType">
+<xs:sequence>
+<xs:element name="custId" type="xs:string"/>
+<xs:element name="firstName" type="xs:string"/>
+<xs:element name="lastName" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTaskList">
+<xs:sequence>
+<xs:element name="taskSearchCriteria" type="tns:TaskSearchCriteriaType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="TaskSearchCriteriaType">
+<xs:sequence>
+<xs:element name="fieldValue" type="xs:string" maxOccurs="unbounded"/>
+<xs:element name="searchFieldType" type="xs:string"/>
+<xs:element name="searchOperator" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTaskListResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveTaskStatus">
+<xs:sequence>
+<xs:element name="taskId" type="xs:long"/>
+<xs:element name="itemStatusValue" type="xs:string" minOccurs="0"/>
+<xs:element name="userId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="saveTaskStatusResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTaskPriorityCodes">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getTaskPriorityCodesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskAttributesType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTaskStatusCodes">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getTaskStatusCodesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:TaskAttributesType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:simpleType name="relateExceptionCode">
+<xs:restriction base="xs:string">
+<xs:enumeration value="SESSION_EXPIRED"/>
+<xs:enumeration value="UNABLE_TO_LOAD_REQUEST_ATTRIBUTE"/>
+<xs:enumeration value="ATTRIBUTE_IN_USE"/>
+<xs:enumeration value="ATTRIBUTE_NOT_FOUND"/>
+<xs:enumeration value="ATTRIBUTE_DATA_TYPE_IS_NOT_LIST"/>
+<xs:enumeration value="NO_RETAILLOC_SEARCH_RESULTS"/>
+<xs:enumeration value="RETAILLOC_MAX_RECORDS_EXCEEDED"/>
+<xs:enumeration value="PROMOTION_HISTORY_NOT_FOUND"/>
+<xs:enumeration value="PROMOTION_HISTORY_MAX_RECORDS_EXCEEDED"/>
+<xs:enumeration value="UNREASONABLE_REQUEST_MAX_RECORD"/>
+<xs:enumeration value="CUSTOMER_ALREADY_EXISTS"/>
+<xs:enumeration value="CUSTOMER_ID_UNSPECIFIED"/>
+<xs:enumeration value="INVALID_LANGUAGE_CODE"/>
+<xs:enumeration value="NAME_POSITION_INVALID"/>
+<xs:enumeration value="ALTERNATE_KEY_VALUE_UNSPECIFIED"/>
+<xs:enumeration value="ALTERNATE_KEY_TYPECODE_UNSPECIFIED"/>
+<xs:enumeration value="ATTRIBUTE_NAME_UNSPECIFIED"/>
+<xs:enumeration value="ATTRIBUTE_NAME_UNDEFINED"/>
+<xs:enumeration value="ATTRIBUTE_NAME_DUPLICATES"/>
+<xs:enumeration value="ATTRIBUTE_TYPE_DUPLICATE"/>
+<xs:enumeration value="ATTRIBUTE_CAN_NOT_BE_EDITED_BY_THIS_USER"/>
+<xs:enumeration value="INSUFFICIENT_DATA_SUPPLIED"/>
+<xs:enumeration value="MULTIPLE_VALUES_ON_UNIQUE_ATTRIBUTE_TYPE"/>
+<xs:enumeration value="UNKNOWN_ATTRIBUTE_TYPE"/>
+<xs:enumeration value="CANNOT_ADD_ZERO_VALUES"/>
+<xs:enumeration value="INVALID_ATTRIBUTE_VALUE"/>
+<xs:enumeration value="ATTRIBUTE_VALUE_TOO_LARGE"/>
+<xs:enumeration value="INVALID_DATE_FORMAT"/>
+<xs:enumeration value="VALUE_NOT_IN_ENUMERATED_ATTRIBUTE_TYPE_VALUES"/>
+<xs:enumeration value="MERGE_TARGET_SET_UNSPECIFIED"/>
+<xs:enumeration value="MERGE_CUSTOMER_CREATION_EXCEPTION"/>
+<xs:enumeration value="DIFF_UTILITY_MISCONFIGURED"/>
+<xs:enumeration value="CUSTOMER_SET_OPERATION_ERROR"/>
+<xs:enumeration value="MAXIMUM_LOOKUP_RESULTS_ERROR"/>
+<xs:enumeration value="CUSTOMER_NOTE_EMPTY"/>
+<xs:enumeration value="CUSTOMER_LOOKUP_TIMEOUT_ERROR"/>
+<xs:enumeration value="INVALID_EMAIL_ADDRESS"/>
+<xs:enumeration value="MULTIPLE_CUSTS_ASSOCIATED_TO_CARD"/>
+<xs:enumeration value="NO_CUSTOMER_NOTES"/>
+<xs:enumeration value="COUPON_SERIAL_NUMBER_INVALID"/>
+<xs:enumeration value="COUPON_ALREADY_REDEEMED"/>
+<xs:enumeration value="COUPON_NOT_FOUND"/>
+<xs:enumeration value="LOYALTY_EXPIRE_POINTS_ERROR"/>
+<xs:enumeration value="EARN_ESCROW_POINTS_ERROR"/>
+<xs:enumeration value="DISTRIBUTE_LOYALTY_AWARDS_ERROR"/>
+<xs:enumeration value="CREATE_PENDING_AWARDS_ERROR"/>
+<xs:enumeration value="LOYALTY_ACTIVITY_NOT_FOUND"/>
+<xs:enumeration value="RETAIL_LOCATION_ID_UNSPECIFIED"/>
+<xs:enumeration value="RETAIL_LOCATION_ID_INVALID"/>
+<xs:enumeration value="RETAIL_LOCATION_NOT_FOUND"/>
+<xs:enumeration value="RETAIL_LOCATION_NOT_ACTIVE"/>
+<xs:enumeration value="RETAIL_LOCATION_ATTRIBUTE_NAME_UNSPECIFIED"/>
+<xs:enumeration value="MERCHANDISE_HIERARCHY_LEVEL_ID_UNSPECIFIED"/>
+<xs:enumeration value="MERCHANDISE_HIERARCHY_LEVEL_UNSPECIFIED"/>
+<xs:enumeration value="ITEM_ID_DUPLICATE_SPECIFIED"/>
+<xs:enumeration value="ITEM_ID_UNSPECIFIED"/>
+<xs:enumeration value="ITEM_ID_TYPE_UNSPECIFIED"/>
+<xs:enumeration value="NEGATIVE_ITEM_PRICE_SPECIFIED"/>
+<xs:enumeration value="ITEM_PRICE_DECIMAL_SPECIFIED"/>
+<xs:enumeration value="ITEM_PRICE_INVALID"/>
+<xs:enumeration value="ITEM_MSRP_INVALID"/>
+<xs:enumeration value="ITEM_UNIT_COST_INVALID"/>
+<xs:enumeration value="ITEM_TAX_INFORMATION_INVALID"/>
+<xs:enumeration value="ITEM_UPC_SPECIFIED_DATA_EMPTY"/>
+<xs:enumeration value="ITEM_UPC_UNSPECIFIED"/>
+<xs:enumeration value="ITEM_FRANCHISEE_UNSPECIFIED"/>
+<xs:enumeration value="ITEM_ACCESS_DENIED"/>
+<xs:enumeration value="ITEM_NOT_FOUND"/>
+<xs:enumeration value="ITEM_XREF_NOT_FOUND"/>
+<xs:enumeration value="INVALID_ITEM_ACTION_SPECIFIED"/>
+<xs:enumeration value="INVALID_INTENDED_INDUSTRY"/>
+<xs:enumeration value="GENERATE_CARD_ERROR_DUPLICATES_FOUND"/>
+<xs:enumeration value="ALL_CARDS_GENERATED"/>
+<xs:enumeration value="CARD_SERIES_UNSPECIFIED"/>
+<xs:enumeration value="CARD_BATCHES_UNSPECIFIED"/>
+<xs:enumeration value="CARD_BATCH_NOT_FOUND"/>
+<xs:enumeration value="CARD_PREFIX_UNSPECIFIED"/>
+<xs:enumeration value="CARD_PREFIX_NOT_FOUND"/>
+<xs:enumeration value="CARD_BATCH_CONTAINS_INACTIVE_CARD"/>
+<xs:enumeration value="CARD_SERIES_PREFIX_UNSPECIFIED"/>
+<xs:enumeration value="CARD_SERIES_SEQUENCE_UNSPECIFIED"/>
+<xs:enumeration value="CARD_SERIES_SEQUENCE_INVALID"/>
+<xs:enumeration value="CARD_SERIES_ALREADY_GENERATED"/>
+<xs:enumeration value="CARD_SERIES_NOT_FOUND"/>
+<xs:enumeration value="CARDS_NOT_GENERATED"/>
+<xs:enumeration value="CARD_GROUP_NOT_SPECIFIED"/>
+<xs:enumeration value="CARD_GROUP_NOT_IN_SAME_BATCH"/>
+<xs:enumeration value="CARD_GROUP_FROM_BEFORE_END"/>
+<xs:enumeration value="CARD_GROUP_RANGE_NOT_EXIST"/>
+<xs:enumeration value="CARD_EXPIRATION_DATE_MUST_BE_GREATER_THAN_ACTIVATION_DATE"/>
+<xs:enumeration value="CARD_EXPIRATION_TYPE_IS_FIXED"/>
+<xs:enumeration value="ACTIVATION_DATE_DOES_NOT_MEET_CARD_EXPIRATION_DATE_RANGE"/>
+<xs:enumeration value="CARD_CUST_ASSOCIATION_MULTIPLE_ACTIONS"/>
+<xs:enumeration value="CARD_CUST_ASSOCIATION_INVALID_ACTION"/>
+<xs:enumeration value="SEGMENT_ID_UNSPECIFIED"/>
+<xs:enumeration value="SEGMENT_ID_NOT_FOUND"/>
+<xs:enumeration value="SEGMENT_RUNID_UNSPECIFIED"/>
+<xs:enumeration value="USER_ID_REQUIRED"/>
+<xs:enumeration value="SEGMENT_NAME_REQUIRED"/>
+<xs:enumeration value="SEGMENT_NAME_LENGTH_EXCEEDS_MAXIMUM"/>
+<xs:enumeration value="SEGMENT_DESCRIPTION_REQUIRED"/>
+<xs:enumeration value="SEGMENT_DESCRIPTION_LENGTH_EXCEEDS_MAXIMUM"/>
+<xs:enumeration value="CLIENTELING_FLAG_REQUIRED"/>
+<xs:enumeration value="PRIVATE_FLAG_REQUIRED"/>
+<xs:enumeration value="PRIVATE_FLAG_SHOULD_BE_FALSE"/>
+<xs:enumeration value="NO_SEGMENTS_FOUND"/>
+<xs:enumeration value="UNKNOWN_SEGMENT_ID"/>
+<xs:enumeration value="JOB_ALREADY_IN_PROCESS"/>
+<xs:enumeration value="JOB_CREATION_FAILURE"/>
+<xs:enumeration value="JOB_DELETION_FAILURE"/>
+<xs:enumeration value="JOBMANAGER_FAILURE"/>
+<xs:enumeration value="JOB_SETUP_ERROR"/>
+<xs:enumeration value="TRANSACTION_ALREADY_EXISTS"/>
+<xs:enumeration value="TRANSACTION_DATA_UNSPECIFIED"/>
+<xs:enumeration value="TRANSACTION_DATA_INVALID"/>
+<xs:enumeration value="NON_UNIQUE_TRANSACTION_PROPERTY_CODES"/>
+<xs:enumeration value="RETAIL_TRANSACTION_ID_INVALID"/>
+<xs:enumeration value="RETAIL_TRANSACTION_ID_ILLEGAL"/>
+<xs:enumeration value="INVALID_BUSINESS_DATE"/>
+<xs:enumeration value="AWARD_PROGRAM_MISSING"/>
+<xs:enumeration value="CARD_SETUP_ERROR"/>
+<xs:enumeration value="ACCOUNT_SETUP_ERROR"/>
+<xs:enumeration value="POST_VOID_TRANSACTION_NOT_FOUND"/>
+<xs:enumeration value="INVALID_CURRENCY_CODE"/>
+<xs:enumeration value="INVALID_CURRENCY_DATE"/>
+<xs:enumeration value="TRANSACTION_CUSTID_ON_TRANS_NOT_FOUND"/>
+<xs:enumeration value="TRANSACTION_ALTKEY_ON_TRANS_NOT_FOUND"/>
+<xs:enumeration value="TRANSACTION_REQUEST_REPOST"/>
+<xs:enumeration value="ACCOUNT_PROCESSING_EXCEPTION"/>
+<xs:enumeration value="INVALID_START_INDEX"/>
+<xs:enumeration value="INVALID_PAGE_SIZE"/>
+<xs:enumeration value="USER_NOT_FOUND"/>
+<xs:enumeration value="CONFIGURATION_ERROR"/>
+<xs:enumeration value="PROGRAM_ALREADY_ASSOCIATED"/>
+<xs:enumeration value="UNEXPECTED_ERROR"/>
+<xs:enumeration value="DATABASE_COMMIT_EXCEPTION"/>
+<xs:enumeration value="XML_MESSAGE_REQUST_TYPE_INVALID"/>
+<xs:enumeration value="DEAL_ENGINE_SETUP_ERROR"/>
+<xs:enumeration value="DEAL_ENGINE_UNSUPPORTED_TYPE"/>
+<xs:enumeration value="DEAL_SETUP_ERROR"/>
+<xs:enumeration value="PROMOTION_SETUP_ERROR"/>
+<xs:enumeration value="PROMOTION_NOT_FOUND"/>
+<xs:enumeration value="PROMOTION_NOT_ACTIVE"/>
+<xs:enumeration value="PROMOTION_TERMINATED"/>
+<xs:enumeration value="PROMOTION_NOT_GENERATED"/>
+<xs:enumeration value="PROMOTION_NON_TARGETED"/>
+<xs:enumeration value="AWARD_TYPE_PROMOTION_NOT_ALLOWED"/>
+<xs:enumeration value="PROMOTION_INVALID_DATE_CONFIGURATION"/>
+<xs:enumeration value="PROMOTION_HAS_NO_ENABLED_DEALS"/>
+<xs:enumeration value="MESSAGE_UNSUPPORTED_FOR_WEB"/>
+<xs:enumeration value="MESSAGE_UNSUPPORTED_FOR_BATCH"/>
+<xs:enumeration value="SEQUENCE_NUMBER_GENERATION_ERROR"/>
+<xs:enumeration value="DUPLICATE_CUSTOMER_ALT_KEY_EXISTS"/>
+<xs:enumeration value="REQUEST_DATA_EMPTY"/>
+<xs:enumeration value="DATA_EXPORT_ERROR"/>
+<xs:enumeration value="RELATE_SERVICES_GENERAL_CONFIGURATION_ERROR"/>
+<xs:enumeration value="LOYALTY_SETUP_ERROR"/>
+<xs:enumeration value="LOYALTY_ROUNDING_SETUP_ERROR"/>
+<xs:enumeration value="HOUSEHOLD_IDENTIFY_UNSUPPORTED_TYPE"/>
+<xs:enumeration value="NO_CUSTOMERS_FOUND"/>
+<xs:enumeration value="CUSTOMER_NOT_FOUND"/>
+<xs:enumeration value="ACCOUNT_NOT_FOUND"/>
+<xs:enumeration value="NO_ACTIVE_ACCOUNTS_FOUND"/>
+<xs:enumeration value="CARD_NOT_FOUND"/>
+<xs:enumeration value="LINE_ITEM_NOT_FOUND_FROM_SEQ"/>
+<xs:enumeration value="PROGRAM_NOT_FOUND"/>
+<xs:enumeration value="PROGRAM_CURRENCY_UNKNOWN"/>
+<xs:enumeration value="CURRENCY_RATE_NOT_FOUND"/>
+<xs:enumeration value="ACCOUNT_INACTIVE"/>
+<xs:enumeration value="ACCOUNT_EXPIRED"/>
+<xs:enumeration value="ACCOUNT_ALREADY_ACTIVE"/>
+<xs:enumeration value="ACCOUNT_ALREADY_INACTIVE"/>
+<xs:enumeration value="ACCOUNT_BLOCKED"/>
+<xs:enumeration value="ACCOUNT_NOT_BLOCKED"/>
+<xs:enumeration value="ACCOUNT_NOT_EFFECTIVE"/>
+<xs:enumeration value="CARD_INACTIVE"/>
+<xs:enumeration value="CARD_EXPIRED"/>
+<xs:enumeration value="CARD_TYPE_ACCESS_RESTRICTED"/>
+<xs:enumeration value="CARD_ALREADY_ACTIVE"/>
+<xs:enumeration value="PROGRAM_EXPIRED"/>
+<xs:enumeration value="ALL_PROGRAMS_EXPIRED"/>
+<xs:enumeration value="PROGRAM_NOT_EFFECTIVE"/>
+<xs:enumeration value="PROGRAM_INACTIVE"/>
+<xs:enumeration value="CAN_NOT_ACTIVATE_ACCOUNT"/>
+<xs:enumeration value="INSUFFICIENT_FUNDS"/>
+<xs:enumeration value="ORIG_SVA_TRAN_NOT_FOUND"/>
+<xs:enumeration value="ORIG_AWARD_TRAN_NOT_FOUND"/>
+<xs:enumeration value="VALID_ORIGINAL_TRAN_REQUIRED"/>
+<xs:enumeration value="INVALID_PIN"/>
+<xs:enumeration value="NO_PHYSICAL_CARD"/>
+<xs:enumeration value="MAX_BALANCE_EXCEEDED"/>
+<xs:enumeration value="MIN_BALANCE_NOT_MET"/>
+<xs:enumeration value="MIN_ACTIVATION_AMT_NOT_MET"/>
+<xs:enumeration value="EXCEEDED_LIFETIME_USES"/>
+<xs:enumeration value="EXCEEDED_DAILY_USES"/>
+<xs:enumeration value="EXCEEDED_DAILY_REDEMPTION_AMT"/>
+<xs:enumeration value="CASHOUT_NOT_PERMITTED"/>
+<xs:enumeration value="CASHOUT_LIMIT_EXCEEDED"/>
+<xs:enumeration value="ORIGINAL_TRANSACTION_VOIDED"/>
+<xs:enumeration value="ORIGINAL_TRAN_ERROR"/>
+<xs:enumeration value="ORIGINAL_TRAN_WRONG_CARD"/>
+<xs:enumeration value="ORIGINAL_TRAN_WRONG_ACCOUNT"/>
+<xs:enumeration value="ORIGINAL_TRAN_WRONG_PROGRAM"/>
+<xs:enumeration value="REQUESTED_AMT_INCORRECT"/>
+<xs:enumeration value="DEBIT_REVERSALS_NOT_PERMITTED"/>
+<xs:enumeration value="CREDIT_REVERSALS_NOT_PERMITTED"/>
+<xs:enumeration value="CAN_NOT_REVERSE_TRAN_TYPE"/>
+<xs:enumeration value="TRANSACTION_ALREADY_REVERSED"/>
+<xs:enumeration value="TRANSACTION_NOT_FOUND"/>
+<xs:enumeration value="TRANSACTION_TYPE_INVALID"/>
+<xs:enumeration value="DEBIT_VOIDS_NOT_PERMITTED"/>
+<xs:enumeration value="CREDIT_VOIDS_NOT_PERMITTED"/>
+<xs:enumeration value="CAN_NOT_VOID_TRAN_TYPE"/>
+<xs:enumeration value="CAN_NOT_RELEASE_TRAN_TYPE"/>
+<xs:enumeration value="CAN_NOT_POSTAUTH_TRAN_TYPE"/>
+<xs:enumeration value="TRANSACTION_ALREADY_VOIDED"/>
+<xs:enumeration value="PREAUTH_TRANSACTION_ALREADY_VOIDED_OR_CLOSED"/>
+<xs:enumeration value="TRANSACTION_VOIDED"/>
+<xs:enumeration value="BALANCE_IS_NOW_ZERO"/>
+<xs:enumeration value="BALANCE_IS_LESS_THAN_ZERO"/>
+<xs:enumeration value="PREAUTH_ALREADY_POSTAUTHED_OR_RELEASE"/>
+<xs:enumeration value="CONTAINS_OUTSTANDING_PREAUTHS"/>
+<xs:enumeration value="ACCOUNT_ALREADY_MERGED"/>
+<xs:enumeration value="ACCOUNT_ALREADY_MERGED_CAN_NOT_PERFORM"/>
+<xs:enumeration value="CANNOT_MERGE_FROM_INACTIVE_TENDER_ACCOUNT"/>
+<xs:enumeration value="CANNOT_MERGE_FROM_INACTIVE_LOYALTY_ACCOUNT"/>
+<xs:enumeration value="CANNOT_MERGE_FROM_INACTIVE_AWARD_ACCOUNT"/>
+<xs:enumeration value="CANNOT_MERGE_FROM_INACTIVE_ACCOUNT"/>
+<xs:enumeration value="CANNOT_MERGE_CARDS_OF_DIFFERENT_CARD_TYPES"/>
+<xs:enumeration value="CANNOT_MERGE_CARDS_WITH_DIFFERENT_OWNERS"/>
+<xs:enumeration value="CANNOT_MERGE_CARDS_PROGRAM_BLOCKED_MERGE"/>
+<xs:enumeration value="MISSING_PIN_ERROR"/>
+<xs:enumeration value="MISSING_NEW_PIN_ERROR"/>
+<xs:enumeration value="ORIGINAL_TRANSACTION_NOT_LAST"/>
+<xs:enumeration value="ACTIVATION_NOT_VOIDABLE_WHEN_ACCT_HAS_ACTIVITY"/>
+<xs:enumeration value="PREAUTH_NOT_VOIDABLE"/>
+<xs:enumeration value="RELOADS_NOT_PERMITTED"/>
+<xs:enumeration value="INVALID_ORIG_AUTH_CODE"/>
+<xs:enumeration value="CARD_NUMBER_REQUIRED"/>
+<xs:enumeration value="CARD_NUMBER_OR_ATTR_REQUIRED"/>
+<xs:enumeration value="NEGATIVE_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_REDEEM_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_ACTIVATE_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_PREAUTH_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_POSTAUTH_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_RELEASEAUTH_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_RECHARGE_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_RETURN_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_SERVICE_CHARGE_AMOUNT_ERROR"/>
+<xs:enumeration value="INVALID_VOID_AMOUNT_ERROR"/>
+<xs:enumeration value="TENDER_PROGRAM_DISALLOWS_PREAUTH"/>
+<xs:enumeration value="INVALID_DATA_FOR_REQUEST"/>
+<xs:enumeration value="ILLEGAL_PROGRAM_ACCOUNT_SETUP"/>
+<xs:enumeration value="INVALID_TRANSACTION_DATA"/>
+<xs:enumeration value="COUPON_IDENTIFIER_INVALID_OR_EXPIRED"/>
+<xs:enumeration value="COUPON_IDENTIFIER_INVALID_FOR_EXPIRE"/>
+<xs:enumeration value="COUPON_REQUEST_AMOUNT_INVALID"/>
+<xs:enumeration value="COUPON_REQUEST_DATE_INVALID"/>
+<xs:enumeration value="COUPON_REQUEST_NEGATIVE_AMOUNT_INVALID"/>
+<xs:enumeration value="COUPON_REQUEST_EXCEEDS_BALANCE"/>
+<xs:enumeration value="ILLEGAL_RETAIL_TRANSACTION_ID"/>
+<xs:enumeration value="AWARD_ACCOUNT_EXPIRED"/>
+<xs:enumeration value="AWARD_PROGRAM_EXPIRED"/>
+<xs:enumeration value="AWARD_PROGRAM_NOT_EFFECTIVE"/>
+<xs:enumeration value="LOYALTY_PROGRAM_EXPIRED"/>
+<xs:enumeration value="LOYALTY_PROGRAM_NOT_EFFECTIVE"/>
+<xs:enumeration value="LOYALTY_ACCOUNT_EXPIRED"/>
+<xs:enumeration value="LOYALTY_POINTS_ALREADY_AWARDED"/>
+<xs:enumeration value="LOYALTY_POINTS_NOT_AWARDED"/>
+<xs:enumeration value="LOYALTY_ACTIVITY_DOES_NOT_MATCH_CARD"/>
+<xs:enumeration value="LOYALTY_RULE_NOT_FOUND"/>
+<xs:enumeration value="LOYALTY_NEGATIVE_BALANCE_NOT_ALLOWED"/>
+<xs:enumeration value="LOYALTY_AWARD_COST_EXCEEDS_THRESHOLD"/>
+<xs:enumeration value="LOYALTY_INSUFFICIENT_POINTS_FOR_REDEEM"/>
+<xs:enumeration value="LOYALTY_INVALID_ESCROW_PERIOD"/>
+<xs:enumeration value="LOYALTY_INVALID_BONUS_FLAG"/>
+<xs:enumeration value="LOYALTY_INVALID_FORCE_EARNED_PTS_FLAG"/>
+<xs:enumeration value="LOYALTY_INVALID_POINTS_AMOUNT"/>
+<xs:enumeration value="LOYALTY_AWARD_ACCOUNT_ERROR"/>
+<xs:enumeration value="LOYALTY_ACCOUNT_AWARD_RULE_MISMATCH"/>
+<xs:enumeration value="CURRENCY_EXCHANGE_RATE_NOT_FOUND"/>
+<xs:enumeration value="CURRENCY_ID_MISSING_IN_REQUEST"/>
+<xs:enumeration value="CURRENCY_CODE_INVALID"/>
+<xs:enumeration value="FOREIGN_CURRENCY_NOT_ALLOWED"/>
+<xs:enumeration value="CONCURRENT_DATA_ACCESS"/>
+<xs:enumeration value="CARD_NOT_ASSOCIATED_TO_CUSTOMER"/>
+<xs:enumeration value="ANNIV_ECOUPON_REQUEST_EXCEEDS_LIMIT"/>
+<xs:enumeration value="SIGNUP_ECOUPON_REQUEST_CURRENT_YEAR"/>
+<xs:enumeration value="LOYALTY_PRGLVL_NOT_EXISTS"/>
+<xs:enumeration value="LOYALTY_PRGLVL_MOVE_REQUEST_EXCEEDS_BALANCE"/>
+<xs:enumeration value="LOYALTY_PRGLVL_MOVE_REQUEST_NEGATIVE_AMOUNT_INVALID"/>
+<xs:enumeration value="INSUFFICIENT_POINTS_FOR_AWARD"/>
+<xs:enumeration value="NEGATIVE_POINTS_NOT_ALLOWED"/>
+<xs:enumeration value="LOYALTY_ACCOUNT_ALREADY_ACTIVE"/>
+<xs:enumeration value="LOYALTY_ACCOUNT_ALREADY_INACTIVE"/>
+<xs:enumeration value="LOYALTY_TRANSACTION_ALREADY_VOIDED"/>
+<xs:enumeration value="LOYALTY_TRANSACTION_ALREADY_EARNED"/>
+<xs:enumeration value="POINTS_NOT_IN_ESCROW"/>
+<xs:enumeration value="LOYALTY_ACCOUNT_INACTIVE"/>
+<xs:enumeration value="NO_WRITE_PRIVILEGE_ON_CUSTOMER"/>
+<xs:enumeration value="NO_ACCESS_ON_CUSTOMER"/>
+<xs:enumeration value="INVALID_ASSOCIATE_ID"/>
+<xs:enumeration value="INVALID_ASSOCIATE_ROLE_ID"/>
+<xs:enumeration value="ASSOCIATE_ASSIGNMENT_EMPTY"/>
+<xs:enumeration value="WISHLIST_EMPTY"/>
+<xs:enumeration value="INVALID_USER"/>
+<xs:enumeration value="INVALID_VISUALIZER_FILTER"/>
+<xs:enumeration value="REQUIRED_PARAMETERS_MISSING"/>
+<xs:enumeration value="CUSTOMER_NOT_FOUND_IN_PROMOTION_TARGET"/>
+<xs:enumeration value="CUSTOMER_EXISTS_IN_PROMOTION_TARGET"/>
+<xs:enumeration value="NO_CUSTOMER_IMAGE_FOUND"/>
+<xs:enumeration value="INVALID_LINE_ITEM_TYPE_CODE"/>
+<xs:enumeration value="TASK_WITHOUT_START_END_DATE"/>
+<xs:enumeration value="INVALID_DATE_RANGE"/>
+<xs:enumeration value="MISSING_SUBJECT_LINE"/>
+<xs:enumeration value="INVALID_LOCATION_ID"/>
+<xs:enumeration value="TASKID_NOT_FOUND"/>
+<xs:enumeration value="TASK_NOTE_ALREADY_EXIST"/>
+<xs:enumeration value="REASON_CODE_REQUIRED"/>
+<xs:enumeration value="INVALID_DEFAULT_REASON_CODE"/>
+<xs:enumeration value="INVALID_STATUS_VALUE"/>
+<xs:enumeration value="INVALID_TASK_PRIORITY_VALUE"/>
+<xs:enumeration value="INVALID_TASK_TYPE_VALUE"/>
+<xs:enumeration value="EVENT_TASK_PROMOTION_REQUIRED"/>
+<xs:enumeration value="EVENT_TASK_CUSTOMER_REQUIRED"/>
+<xs:enumeration value="INVALID_REGISTRY_ITEM_ID_SPECIFIED"/>
+<xs:enumeration value="INVALID_REGISTRY_ADDRESS_TYPE_SPECIFIED"/>
+<xs:enumeration value="INVALID_REGISTRY_ADDRESS_SPECIFIED"/>
+<xs:enumeration value="INVALID_REGISTRY_ADDRESS_ACTION"/>
+<xs:enumeration value="INVALID_REGISTRY_OWNER_SPECIFIED"/>
+<xs:enumeration value="INVALID_REGISTRY_OWNER_ACTION"/>
+<xs:enumeration value="REGISTRY_OWNER_REQUIRED"/>
+<xs:enumeration value="REGISTRY_ID_REQUIRED"/>
+<xs:enumeration value="REGISTRY_NOT_FOUND"/>
+<xs:enumeration value="REGISTRY_IS_EXPIRED"/>
+<xs:enumeration value="INVALID_REGISTRY_ITEM_SPECIFIED"/>
+<xs:enumeration value="REGISTRY_ITEM_QUANTITY_REQUIRED"/>
+<xs:enumeration value="INVALID_REGISTRY_ITEM_QUANTITY"/>
+<xs:enumeration value="INVALID_REGISTRY_ITEM_QUANTITY_VALUE"/>
+<xs:enumeration value="INVALID_REGISTRY_ITEM_ACTION"/>
+<xs:enumeration value="INVALID_REGISTRY_ATTR_ACTION"/>
+<xs:enumeration value="ERROR_UPDATING_OWNER_CONTACT_INFO"/>
+<xs:enumeration value="ITEM_AND_ITEM_REF_ID_UNSPECIFIED"/>
+<xs:enumeration value="ACTION_CODE_IS_REQUIRED"/>
+<xs:enumeration value="QUANTITY_IS_NOT_VALID"/>
+<xs:enumeration value="CANNOT_PUBLISH_WITH_ZERO_ITEMS"/>
+<xs:enumeration value="REGISTRY_FIELD_REQUIRED"/>
+<xs:enumeration value="REGISTRY_OWNER_FIELD_REQUIRED"/>
+<xs:enumeration value="EVENT_DATE_BEFORE_EXPIRATION_DATE"/>
+<xs:enumeration value="INVALID_REGISTRY_EVENT_TYPECODE"/>
+<xs:enumeration value="ATTRIBUTE_GROUP_NOT_FOUND"/>
+<xs:enumeration value="ATTRIBUTE_GROUP_IS_NOT_VALID"/>
+<xs:enumeration value="REQUIRED_ATTRIBUTE_IS_UNSPECIFIED"/>
+<xs:enumeration value="ATTRIBUTE_IS_REQUIRED"/>
+<xs:enumeration value="REGISTRY_ATTRIBUTE_GROUPS_DO_NOT_MATCH"/>
+<xs:enumeration value="ESP_SUBSCRIBER_CSV_NOT_EXIST"/>
+<xs:enumeration value="ESP_FTP_CONFIGURATION_ERROR"/>
+<xs:enumeration value="ESP_FTP_GENERAL_ERROR"/>
+<xs:enumeration value="ESP_FTP_LOGIN_ERROR"/>
+<xs:enumeration value="ESP_FTP_INVALID_DIRECTORY"/>
+<xs:enumeration value="ESP_FTP_TRANSFER_ERROR"/>
+<xs:enumeration value="ESP_FTP_CONNECTION_TIMED_OUT"/>
+<xs:enumeration value="ESP_FTP_FILE_NOT_EXIST"/>
+<xs:enumeration value="UNABLE_TO_LOGIN_TO_BI_SERVER_ERROR"/>
+<xs:enumeration value="UNABLE_TO_PARSE_DATE_TO_XML_CALENDAR_ERROR"/>
+<xs:enumeration value="WISH_LIST_REGISTRY_DISABLED"/>
+<xs:enumeration value="INVALID_WISH_LIST_FIELD"/>
+<xs:enumeration value="PREFERENCE_TYPE_NOT_FOUND"/>
+<xs:enumeration value="PREFERENCE_CENTER_NOT_FOUND"/>
+<xs:enumeration value="PREFERENCE_CENTER_REQUIRED"/>
+<xs:enumeration value="FREQUENCY_CODE_INVALID"/>
+<xs:enumeration value="INVALID_PREFERENCE_CENTER_ACTION_SPECIFIED"/>
+<xs:enumeration value="INVALID_PREFERENCE_CHANNEL_SPECIFIED"/>
+<xs:enumeration value="INVALID_REQUEST_TYPE"/>
+<xs:enumeration value="PREFERENCE_CENTER_MODULE_DISABLED"/>
+<xs:enumeration value="INVALID_PREFERENCE_FREQUENCY_CODE"/>
+<xs:enumeration value="EMAIL_FORMAT_PREFERENCE_TYPECODE_INVALID"/>
+<xs:enumeration value="CURRENCY_CONVERSION_ROUNDING_SETUP_ERROR"/>
+<xs:enumeration value="PREFERENCE_TYPE_ASSIGNED_TO_CUSTOMER_PREFERENCE"/>
+<xs:enumeration value="ADMIN_TYPE_TASK_UNSUPPORTED"/>
+<xs:enumeration value="INVALID_RELATE_ROLE"/>
+<xs:enumeration value="INVALID_USER_ORGANIZATION"/>
+<xs:enumeration value="USER_ID_UNSPECIFIED"/>
+<xs:enumeration value="INVALID_USER_ACTION_SPECIFIED"/>
+<xs:enumeration value="USER_NAME_REQUIRED"/>
+<xs:enumeration value="USER_EMAIL_REQUIRED"/>
+<xs:enumeration value="USER_LANGUAGE_REQUIRED"/>
+<xs:enumeration value="USER_COUNTRY_REQUIRED"/>
+<xs:enumeration value="INVALID_COUNTRY_CODE"/>
+<xs:enumeration value="ATTRIBUTE_GROUP_NOT_SEGMENT_TYPE"/>
+<xs:enumeration value="SEGMENT_ATTRIBUTE_GROUPS_DO_NOT_MATCH"/>
+<xs:enumeration value="CONNECT_TO_PROMOTE_ERROR"/>
+<xs:enumeration value="EXPORT_TO_PROMOTE_ERROR"/>
+<xs:enumeration value="INVALID_SOCIAL_MEDIA"/>
+<xs:enumeration value="APPLICATION_KEY_UNSPECIFIED"/>
+<xs:enumeration value="APPLICATION_SECRET_UNSPECIFIED"/>
+<xs:enumeration value="SOCIAL_MEDIA_TYPE_DISABLED"/>
+<xs:enumeration value="ACCESS_TOKEN_UNSPECIFIED"/>
+<xs:enumeration value="NO_SOCIAL_MEDIA_REGISTRATION"/>
+<xs:enumeration value="INVALID_ACTION_SPECIFIED"/>
+<xs:enumeration value="INVALID_SEGMENT_ACTION_SPECIFIED"/>
+<xs:enumeration value="SOCIAL_MEDIA_TYPE_NOT_EXIST"/>
+<xs:enumeration value="SOCIAL_MEDIA_ACCOUNT_NOT_EXIST"/>
+<xs:enumeration value="INVALID_SOCIAL_ACCOUNT"/>
+<xs:enumeration value="CUSTOMER_SOCIAL_ACCOUNT_NOT_EXIST"/>
+<xs:enumeration value="SOCIAL_SEARCH_NOT_EXIST"/>
+<xs:enumeration value="SOCIAL_REQUEST_UNSPECIFIED"/>
+<xs:enumeration value="SOCIAL_ACTIVITY_NOT_FOUND"/>
+<xs:enumeration value="SOCIAL_NETWORK_LISTENING_ERROR"/>
+<xs:enumeration value="SOCIAL_MEDIA_ACCESS_DISABLED"/>
+<xs:enumeration value="CUSTOMER_SEARCH_REQUIRED_PARAMETERS"/>
+<xs:enumeration value="ACCESS_TOKEN_SECRET_UNSPECIFIED"/>
+<xs:enumeration value="SOCIAL_PROFILE_AUTHENTICATION_ERROR"/>
+<xs:enumeration value="USER_HAS_NO_RELATE_ROLE"/>
+<xs:enumeration value="INVALID_FRANCHISEE_ORGANIZATION"/>
+<xs:enumeration value="FRANCHISEE_NAME_ALREADY_EXISTS"/>
+<xs:enumeration value="FRANCHISEE_NAME_NOT_FOUND"/>
+<xs:enumeration value="FRANCHISEE_ASSIGNED_TO_CARD_TYPE"/>
+<xs:enumeration value="ACCESS_DENIED"/>
+<xs:enumeration value="FRANCHISEE_ASSIGNED_TO_USER"/>
+<xs:enumeration value="FRANCHISEE_ASSIGNED_TO_LOCATION"/>
+<xs:enumeration value="FRANCHISEE_ASSIGNED_TO_CUSTOMER"/>
+<xs:enumeration value="FRANCHISE_SUPPORT_DISABLED"/>
+<xs:enumeration value="FRANCHISEE_SEARCH_REQUIRED_PARAMETERS"/>
+<xs:enumeration value="FRANCHISEE_NOT_FOUND"/>
+<xs:enumeration value="FRANCHISEE_NAME_UNSPECIFIED"/>
+<xs:enumeration value="INVALID_FRANCHISEE_USER"/>
+<xs:enumeration value="RELATE_USER_NOT_FOUND"/>
+<xs:enumeration value="RELATE_USER_REQUIRED_PARAMETERS"/>
+<xs:enumeration value="LOCATION_REQUIRED_PARAMETERS"/>
+<xs:enumeration value="NO_WRITE_PRIVILEGE_ON_FRANCHISEE"/>
+<xs:enumeration value="LOCATION_NOT_ASSIGNED_TO_FRANCHISEE"/>
+<xs:enumeration value="PAST_X_PASSWORDS_NOT_ALLOWED"/>
+<xs:enumeration value="PASSWORD_TOO_COMMON"/>
+<xs:enumeration value="PASSWORD_NOT_COMPLEX"/>
+<xs:enumeration value="USER_NOT_EXIST"/>
+<xs:enumeration value="INVALID_PASSWORD"/>
+<xs:enumeration value="INVALID_USER_OR_PASSWORD"/>
+<xs:enumeration value="PASSWORD_EXPIRED"/>
+<xs:enumeration value="ACCOUNT_DISABLED"/>
+<xs:enumeration value="ACCOUNT_LOCKED_DUE_TO_INACTIVITY"/>
+<xs:enumeration value="ACCOUNT_LOCKED_MANY_PASSWORD_ERRORS"/>
+<xs:enumeration value="USER_LOGIN_FAILED"/>
+<xs:enumeration value="FILE_NOT_FOUND"/>
+<xs:enumeration value="CARD_CUSTOMER_AMOUNTS_DO_NOT_MATCH"/>
+<xs:enumeration value="INVALID_BUSINESS_DATE_FORMAT"/>
+<xs:enumeration value="INVALID_DEAL"/>
+<xs:enumeration value="INVALID_ENTITLEMENT_DEAL"/>
+<xs:enumeration value="INVALID_POINTS_COST"/>
+<xs:enumeration value="INVALID_BATCH_EXPORTER"/>
+<xs:enumeration value="INVALID_CSV_BEAN_MAPPING_CONFIGURATION"/>
+<xs:enumeration value="CONTACT_EVENT_DATA_PROCESSING_ERROR"/>
+<xs:enumeration value="INVALID_TRANSACTION_PROPERTY"/>
+<xs:enumeration value="ERROR_RETRIEVING_CREDENTIALS"/>
+<xs:enumeration value="INVALID_CREDENTIAL_STORE_MAP_KEY"/>
+</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="TaskSearchFieldType">
+<xs:restriction base="xs:string">
+<xs:enumeration value="taskId"/>
+<xs:enumeration value="itemTypeValue"/>
+<xs:enumeration value="itemStatusValue"/>
+<xs:enumeration value="itemPriorityValue"/>
+<xs:enumeration value="subject"/>
+<xs:enumeration value="retailLocationId"/>
+<xs:enumeration value="startDateTime"/>
+<xs:enumeration value="endDateTime"/>
+<xs:enumeration value="createDate"/>
+<xs:enumeration value="createUserId"/>
+<xs:enumeration value="updateDate"/>
+<xs:enumeration value="updateUserId"/>
+<xs:enumeration value="taskRelateUser.userId"/>
+<xs:enumeration value="taskRelateUser.name"/>
+<xs:enumeration value="taskRelateUser.email"/>
+<xs:enumeration value="taskRelateUsers.userId"/>
+<xs:enumeration value="taskRelateUsers.name"/>
+<xs:enumeration value="taskRelateUsers.email"/>
+<xs:enumeration value="taskUserMap.taskRelateUser.userId"/>
+<xs:enumeration value="taskUserMap.taskRelateUser.name"/>
+<xs:enumeration value="taskUserMap.taskRelateUser.email"/>
+<xs:enumeration value="taskCustomers.custId"/>
+<xs:enumeration value="taskCustomers.firstName"/>
+<xs:enumeration value="taskCustomers.lastName"/>
+</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="SearchOperatorType">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Equals"/>
+<xs:enumeration value="StartsWith"/>
+<xs:enumeration value="EndsWith"/>
+<xs:enumeration value="Contains"/>
+<xs:enumeration value="GreaterThan"/>
+<xs:enumeration value="GreaterThanEqual"/>
+<xs:enumeration value="LessThan"/>
+<xs:enumeration value="LessThanEqual"/>
+<xs:enumeration value="In"/>
+<xs:enumeration value="NotEquals"/>
+<xs:enumeration value="IsNull"/>
+<xs:enumeration value="IsNotNull"/>
+<xs:enumeration value="IsEmpty"/>
+<xs:enumeration value="Between"/>
+<xs:enumeration value="SqlRestriction"/>
+<xs:enumeration value="asc"/>
+<xs:enumeration value="desc"/>
+<xs:enumeration value="avg"/>
+<xs:enumeration value="sum"/>
+<xs:enumeration value="min"/>
+<xs:enumeration value="max"/>
+<xs:enumeration value="count"/>
+<xs:enumeration value="groupBy"/>
+<xs:enumeration value="startIndex"/>
+<xs:enumeration value="maxResults"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:schema>

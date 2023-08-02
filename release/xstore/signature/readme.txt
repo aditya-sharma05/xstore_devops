@@ -1,0 +1,1 @@
+This directory is used for signature file processing.
