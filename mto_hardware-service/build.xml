@@ -1,0 +1,109 @@
+<project name="customer-hardware-service" default="build-overlay" basedir=".">
+  <!-- import the core script -->
+  <property name="core.project" location="${basedir}/../mto" />
+  <import file="${core.project}/core.xml" />
+
+  <!-- dependency properties -->
+  <property name="cust.xstore.overlay.lib.folder" location="${xstore.overlay.dir}/lib" />
+  <property name="cust.xstore.overlay.lib.ext.folder" location="${xstore.overlay.dir}/lib" />
+  <property name="cust.hwserv.overlay.lib.folder" location="${basedir}/lib" />
+  <property name="cust.hwserv.overlay.lib.ext.folder" location="${cust.hwserv.overlay.lib.folder}/ext" />
+  <property name="hwserv.lib.dir" location="${hwserv.artifact.dir}/hardware-service/lib" />
+  <property name="hwserv.lib.ext.dir" location="${hwserv.lib.dir}/ext" />
+
+  <!-- input properties -->
+  <property name="root.dir" location="${basedir}/root" />
+  <property name="config.dir" location="${basedir}/cust_config" />
+  <property name="src.dir" location="${basedir}/src" />
+
+  <!-- output properties -->
+  <property name="output.dir" location="${basedir}/target" />
+  <property name="cust.classes.dir" location="${output.dir}/classes" />
+  <property name="cust.jar.file" location="${output.dir}/${build.customerId.lc}-hwserv.jar" />
+  <property name="cust.config.jar.file" location="${output.dir}/${build.customerId.lc}-hwserv-config.jar" />
+  <property name="dist.dir" location="${output.dir}/dist" />
+
+  <!-- support injecting additional targets by extension if a build-custom.xml file is provided -->
+  <import optional="true" file="build-custom.xml" />
+
+  <!--classpaths -->
+  <path id="base.libs">
+    <fileset dir="${hwserv.lib.dir}" includes="*.jar" />
+    <fileset dir="${hwserv.lib.ext.dir}" includes="**/*.jar" />
+  </path>
+  <path id="cust.libs">
+    <fileset dir="${cust.hwserv.overlay.lib.folder}" includes="*.jar" />
+    <fileset dir="${cust.xstore.overlay.lib.folder}" includes="*.jar" />
+    <fileset dir="${cust.hwserv.overlay.lib.ext.folder}" includes="**/*.jar" />
+    <fileset dir="${cust.xstore.overlay.lib.ext.folder}" includes="**/*.jar" />
+  </path>
+  <path id="build.classpath">
+    <path refid="cust.libs" />
+    <path refid="base.libs" />
+  </path>
+
+  <target name="clean-all">
+    <delete dir="${output.dir}" />
+  </target>
+
+  <target name="clean-cust-classes">
+    <delete dir="${cust.classes.dir}" />
+  </target>
+
+  <target name="clean-cust-jar">
+    <delete file="${cust.jar.file}" />
+  </target>
+
+  <target name="clean-cust-config-jar">
+    <delete file="${cust.config.jar.file}" />
+  </target>
+
+  <target name="clean-overlay">
+    <delete dir="${dist.dir}" />
+  </target>
+
+  <target name="build-cust-classes" depends="clean-cust-classes">
+    <mkdir dir="${cust.classes.dir}" />
+    <javac srcdir="${src.dir}" destdir="${cust.classes.dir}" classpathref="build.classpath" deprecation="true" debug="true" fork="true" memoryMaximumSize="256m" includeantruntime="false" />
+  </target>
+
+  <target name="build-cust-jar" depends="build-cust-classes,clean-cust-jar" description="Creates the hardware service code jar.">
+    <createjar basedir="${cust.classes.dir}" jarfile="${cust.jar.file}" />
+  </target>
+
+  <target name="build-cust-config-jar" depends="clean-cust-config-jar" description="Creates the hardware service config jar.">
+    <createjar basedir="${config.dir}" jarfile="${cust.config.jar.file}" />
+  </target>
+
+  <target name="build-overlay" depends="build-cust-jar,build-cust-config-jar,clean-overlay" description="Makes the overlay bundle">
+    <copy todir="${dist.dir}">
+      <fileset dir="${root.dir}" />
+    </copy>
+    <copy todir="${dist.dir}/lib">
+      <fileset file="${cust.jar.file}" />
+      <fileset file="${cust.config.jar.file}" />
+      <fileset dir="${cust.hwserv.overlay.lib.folder}" includes="**/*.jar" />
+    </copy>
+  </target>
+
+  <macrodef name="createjar" description="Creates a jar file with the provided contents and standard manifest details.">
+    <attribute name="jarfile" />
+    <attribute name="basedir" />
+    <sequential>
+      <jar jarfile="@{jarfile}" basedir="@{basedir}" compress="true">
+        <manifest>
+          <attribute name="Built-By" value="${user.name}" />
+          <attribute name="Build-Time" value="${env.BUILD_ID}" />
+          <attribute name="Build-VM-Vendor" value="${java.vm.vendor}" />
+          <attribute name="Build-VM-Name" value="${java.vm.name}" />
+          <attribute name="Build-VM-Version" value="${java.vm.version}" />
+          <attribute name="Build-OS" value="${os.name} (${os.arch}) version ${os.version}" />
+          <attribute name="Jenkins-Job-Name" value="${env.JOB_NAME}" />
+          <attribute name="Jenkins-Build-Number" value="${env.BUILD_NUMBER}" />
+          <attribute name="SVN-Revision" value="${env.SVN_REVISION}" />
+          <attribute name="Xstore-Target-Version" value="${xstore.version}" />
+        </manifest>
+      </jar>
+    </sequential>
+  </macrodef>
+</project>

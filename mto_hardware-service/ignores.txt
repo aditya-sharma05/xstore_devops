@@ -1,0 +1,12 @@
+*-*.cip
+*.jar
+*.log
+*.sql
+*.zip
+bin
+cust_config/localconfig
+dist
+log
+system.local.properties
+system.properties
+target
