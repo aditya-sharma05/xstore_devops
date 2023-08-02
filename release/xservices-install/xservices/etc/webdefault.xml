@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  metadata-complete="false" version="3.1">
+  <!-- ===================================================================== -->
+  <!-- This file contains the default descriptor for web applications.       -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- The intent of this descriptor is to include jetty specific or common  -->
+  <!-- configuration for all webapps.   If a context has a webdefault.xml    -->
+  <!-- descriptor, it is applied before the contexts own web.xml file        -->
+  <!--                                                                       -->
+  <!-- A context may be assigned a default descriptor by:                    -->
+  <!--  + Calling WebApplicationContext.setDefaultsDescriptor                -->
+  <!--  + Passed an arg to addWebApplications                                -->
+  <!--                                                                       -->
+  <!-- This file is used both as the resource within the jetty.jar (which is -->
+  <!-- used as the default if no explicit defaults descriptor is set) and it -->
+  <!-- is copied to the etc directory of the Jetty distro and explicitly     -->
+  <!-- by the jetty.xml file.                                                -->
+  <!--                                                                       -->
+  <!-- ===================================================================== -->
+  
+  <description>Server's default web.xml file.</description>
+
+  <servlet>
+    <servlet-name>default</servlet-name>
+    <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+    <init-param>
+      <param-name>dirAllowed</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>gzip</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <!-- ==================================================================== -->
+  <locale-encoding-mapping-list>
+    <locale-encoding-mapping>
+      <locale>ar</locale>
+      <encoding>ISO-8859-6</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>be</locale>
+      <encoding>ISO-8859-5</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>bg</locale>
+      <encoding>ISO-8859-5</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>ca</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>cs</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>da</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>de</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>el</locale>
+      <encoding>ISO-8859-7</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>en</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>es</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>et</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>fi</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>fr</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>hr</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>hu</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>is</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>it</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>iw</locale>
+      <encoding>ISO-8859-8</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>ja</locale>
+      <encoding>Shift_JIS</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>ko</locale>
+      <encoding>EUC-KR</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>lt</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>lv</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>mk</locale>
+      <encoding>ISO-8859-5</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>nl</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>no</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>pl</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>pt</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>ro</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>ru</locale>
+      <encoding>ISO-8859-5</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>sh</locale>
+      <encoding>ISO-8859-5</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>sk</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>sl</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>sq</locale>
+      <encoding>ISO-8859-2</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>sr</locale>
+      <encoding>ISO-8859-5</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>sv</locale>
+      <encoding>ISO-8859-1</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>tr</locale>
+      <encoding>ISO-8859-9</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>uk</locale>
+      <encoding>ISO-8859-5</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>zh</locale>
+      <encoding>GB2312</encoding>
+    </locale-encoding-mapping>
+    <locale-encoding-mapping>
+      <locale>zh_TW</locale>
+      <encoding>Big5</encoding>
+    </locale-encoding-mapping>
+  </locale-encoding-mapping-list>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Disable TRACE</web-resource-name>
+      <url-pattern>/</url-pattern>
+      <http-method>TRACE</http-method>
+    </web-resource-collection>
+    <auth-constraint />
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>istore</web-resource-name>
+      <url-pattern>*.*</url-pattern>
+      <url-pattern>/</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ADMIN</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>UpdaterServlet</web-resource-name>
+      <url-pattern>/updater/*</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>InstallerServlet</web-resource-name>
+      <url-pattern>/install/*</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Public</web-resource-name>
+      <description>Ping.</description>
+      <url-pattern>/ping</url-pattern>
+    </web-resource-collection>
+    <!-- No auth-constraint means everybody has access! -->
+  </security-constraint>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>xservicesLoginModule</realm-name>
+  </login-config>
+
+</web-app>
+

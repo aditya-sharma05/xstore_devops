@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="log.dir.name">${sys:jetty.logs}</Property>
+  </Properties>
+  <Appenders>
+    <DtxAppender name="EVENT_LOG_CRITICAL" guaranteedDelivery="true" />
+    <XstRollingRandomAccessFile name="xservices.log.appender" fileName="${sys:log.dir.name}/xservices.log"
+      filePattern="${sys:log.dir.name}/xservices.%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="%d %-5p [%t] [%c] %m%n" header="loading ${log4j:configLocation}%n" />
+      <DefaultRolloverStrategy max="14" />
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <OnStartupTriggeringPolicy />
+      </Policies>
+    </XstRollingRandomAccessFile>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d [%t] %-5p %c %m%n" />
+    </Console>
+  </Appenders>
+
+  <Loggers>
+    <Logger name="dtv" level="warn" />
+    <Logger name="dtv.pos.common.EnvironmentHelper" level="info" />
+    <Logger name="dtv.pos.Version" level="fatal" />
+    <Logger name="dtv.data2.access.DataModelFactory" level="error" />
+    <Logger name="dtv.hardware.audio.FileSound" level="error" />
+    <Logger name="dtv.util.config.ConfigHelper" level="info" />
+    <Logger name="istore.critical" level="info">
+      <AppenderRef ref="EVENT_LOG_CRITICAL" />
+    </Logger>
+    <Logger name="com.micros_retail.xcenter" level="info">
+      <AppenderRef ref="xservices.log.appender" />
+    </Logger>
+    <Logger name="dtv.data2.access.impl.jdbc.DtvPreparedStatement" level="info" />
+    <Logger name="dtv.util.spring.SingletonValidatorBeanPostProcessor" level="fatal" />
+    <Root level="info">
+      <!-- <AppenderRef ref="Console" /> -->
+      <AppenderRef ref="xservices.log.appender" />
+    </Root>
+  </Loggers>
+</Configuration>
