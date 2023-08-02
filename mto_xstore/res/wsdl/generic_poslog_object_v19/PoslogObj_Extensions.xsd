@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" 
+elementFormDefault="qualified" 
+targetNamespace="http://v19.ws.poslog-ext.xcenter.dtv/" 
+xmlns:dtv="http://v19.ws.poslog-ext.xcenter.dtv/" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- The following is a list of top level elements referred from XStorePosLog_Standard.xsd. -->
+    <xs:element name="OrganizationID" type="xs:integer"/>
+  <xs:element name="TaxLocationId" type="xs:string"/>
+  <xs:element name="TaxGroupId" type="xs:string"/>
+  <xs:element name="RawTaxPercentage" type="xs:decimal"/>
+  <xs:attribute name="InventoryDocumentSubType" type="xs:NCName"/>
+  <xs:attribute name="InventoryDocumentType" type="xs:NCName"/>
+  <xs:element name="CashDrawerID" type="xs:string"/>
+  <xs:element name="FiscalNumber" type="xs:string"/>
+  <xs:element name="DeviceId" type="xs:string"/>
+  <xs:element name="FiscalSessionNumber" type="xs:string"/>
+  <xs:element name="ForeignCurrencyExchangeRate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="BaseCurrency" type="xs:NCName"/>
+        <xs:element name="TargetCurrency" type="xs:NCName"/>
+        <xs:element name="OldRate" type="xs:decimal"/>
+        <xs:element name="NewRate" type="xs:decimal"/>
+        <xs:element name="Comment" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnitOfMeasureCode" type="xs:string"/>
+  <xs:element name="PercentageOfItem" type="dtv:PercentageOfItemType"/>
+  <xs:element name="ReturnType" type="xs:string"/>
+  <xs:element name="ReasonComment" type="xs:string"/>
+  <xs:element name="LineItemProperty" type="dtv:LineItemPropertyType"/>
+  <xs:element name="PosTransactionProperties" type="dtv:PosTransactionPropertiesType" />
+  <xs:element name="ScannedItemID" type="xs:string"/>
+  <xs:element name="OrderType" type="xs:string" />
+  <xs:element name="SerialNumber" type="xs:string" />
+  <xs:element name="DiscountReasonCode" type="xs:string" />
+  <xs:element name="DiscountReasonCodeComment" type="xs:string" />
+  <xs:element name="DiplomaticTitle" type="xs:NCName"/>
+  <xs:element name="Address1" type="xs:NCName"/>
+  <xs:element name="Address2" type="xs:NCName"/>
+  <xs:element name="Address3" type="xs:NCName"/>
+  <xs:element name="Address4" type="xs:NCName"/>
+  <xs:element name="City" type="xs:NCName"/>
+  <xs:element name="Territory" type="xs:NCName"/>
+  <xs:element name="PostalCode" type="xs:NCName"/>
+  <xs:element name="Country" type="xs:NCName"/>
+  <xs:element name="Disposition">
+    <xs:complexType>
+      <xs:attribute name="BucketId" use="required" form="qualified" type="xs:NCName"/>
+      <xs:attribute name="GlAccountNumber" form="qualified" type="xs:NCName"/>
+      <xs:attribute name="InventoryActionCode" form="qualified" type="xs:NCName"/>
+      <xs:attribute name="LocationId" use="required" form="qualified" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VoidReason" type="xs:string" />
+  <xs:element name="AuthorizationCode" type="xs:string" />
+  <xs:element name="UserName" type="xs:string" />
+  <xs:element name="Tax" type="xs:decimal"/>
+  <xs:element name="Discount" type="xs:decimal"/>
+  <xs:element name="Freight" type="xs:decimal"/>
+  <xs:element name="Duty" type="xs:decimal"/>
+  <xs:element name="AdjudicationCode" type="xs:NCName"/>
+  <xs:element name="ActionCode" type="xs:NCName"/>
+  <xs:element name="ApprovalFlag" type="xs:boolean"/>
+  <xs:element name="ResponseSequenceNumber" type="xs:integer"/>
+  <xs:element name="ErrorText" type="xs:NCName"/>
+  <xs:element name="ResponseText" type="xs:NCName"/>
+  <xs:element name="PONumber" type="xs:string" />
+  <xs:element name="Neighborhood" type="xs:string"/>
+  <xs:element name="County" type="xs:string"/>
+  <xs:element name="PayDeduct" type="dtv:PayDeductType"/>
+  <xs:element name="ExpirationDateEncrypted" type="xs:string"/>
+  <xs:element name="MaskedCardNumber" type="xs:string"/>
+  <xs:element name="AuthorizationToken" type="xs:string"/>
+  <xs:element name="HashedCardNumber" type="xs:string"/>
+  <xs:element name="MallCertificateID" type="xs:integer"/>
+  <xs:element name="DocumentType" type="xs:string"/>
+  <xs:element name="DocumentId" type="xs:NCName"/>
+  <xs:element name="SeriesId" type="xs:NCName"/>
+  <xs:element name="ActivityCode" type="xs:NCName"/>
+  <xs:element name="QuantityShipped" type="xs:decimal"/>
+  <xs:element name="InboundTillID" type="xs:NCName"/>
+  <xs:element name="ResponseCode" type="xs:integer"/>
+  <xs:attribute name="AppVersion" type="xs:string"/>
+  <xs:attribute name="crossChannelReturn" type="xs:boolean"/>
+  <xs:attribute name="TransactionType" type="xs:string" />
+  <xs:attribute name="Status" type="xs:NCName"/>
+  <xs:attribute name="VoidFlag" type="xs:boolean"/>
+  <xs:attribute name="ChangeFlag" type="xs:boolean"/>
+  <xs:element name="ContactFlag" type="xs:boolean"/>
+  <xs:element name="CustomerID" type="xs:NCName"/>
+  <xs:element name="EmployeeSaleId" type="xs:integer"/>
+  <xs:element name="PostVoidReasonCode" type="xs:NCName"/>
+  <xs:element name="TransCancelReasonCode" type="xs:NCName"/>
+  <xs:element name="TillID" type="xs:NCName"/>
+  <xs:element name="Contact" type="xs:boolean"/>
+  <xs:element name="LineItemAssociation">
+    <xs:complexType>
+     <xs:sequence>
+      <xs:element name="LineItemAssociationModifierSequence" type="xs:string"/>
+      <xs:element minOccurs="0" name="ChildRetailLocationId" type="xs:integer"/>
+      <xs:element minOccurs="0" name="ChildBusinessDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ChildWorkstationId" type="xs:integer"/>
+      <xs:element minOccurs="0" name="ChildTransactionSequence" type="xs:integer"/>
+      <xs:element minOccurs="0" name="ChildRetailTransactionLineItemSequence" type="xs:integer"/>
+      <xs:element minOccurs="0" name="LineItemAssociationTypeCodeString" type="xs:string"/>
+     </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TimeClockTransaction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="EntryCode" type="xs:NCName" minOccurs="0"/>
+        <xs:element name="WorkCode" type="xs:NCName" minOccurs="0" />
+        <xs:element name="TimecardEmployeeId" type="xs:integer" minOccurs="0"/>
+        <xs:element name="ClockInTime" type="xs:dateTime" minOccurs="0" />
+        <xs:element minOccurs="0" name="ClockOutTime" type="xs:dateTime" />
+        <xs:element name="DeleteFlag" type="xs:boolean"  minOccurs="0"/>
+        <xs:element minOccurs="0" name="Comment" type="xs:string"/>
+        <xs:element minOccurs="0" name="SellingFlag" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="TimecardEntryId" type="xs:integer"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TrainingModeTransaction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Type" type="xs:NCName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SafeBag" type="dtv:SafeBagType"/>
+  <xs:element name="AssignTillTenderTransfer" type="dtv:TillCountType"/>
+  <xs:element name="BeginTillCount" type="dtv:TillCountType"/>
+  <xs:element name="MidDayTillDeposit" type="dtv:TillCountType"/>
+  <xs:element name="TillClosingCount" type="dtv:TillCountType"/>
+  <xs:element name="TillReconcileCount" type="dtv:TillCountType"/>
+  <xs:element name="BankDeposit" type="dtv:TillCountType"/>
+  <xs:element name="LocalCurrencyPickup" type="dtv:TillCountType"/>
+  <xs:element name="CashTransfer" type="dtv:TillCountType"/>
+  <xs:element name="LocalCurrencyDeposit" type="dtv:TillCountType"/>
+  <xs:element name="TillAudit" type="dtv:TillCountType"/>
+  <xs:element name="StoreBankAudit" type="dtv:TillCountType"/>
+  
+  <xs:element name="AssociateAdvance">
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element name="AssociateID" type="xs:integer"/>
+          <xs:element name="Amount" type="dtv:DtvAmountType"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name="OutboundTillID" type="xs:NCName"/>
+          <xs:element name="OutboundTillEmployeePartyID" type="xs:integer"/>
+          <xs:element maxOccurs="unbounded" name="CashRemainedInTill" type="dtv:CashRemainedInTillType"/>
+        </xs:sequence>
+      </xs:choice>
+  </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AssignTill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="TillID" type="xs:NCName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AttachTill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="TillID" type="xs:NCName"/>
+        <xs:element name="WorkstationID" type="xs:string"/>
+        <xs:element name="CashDrawer" type="xs:integer" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveTill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="TillID" type="xs:NCName"/>
+        <xs:element name="WorkstationID" type="xs:string"/>
+        <xs:element name="CashDrawer" type="xs:integer"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="InventoryBucketId" type="xs:NCName"/>
+  <xs:element name="TransactionDeal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Amount" type="dtv:DtvAmountType"/>
+        <xs:element name="PromotionID" type="xs:string"/>
+        <xs:element name="ReasonCode" type="xs:string"/>
+      </xs:sequence>
+      <xs:attribute name="MethodCode" use="required" type="xs:NCName"/>
+      <xs:attribute name="VoidFlag" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DiscountId" type="xs:NCName"/>
+  <xs:element name="PercentOff" type="xs:decimal"/>
+
+  <xs:element name="Coupon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CouponId" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FlightInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="BuyerCategory" type="xs:string" minOccurs="0"/>
+        <xs:element name="TaxCategory" type="xs:string" minOccurs="0"/>
+        <xs:element name="FlightCarrier" type="xs:string" minOccurs="0"/>
+        <xs:element name="FlightNumber" type="xs:string" minOccurs="0"/>
+        <xs:element name="OriginAirport" type="xs:string" minOccurs="0"/>
+        <xs:element name="DestinationAirport" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AccountCredit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="AccountNumber" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>  
+  </xs:element>
+
+  <xs:element name="LinkTypeCode" type="xs:string"/>
+  <xs:element name="FiscalItemID" type="xs:string"/>
+  <xs:element name="FiscalItemDescription" type="xs:string"/>
+  <xs:element name="FiscalTenderID" type="xs:string"/>
+  <xs:element name="MeasurementRequired" type="xs:boolean"/>
+  <xs:element name="WeightEntryMethodCode" type="xs:string"/>
+  <xs:element name="TareValue" type="xs:decimal"/>
+  <xs:element name="TareType" type="xs:string"/>
+  <xs:element name="TareUnitOfMeasureCode" type="xs:string"/>
+  <xs:element name="NewSerialNumber" type="xs:string" />
+  <xs:element name="OriginalSerialNumber" type="xs:string" />
+  
+  <xs:element name="EscrowTransferToAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AccountNumber" type="xs:string"/>
+        <xs:element minOccurs="0" name="Amount" type="dtv:DtvAmountType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="EscrowTransferFromAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AccountNumber" type="xs:string"/>
+        <xs:element minOccurs="0" name="AccountCode" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="DocumentLink">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SeriesId" type="xs:string"/>
+        <xs:element name="DocumentType" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- Complex type of top level elements referenced from XstorePosLog_Standard.xsd -->
+  <!-- The types themselves are not directly referenced from XstorePosLog_Standard.xsd -->
+  <xs:complexType name="PercentageOfItemType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="AssociateID" minOccurs="0"/>
+      <xs:element type="xs:decimal" name="Percentage"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="LineItemPropertyType">
+    <xs:sequence>
+    <!-- <xs:element type="xs:NCName" name="LineItemPropertyType"/> -->
+      <xs:element type="xs:string" name="LineItemPropertyCode"/>
+      <xs:element type="xs:string" name="LineItemPropertyType" minOccurs="0"/>
+      <xs:element type="xs:string" name="LineItemPropertyValue" minOccurs="0"/>
+      <xs:element minOccurs="0" type="xs:dateTime" name="LineItemPropertyDate"/>
+      <xs:element minOccurs="0" type="xs:decimal" name="LineItemPropertyDecimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PosTransactionPropertiesType">
+    <xs:sequence>
+      <xs:element name="PosTransactionPropertyCode" type="xs:string" />
+      <xs:element name="PosTransactionPropertyValue" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PayDeductType">
+    <xs:sequence>
+      <xs:element name="PayrollDeductEmployee" type="dtv:PayrollDeductEmployeeType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PayrollDeductEmployeeType">
+    <xs:sequence>
+      <xs:element name="EmployeeId" type="xs:integer"/>
+      <xs:element name="EmployeeName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TillCountType">
+    <xs:sequence>
+      <xs:element name="InboundTillID" type="xs:NCName" minOccurs="0"/>
+      <xs:element name="InboundTillEmployeePartyID" type="xs:integer" minOccurs="0"/>
+      <xs:element name="OutboundTillID" type="xs:NCName" minOccurs="0"/>
+      <xs:element name="OutboundTillEmployeePartyID" type="xs:integer" minOccurs="0"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CashRemainedInTill" type="dtv:CashRemainedInTillType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SafeBagTransactionLink" type="dtv:SafeBagTransactionType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TenderTypeCount" type="dtv:TenderTypeCountType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CashRemainedInTillType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="Currency" type="xs:NCName"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="TenderTypeCountType">
+    <xs:sequence>
+      <xs:element name="TenderTypeTotal" type="dtv:TenderTotalType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TenderCount" type="dtv:TenderCountType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TenderTypeSerializedCount" type="dtv:TenderTypeSerializedCountType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderType" use="required" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="TenderTotalType">
+    <xs:sequence>
+      <xs:element name="Amount" type="dtv:DtvAmountType"/>
+      <xs:element minOccurs="0" name="LocalCurrencyAmount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="DifferenceAmount" type="xs:decimal"/>
+     </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TenderCountType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TenderTypeSerializedTotal" type="dtv:TenderTypeSerializedTotalType"/>
+      <xs:element minOccurs="0" name="TenderTotal" type="dtv:TenderTotalType"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TenderDenominationCount" type="dtv:TenderDenominationCountType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderId" use="required" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="TenderTypeSerializedTotalType">
+    <xs:sequence>
+      <xs:element name="Amount" type="dtv:DtvAmountType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TenderDenominationCountType">
+    <xs:sequence>
+      <xs:element name="TenderDenominationTotal" type="dtv:TenderDenominationTotalType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderDenominationId" use="required" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="TenderDenominationTotalType">
+    <xs:sequence>
+      <xs:element name="Amount" type="dtv:DtvAmountType"/>
+      <xs:element minOccurs="0" name="DifferenceAmount" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TenderTypeSerializedCountType">
+    <xs:sequence>
+      <xs:element name="TenderCount" type="dtv:TenderCountType"/>
+    </xs:sequence>
+    <xs:attribute name="TenderType" use="required" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="SafeBagTransactionType">
+    <xs:sequence>
+      <xs:element name="TransactionID" type="xs:integer"/>
+      <xs:element name="SafeBagId" type="xs:string"/>
+      <xs:element name="Amount" type="dtv:DtvAmountType"/>
+      <xs:element name="Currency" type="xs:NCName"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SafeBagType">
+    <xs:sequence>
+      <xs:element name="SafeBagId" type="xs:string"/>
+      <xs:element name="Amount" type="dtv:DtvAmountType"/>
+      <xs:element name="ReasonCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DtvAmountType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="Action" type="xs:string" />
+        <xs:attribute name="Currency" type="xs:NCName"/>
+        <xs:attribute name="ForeignAmount" type="xs:decimal"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:element name="SystemCycleType" type="xs:string" />
+  
+  <xs:element name="PostVoidComment" type="xs:string" />
+  <xs:element name="Ps2000" type="xs:string" />
+  <xs:element name="CardLevelIndicator" type="xs:string" />
+  <!-- End POSLog Extensions  -->
+  </xs:schema>

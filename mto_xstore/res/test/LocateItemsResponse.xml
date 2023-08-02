@@ -1,0 +1,333 @@
+<ns2:LocateItemsResponse xmlns:ns2="http://microsretail.com/Locate">
+	<location_response_message>
+		<message_header xaction_response="OK" xaction_type="INFO">
+			<datetime>2014-09-15T16:08:03.282</datetime>
+			<version>5.0</version>
+			<source>Locate</source>
+			<destination>XSTOREDEV</destination>
+		</message_header>
+		<message_body request_id="24380" split_order="No">
+			<items>
+				<item item_id="1002" response_cd="" response_description="">
+					<locations_lu available_qty="9999" distance="4.73"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="201"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="9999" distance="7.43"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="222"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="112"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="250"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="999"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="216"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="215"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="214"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="223"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="255"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="4.33"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="520"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="1000" distance="17.16"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="306"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="999" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="101"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="100" distance="0.0"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="206"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+					<locations_lu available_qty="95" distance="10.69"
+						distance_unit="M" fulfillment_type="OTHER" location_cd="207"
+						next_po_qty="0" po_dt="" system_cd="XSTOREDEV" />
+				</item>
+			</items>
+			<locations>
+				<location location_cd="201" system_cd="XSTOREDEV">
+					<locationname>Weiss Furs</locationname>
+					<address>
+						<attention />
+						<address1>9345 Darrow Rd.</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Twinsburg</city>
+						<province>OH</province>
+						<postal>44087</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="222" system_cd="XSTOREDEV">
+					<locationname>Emily's Ninja Shop</locationname>
+					<address>
+						<attention />
+						<address1>2478 Spring St.</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Northfield</city>
+						<province>OH</province>
+						<postal>44067</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="112" system_cd="XSTOREDEV">
+					<locationname>Oliver's One Stop Shop - 112</locationname>
+					<address>
+						<attention />
+						<address1>6539 Park North Drive</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Solon</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="250" system_cd="XSTOREDEV">
+					<locationname>Battur Dept Store</locationname>
+					<address>
+						<attention />
+						<address1>Bruce Industrial Pkwy</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Solon</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="999" system_cd="XSTOREDEV">
+					<locationname>Abdullah's Store</locationname>
+					<address>
+						<attention />
+						<address1>6539 Park North Drive</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Solon</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="216" system_cd="XSTOREDEV">
+					<locationname>Emily's Goodies</locationname>
+					<address>
+						<attention />
+						<address1 />
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city />
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="215" system_cd="XSTOREDEV">
+					<locationname>Oliver's One Stop Shop-215</locationname>
+					<address>
+						<attention />
+						<address1>6539 Park North Drive</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Solon</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="214" system_cd="XSTOREDEV">
+					<locationname>Oliver One Stop Shop - 214</locationname>
+					<address>
+						<attention />
+						<address1>6539 Park North Drive</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Solon</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="223" system_cd="XSTOREDEV">
+					<locationname>Rico's Riches</locationname>
+					<address>
+						<attention />
+						<address1>9374 Third St.</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Solon</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="255" system_cd="XSTOREDEV">
+					<locationname>Nodir's Nostalgias</locationname>
+					<address>
+						<attention />
+						<address1>1 Best Street Ever Rd</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Clevland</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1>1234567890x777</phone1>
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="520" system_cd="XSTOREDEV">
+					<locationname>Oliver's One Stop Shop - 520</locationname>
+					<address>
+						<attention />
+						<address1>243 Bexley Drive</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Bedford</city>
+						<province>OH</province>
+						<postal>44146</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="306" system_cd="XSTOREDEV">
+					<locationname>Eric's Essentials</locationname>
+					<address>
+						<attention />
+						<address1>6125 Queens Gate Circle</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Cuyahoga Falls</city>
+						<province>OH</province>
+						<postal>44221</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="101" system_cd="XSTOREDEV">
+					<locationname>Xstore Base</locationname>
+					<address>
+						<attention />
+						<address1>30500 Bruce Industrial Pkwy</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Solon</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1 />
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="206" system_cd="XSTOREDEV">
+					<locationname>Eric's Essentials</locationname>
+					<address>
+						<attention />
+						<address1>39 Main St.</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Medina</city>
+						<province>OH</province>
+						<postal>44139</postal>
+						<email />
+						<phone1>216-555-4687</phone1>
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+				<location location_cd="207" system_cd="XSTOREDEV">
+					<locationname>Simply Suzanne</locationname>
+					<address>
+						<attention />
+						<address1>1265 Monticello Dr.</address1>
+						<address2 />
+						<address3 />
+						<address4 />
+						<apt />
+						<city>Cleveland</city>
+						<province>OH</province>
+						<postal>44121</postal>
+						<email />
+						<phone1>216-555-8243</phone1>
+						<phone2 />
+						<country>US</country>
+					</address>
+				</location>
+			</locations>
+		</message_body>
+	</location_response_message>
+</ns2:LocateItemsResponse>

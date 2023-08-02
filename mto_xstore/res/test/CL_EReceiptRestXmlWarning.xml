@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestChileResponse>
+  <details>
+    ${iterateStart}
+    <receipt>
+      <reference>${ref[]}</reference>
+      <response>ERROR</response>
+      <referenceNbr>${uuid}</referenceNbr>
+      <qrCode>www.oracle.com</qrCode>
+      <error>
+        <errorCode>3</errorCode>
+        <errorDescription>Warning error dummy</errorDescription>
+      </error>
+    </receipt>
+    ${iterateEnd}
+  </details>
+</TestChileResponse>

@@ -1,0 +1,10 @@
+{
+  "TestThreeResponse": {
+    "response": "ACCEPTED_WITH_ERROR",
+    "referenceNbr": "${uuid}",
+    "pdf": "${pdfBase64}",
+    "error": {
+      "errorCode": "3",
+      "errorDescription": "Soft error dummy"    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "TestThreeResponse": {
+    "AckDate": "2021-02-19",
+    "serverStatus": "0",
+    "details": [
+      ${iterateStart}
+      {
+        "receipt": {
+          "reference": "${ref[]}",
+          "response": "SUCCESS",
+          "referenceNbr": "${uuid}",
+        }
+      },
+      ${iterateEnd}
+    ]
+  }
+}

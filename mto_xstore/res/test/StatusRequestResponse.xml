@@ -1,0 +1,93 @@
+<ns2:StatusRequestResponse xmlns:ns2="http://microsretail.com/Locate">
+	<status_response_message>
+		<message_header xaction_response="OK" xaction_type="INFO">
+			<datetime>2014-09-25T15:43:09.929</datetime>
+			<version>5.0</version>
+			<source>Locate</source>
+			<destination>XSTOREDEV</destination>
+		</message_header>
+		<message_body>
+			<orders>
+				<order balance_due="95.58" currency="" freight="0.0"
+					freight_tax="0.0000" gift=" " order_additional_charges="0.0000"
+					order_additional_freight_charges="0.0000" order_date="2014-09-17T15:42:05.213"
+					order_id="0205001000016" order_status="new_order"
+					originating_location_cd="205" originating_location_description="Mike Mart"
+					originating_system_cd="XSTOREDEV" ref_transaction_no="" request_id="24447"
+					ship_complete="N" ship_via="" ship_via_description="" source_code=""
+					special_instructions="" transaction_subtotal="106.2"
+					transaction_tax="0.0" transaction_total="106.2" under_review="N">
+					<order_type>4</order_type>
+					<items>
+						<item fulfilling_location_cd="201" fulfilling_system_cd="XSTOREDEV"
+							item_description="Item 1002" item_id="1002" item_qty="1"
+							item_status="new_order" item_upc_cd="null" line_no="1"
+							order_line_customization_charge="0.0000"
+							order_line_extended_freight="0.0000" order_line_gift_wrap="N"
+							order_line_ship_alone="N" order_line_ship_weight="0.000"
+							requesting_system_line_no="2" shipping_agent=""
+							special_instructions="" status_date="2014-09-25T15:42:22.243"
+							tax_amount="0.0" tracking_number="" unit_price="106.2">
+							<ship_to>
+								<name>
+									<company_name>Matt's Mats</company_name>
+									<prefix />
+									<first>Steve</first>
+									<middle />
+									<last>Smith</last>
+									<suffix />
+								</name>
+								<address>
+									<attention />
+									<address1>30500 Bruce Industrial Pkwy</address1>
+									<address2 />
+									<address3 />
+									<address4 />
+									<apt />
+									<city>Solon</city>
+									<province>OH</province>
+									<postal>44139</postal>
+									<email />
+									<phone1 />
+									<phone2 />
+									<country>US</country>
+								</address>
+							</ship_to>
+							<taxes>
+								<tax description="Tax" line_item_no="1">
+									<amount>0.0000</amount>
+								</tax>
+							</taxes>
+							<customizations />
+						</item>
+					</items>
+					<sold_to_customer customer_no="C01010001000012">
+						<name>
+							<company_name />
+							<prefix />
+							<first>Steve</first>
+							<middle />
+							<last>Smith</last>
+							<suffix />
+						</name>
+						<address>
+							<address1>30500 Bruce Industrial Parkway</address1>
+							<address2 />
+							<address3 />
+							<address4 />
+							<apt />
+							<city>Solon</city>
+							<province>OH</province>
+							<postal>44139</postal>
+							<email />
+							<phone1 />
+							<phone2 />
+							<country>US</country>
+						</address>
+					</sold_to_customer>
+					<transaction_tenders />
+				</order>
+			</orders>
+		</message_body>
+	</status_response_message>
+</ns2:StatusRequestResponse>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestTwoResponse>
+  <response>ERROR</response>
+  <error>
+    <errorCode>1</errorCode>
+    <errorDescription>Fatal error dummy</errorDescription>
+  </error>
+</TestTwoResponse>

@@ -1,0 +1,1 @@
+{"ResultMessage":"Transaction [ID=11003102709210068363] successfully voided.","VoidSuccessful":true,"ResultCode":0,"TotalRefundAmount":7.0,"TotalGrossAmount":98.0,"VoidDate":"2022-05-23T09:26:34.2454806+00:00","IssueDate":"2022-05-23T11:25:37","TransactionID":0,"NumericDocIdentifier":"11003102709210068363","VoidReference":{}}

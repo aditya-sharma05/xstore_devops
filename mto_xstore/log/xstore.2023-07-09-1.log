@@ -1,0 +1,1185 @@
+**LOG BEGUN     2023-07-09 23:02:23,113
+loading D:MTOXstoreWorkspacexstore-workspacexyz_poscust_configlog4j2.xml
+ ERROR [      ] 2023-07-09 23:02:23,089 CAUGHT EXCEPTION with D:\MTO\Xstore\Workspace\xstore-workspace\xyz_pos\res\keys\config.cip :: dtv.util.crypto.DtvCipherSet [main]
+dtv.util.crypto.SecretKeyCipherStoreException: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:127) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:90) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.make(DtvCipherSet.java:95) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadCiphers(DtvCipherSet.java:296) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadStoredCiphers(DtvCipherSet.java:59) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.SecretKeyCipherManager.loadStoredCiphers(SecretKeyCipherManager.java:279) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvEncrypter.<init>(DtvEncrypter.java:110) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvEncrypter$1.load(DtvEncrypter.java:31) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvEncrypter$1.load(DtvEncrypter.java:28) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3533) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2282) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2159) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2049) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3966) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3989) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4950) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4956) ~[guava-31.1-jre.jar:?]
+	at dtv.util.crypto.DtvEncrypter.getInstance(DtvEncrypter.java:83) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvEncrypter.getInstance(DtvEncrypter.java:61) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvEncrypter.getInstance(DtvEncrypter.java:44) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.pos.framework.StationController.main(StationController.java:244) ~[dtv-posframework.jar:22.0.0.0.20230127185818]
+Caused by: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at com.sun.crypto.provider.CipherCore.unpad(CipherCore.java:975) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.fillOutputBuffer(CipherCore.java:1056) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.doFinal(CipherCore.java:853) ~[?:?]
+	at com.sun.crypto.provider.AESCipher.engineDoFinal(AESCipher.java:446) ~[?:?]
+	at javax.crypto.Cipher.doFinal(Cipher.java:2202) ~[?:?]
+	at dtv.util.crypto.DtvCipherVersion4.decryptKeyInfo(DtvCipherVersion4.java:56) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:111) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	... 20 more
+ INFO  [      ] 2023-07-09 23:02:23,180 STARTING
+
+********************
+LOCATION INFORMATION
+********************
+
+dtv.CustomerId: XYZ
+OrganizationId: 1
+RetailLocationId: 800
+WorkstationId: 1
+
+********************
+CONFIG PATH
+********************
+
+xstore.config.path.base.features = []
+xstore.config.path.global.extensions = []
+xstore.config.path.overrides.store.800 = []
+Assembled Global Config Paths = [dtv/res/config, xstorepos, service-items, service-prices, service-tenders, service-token, service-discounts, service-taxes, base, countrypack/${dtv.location.CountryId}, version1, MASTER/DEFAULT]
+
+xstore.config.path.overrides.workstation.1 = []
+Complete Workstation 1 Config Paths = [dtv/res/config, xstorepos, service-items, service-prices, service-tenders, service-token, service-discounts, service-taxes, base, countrypack/${dtv.location.CountryId}, version1, MASTER/DEFAULT, version1/patch]
+
+********************
+PATH PROPERTIES
+********************
+
+dtv.system.properties.locations = file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_xstore/root/system.properties;file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/root/system.properties;file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/system.properties
+java.class.path = D:\MTO\Xstore\Workspace\xstore-workspace\xyz_pos\bin
+     D:\MTO\Xstore\Workspace\xstore-workspace\xyz_pos\cust_config
+     C:\Users\kishorekumar.burri\.p2\pool\plugins\org.junit_4.13.2.v20211018-1956.jar
+     C:\Users\kishorekumar.burri\.p2\pool\plugins\org.hamcrest.core_1.3.0.v20180420-1519.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\DJNativeSwing-SWT-1.0.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\DJNativeSwing-1.0.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\APGJposService-1.7.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\bixolon-common-1.9.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\bixolon-portmng-1.9.3.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\bixolon-portwin-1.7.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\bixolon-service-2.4.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dpjavapos-2.3.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dpuareu-2.3.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-annotations-2.14.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-core-2.14.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-databind-2.14.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-jaxrs-base-2.14.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-jaxrs-json-provider-2.14.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-module-jaxb-annotations-2.14.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dozer-core-6.5.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\failureaccess-1.0.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\guava-31.1-jre.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\gwt-servlet-2.10.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\guice-assistedinject-5.1.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\guice-5.1.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\zxing-3.4.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\scannerjpos-1.13.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\icu4j-charset-70.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\icu4j-70.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\mssql-jdbc-9.4.1.jre11.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\nimbus-jose-jwt-9.20.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dvt-jclient-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dvt-utils-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\i18nAPI_v3-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\orai18n-collation-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\orai18n-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\share-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\versioninfo-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\xdocore-12.2.1.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\coherence-14.1.1-0-11.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\ojdbc8-19.15.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\ucp-19.15.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\eftlink-22.0.0.69.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jaxws-wlswss-client-14.1.1.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.activation-1.2.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.mail-1.6.7.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\collection-setter-injector-1.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jaxb-impl-2.3.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\saaj-impl-1.5.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\streambuffer-1.5.9.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jaxws-rt-2.3.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\policy-2.7.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\servlet-2.3.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\xstream-1.4.19.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\JposLogger-3.06.0022-windows_64.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\JposServiceJniScanner-3.06.0022-windows_64.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\JposServiceOnScanner-3.06.0022-windows_64.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\JposServiceScanner-3.06.0022-windows_64.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-beanutils-1.9.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-codec-1.15.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-io-2.11.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-logging-1.2-1b97e70.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\gin-3.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.activation-api-1.2.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.annotation-api-1.3.5.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.jws-api-2.1.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.xml.bind-api-2.3.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.xml.soap-api-1.4.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jakarta.xml.ws-api-2.3.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.annotation-api-1.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.el-api-3.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.inject-1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.servlet-api-3.1.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jta-1.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\validation-api-2.0.1.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.websocket-api-1.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.ws.rs-api-2.1.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\epsonjpos-1.14.6.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jna-platform-5.10.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jna-5.10.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\retail-public-payload-java-beans-base-16.0.030.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\retail-public-payload-java-beans-16.0.030.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\ItemInformationServiceServiceConsumer-16.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\ShoppingCartServiceServiceConsumer-16.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\TargetedItemsServiceServiceConsumer-16.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\POSTransactionServiceServiceConsumer-16.0.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\StoreInventoryServiceServiceConsumer-16.0.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\StoreInventoryUinServiceServiceConsumer-16.0.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\arial-unicode-ms-1.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\oracle-sans-cd-1.001.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\oracle-sans-1.002.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-auth-core.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-auth-impl.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-auth-sv.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-authentication-idcs.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-avs-qas.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-avs.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-barcode.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-bitmap.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-cheetah.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config-objects.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config-service-discounts.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config-service-items.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config-service-prices.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config-service-taxes.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config-service-tenders.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config-shared.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\config.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-countrypack.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-xst-crm-relate.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-xst-crm.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-data2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-deployment-objects.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-dtx-cleandto.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-dtx-cleandtomapper.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-dtx.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-email-rcpt.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-event.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-xst-opera.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-hardware.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-i18n.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-inv-sim.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-inv.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-ipc.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-itm-rxm.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-itm.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-jmxutil.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-jna.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-password.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-pos-protected.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\pos.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-posframework.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-pricing2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-scope.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service-discounts.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service-dist.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service-items.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service-prices.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service-taxes.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service-tenders.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-ui-graphics.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-upgrader.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-util-gs1-databar.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-util-measurement.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-util-net.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-util-sequence.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-util.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-version.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-xst-xom-locate.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-xst-xom.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-xstoregwt-util.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\promote-offline-23.0-23.0.101.0.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-collections4-4.4-83acfd3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-configuration2-2.8.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-csv-1.9.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-lang3-3.12.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-pool2-2.11.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\commons-text-1.10.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\log4j-1.2-api-2.17.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\log4j-core-2.17.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\log4j-jcl-2.17.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\log4j-jul-2.17.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\log4j-slf4j-impl-2.17.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\fontbox-2.0.25.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\pdfbox-2.0.25.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\velocity-engine-core-2.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.security.auth.message-1.0.0.v201108011116.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-schemas-3.1.M0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax-websocket-client-impl-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax-websocket-server-impl-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\websocket-client-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\websocket-common-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\websocket-server-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\websocket-servlet-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-annotations-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-client-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-continuation-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-deploy-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-http-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-io-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-jaas-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-jmx-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-jndi-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-plus-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-proxy-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-rewrite-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-security-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-server-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-servlet-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-servlets-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-start-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-util-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-webapp-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jetty-xml-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\swt-4.9-linux_64.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\swt-4.9-windows_64.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\management-api-3.2.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\gmbal-4.0.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\ha-api-3.1.12.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\hk2-api-2.5.0-b61.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\hk2-locator-2.5.0-b61.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\osgi-resource-locator-2.5.0-b42.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-bridge-2.5.0-b61.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\utils-2.5.0-b61.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-container-servlet-core-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-client-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-common-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-server-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-entity-filtering-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-proxy-client-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-spring5-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-hk2-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-media-jaxb-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jersey-media-json-jackson-2.35.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javax.el-2.2.4.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\javapos-1.14.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jbars-02-09-2006.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jfreechart-1.5.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\mimepull-1.9.13.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\stax-ex-1.8.3.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\objenesis-3.0.1.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\osgi.core-7.0.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\asm-9.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\trident-1.5.00.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\quartz-2.3.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\rxtxcomm-2.1-7r2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\slf4j-api-1.7.36.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-aop-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-beans-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-context-support-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-context-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-core-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-expression-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-tx-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\spring-web-5.3.23.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\wrapper-3.5.48.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\log4j-api-2.17.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\xdoparser11g-11.1.0.7.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-crypto-convert.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-crypto-encrypt.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-crypto-generate.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\websocket-api-9.4.48.v20220622.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\dtv-service-launcher.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\swagger-integration-2.1.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-config-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-service-loader-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-media-type-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-webserver-jersey-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-webserver-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-http-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-media-common-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\opentracing-api-0.33.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-configurable-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-context-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\swagger-jaxrs2-2.1.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\swagger-models-2.1.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\swagger-core-2.1.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-datatype-jsr310-2.13.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\jackson-dataformat-yaml-2.13.2.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\swagger-annotations-2.1.10.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-tracing-config-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-mapper-2.5.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\netty-handler-4.1.73.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\opentracing-util-0.33.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\opentracing-noop-0.33.0.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\netty-common-4.1.73.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\netty-codec-http-4.1.73.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\netty-codec-http2-4.1.73.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\netty-codec-4.1.73.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\netty-transport-4.1.73.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\netty-buffer-4.1.73.Final.jar
+     D:\MTO\Xstore\Workspace\xstore-workspace\release\xstore\xstore\lib\helidon-common-reactive-2.5.0.jar
+java.library.path = C:\jre\bin
+     C:\windows\Sun\Java\bin
+     C:\windows\system32
+     C:\windows
+     C:/Users/kishorekumar.burri/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.7.v20230425-1502/jre/bin/server
+     C:/Users/kishorekumar.burri/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.7.v20230425-1502/jre/bin
+     C:\Program Files\Eclipse Adoptium\jdk-17.0.7.7-hotspot\bin
+     D:\V22_Base\WINDOWS.X64_193000_db_home_19c\bin
+     C:\Program Files\Zulu\zulu-17-jre\bin\
+     C:\Program Files\Zulu\zulu-17\bin\
+     C:\windows\system32
+     C:\windows
+     C:\windows\System32\Wbem
+     C:\windows\System32\WindowsPowerShell\v1.0\
+     C:\windows\System32\OpenSSH\
+     C:\jre\bin
+     C:\Users\kishorekumar.burri\AppData\Local\Microsoft\WindowsApps
+     C:\Users\kishorekumar.burri\AppData\Local\atom\bin
+     C:\windows\system32
+     
+     .
+ :: dtv.pos.framework.StationController [startup]
+ INFO  [      ] 2023-07-09 23:02:23,205 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ui.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:23,213 Loading Properties - file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/ui.properties :: dtv.util.ResourceUtils [startup]
+ WARN  [      ] 2023-07-09 23:02:23,361 'ui.1366x768' not found on classpath...trying failover to file system :: dtv.util.ResourceUtils [startup]
+ ERROR [      ] 2023-07-09 23:02:23,362 'ui.1366x768' not found on classpath or file system :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:25,048 Active Spring Profiles: xstore :: dtv.pos.framework.StationController [startup]
+ WARN  [      ] 2023-07-09 23:02:29,052 Loading GlobalConfigHolder :: com.micros.xstore.config.impl.GlobalConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,152 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/LocaleMap.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,442 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/LocaleMap.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,462 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/query/QueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,526 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/BatchQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,554 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/CountryPackPreFlightQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,603 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/CountryPackQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,740 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/DailyReportQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,789 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/DashboardQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,815 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/PreFlightQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,846 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/QueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:29,996 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/ReportQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,079 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/SchedulingQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,103 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/query/XunitQueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,142 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-service-items.jar!/service-items/query/QueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,162 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-service-prices.jar!/service-prices/query/QueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,181 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-service-tenders.jar!/service-tenders/query/QueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,203 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-service-discounts.jar!/service-discounts/query/QueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,222 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-service-taxes.jar!/service-taxes/query/QueryConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,246 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/PmTypeMappingConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,272 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/AvailableLocales.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,288 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/CustomerAccountConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,307 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ActionConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,632 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/ActionConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,651 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/FieldDefinitionConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,724 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/FieldLayoutConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,797 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/FontConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,817 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/AIRPORT_STAFF_IDENTIFICATION.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,836 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ASSIGNED_ROOM_DETAILS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,847 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ASSOCIATE_TASKS_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,863 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ASSOCIATE_TASK_DETAIL.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,873 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ASSOCIATE_TASK_DETAIL_CUST.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,885 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/AUTH_FAILED.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,903 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/AUTH_MORE_INFO.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,913 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/AUTH_PROCESSING.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,924 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CAPTURE_SIGNATURE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,938 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CHALLENGE_QUESTION.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,952 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CHEETAH_DEVICE_QUICK_QR_CONFIG.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,965 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CONFIGURE_IP_CASH_DRAWER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,976 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_ACCOUNT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:30,988 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_ACCT_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,000 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_ACCT_MAINT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,013 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_EMAIL.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,024 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_EMAIL_WITH_DELIVERY_METHODS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,035 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_INFO.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,045 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,063 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,074 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUSTOMER_SUMMARY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,085 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/CUST_ADD_EDIT_ADDRESS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,094 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/DASHBOARD.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,108 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/DATASOURCE_STATUS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,119 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EDIT_CREDIT_LIMIT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,128 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EJD_EMPTY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,139 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EJD_NODETAIL.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,159 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EJD_NOSALE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,174 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EJD_POSTVOID.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,188 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EJD_TIMECLOCK.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,200 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EJOURNAL_DETAIL.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,213 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EJOURNAL_SUMMARY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,223 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_BORROW.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,235 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_BORROW_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,248 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_EDIT_SSN.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,261 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,280 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_MESSAGE_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,293 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_MESSAGE_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,308 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,318 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EMPLOYEE_SEARCH_ACTIVE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,328 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/EXCHANGE_SERIAL_NUMBER_RECEIPT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,339 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/FINGERPRINT_ENROLLMENT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,349 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/FISCAL_CUSTOMER_SUMMARY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,363 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/FISCAL_LOTTERY_CODE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,375 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/FISCAL_ORIGINAL_INFO.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,387 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/FISCAL_TAX_ID.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,401 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/FOREIGN_CURRENCY_RATE_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,414 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/FORGOT_PASSWORD.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,427 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/GUEST_LOOKUP.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,437 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/HOME_OFFICE_CHECK_INFO.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,446 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/HOUSE_ACCOUNT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,458 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/HOUSE_ACCT_ADD_EDIT_BUYER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,469 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_CONTROL_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,482 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_COUNT_CREATE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,493 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_COUNT_MAIN_HEADER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,506 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_COUNT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,516 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_EXCHANGE_SERIAL_NUMBER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,527 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_LOCATION_BUCKET_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,536 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_LOCATION_BUCKET_SELECTION.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,549 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_LOCATION_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,563 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_LOCATION_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,571 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_LOCATION_SELECTION.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,581 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_LOCATOR_KNOWN_ITEM.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,590 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/INVENTORY_LOCATOR_LOOKUP.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,600 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_DRILL_DOWN_GET_RANGE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,610 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_DRILL_DOWN_GRAPH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,623 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_DRILL_DOWN_NEW.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,635 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_ID_ENTRY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,652 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_LOOKUP.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,661 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_LOOKUP_ADVANCED.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,670 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_RESULT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,683 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ITEM_SUMMARY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,692 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/LABEL_LAYOUT_CALCULATING.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,701 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/LAYAWAY_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,714 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/LAYAWAY_MAINT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,726 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/LAYAWAY_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,738 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/LOYALTY_CARD.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,750 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/MANAGE_IP_CASH_DRAWER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,763 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/MOVEMENT_PENDING_ORIGINAL_TRANS_DETAIL.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,775 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/NEW_PASSWORD.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,786 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/OFFLINE_TRANS_REVIEW.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,796 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ORDER_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,805 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ORDER_SEARCH_REGISTER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,816 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/ORIGINAL_RECEIPT_INFORMATION.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,825 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/PAYBYLINK_CUSTOMER_EMAIL.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,834 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/PAYROLL_SUMMARY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,845 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/POST_VOID_ORIG_TRANS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,856 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/RECEIVING_NEW_DOCUMENT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,866 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/REPLENISHMENT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,876 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/REPORT_GET_PARAMS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,885 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/REPORT_RUNNING.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,894 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/REPORT_SAVE_OPTIONS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,904 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/REPORT_VIEW.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,915 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/REPRINT_DOCUMENT_LOOKUP.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,924 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/RETURN_SEND_SALE_INFO.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,934 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SCHEDULE_RECORD.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,945 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SCHED_SHIFT_EDIT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,955 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SCHED_SHIFT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,964 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SCHED_SUMMARY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,974 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SEARCH_BY_FLIGHT_ID.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,984 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SELECT_MERCH_LEVEL.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:31,994 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SEND_SALE_DEST.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,006 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SERVICE_LOC_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,015 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SHIP_DOCUMENT_NEW.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,024 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SHIP_MANUAL_TRACKING_NUMBER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,033 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SPECIAL_ORDER_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,046 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SPECIAL_ORDER_MAINT_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,055 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SPECIAL_ORDER_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,064 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/SPECIAL_ORDER_SHIPTO.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,081 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/START_DATE_END_DATE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,090 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/STORE_LAYOUT_MAINTENANCE_HEADER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,100 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TAX_EXEMPTION.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,110 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TEMPORARY_STORE_RANGE_QR_CODE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,119 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TEMPORARY_STORE_REQUEST.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,127 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TENDER_COUNT_HEADER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,137 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TILL_COUNT_HEADER.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,145 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TILL_DETAILS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,154 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TIMECARD_EMPLOYEE_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,164 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TIMECARD_RECORD.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,172 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TIMECARD_SUMMARY.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,181 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TIME_OFF_DATE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,189 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TIME_OFF_DAYS.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,198 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TIME_OFF_MAINT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,206 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TIME_OFF_TIME.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,214 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TRANSACTION_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,223 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/TRANSACTION_SEARCH_CHECKNUM.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,235 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/UID_PASSWORD.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,245 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/VERIFY_SIGNATURE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,252 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/WISH_LIST_REGISTRY_CREATE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,261 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/WORK_ORDER_INVOICE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,269 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/WORK_ORDER_MAINTENANCE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,278 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/WORK_ORDER_MISC_ACCT.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,286 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/WORK_ORDER_SEARCH.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,296 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/forms/WORK_ORDER_SEARCH_BACK_OFFICE.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,312 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/PromptConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,442 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/PromptConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,458 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/DataFieldConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,474 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/MenuConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,505 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/MenuConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:32,519 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/OpChainConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,104 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/OpChainConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,117 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/SysConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,138 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/SysConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,153 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ListViewConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,323 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/ListViewConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,361 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/uipropertysets/ComponentPropertySetConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,391 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/uipropertysets/TabConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,410 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ComponentGroupConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,427 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ContextConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,461 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/airside.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,493 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/cancelledtransaction.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,504 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/cashdrawerrecon.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,523 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/creditcard.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,536 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/customer.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,547 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/customeraccount.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,568 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/dailyreport.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,579 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/dailysales.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,592 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/dashboard.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,604 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/dashboardxadmin.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,615 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/digitalcart.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,625 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/employee.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,633 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/employeeproductivity.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,643 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/flashsales.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,651 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/giftcertificate.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,660 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/giftregistry.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,670 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/inventory.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,683 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/inventorycount.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,695 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/inventorymovementpending.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,703 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/invoice.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,712 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/itemlist.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,720 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/itemtag.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,732 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/journalroll.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,743 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/layaway.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,754 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/linevoid.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,762 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/markdown.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,770 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/nightlycontrol.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,778 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/nosale.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,786 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/opentimecard.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,795 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/paidinpaidout.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,803 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/payroll.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,810 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/pdf.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,818 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/postvoidtransaction.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,826 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/pricechange.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,836 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/priceoverride.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,844 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/registercount.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,853 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/repair.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,860 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/replenishment.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,871 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/restock.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,889 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/return.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,898 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/salesbyhour.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,907 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/salesbyhouranalysis.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,915 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/salesbymerchlvl1.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,923 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/salesgoals.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,932 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/schedule.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,941 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/sellers.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,949 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/ship.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,959 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/shippingdocument.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,968 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/specialorders.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,976 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/stamptaxreport.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,983 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/stockvaluation.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:34,992 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/storelocation.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,000 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/suspendedtransaction.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,010 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/taxexemption.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,021 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/temporarystoreqrcode.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,030 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/till.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,038 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/timecard.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,047 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/timeoffsummary.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,056 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report/wishlist.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:35,844 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/PersistenceManagerConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:35,950 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/ServiceHandlers.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:35,960 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/ConfigType.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:35,961 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ConfigType.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:35,968 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ServiceHandlers.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:35,970 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/ServiceHandlers.xml :: dtv.util.config.ConfigHelper [startup]
+ ERROR [      ] 2023-07-09 23:02:35,972 CAUGHT EXCEPTION file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/ServiceHandlers.xml line 7 column 84 :: dtv.util.config.SaxConfigLoader [startup]
+java.lang.NumberFormatException: For input string: "${dtv.relate.ServiceTimeout}"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:638) ~[?:?]
+	at java.lang.Integer.valueOf(Integer.java:983) ~[?:?]
+	at dtv.util.config.ConfigUtils.toInteger(ConfigUtils.java:401) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigUtils.toInteger(ConfigUtils.java:389) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.IntegerConfig.setValueImpl(IntegerConfig.java:95) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.VariablePrimitiveConfig.setValue(VariablePrimitiveConfig.java:49) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.SaxConfigLoader.endElement(SaxConfigLoader.java:93) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.endElement(AbstractSAXParser.java:610) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanEndElement(XMLDocumentFragmentScannerImpl.java:1718) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2883) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:534) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:888) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:824) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1216) ~[?:?]
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:635) ~[?:?]
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl.parse(SAXParserImpl.java:324) ~[?:?]
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:197) ~[?:?]
+	at dtv.util.config.SaxConfigLoader.loadDocument(SaxConfigLoader.java:127) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.loadDocument(ConfigHelper.java:430) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initializeImpl(ConfigHelper.java:376) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initialize(ConfigHelper.java:113) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initializeImpl(ConfigHelper.java:345) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initialize(ConfigHelper.java:97) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1930) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1872) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:330) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:113) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1707) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1452) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:95) ~[spring-context-5.3.23.jar:5.3.23]
+	at dtv.pos.framework.StationController$StartupWorker.run(StationController.java:601) ~[dtv-posframework.jar:22.0.0.0.20230127185818]
+	at java.lang.Thread.run(Thread.java:834) ~[?:?]
+ WARN  [      ] 2023-07-09 23:02:35,981 Exception initializing config helper with file file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/ServiceHandlers.xml for config: ServiceHandlers :: dtv.util.config.ConfigHelper [startup]
+java.lang.NumberFormatException: For input string: "${dtv.relate.ServiceTimeout}"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:638) ~[?:?]
+	at java.lang.Integer.valueOf(Integer.java:983) ~[?:?]
+	at dtv.util.config.ConfigUtils.toInteger(ConfigUtils.java:401) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigUtils.toInteger(ConfigUtils.java:389) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.IntegerConfig.setValueImpl(IntegerConfig.java:95) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.VariablePrimitiveConfig.setValue(VariablePrimitiveConfig.java:49) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.SaxConfigLoader.endElement(SaxConfigLoader.java:93) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.endElement(AbstractSAXParser.java:610) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanEndElement(XMLDocumentFragmentScannerImpl.java:1718) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2883) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605) ~[?:?]
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:534) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:888) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:824) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141) ~[?:?]
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1216) ~[?:?]
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:635) ~[?:?]
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl.parse(SAXParserImpl.java:324) ~[?:?]
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:197) ~[?:?]
+	at dtv.util.config.SaxConfigLoader.loadDocument(SaxConfigLoader.java:127) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.loadDocument(ConfigHelper.java:430) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initializeImpl(ConfigHelper.java:376) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initialize(ConfigHelper.java:113) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initializeImpl(ConfigHelper.java:345) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.config.ConfigHelper.initialize(ConfigHelper.java:97) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1930) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1872) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:330) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:113) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1707) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1452) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:95) ~[spring-context-5.3.23.jar:5.3.23]
+	at dtv.pos.framework.StationController$StartupWorker.run(StationController.java:601) ~[dtv-posframework.jar:22.0.0.0.20230127185818]
+	at java.lang.Thread.run(Thread.java:834) ~[?:?]
+ INFO  [      ] 2023-07-09 23:02:37,318 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/componentWrapper.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:37,329 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/FormLayoutConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:37,393 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/component.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:37,544 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/CacheConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:37,725 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/saft.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:37,770 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/InventoryDocConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:38,268 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/VoucherConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:38,296 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/AuthConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:38,341 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/AuthConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:38,522 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/NetSecurityConfig.xml :: com.micros.xstore.config.impl.AbstractConfigHolder [startup]
+ INFO  [      ] 2023-07-09 23:02:38,757 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/QueryKeyMap.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:38,757 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/QueryKeyMap.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:38,795 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/DtxReplicationConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:38,807 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/DtxReplicationConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:38,870 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/DataSourceConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:38,884 loading file:/D:/MTO/Xstore/Workspace/xstore-workspace/xyz_pos/cust_config/version1/DataSourceConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ FATAL [      ] 2023-07-09 23:02:38,986 No host string specified
+No port configured or invalid: null :: dtv.data2.access.impl.SocketPing [startup]
+ ERROR [      ] 2023-07-09 23:02:40,222 CAUGHT EXCEPTION with D:\MTO\Xstore\Workspace\xstore-workspace\xyz_pos\res\keys\config.cip :: dtv.util.crypto.DtvCipherSet [startup]
+dtv.util.crypto.SecretKeyCipherStoreException: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:127) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:90) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.make(DtvCipherSet.java:95) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadCiphers(DtvCipherSet.java:296) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadStoredCiphers(DtvCipherSet.java:59) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.SecretKeyCipherManager.loadStoredCiphers(SecretKeyCipherManager.java:279) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.<init>(DtvDecrypter.java:106) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter$1.load(DtvDecrypter.java:30) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter$1.load(DtvDecrypter.java:26) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3533) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2282) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2159) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2049) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3966) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3989) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4950) ~[guava-31.1-jre.jar:?]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:85) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:63) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:46) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.UcpConnectionProvider.<init>(UcpConnectionProvider.java:128) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCConnectionProvider.make(JDBCConnectionProvider.java:30) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.loadConnectionPool(JDBCDataSourceMgr.java:377) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.getConnectionPool(JDBCDataSourceMgr.java:342) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.getConnection(JDBCDataSourceMgr.java:138) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.getConnection(JDBCDataSourceMgr.java:176) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCPersistenceStrategy.makePersistentImpl(JDBCPersistenceStrategy.java:823) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.AbstractPersistenceStrategy.makePersistent(AbstractPersistenceStrategy.java:112) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PersistenceManager.makePersistent(PersistenceManager.java:352) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.DefaultPersistenceMgr.makePersistent(DefaultPersistenceMgr.java:114) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.makePersistent(DataFactory.java:451) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.makePersistent(DataFactory.java:428) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.xst.log4j.DtxAppender.writeLogInternal(DtxAppender.java:189) ~[dtv-dtx.jar:22.0.0.0.20230127185818]
+	at dtv.xst.log4j.DtxAppender.append(DtxAppender.java:95) ~[dtv-dtx.jar:22.0.0.0.20230127185818]
+	at org.apache.logging.log4j.core.config.AppenderControl.tryCallAppender(AppenderControl.java:161) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender0(AppenderControl.java:134) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppenderPreventRecursion(AppenderControl.java:125) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender(AppenderControl.java:89) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.callAppenders(LoggerConfig.java:675) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.processLogEvent(LoggerConfig.java:633) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:616) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:552) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AwaitCompletionReliabilityStrategy.log(AwaitCompletionReliabilityStrategy.java:82) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.Logger.log(Logger.java:161) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.tryLogMessage(AbstractLogger.java:2205) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageTrackRecursion(AbstractLogger.java:2159) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageSafely(AbstractLogger.java:2142) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessage(AbstractLogger.java:2017) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logIfEnabled(AbstractLogger.java:1983) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.warn(AbstractLogger.java:2661) ~[log4j-api-2.17.2.jar:2.17.2]
+	at dtv.data2.access.status.StatusMgr.issueDataSourceFailureAlert(StatusMgr.java:60) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.logOffline(StatusMgr.java:365) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.notifyOffline(StatusMgr.java:246) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.isOnline(StatusMgr.java:199) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PmTypeHelper.getPrioritizedStratgies(PmTypeHelper.java:567) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PmTypeHelper.getLookupStrategies(PmTypeHelper.java:78) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PersistenceManager.getObjectByQuery(PersistenceManager.java:562) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PersistenceManager.getObjectByQuery(PersistenceManager.java:527) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.DefaultPersistenceMgr.getObjectByQuery(DefaultPersistenceMgr.java:85) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQueryImpl(DataFactory.java:560) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQuery(DataFactory.java:306) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQuery(DataFactory.java:289) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQueryNoThrow(DataFactory.java:324) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at oracle.retail.xstore.service.tenders.TendersServiceImpl$1.writeTo(TendersServiceImpl.java:97) ~[dtv-service-tenders.jar:22.0.0.0.20230127185818]
+	at oracle.retail.xstore.service.dist.jackson.StreamingContentAdapter.writeTo(StreamingContentAdapter.java:35) ~[dtv-service-dist.jar:22.0.0.0.20230127185818]
+	at oracle.retail.xstore.service.dist.jackson.StreamingContent.get(StreamingContent.java:28) ~[dtv-service-dist.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderLookup.getTendersFromService(TenderLookup.java:241) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderLookup.getTendersMap(TenderLookup.java:260) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderLookup.getTenders(TenderLookup.java:103) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderHelper.loadTenders(TenderHelper.java:2412) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderHelper.init(TenderHelper.java:1364) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1930) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1872) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:95) ~[spring-context-5.3.23.jar:5.3.23]
+	at dtv.pos.framework.StationController$StartupWorker.run(StationController.java:601) ~[dtv-posframework.jar:22.0.0.0.20230127185818]
+	at java.lang.Thread.run(Thread.java:834) ~[?:?]
+Caused by: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at com.sun.crypto.provider.CipherCore.unpad(CipherCore.java:975) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.fillOutputBuffer(CipherCore.java:1056) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.doFinal(CipherCore.java:853) ~[?:?]
+	at com.sun.crypto.provider.AESCipher.engineDoFinal(AESCipher.java:446) ~[?:?]
+	at javax.crypto.Cipher.doFinal(Cipher.java:2202) ~[?:?]
+	at dtv.util.crypto.DtvCipherVersion4.decryptKeyInfo(DtvCipherVersion4.java:56) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:111) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	... 103 more
+ ERROR [      ] 2023-07-09 23:02:42,139 CAUGHT EXCEPTION with D:\MTO\Xstore\Workspace\xstore-workspace\xyz_pos\res\keys\config.cip :: dtv.util.crypto.DtvCipherSet [startup]
+dtv.util.crypto.SecretKeyCipherStoreException: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:127) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:90) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.make(DtvCipherSet.java:95) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadCiphers(DtvCipherSet.java:296) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadStoredCiphers(DtvCipherSet.java:59) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.SecretKeyCipherManager.loadStoredCiphers(SecretKeyCipherManager.java:279) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.<init>(DtvDecrypter.java:106) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter$1.load(DtvDecrypter.java:30) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter$1.load(DtvDecrypter.java:26) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3533) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2282) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2159) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2049) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3966) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3989) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4950) ~[guava-31.1-jre.jar:?]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:85) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:63) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:46) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.UcpConnectionProvider.<init>(UcpConnectionProvider.java:128) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCConnectionProvider.make(JDBCConnectionProvider.java:30) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.loadConnectionPool(JDBCDataSourceMgr.java:377) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.getConnectionPool(JDBCDataSourceMgr.java:342) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.getConnection(JDBCDataSourceMgr.java:138) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.getConnection(JDBCDataSourceMgr.java:122) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.replication.dtximpl.ReplicationQueueAccessor.getConnection(ReplicationQueueAccessor.java:587) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.replication.dtximpl.ReplicationQueueAccessor.addObjectImpl(ReplicationQueueAccessor.java:496) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.replication.dtximpl.ReplicationQueueAccessor.addObject(ReplicationQueueAccessor.java:81) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.replication.dtximpl.ReplicationProcessor.enqueue(ReplicationProcessor.java:110) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.replication.dtximpl.DtxReplicationStrategy.commit(DtxReplicationStrategy.java:74) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PersistenceManager.commitTransaction(PersistenceManager.java:495) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PersistenceManager.makePersistent(PersistenceManager.java:380) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.DefaultPersistenceMgr.makePersistent(DefaultPersistenceMgr.java:114) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.makePersistent(DataFactory.java:451) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.makePersistent(DataFactory.java:428) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.xst.log4j.DtxAppender.writeLogInternal(DtxAppender.java:189) ~[dtv-dtx.jar:22.0.0.0.20230127185818]
+	at dtv.xst.log4j.DtxAppender.append(DtxAppender.java:95) ~[dtv-dtx.jar:22.0.0.0.20230127185818]
+	at org.apache.logging.log4j.core.config.AppenderControl.tryCallAppender(AppenderControl.java:161) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender0(AppenderControl.java:134) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppenderPreventRecursion(AppenderControl.java:125) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender(AppenderControl.java:89) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.callAppenders(LoggerConfig.java:675) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.processLogEvent(LoggerConfig.java:633) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:616) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:552) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.config.AwaitCompletionReliabilityStrategy.log(AwaitCompletionReliabilityStrategy.java:82) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.core.Logger.log(Logger.java:161) ~[log4j-core-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.tryLogMessage(AbstractLogger.java:2205) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageTrackRecursion(AbstractLogger.java:2159) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageSafely(AbstractLogger.java:2142) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessage(AbstractLogger.java:2017) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.logIfEnabled(AbstractLogger.java:1983) ~[log4j-api-2.17.2.jar:2.17.2]
+	at org.apache.logging.log4j.spi.AbstractLogger.warn(AbstractLogger.java:2661) ~[log4j-api-2.17.2.jar:2.17.2]
+	at dtv.data2.access.status.StatusMgr.issueDataSourceFailureAlert(StatusMgr.java:60) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.logOffline(StatusMgr.java:365) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.notifyOffline(StatusMgr.java:246) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.isOnline(StatusMgr.java:199) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PmTypeHelper.getPrioritizedStratgies(PmTypeHelper.java:567) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PmTypeHelper.getLookupStrategies(PmTypeHelper.java:78) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PersistenceManager.getObjectByQuery(PersistenceManager.java:562) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.PersistenceManager.getObjectByQuery(PersistenceManager.java:527) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.pm.DefaultPersistenceMgr.getObjectByQuery(DefaultPersistenceMgr.java:85) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQueryImpl(DataFactory.java:560) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQuery(DataFactory.java:306) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQuery(DataFactory.java:289) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.DataFactory.getObjectByQueryNoThrow(DataFactory.java:324) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at oracle.retail.xstore.service.tenders.TendersServiceImpl$1.writeTo(TendersServiceImpl.java:97) ~[dtv-service-tenders.jar:22.0.0.0.20230127185818]
+	at oracle.retail.xstore.service.dist.jackson.StreamingContentAdapter.writeTo(StreamingContentAdapter.java:35) ~[dtv-service-dist.jar:22.0.0.0.20230127185818]
+	at oracle.retail.xstore.service.dist.jackson.StreamingContent.get(StreamingContent.java:28) ~[dtv-service-dist.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderLookup.getTendersFromService(TenderLookup.java:241) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderLookup.getTendersMap(TenderLookup.java:260) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderLookup.getTenders(TenderLookup.java:103) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderHelper.loadTenders(TenderHelper.java:2412) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at dtv.pos.tender.TenderHelper.init(TenderHelper.java:1364) ~[dtv-pos-protected.jar:22.0.0.0.20230127185818]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:566) ~[?:?]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1930) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1872) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:95) ~[spring-context-5.3.23.jar:5.3.23]
+	at dtv.pos.framework.StationController$StartupWorker.run(StationController.java:601) ~[dtv-posframework.jar:22.0.0.0.20230127185818]
+	at java.lang.Thread.run(Thread.java:834) ~[?:?]
+Caused by: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at com.sun.crypto.provider.CipherCore.unpad(CipherCore.java:975) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.fillOutputBuffer(CipherCore.java:1056) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.doFinal(CipherCore.java:853) ~[?:?]
+	at com.sun.crypto.provider.AESCipher.engineDoFinal(AESCipher.java:446) ~[?:?]
+	at javax.crypto.Cipher.doFinal(Cipher.java:2202) ~[?:?]
+	at dtv.util.crypto.DtvCipherVersion4.decryptKeyInfo(DtvCipherVersion4.java:56) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:111) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	... 107 more
+ FATAL [      ] 2023-07-09 23:02:42,477 No local currency record found!  (No rows in tnd_tndr WHERE tnd_tndr.tndr_typcode = 'CURRENCY' AND tnd_tndr.currency_id = 'USD') :: dtv.pos.tender.TenderHelper [startup]
+ ERROR [      ] 2023-07-09 23:02:42,514 customerAccountHelper[dtv.pos.customer.account.CustomerAccountHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _amProvider<-accountManager[null [dtv.pos.customer.account.AccountManager] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:42,538 Query MEASUREMENT did not return any unit of measure definitions. :: oracle.retail.xstore.util.measurement.datasource.DatabaseUnitOfMeasureDataSource [startup]
+ INFO  [      ] 2023-07-09 23:02:42,807 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/MBeanInfoConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ ERROR [      ] 2023-07-09 23:02:42,946 pricingItemAdapter[dtv.pos.pricing.PosPricingItemAdapter defined in class path resource [xstorepos/spring/pricing.xml]] is a singleton, but injects a non-singleton _amProvider<-accountManager[null [dtv.pos.customer.account.AccountManager] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ INFO  [      ] 2023-07-09 23:02:43,163 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/report.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:43,264 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/ReportRunConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ ERROR [      ] 2023-07-09 23:02:43,281 tempStoreHelper[dtv.pos.temporarystore.TemporaryStoreHelper defined in class path resource [xstorepos/spring/services-temp-store-request.xml]] is a singleton, but injects a non-singleton _tempStoreRequestServices<-tempStoreRequestServices[null [dtv.pos.temporarystore.service.TempStoreRequestServicesImpl] defined in class path resource [xstorepos/spring/services-xstore.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:43,434 xstViewComponentFactory[dtv.pos.framework.ui.component.XstViewComponentFactory defined in class path resource [xstorepos/spring/ui-beans.xml]] is a singleton, but injects a non-singleton _modeProvider<-modeController[null [dtv.pos.framework.ModeController] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ INFO  [      ] 2023-07-09 23:02:43,690 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/CashdrawerLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,734 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/CustLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,737 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/EmpLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,738 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/InventoryCountLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,739 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/InventoryLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,741 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/MiscLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,742 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/PayrollLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,744 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/SecLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,746 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/TimeLogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,747 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/TlogConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,770 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/XstoreEDocumentFormat.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,774 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/files.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,783 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/log/formatters.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:43,873 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/FormatMap.properties :: dtv.util.ResourceUtils [startup]
+ INFO  [      ] 2023-07-09 23:02:44,315 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/BLANK.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,331 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/BROWSER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,342 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/CHANGE_FLOAT_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,354 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/CUSTOMER_ACCOUNT_DISPLAY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,359 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/CUSTOMER_ACCOUNT_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,368 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/CYCLE_COUNT_ITEMS.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,373 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/CYCLE_COUNT_ITEMS_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,375 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/DISPLAY_ITEM_INFO_FORM.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,377 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/ENGAGEMENT_ACTIVITY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,381 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/ENROLL_FINGER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,383 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/ERROR_INFO.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,391 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/HOUSE_ACCOUNT_MAINTENANCE.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,400 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/HOUSE_ACCOUNT_MAINTENANCE_NO_PARTY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,408 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/HOUSE_ACCOUNT_OVER_LIMIT_MANUAL_AUTH.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,410 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_ADJUSTMENT_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,412 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_COUNT_MAIN.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,414 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_COUNT_SHEET.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,416 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_COUNT_SHEET_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,422 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_ITEM_TRANSFER_DETAIL.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,424 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_ITEM_TRANSFER_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,426 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_MOVEMENT_PENDING_DETAIL.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,429 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_REPLENISHMENT.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,432 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/INVENTORY_REPLENISHMENT_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,437 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/ITEM_DRILL_DOWN.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,454 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/ITEM_MATRIX.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,458 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/LABEL_DOCUMENT_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,460 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/LABEL_POSITION.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,464 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/LAYAWAY_DISPLAY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,474 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/LAYAWAY_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,480 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/ORDER_TRANSACTION_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,486 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/POST_VOID_VALIDATION.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,488 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/RECEIVING_CARTON_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,491 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/RECEIVING_CARTON_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,493 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/RECEIVING_DOCUMENT_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,499 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/RECEIVING_DOCUMENT_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,501 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/REGISTER_LOCKED_MESSAGE.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,503 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/REGISTER_LOCKED_TRAN.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,505 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/REPRINT_ORIGINAL_TRANS_INFO.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,509 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/RETAIL_LOCATION_SEARCH.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,515 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/RETURN_INFORMATION.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,518 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/RETURN_REASON_INFO.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,521 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/SAFE_BAG_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,525 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/SCHED_TIME_OFF.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,529 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/SELECT_FINGER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,533 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/SHIPPING_DOCUMENT_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,539 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/SHIPPING_DOCUMENT_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,544 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/SPECIAL_ORDER_DISPLAY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,550 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/SPECIAL_ORDER_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,556 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/STARTUP_SCREEN_VIEW.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,558 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/STORE_ADJUSTMENT_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,563 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/STORE_LAYOUT_MAINTENANCE.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,566 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TILL_AVAILABLE.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,578 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TILL_COUNT_DENOMINATION.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,592 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TILL_COUNT_SUMMARY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,598 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TILL_COUNT_TOTAL_NORMAL.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,603 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TILL_COUNT_TOTAL_SHORT.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,609 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TILL_COUNT_UNIT.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,616 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TIMECARD_RECORD_COMMENT.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,618 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TRANSACTION_LIST_CUSTOMER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,621 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TRANSACTION_LIST_PRIMARY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,627 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/TRANSACTION_LIST_SCO_ASSOCIATE.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,633 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/VENDOR_LOOKUP.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,636 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/WORK_ORDER_DISPLAY.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,641 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/WORK_ORDER_INVOICING_COST_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,644 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/WORK_ORDER_INVOICING_COST_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,646 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/WORK_ORDER_INVOICING_HEADER.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,649 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/WORK_ORDER_INVOICING_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,651 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/form/WORK_ORDER_LIST.xml :: dtv.util.config.ConfigHelper [startup]
+ ERROR [      ] 2023-07-09 23:02:44,655 menuDebugger[dtv.pos.framework.keycommands.MenuDebugger defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _modeProvider<-modeController[null [dtv.pos.framework.ModeController] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,657 opChainDebugger[dtv.pos.framework.keycommands.OpChainDebugger defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _modeProvider<-modeController[null [dtv.pos.framework.ModeController] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ INFO  [      ] 2023-07-09 23:02:44,703 Loading Properties - jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/SortOrder.properties :: dtv.util.ResourceUtils [startup]
+ ERROR [      ] 2023-07-09 23:02:44,710 specialOrderHelper[dtv.pos.register.specorder.SpecOrderHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _amProvider<-accountManager[null [dtv.pos.customer.account.AccountManager] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,762 layawayHelper[dtv.pos.register.layaway.common.LayawayHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _amProvider<-accountManager[null [dtv.pos.customer.account.AccountManager] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,775 houseAccountHelper[dtv.pos.houseaccount.HouseAccountHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _amProvider<-accountManager[null [dtv.pos.customer.account.AccountManager] defined in class path resource [xstorepos/spring/spring.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,833 loyaltyHelper[dtv.pos.customer.loyalty.LoyaltyHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _loyaltyServices<-loyaltyServices[null [dtv.xst.crm.impl.LoyaltyServicesImpl] defined in class path resource [xstorepos/spring/services-xstore.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,847 registryHelper[dtv.pos.giftregistry.RegistryHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _registryServices<-registryServices[null [dtv.xst.crm.impl.RegistryServicesImpl] defined in class path resource [xstorepos/spring/services-xstore.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,858 customerHelper[dtv.pos.customer.CustomerHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _customerServices<-customerServices[null [dtv.xst.crm.impl.CustomerServicesImpl] defined in class path resource [xstorepos/spring/services-xstore.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,860 orderHelper[dtv.pos.order.OrderHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _orderServices<-orderServices[null [dtv.xst.xom.impl.order.OrderServicesNOPImpl] defined in class path resource [xstorepos/spring/services-xstore.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ INFO  [      ] 2023-07-09 23:02:44,885 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config-shared.jar!/dtv/res/config/SequenceConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ INFO  [      ] 2023-07-09 23:02:44,896 loading jar:file:/D:/MTO/Xstore/Workspace/xstore-workspace/release/xstore/xstore/lib/config.jar!/xstorepos/SequenceConfig.xml :: dtv.util.config.ConfigHelper [startup]
+ ERROR [      ] 2023-07-09 23:02:44,942 inventoryLookupHelper[dtv.pos.inventory.lookup.InventoryLookupHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _invLookupServices<-inventoryLookupServices[null [oracle.retail.xstore.inv.impl.InventoryLookupServicesImpl] defined in class path resource [xstorepos/spring/services-xstore.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ ERROR [      ] 2023-07-09 23:02:44,964 couponHelper[dtv.pos.coupon.CouponHelper defined in class path resource [xstorepos/spring/spring.xml]] is a singleton, but injects a non-singleton _promotionServices<-promotionServices[null [dtv.xst.crm.impl.PromotionServicesImpl] defined in class path resource [xstorepos/spring/services-xstore.xml]] :: dtv.util.spring.SingletonValidatorBeanPostProcessor [startup]
+ FATAL [      ] 2023-07-09 23:02:44,989 CAUGHT EXCEPTION :: dtv.pos.framework.StationController [startup]
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'orderUtil' defined in class path resource [xstorepos/spring/spring.xml]: Initialization of bean failed; nested exception is org.springframework.beans.TypeMismatchException: Failed to convert property value of type 'null' to required type 'int' for property 'DownloadInterval'; nested exception is java.lang.IllegalArgumentException: Cannot convert value of type 'null' to required type 'int' for property 'DownloadInterval': PropertyEditor [org.springframework.beans.propertyeditors.CustomNumberEditor] returned inappropriate value of type 'null'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:95) ~[spring-context-5.3.23.jar:5.3.23]
+	at dtv.pos.framework.StationController$StartupWorker.run(StationController.java:601) ~[dtv-posframework.jar:22.0.0.0.20230127185818]
+	at java.lang.Thread.run(Thread.java:834) ~[?:?]
+Caused by: org.springframework.beans.TypeMismatchException: Failed to convert property value of type 'null' to required type 'int' for property 'DownloadInterval'; nested exception is java.lang.IllegalArgumentException: Cannot convert value of type 'null' to required type 'int' for property 'DownloadInterval': PropertyEditor [org.springframework.beans.propertyeditors.CustomNumberEditor] returned inappropriate value of type 'null'
+	at org.springframework.beans.AbstractNestablePropertyAccessor.convertIfNecessary(AbstractNestablePropertyAccessor.java:600) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.AbstractNestablePropertyAccessor.convertForProperty(AbstractNestablePropertyAccessor.java:609) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.BeanWrapperImpl.convertForProperty(BeanWrapperImpl.java:219) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.convertForProperty(AbstractAutowireCapableBeanFactory.java:1756) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1712) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1452) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	... 12 more
+Caused by: java.lang.IllegalArgumentException: Cannot convert value of type 'null' to required type 'int' for property 'DownloadInterval': PropertyEditor [org.springframework.beans.propertyeditors.CustomNumberEditor] returned inappropriate value of type 'null'
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:258) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.AbstractNestablePropertyAccessor.convertIfNecessary(AbstractNestablePropertyAccessor.java:590) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.AbstractNestablePropertyAccessor.convertForProperty(AbstractNestablePropertyAccessor.java:609) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.BeanWrapperImpl.convertForProperty(BeanWrapperImpl.java:219) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.convertForProperty(AbstractAutowireCapableBeanFactory.java:1756) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1712) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1452) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	... 12 more
+ FATAL [      ] 2023-07-09 23:03:39,012 No host string specified
+No port configured or invalid: null :: dtv.data2.access.impl.SocketPing [StatusMgr-1]
+ ERROR [      ] 2023-07-09 23:03:39,078 CAUGHT EXCEPTION with D:\MTO\Xstore\Workspace\xstore-workspace\xyz_pos\res\keys\config.cip :: dtv.util.crypto.DtvCipherSet [StatusMgr-1]
+dtv.util.crypto.SecretKeyCipherStoreException: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:127) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:90) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.make(DtvCipherSet.java:95) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadCiphers(DtvCipherSet.java:296) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvCipherSet.loadStoredCiphers(DtvCipherSet.java:59) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.SecretKeyCipherManager.loadStoredCiphers(SecretKeyCipherManager.java:279) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.<init>(DtvDecrypter.java:106) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter$1.load(DtvDecrypter.java:30) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter$1.load(DtvDecrypter.java:26) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3533) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2282) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2159) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2049) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3966) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3989) ~[guava-31.1-jre.jar:?]
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4950) ~[guava-31.1-jre.jar:?]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:85) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:63) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.DtvDecrypter.getInstance(DtvDecrypter.java:46) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.UcpConnectionProvider.<init>(UcpConnectionProvider.java:128) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCConnectionProvider.make(JDBCConnectionProvider.java:30) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.loadConnectionPool(JDBCDataSourceMgr.java:377) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.impl.jdbc.JDBCDataSourceMgr.notifyOnline(JDBCDataSourceMgr.java:275) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.notifyListeners(StatusMgr.java:451) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.notifyOnline(StatusMgr.java:291) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr.notifyOffline(StatusMgr.java:257) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at dtv.data2.access.status.StatusMgr$DatasourceConnectionTask.run(StatusMgr.java:544) ~[dtv-data2.jar:22.0.0.0.20230127185818]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[?:?]
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[?:?]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[?:?]
+	at java.lang.Thread.run(Thread.java:834) ~[?:?]
+Caused by: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	at com.sun.crypto.provider.CipherCore.unpad(CipherCore.java:975) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.fillOutputBuffer(CipherCore.java:1056) ~[?:?]
+	at com.sun.crypto.provider.CipherCore.doFinal(CipherCore.java:853) ~[?:?]
+	at com.sun.crypto.provider.AESCipher.engineDoFinal(AESCipher.java:446) ~[?:?]
+	at javax.crypto.Cipher.doFinal(Cipher.java:2202) ~[?:?]
+	at dtv.util.crypto.DtvCipherVersion4.decryptKeyInfo(DtvCipherVersion4.java:56) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	at dtv.util.crypto.AbstractDtvCipherVersion.makeElement(AbstractDtvCipherVersion.java:111) ~[dtv-util.jar:22.0.0.0.20230127185818]
+	... 32 more

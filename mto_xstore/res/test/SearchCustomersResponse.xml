@@ -1,0 +1,57 @@
+<ns2:searchCustomersResponse
+	xmlns:ns2="http://v2_3.customer.webservices.csx.dtv.com/">
+	<return>
+		<DateTime>2014-09-15T09:13:46.000-07:00</DateTime>
+		<Customer ResponseCode="OK">
+			<CustomerID>238</CustomerID>
+			<SignupDate>2011-09-30-07:00</SignupDate>
+			<Validation ValidFlag="true" />
+			<HouseholdKey />
+			<EntityInformation>
+				<Individual>
+					<Name>
+						<Name Location="First">Vanessa</Name>
+						<Name Location="Middle" />
+						<Name Location="Last">Smith</Name>
+					</Name>
+					<ContactInformation>
+						<Address ContactPreferenceCode="N" PrimaryFlag="true"
+							SequenceNumber="1" TypeCode="HOME" ValidFlag="true">
+							<AddressLine1>487 POPLAR CT</AddressLine1>
+							<City>FALLS CHURCH</City>
+							<Country>US</Country>
+							<Territory>VA</Territory>
+							<PostalCode>22043</PostalCode>
+						</Address>
+					</ContactInformation>
+				</Individual>
+			</EntityInformation>
+			<AlternateKey TypeCode="WR_SHOPPER_ID">
+				<AlternateID>1003011</AlternateID>
+			</AlternateKey>
+			<AlternateKey TypeCode="WR_CUST_ID">
+				<AlternateID>438356</AlternateID>
+			</AlternateKey>
+			<AlternateKey TypeCode="XSTORE_CUST_ID">
+				<AlternateID>438356</AlternateID>
+			</AlternateKey>
+			<AlternateKey TypeCode="XSTORE_ID">
+				<AlternateID>438356</AlternateID>
+			</AlternateKey>
+			<CustomAttribute editable="true" name="EMAIL_RCPT_FLAG">
+				<AttributeValue>FALSE</AttributeValue>
+			</CustomAttribute>
+			<CustomAttribute editable="true" name="ACTIVE_FLAG">
+				<AttributeValue>FALSE</AttributeValue>
+			</CustomAttribute>
+			<CustomAttribute editable="true" name="PARTY_TYPE_CODE">
+				<AttributeValue>CUSTOMER</AttributeValue>
+			</CustomAttribute>
+			<CustomAttribute editable="true" name="PROMPT_TO_JOIN_LOYALTY">
+				<AttributeValue>FALSE</AttributeValue>
+			</CustomAttribute>
+			<MaskData>false</MaskData>
+			<SecurityPrivilege>READ_WRITE</SecurityPrivilege>
+		</Customer>
+	</return>
+</ns2:searchCustomersResponse>

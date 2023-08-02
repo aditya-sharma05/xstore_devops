@@ -1,0 +1,18 @@
+{
+  "TestIndiaResponse": {
+    "response": "ACCEPTED_WITH_ERROR",
+    "data": {
+      "IRN": "a4d00069ad904c5a4c0ea1a1be3fcde768bcda24e148e19499",
+      "eSignature": "85216-93209",
+      "QrCode": "http://oracle.com",
+      "ack": {
+        "AckNo": "28688",
+        "AckDate": "2020-10-26 15:51:58"
+      }
+    }
+    ,
+    "error": {
+      "errorCode": "3",
+      "errorDescription": "Soft error dummy"
+  }
+}

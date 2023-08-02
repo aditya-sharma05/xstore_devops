@@ -1,0 +1,19 @@
+<ns2:ProductAvailabilityResponse xmlns:ns2="http://microsretail.com/Locate">
+  <product_availability_response_message>
+    <message_header xaction_response="OK" xaction_type="INFO">
+       <datetime>2016-04-14T12:07:28.207</datetime>
+       <version>15.0</version>
+       <source>Locate</source>
+       <destination>XSTOREDEV</destination>
+    </message_header>
+    <message_body>
+       <fulfillment_types>
+          <fulfillment_type response_cd="0" response_description="Success" type="DELIVERY">
+            <items>
+              <item item_id="1002"/>
+            </items>
+          </fulfillment_type>
+       </fulfillment_types>
+    </message_body>
+    </product_availability_response_message>
+</ns2:ProductAvailabilityResponse>

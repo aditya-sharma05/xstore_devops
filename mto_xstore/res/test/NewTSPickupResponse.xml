@@ -1,0 +1,112 @@
+<ns2:FulfillmentsResponse xmlns:ns2="http://microsretail.com/Locate">
+  <fulfillment_response_message>
+    <message_header xaction_response="OK" xaction_type="INFO">
+      <datetime>2014-10-02T10:11:16.446</datetime>
+      <version>5.0</version>
+      <source>Locate</source>
+      <destination>XSTORE</destination>
+    </message_header>
+    <message_body>
+      <orders>
+        <order order_id="0740001000014" request_id="24479" transaction_no="0740001000014-1"
+          transaction_status="new_order" transaction_type_id="SHIPFORPICKUP">
+          <ref_transaction_no />
+          <transaction_date>2014-09-30T10:03:33.037</transaction_date>
+          <employee_id>100</employee_id>
+          <transaction_subtotal>106.2</transaction_subtotal>
+          <transaction_tax>8.5</transaction_tax>
+          <transaction_total>114.7</transaction_total>
+          <special_instructions />
+          <transaction_channel>22</transaction_channel>
+          <ship_via />
+          <ship_via_description />
+          <gift />
+          <source_code />
+          <freight_amount>0.0</freight_amount>
+          <balance_due>103.23</balance_due>
+          <currency />
+          <under_review>N</under_review>
+          <order_additional_freight_charges>0.0000</order_additional_freight_charges>
+          <order_additional_charges>0.0000</order_additional_charges>
+          <ship_complete>N</ship_complete>
+          <freight_tax>0.0000</freight_tax>
+          <sold_to_customer customer_no="C0520001000192">
+            <name>
+              <company_name />
+              <prefix />
+              <first>Bruce</first>
+              <middle />
+              <last>Wayne</last>
+              <suffix />
+            </name>
+            <address>
+              <address1>1 BATCAVE LN</address1>
+              <address2 />
+              <address3 />
+              <address4 />
+              <apt />
+              <city>SOLON</city>
+              <province>OH</province>
+              <postal>44139</postal>
+              <email />
+              <phone1 />
+              <phone2 />
+              <country>US</country>
+            </address>
+          </sold_to_customer>
+          <store_location location_cd="101" request_location_cd="740" request_system_cd="XSTORE"
+            system_cd="XSTORE" />
+          <shipforpickup_location location_cd="740" request_location_cd="101" request_system_cd="XSTORE"
+            system_cd="XSTORE" />
+          <items>
+            <item_detail line_item_no="1" line_item_status="new_order" requesting_system_line_no="1">
+              <location_cd>101</location_cd>
+              <system_cd>XSTORE</system_cd>
+              <item_id>1002</item_id>
+              <qty>1</qty>
+              <unit_price>106.2</unit_price>
+              <ship_to>
+                <name>
+                  <company_name>Tuttle Crossing</company_name>
+                  <prefix />
+                  <first>Bruce</first>
+                  <middle />
+                  <last>Wayne</last>
+                  <suffix />
+                </name>
+                <address>
+                  <attention />
+                  <address1>5043 Tuttle Crossing Boulevard</address1>
+                  <address2>Space 1</address2>
+                  <address3 />
+                  <address4 />
+                  <apt />
+                  <city>Dublin</city>
+                  <province>OH</province>
+                  <postal>43016</postal>
+                  <email />
+                  <phone1 />
+                  <phone2 />
+                  <country>US</country>
+                </address>
+              </ship_to>
+              <taxes>
+                <tax description="Tax" line_item_no="1">
+                  <amount>8.5000</amount>
+                </tax>
+              </taxes>
+              <special_instructions />
+              <order_line_extended_freight>0.0000</order_line_extended_freight>
+              <order_line_customization_charge>0.0000</order_line_customization_charge>
+              <order_line_gift_wrap>N</order_line_gift_wrap>
+              <order_line_ship_alone>N</order_line_ship_alone>
+              <order_line_ship_weight>0.000</order_line_ship_weight>
+              <customizations />
+            </item_detail>
+          </items>
+          <transaction_tenders />
+        </order>
+      </orders>
+    </message_body>
+  </fulfillment_response_message>
+</ns2:FulfillmentsResponse>

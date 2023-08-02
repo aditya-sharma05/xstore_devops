@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestTwoResponse>
+  <response>ACCEPTED_WITH_ERROR</response>
+  <referenceNbr>${uuid}</referenceNbr>
+  <pdf>${pdfBase64}</pdf>
+  <error>
+    <errorCode>3</errorCode>
+    <errorDescription>Soft error dummy</errorDescription>
+  </error>
+</TestTwoResponse>

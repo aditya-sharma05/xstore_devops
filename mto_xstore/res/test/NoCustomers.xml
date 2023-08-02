@@ -1,0 +1,16 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Header />
+  <S:Body>
+    <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope" xmlns="">
+      <faultcode>S:Server</faultcode>
+      <faultstring>The customer was not found.</faultstring>
+      <detail>
+        <ns2:RelateProcessingException xmlns:ns2="http://v3_0.customer.webservices.csx.dtv.com/">
+          <faultDetail>RelateProcessingException The customer was not found. RelateWsServiceExecutor:execute:60 CustomerServicesUtil:serviceCustomerMessage:169 SearchCustomersWebService:process:34</faultDetail>
+          <message>The customer was not found.</message>
+          <relateExceptionCode>CUSTOMER_NOT_FOUND</relateExceptionCode>
+        </ns2:RelateProcessingException>
+      </detail>
+    </S:Fault>
+  </S:Body>
+</S:Envelope>

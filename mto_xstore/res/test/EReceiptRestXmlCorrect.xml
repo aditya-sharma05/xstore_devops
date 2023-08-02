@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TestTwoResponse>
+  <AckDate>2021-02-19</AckDate>
+  <serverStatus>0</serverStatus>
+  <DocumentCurrencyId>1</DocumentCurrencyId>
+  <AuthMethod>OFFLINE</AuthMethod>
+  <details>
+    ${iterateStart}
+    <receipt>
+      <reference>${ref[]}</reference>
+      <response>SUCCESS</response>
+      <referenceNbr>${uuid}</referenceNbr>
+    </receipt>
+    ${iterateEnd}
+  </details>
+</TestTwoResponse>

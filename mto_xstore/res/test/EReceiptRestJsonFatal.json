@@ -1,0 +1,19 @@
+{
+  "TestThreeResponse": {
+    "AckDate": "2021-02-19",
+    "serverStatus": "ERROR",
+    "details": {
+      "receipt": [
+        ${iterateStart}
+        {
+          "reference": "${ref[]}",
+          "error": {
+            "errorCode": "1",
+            "errorDescription": "Fatal error dummy"
+          }
+        },
+      ${iterateEnd}
+      }
+    }
+  }
+}

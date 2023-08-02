@@ -1,0 +1,7 @@
+{
+  "TestThreeResponse": {
+    "response": "SUCCESS",
+    "referenceNbr": "${uuid}",
+    "pdf": "${pdfBase64}",
+  }
+}

@@ -1,0 +1,21 @@
+<ns2:SubmitOrderResponse xmlns:ns2="http://microsretail.com/Locate">
+	<generic_response_message>
+		<message_header xaction_response="OK" xaction_type="INFO">
+			<datetime>2014-09-17T08:35:34.195</datetime>
+			<version>5.0</version>
+			<source>Locate</source>
+			<destination>XSTOREDEV</destination>
+		</message_header>
+		<message_body>
+			<response order_id="0205001000012" request_id="24405"
+				response_code="0">
+				<response_description>Order Acknowledged</response_description>
+				<fulfillment_details>
+					<fulfillment_detail fulfillment_location_cd="201"
+						fulfillment_qty="1" fulfillment_system_cd="XSTOREDEV" item_id="1002"
+						line_no="1" requesting_system_line_no="1" />
+				</fulfillment_details>
+			</response>
+		</message_body>
+	</generic_response_message>
+</ns2:SubmitOrderResponse>

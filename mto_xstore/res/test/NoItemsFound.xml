@@ -1,0 +1,17 @@
+
+<ns2:LocateItemsResponse xmlns:ns2="http://microsretail.com/Locate">
+	<location_response_message>
+		<message_header xaction_response="FAILED" xaction_type="INFO">
+			<datetime>2014-09-16T08:39:30.080</datetime>
+			<version>5.0</version>
+			<source>Locate</source>
+			<destination>XSTOREDEV</destination>
+		</message_header>
+		<message_body>
+			<items>
+				<item item_id="1010" response_cd="1002"
+					response_description="Invalid item (system product), item (1010) does not exist. " />
+			</items>
+		</message_body>
+	</location_response_message>
+</ns2:LocateItemsResponse>

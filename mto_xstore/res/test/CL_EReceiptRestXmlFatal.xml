@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestChileResponse>
+  <details>
+    ${iterateStart}
+    <receipt>
+      <reference>${ref[]}</reference>
+      <response>ERROR</response>
+      <error>
+        <errorCode>1</errorCode>
+        <errorDescription>Fatal error dummy</errorDescription>
+      </error>
+    </receipt>
+    ${iterateEnd}
+  </details>
+</TestChileResponse>

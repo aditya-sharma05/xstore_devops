@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <ns2:TestOneResponse xmlns="http://www.oracle.com/EInvoice" xmlns:ns2="http://www.oracle.com/EInvoiceWS" xmlns:ns3="http://schemas.microsoft.com/2003/10/Serialization/">
+      <ns2:response>ERROR</ns2:response>
+      <ns2:uuid>${uuid}</ns2:uuid>
+      <ns2:pdf64>${pdfBase64}</ns2:pdf64>
+      <ns2:code>500</ns2:code>
+      <ns2:errorDescription>Soft error dummy</ns2:errorDescription>
+    </ns2:TestOneResponse>
+  </S:Body>
+</S:Envelope>

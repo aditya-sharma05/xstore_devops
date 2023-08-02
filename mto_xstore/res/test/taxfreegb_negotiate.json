@@ -1,0 +1,1 @@
+{"connectionId":"KdoD02xEaPr7pFfdfRaTCA","availableTransports":[{"transport":"WebSockets","transferFormats":["Text","Binary"]},{"transport":"ServerSentEvents","transferFormats":["Text"]},{"transport":"LongPolling","transferFormats":["Text","Binary"]}]}

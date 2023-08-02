@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <ns2:TestOneResponse xmlns="http://www.oracle.com/EReceipt" xmlns:ns2="http://www.oracle.com/EReceiptWS" xmlns:ns3="http://schemas.microsoft.com/2003/10/Serialization/">
+      <ns2:error>500 - server error</ns2:error>
+    </ns2:TestOneResponse>
+  </S:Body>
+</S:Envelope>

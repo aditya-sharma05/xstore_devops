@@ -1,0 +1,14 @@
+{
+  "TestChileResponse": {
+    "response": "SUCCESS",
+    "data": {
+      "IRN": "6fbba03ad0ff02ccff5fdbf8fab3131351d6502f3ba1ad532f",
+      "eSignature": "86964-32626",
+      "QrCode": "http://oracle.com",
+      "ack": {
+        "AckNo": "45554",
+        "AckDate": "2021-08-16 17:32:21"
+      }
+    }
+  }
+}

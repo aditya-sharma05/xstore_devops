@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <ns2:TestOneResponse xmlns="http://www.oracle.com/EReceipt" xmlns:ns2="http://www.oracle.com/EReceiptWS" xmlns:ns3="http://schemas.microsoft.com/2003/10/Serialization/">
+      <ns2:AckDate>2021-02-19</ns2:AckDate>
+      <ns2:serverStatus>ERROR</ns2:serverStatus>
+      <ns2:details>
+        ${iterateStart}
+        <ns2:receipt>
+          <ns2:reference>${ref[]}</ns2:reference>
+          <ns2:error>
+            <ns2:errorCode>1</ns2:errorCode>
+            <ns2:errorDescription>Fatal error dummy</ns2:errorDescription>
+          </ns2:error>
+        </ns2:receipt>
+        ${iterateEnd}
+      </ns2:details>
+    </ns2:TestOneResponse>
+  </S:Body>
+</S:Envelope>

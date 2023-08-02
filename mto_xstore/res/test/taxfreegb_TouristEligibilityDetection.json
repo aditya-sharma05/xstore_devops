@@ -1,0 +1,1 @@
+{"ResponseStatus":false,"GrossAmountEligibility":false,"CountryEligibility":true,"AmountEligibilityResult":{"AmountBelowMinimum":150.00,"MinAmount":150.00,"AmountOverMaximum":0.0,"MaxAmount":999999.0},"CreditCardEligibility":true}

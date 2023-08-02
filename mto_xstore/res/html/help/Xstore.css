@@ -1,0 +1,237 @@
+﻿/*Created with Adobe RoboHelp 9.*/
+BODY {
+	font-size: 12pt;
+	x-next-page: page-with-header;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+table.BlueHeaderRow {
+	padding: 0px;
+	x-border-spacing: 0px;
+	x-row-pat-1: 1;
+	x-row-pat-1-name: t1Row;
+	x-row-pat-count: 2;
+	x-row-pat-2: 1;
+	x-row-pat-2-name: t2Row;
+	border-left-style: Solid;
+	border-left-width: 1px;
+	border-left-color: #4F81BD;
+	border-top-style: Solid;
+	border-top-width: 1px;
+	border-top-color: #4F81BD;
+	x-1st-row: 1;
+	x-1st-row-name: t1st;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+table.BlueHeaderRow td {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+table.BlueHeaderRow tr.t1Row td {
+	font-size: 12pt;
+	border-right-style: Solid;
+	border-right-width: 1px;
+	border-right-color: #4F81BD;
+	border-bottom-style: Solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #4F81BD;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+table.BlueHeaderRow tr.t2Row td {
+	border-right-style: Solid;
+	border-right-width: 1px;
+	border-right-color: #4F81BD;
+	border-bottom-style: Solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #4F81BD;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+table.BlueHeaderRow tr.t1st td {
+	font-size: 12pt;
+	color: #ffffff;
+	background-color: #6672e5;
+	border-right-style: Solid;
+	border-right-width: 1px;
+	border-right-color: #0000ff;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+OL,
+UL {
+	font-size: 12pt;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+h1 {
+	font-size: 22pt;
+	margin-top: 14pt;
+	margin-bottom: 14pt;
+	margin-left: 0pt;
+	margin-right: 0pt;
+	page-break-after: avoid;
+	color: #000000;
+	font-style: normal;
+	font-weight: bold;
+	x-next-class: ;
+	x-next-type: P;
+	font-family: "Arial Unicode MS";
+}
+p.breadcrumbs {
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+h2 {
+	font-size: 16pt;
+	margin-top: 14pt;
+	margin-bottom: 14pt;
+	margin-left: 0pt;
+	margin-right: 0pt;
+	page-break-after: avoid;
+	font-style: normal;
+	font-weight: bold;
+	x-next-class: ;
+	x-next-type: P;
+	font-family: "Arial Unicode MS";
+}
+H3 {
+	font-size: 13.5pt;
+	margin-top: 14pt;
+	margin-bottom: 14pt;
+	margin-left: 0pt;
+	margin-right: 0pt;
+	page-break-after: avoid;
+	font-style: normal;
+	font-weight: bold;
+	x-next-class: ;
+	x-next-type: P;
+	font-family: "Arial Unicode MS";
+	text-decoration: underline;
+}
+H4 {
+	font-size: 12pt;
+	margin-top: 14pt;
+	margin-bottom: 14pt;
+	margin-left: 0pt;
+	margin-right: 0pt;
+	page-break-after: avoid;
+	font-style: normal;
+	font-weight: bold;
+	x-next-class: ;
+	x-next-type: P;
+	font-family: "Arial Unicode MS";
+}
+H5 {
+	font-size: 9pt;
+	margin-top: 14pt;
+	margin-bottom: 14pt;
+	margin-left: 0pt;
+	margin-right: 0pt;
+	page-break-after: avoid;
+	font-style: normal;
+	font-weight: bold;
+	x-next-class: ;
+	x-next-type: P;
+	font-family: "Arial Unicode MS";
+}
+H6 {
+	font-size: 7pt;
+	margin-top: 14pt;
+	margin-bottom: 14pt;
+	margin-left: 0pt;
+	margin-right: 0pt;
+	page-break-after: avoid;
+	font-style: normal;
+	font-weight: bold;
+	x-next-class: ;
+	x-next-type: P;
+	font-family: "Arial Unicode MS";
+}
+P {
+	margin-bottom: 14pt;
+	margin-left: 0pt;
+	margin-right: 0pt;
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+	margin-top: 3pt;
+}
+SPAN.expandtext {
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+A.breadcrumbs {
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+A.dropspot {
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+A.expandspot {
+	font-style: normal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+A.glossterm {
+	font-weight: bold;
+}
+SPAN.glosstext {
+	font-style: normal;
+	font-weight: bold;
+}
+A:active {
+	color: #00ff00;
+	font-weight: bold;
+	text-decoration: underline;
+}
+A:hover {
+	font-style: normal;
+	font-weight: bold;
+}
+A:link {
+	font-style: normal;
+	font-weight: bold;
+}
+A:visited {
+	font-style: normal;
+	font-weight: bold;
+}
+A.popupspot {
+	font-style: normal;
+	font-weight: bold;
+}
+DIV.droptext {
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+}
+li.Numbering {
+	list-style: decimal;
+	font-weight: bold;
+	font-family: "Arial Unicode MS";
+	margin-top: 3px;
+}
+li.Alpha {
+	list-style: lower-alpha;
+	font-weight: bold;
+	margin-top: 3pt;
+}
+li.Bullet {
+	list-style: disc;
+	margin-top: 3px;
+}

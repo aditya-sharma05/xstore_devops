@@ -1,0 +1,74 @@
+
+    <ns2:ProductAvailabilityResponse xmlns:ns2="http://microsretail.com/Locate">
+      <product_availability_response_message>
+        <message_header xaction_response="OK" xaction_type="INFO">
+          <datetime>2016-04-14T12:11:05.285</datetime>
+          <version>15.0</version>
+          <source>Locate</source>
+          <destination>XSTOREDEV</destination>
+        </message_header>
+        <message_body>
+          <fulfillment_types>
+            <fulfillment_type response_cd="0" response_description="Success" type="PICKUP">
+              <items>
+                <item item_id="1002">
+                  <locations_lu available_qty="14" distance="0.0" distance_unit="M" location_cd="202" next_po_qty="0" po_dt="" system_cd="XSTOREDEV"/>
+                  <locations_lu available_qty="15" distance="0.0" distance_unit="M" location_cd="302" next_po_qty="0" po_dt="" system_cd="XSTOREDEV"/>
+                  <locations_lu available_qty="294" distance="0.0" distance_unit="M" location_cd="999" next_po_qty="0" po_dt="" system_cd="XSTOREDEV"/>
+                </item>
+              </items>
+            </fulfillment_type>
+          </fulfillment_types>
+          <locations>
+            <location location_cd="202" system_cd="XSTOREDEV">
+              <locationname>Culp's Collectibles</locationname>
+              <address>
+                <address1>9224 Darrow Rd.</address1>
+                <address2> </address2>
+                <address3> </address3>
+                <address4> </address4>
+                <apt> </apt>
+                <city>Twinsburg</city>
+                <province>OH </province>
+                <postal>44087</postal>
+                <email> </email>
+                <phone1> x </phone1>
+                <country>USA</country>
+              </address>
+            </location>
+            <location location_cd="302" system_cd="XSTOREDEV">
+              <locationname>Culp's Collectibles</locationname>
+              <address>
+                <address1>25380 Miles Rd.</address1>
+                <address2> </address2>
+                <address3> </address3>
+                <address4> </address4>
+                <apt> </apt>
+                <city>Bedford</city>
+                <province>OH </province>
+                <postal>44146</postal>
+                <email> </email>
+                <phone1> x </phone1>
+                <country>USA</country>
+              </address>
+            </location>
+            <location location_cd="999" system_cd="XSTOREDEV">
+              <locationname>Shared Store</locationname>
+              <address>
+                <address1> </address1>
+                <address2> </address2>
+                <address3> </address3>
+                <address4> </address4>
+                <apt> </apt>
+                <city> </city>
+                <province>OH </province>
+                <postal>44139</postal>
+                <email> </email>
+                <phone1> x </phone1>
+                <country>US</country>
+              </address>
+            </location>
+          </locations>
+        </message_body>
+      </product_availability_response_message>
+	</ns2:ProductAvailabilityResponse>

@@ -1,0 +1,9 @@
+{
+  "TestIndiaResponse": {
+    "response": "ERROR",
+    "error": {
+      "errorCode": "1",
+      "errorDescription": "Fatal error dummy"
+    }
+  }
+}

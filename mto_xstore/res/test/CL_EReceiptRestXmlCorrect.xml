@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TestChileResponse>
+  <details>
+    ${iterateStart}
+    <receipt>
+      <reference>${ref[]}</reference>
+      <response>SUCCESS</response>
+      <referenceNbr>12345678901</referenceNbr>
+      <qrCode>www.oracle.com</qrCode>
+    </receipt>
+    ${iterateEnd}
+  </details>
+</TestChileResponse>

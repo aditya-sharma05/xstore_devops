@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestTwoResponse>
+  <AckDate>2021-02-19</AckDate>
+  <serverStatus>1</serverStatus>
+  <details>
+    ${iterateStart}
+    <receipt>
+      <reference>${ref[]}</reference>
+      <error>
+        <errorCode>1</errorCode>
+        <errorDescription>Fatal error dummy</errorDescription>
+      </error>
+    </receipt>
+    ${iterateEnd}
+  </details>
+</TestTwoResponse>

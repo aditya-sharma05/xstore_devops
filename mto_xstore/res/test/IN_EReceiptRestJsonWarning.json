@@ -1,0 +1,19 @@
+{
+  "TestIndiaResponse": {
+    "AckDate": "2021-02-19",
+    "serverStatus": "ERROR",
+    "details": [
+      ${iterateStart}
+      {
+        "receipt": {
+          "reference": "${ref[]}",
+          "error": {
+            "errorCode": "3",
+            "errorDescription": "Warning error dummy"
+          }
+        }
+      },
+      ${iterateEnd}
+    ]
+  }
+}

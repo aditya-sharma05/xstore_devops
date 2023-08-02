@@ -1,0 +1,8 @@
+{
+  "TestThreeResponse": {
+    "response": "ERROR",
+    "error": {
+      "errorCode": "1",
+      "errorDescription": "Fatall error dummy"    }
+  }
+}

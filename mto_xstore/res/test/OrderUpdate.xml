@@ -1,0 +1,15 @@
+<ns2:StatusUpdateResponse xmlns:ns2="http://microsretail.com/Locate">
+  <generic_response_message>
+    <message_header xaction_response="OK" xaction_type="INFO">
+      <datetime>2014-10-02T10:11:18.934</datetime>
+      <version>5.0</version>
+      <source>Locate</source>
+      <destination>XSTORE</destination>
+    </message_header>
+    <message_body>
+      <response request_id="24475" response_code="0">
+        <response_description>Status updated successfully.</response_description>
+      </response>
+    </message_body>
+  </generic_response_message>
+</ns2:StatusUpdateResponse>
