@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="customer-xcenter-admin" basedir="." default="build-overlay">
+  <!-- import the core script -->
+  <property name="core.project" location="${basedir}/../mto" />
+  <import file="${core.project}/core.xml"/>
+
+  <!-- source paths -->
+  <property name="src.dir" location="${basedir}/src" />
+  <property name="resource.dir" location="${basedir}/resources" />
+  <property name="document.dir" location="${basedir}/documents" />
+
+  <!-- output paths -->
+  <property name="output.dir" location="${basedir}/target" />
+  <property name="overlay.dir" location="${output.dir}/overlay" />
+  <property name="exploded.war.dir" location="${output.dir}/explodedwar" />
+  <property name="classes.staging.dir" location="${output.dir}/classes-ant" />
+
+  <!-- cust jar file locations -->
+  <condition property="cust.xstore.overlay.bin.folder" value="${xstore.overlay.dir}/classes" else="${xstore.overlay.dir}/bin">
+    <isset property="running.on.build.server" />
+  </condition>
+  <property name="cust.xstore.overlay.cust_config.folder" location="${xstore.overlay.dir}/cust_config" />
+  <property name="cust.xstore.overlay.lib.folder" location="${xstore.overlay.dir}/lib" />
+  <property name="cust.overlay.lib" location="${basedir}/lib" />
+  <property name="cust.overlay.lib.ext" location="${basedir}/lib/ext" />
+  <property name="cust.overlay.build.lib" location="${basedir}/lib" />
+  <property name="cust.overlay.build.lib.ext" location="${basedir}/build-lib/ext" />
+  <property name="cust.xcenter-shared.overlay.folder" location="${basedir}/../${project.name.prefix}xcenter-shared" />
+
+  <!-- other misc properties -->
+  <script language="javascript">project.setProperty("cpucount",java.lang.Runtime.getRuntime().availableProcessors());</script>
+
+  <!-- paths to application files -->
+  <property name="xcenter.admin.classes.dir" location="${xadmin.artifact.dir}/WEB-INF/classes" />
+  <property name="xcenter.admin.lib.dir" location="${xadmin.artifact.dir}/WEB-INF/lib" />
+  <property name="xstore.lib.ext.dir" location="${xstore.artifact.dir}/xstore/lib/ext" />
+
+	
+  <!-- support injecting additional targets by extension if a build-custom.xml file is provided -->
+  <import optional="true" file="build-custom.xml" />
+
+  <!-- sanity check to confirm that the war file was provided -->
+  <fail message="Expected to find the contents of a base xadmin war file at ${xadmin.artifact.dir} but it was not available.">
+    <condition>
+      <not>
+        <and>
+          <available file="${xcenter.admin.classes.dir}" />
+          <available file="${xcenter.admin.lib.dir}" />
+        </and>
+      </not>
+    </condition>
+  </fail>
+
+  <!-- classpaths -->
+  <path id="base.app.classpath" description="Set up a classpath that includes the code and deps that are included in the base application">
+    <pathelement location="${xcenter.admin.classes.dir}" />
+    <fileset dir="${xcenter.admin.lib.dir}" includes="*.jar" />
+  </path>
+  <path id="project.overlay.classpath" description="Set up a classpath that includes the customer deps and code that will be included in the application">
+    <fileset dir="${cust.xcenter-shared.overlay.folder}/target" includes="*xcenter-shared.jar" erroronmissingdir="false" />
+    <pathelement location="${cust.xstore.overlay.bin.folder}" />
+    <fileset dir="${cust.xstore.overlay.lib.folder}" erroronmissingdir="false">
+      <include name="${customer.id.lc}-*.jar" />
+      <include name="ops-*.jar" />
+    </fileset>
+    <fileset dir="${cust.overlay.lib}" includes="*.jar" erroronmissingdir="false" />
+    <fileset dir="${cust.overlay.lib.ext}" includes="*.jar" erroronmissingdir="false" />
+    <fileset dir="${cust.overlay.build.lib}" includes="*.jar" />
+    <fileset dir="${cust.overlay.build.lib.ext}" includes="*.jar" />
+  </path>
+  <path id="build.classpath" description="Javac build classpath">
+    <path refid="project.overlay.classpath" />
+    <path refid="base.app.classpath" />
+    <fileset dir="${xstore.lib.ext.dir}" includes="servlet-api*.jar" />
+  </path>
+
+  <!-- resource collections used for exploded war and overlay creation -->
+  <union id="xadmin.overlay.resources">
+    <mappedresources>
+      <globmapper from="*" to="WEB-INF/classes/*" />
+      <union>
+        <fileset dir="${resource.dir}" />
+        <fileset dir="${classes.staging.dir}" />
+      </union>
+    </mappedresources>
+    <mappedresources>
+      <globmapper from="*" to="WEB-INF/lib/*" />
+      <union>
+        <fileset dir="${cust.overlay.lib.ext}" includes="*.jar" erroronmissingdir="false" />
+        <fileset dir="${cust.overlay.lib}" includes="*.jar" erroronmissingdir="false" />
+        <fileset dir="${cust.xcenter-shared.overlay.folder}/target" includes="*xcenter-shared.jar" erroronmissingdir="false" />
+      </union>
+    </mappedresources>
+  </union>
+  <union id="xstore.overlay.resources">
+    <mappedresources>
+      <globmapper from="*" to="WEB-INF/classes/*" />
+      <union>
+        <fileset dir="${cust.xstore.overlay.cust_config.folder}" />
+        <fileset dir="${cust.xstore.overlay.bin.folder}" />
+      </union>
+    </mappedresources>
+    <mappedresources>
+      <globmapper from="*" to="WEB-INF/lib/*" />
+      <fileset dir="${cust.xstore.overlay.lib.folder}" erroronmissingdir="false">
+        <include name="${customer.id.lc}-*.jar" />
+        <include name="ops-*.jar" />
+      </fileset>
+    </mappedresources>
+  </union>
+
+
+  <target name="clean-all" description="Cleans the output directory">
+    <delete dir="${output.dir}" />
+  </target>
+
+  <target name="clean-classes" description="Cleans the classes directory">
+    <delete dir="${classes.staging.dir}" />
+  </target>
+
+  <target name="clean-overlay" description="Cleans the overlay directory">
+    <delete dir="${overlay.dir}" />
+  </target>
+
+  <target name="clean-exploded-war" description="Cleans the exploded war directory">
+    <delete dir="${exploded.war.dir}" />
+  </target>
+
+  <target name="compile" depends="clean-classes" description="Compile main java code">
+    <mkdir dir="${classes.staging.dir}" />
+    <javac srcdir="${src.dir}" destdir="${classes.staging.dir}" debug="true" classpathref="build.classpath" />
+  </target>
+
+  <target name="build-overlay" depends="compile,clean-overlay" description="Assembles the overlay">
+    <copy todir="${overlay.dir}">
+      <resources refid="xadmin.overlay.resources" />
+    </copy>
+  </target>
+
+  <target name="refresh-exploded-war" depends="compile" description="Refreshes the exploded war directory structure.">
+    <copy todir="${exploded.war.dir}" overwrite="true">
+      <resources refid="xstore.overlay.resources" />
+      <resources refid="xadmin.overlay.resources" />
+    </copy>
+  </target>
+
+  <target name="build-exploded-war" depends="compile,clean-exploded-war" description="Assembles a directory structure roughly representative of a production war file on the disk">
+    <copy todir="${exploded.war.dir}">
+      <fileset dir="${xadmin.artifact.dir}" />
+      <resources refid="xstore.overlay.resources" />
+      <resources refid="xadmin.overlay.resources" />
+    </copy>
+  </target>
+</project>
