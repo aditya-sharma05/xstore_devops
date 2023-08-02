@@ -1,0 +1,151 @@
+<project name="template-core" default="print-summary" basedir=".">
+  <!-- This script is intended to determine environmental details for other template projects.    -->
+  <!-- Consumers of this information are expected to import/include this script to use this info. -->
+
+  <!-- read in the environment variables -->
+  <property environment="env" />
+
+  <!-- determine if this appears to be a build environment -->
+  <condition property="running.on.build.server">
+    <and>
+      <isset property="env.JOB_NAME" />
+      <isset property="env.BUILD_NUMBER" />
+    </and>
+  </condition>
+
+  <!-- locate this project -->
+  <dirname property="core.project.dir" file="${ant.file.template-core}" />
+  <basename property="core.project.name" file="${core.project.dir}" />
+
+  <!-- load custom properties if present (global [ie. in this project] first, then local to the project) -->
+  <property name="build.overrides.properties.filename" value="buildoverrides.properties" />
+  <property file="${core.project.dir}/${build.overrides.properties.filename}" />
+  <property file="${basedir}/${build.overrides.properties.filename}" />
+
+  <!-- ascertain customer and base details -->
+  <property name="project.name.prefix" value="${core.project.name}_" />
+  <property name="xstore.overlay.dir" location="${core.project.dir}/../${project.name.prefix}pos" />
+
+  <!-- make upper-case and lower-case variants of the customer name from this project's name -->
+  <script language="javascript">project.setProperty("build.customerId", project.getProperty("core.project.name").toUpperCase());</script>
+  <script language="javascript">project.setProperty("build.customerId.lc", project.getProperty("core.project.name").toLowerCase());</script>
+
+  <!-- determine the effective builder ant.install.properties file -->
+  <property name="env.PROPS_PREFIX" value="" description="if no PROPS_PREFIX is defined, map it to an empty string" />
+  <property name="builder.ant.install.properties.file" location="${xstore.overlay.dir}/installx/builder/${env.PROPS_PREFIX}ant.install.properties" />
+
+  <!-- load versions from builder ant.install.properties into build.baseversion -->
+  <loadproperties srcfile="${builder.ant.install.properties.file}">
+    <filterchain>
+      <linecontains>
+        <contains value="x.version" />
+      </linecontains>
+      <replaceregex byline="true" flags="g" pattern="(^.*)(=.*$)" replace="build.baseversion\2" />
+    </filterchain>
+  </loadproperties>
+  <loadproperties srcfile="${builder.ant.install.properties.file}">
+    <filterchain>
+      <linecontains>
+        <contains value="cust.version" />
+      </linecontains>
+      <replaceregex byline="true" flags="g" pattern="(^.*)(=.*$)" replace="build.custversion\2" />
+    </filterchain>
+  </loadproperties>
+  <loadproperties srcfile="${builder.ant.install.properties.file}">
+    <filterchain>
+      <linecontains>
+        <contains value="patch.version" />
+      </linecontains>
+      <replaceregex byline="true" flags="g" pattern="(^.*)(=.*$)" replace="build.patchversion\2" />
+    </filterchain>
+  </loadproperties>
+
+  <!-- load install type from ant.install.properties -->
+  <loadproperties srcfile="${builder.ant.install.properties.file}">
+    <filterchain>
+      <linecontains>
+        <contains value="x.type" />
+      </linecontains>
+    </filterchain>
+  </loadproperties>
+
+  <!-- determine the release root -->
+  <condition property="release.dir" value="${core.project.dir}/../../../../releases/${build.baseversion}" else="${core.project.dir}/../release">
+    <istrue value="${running.on.build.server}" />
+  </condition>
+
+  <!-- establish locations of referent artifacts -->
+  <property name="dbmake.artifact.dir" location="${release.dir}/dbmake" />
+  <property name="hwserv.artifact.dir" location="${release.dir}/hwserv" />
+  <property name="xadmin.artifact.dir" location="${release.dir}/xadmin" />
+  <property name="xadmin-database.artifact.dir" location="${release.dir}/xadmin-database" />
+  <property name="xcenter.artifact.dir" location="${release.dir}/xcenter" />
+  <property name="xenvironment.artifact.dir" location="${release.dir}/xenvironment" />
+  <property name="xservices.artifact.dir" location="${release.dir}/xservices" />
+  <property name="xservices-install.artifact.dir" location="${release.dir}/xservices-install" />
+  <property name="xstore.artifact.dir" location="${release.dir}/xstore" />
+  <fileset id="installx.jar.ref" dir="${release.dir}" includes="installx-*.jar" />
+  <property name="installx.jar.filename" refid="installx.jar.ref" />
+  <property name="installx.jar.file" location="${release.dir}/${installx.jar.filename}" />
+
+  <!-- confirm the structure/presence of referent artifacts -->
+  <available property="dbmake.artifact.dir.exists" file="${dbmake.artifact.dir}" />
+  <fail unless="dbmake.artifact.dir.exists" message="Expected to find a dbmake folder at ${dbmake.artifact.dir} but couldn't find it." />
+  <available property="hwserv.artifact.dir.exists" file="${hwserv.artifact.dir}" />
+  <fail unless="hwserv.artifact.dir.exists" message="Expected to find a hwserv folder at ${hwserv.artifact.dir} but couldn't find it." />
+  <available property="xadmin.artifact.dir.exists" file="${xadmin.artifact.dir}" />
+  <fail unless="xadmin.artifact.dir.exists" message="Expected to find an xadmin folder at ${xadmin.artifact.dir} but couldn't find it." />
+  <available property="xadmin-database.artifact.dir.exists" file="${xadmin-database.artifact.dir}" />
+  <fail unless="xadmin-database.artifact.dir.exists" message="Expected to find an xadmin-database folder at ${xadmin-database.artifact.dir} but couldn't find it." />
+  <available property="xcenter.artifact.dir.exists" file="${xcenter.artifact.dir}" />
+  <fail unless="xcenter.artifact.dir.exists" message="Expected to find an xcenter folder at ${xcenter.artifact.dir} but couldn't find it." />
+  <available property="xenvironment.artifact.dir.exists" file="${xenvironment.artifact.dir}" />
+ <!-- <fail unless="xenvironment.artifact.dir.exists" message="Expected to find a xenvironment folder at ${xenvironment.artifact.dir} but couldn't find it." />
+  <available property="xservices.artifact.dir.exists" file="${xservices.artifact.dir}" />
+  <fail unless="xservices.artifact.dir.exists" message="Expected to find an xservices folder at ${xservices.artifact.dir} but couldn't find it." />
+  <available property="xservices-install.artifact.dir.exists" file="${xservices-install.artifact.dir}" />
+  <fail unless="xservices-install.artifact.dir.exists" message="Expected to find an xservices-install folder at ${xservices-install.artifact.dir} but couldn't find it." /> -->
+  <available property="xstore.artifact.dir.exists" file="${xstore.artifact.dir}" />
+  <fail unless="xstore.artifact.dir.exists" message="Expected to find an xstore folder at ${xstore.artifact.dir} but couldn't find it." />
+  <available property="installx.jar.file.exists" file="${installx.jar.file}" />
+  <fail unless="installx.jar.file.exists" message="Expected to find an installx jar at ${installx.jar.file}, but couldn't find it." />
+
+  <!-- set up any other details -->
+  <property name="build.sysclasspath" value="last" />
+
+  <!-- define and register a listener which handles before-<target> and after-<target> hooks -->
+  <script language="javascript">
+    <![CDATA[                                                    
+    function donothing () {}
+    function executeTarget() {
+      var targetname = arguments[0] + "-" + arguments[1].toString();
+      var target = project.getTargets().get(targetname);
+      if (target != null) {
+        project.log(arguments[1], "calling target '" + target + "'", project.MSG_INFO);
+        target.performTasks();
+      } else if (project.getProperty("debug.before.after") != null) {
+        project.log(arguments[1], "'" + targetname + "' does not exist", project.MSG_INFO);
+      }
+    }
+    var listener = new org.apache.tools.ant.BuildListener() {                               
+        buildFinished: donothing,                                                                
+        buildStarted: donothing,                                                                 
+        messageLogged: donothing,                                                                
+        targetStarted: function(e) {
+          executeTarget("before", e.getTarget());
+        },                                                                
+        targetFinished:  function(e) {
+          executeTarget("after", e.getTarget());
+        },                                                               
+        taskStarted: donothing,                                                                  
+        taskFinished: donothing                                                                  
+    }                                                                                       
+    project.addBuildListener(listener)                                                      
+  ]]>
+  </script>
+
+  <target name="print-summary" description="Prints config summary info.">
+    <echo message="Building for customer ${build.customerId} (lower: ${build.customerId.lc}) with base version ${build.baseversion} cust version ${build.custversion} patch version ${build.patchversion} and install type ${x.type}" />
+    <echoproperties regex="(.*\.artifact\.dir|installx\.jar\.file)(?!\.exists|name)" />
+  </target>
+</project>
