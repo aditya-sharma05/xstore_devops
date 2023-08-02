@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="log.dir.name">log</Property>
+  </Properties>
+  <Appenders>
+    <XstRollingRandomAccessFile name="FILE" fileName="${sys:user.dir}/${sys:log.dir.name}/hardware-service.log"
+      filePattern="${sys:user.dir}/${sys:log.dir.name}/hardware-service.%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="%-5level %date %msg :: %c [%thread]%n"
+        header="**LOG BEGUN     %date%nloading ${log4j:configLocation}%n" footer="**LOG STOPPED   %date%n" />
+      <DefaultRolloverStrategy max="30" />
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <OnStartupTriggeringPolicy />
+      </Policies>
+    </XstRollingRandomAccessFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="dtv.hardware.service.DtvJposEntry" level="INFO" />
+
+    <Root level="INFO">
+      <AppenderRef ref="FILE" />
+    </Root>
+  </Loggers>
+</Configuration>
