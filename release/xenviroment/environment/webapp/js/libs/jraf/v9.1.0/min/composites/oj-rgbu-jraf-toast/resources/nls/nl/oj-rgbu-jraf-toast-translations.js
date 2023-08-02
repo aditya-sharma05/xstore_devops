@@ -1,0 +1,1 @@
+define({dismiss:"Annuleren",standardInfoTitle:"Informatiebericht",standardWarningTitle:"Waarschuwingsbericht",standardErrorTitle:"Foutmelding",standardSuccessTitle:"Succesbericht",announcementInfoTitle:"Informatiebericht",announcementWarningTitle:"Waarschuwingsbericht",announcementErrorTitle:"Foutmelding",announcementSuccessTitle:"Succesbericht"});

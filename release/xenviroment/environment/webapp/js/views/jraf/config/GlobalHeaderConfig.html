@@ -1,0 +1,76 @@
+<div class="jraf-config-form-wrapper">
+    <div class="jraf-config-form">
+        <oj-form-layout label-edge="start" max-columns="1">
+            <oj-label for="[[applicationNameId]]">
+                <oj-bind-text value="[[applicationNameLabel]]"></oj-bind-text>
+            </oj-label>
+            <oj-validation-group :id="[[applicationNameTracker]]"
+                valid="{{applicationNameValid}}">
+                <oj-input-text :id="[[applicationNameId]]"
+                    value="{{applicationName}}"
+                    placeholder="[[applicationNamePlaceholder]]"
+                    validators="[[applicationNameValidators]]"
+                    class="oj-flex-item"></oj-input-text>
+            </oj-validation-group>
+            <oj-bind-if test="[[renderProcessingIndicator]]">
+                <oj-label for="[[colorSelectId]]">
+                    <oj-bind-text value="[[colorLabel]]"></oj-bind-text>
+                </oj-label>
+                <div class="oj-flex oj-sm-flex-direction-horizontal oj-sm-flex-items-initial oj-sm-flex-wrap-nowrap">
+                    <oj-input-text :id="[[colorSelectId]]"
+                    value="{{colorString}}" class="oj-flex-item"></oj-input-text>
+                    <div class="jraf-color-swatch oj-flex-item"
+                        :style.background-color="[[colorString]]" :aria-label="[[colorSwatchLabel]]"></div>
+                </div>
+                <oj-label for="[[colorSpectrumId]]">
+                    <oj-bind-text value="[[colorSpectrumLabel]]"></oj-bind-text>
+                </oj-label>
+                <oj-color-spectrum :id="[[colorSpectrumId]]"
+                    class="jraf-config-spectrum"
+                    value="{{spectrumSelection}}">
+                </oj-color-spectrum>
+            </oj-bind-if>
+            <!-- align center needed until JET file select is available -->
+            <oj-label for="[[logoSelectId]]">
+                <oj-bind-text value="[[logoLabel]]"></oj-bind-text>
+            </oj-label>
+            <div class="oj-sm-margin-1x-top">
+                <oj-bind-if test="[[hasLogo()]]">
+                    <img :src="[[logoImage]]" role="presentation" class="jraf-config-logo"/>
+                    <oj-button on-oj-action="[[removeLogo]]">
+                        <span><oj-bind-text value="[[removeLogoLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </oj-bind-if>
+                <oj-bind-if test="[[!hasLogo()]]">
+                    <form :id="[[formId]]">
+                        <input type="file" accept="image/*" name="logo"
+                                :id="[[logoSelectId]]"
+                                data-bind="value: logoFile"/>
+                    </form>
+                </oj-bind-if>
+            </div>
+        </oj-form-layout>
+    </div>
+</div>
+
+<div class="jraf-config-footer">
+    <oj-toolbar :aria-label="[[toolbarLabel]]"
+                chroming="solid"
+                class="oj-sm-justify-content-flex-end oj-sm-margin-1x-end">
+        <oj-button on-oj-action="[[submitChangesAndClose]]">
+            <span><oj-bind-text value="[[applyCloseLabel]]"></oj-bind-text></span>
+        </oj-button>
+        <span role="separator" class="oj-toolbar-separator"></span>
+        <oj-button on-oj-action="[[cancelChangesAndClose]]">
+            <span><oj-bind-text value="[[cancelLabel]]"></oj-bind-text></span>
+        </oj-button>
+        <oj-button on-oj-action="[[submitChanges]]">
+            <span><oj-bind-text value="[[applyLabel]]"></oj-bind-text></span>
+        </oj-button>
+    </oj-toolbar>
+</div>
+
+<oj-rgbu-jraf-message-dialog :id="[[errorDialogId]]" level="error"
+                     message-text="[[errorDialogMessage]]"></oj-rgbu-jraf-message-dialog>
+<oj-rgbu-jraf-message-dialog :id="[[closeConfirmDialogId]]" level="confirmation" type="okCancel"
+                     message-text="[[closeConfirmMessage]]" ok-action="[[discardChangesAndClose]]"></oj-rgbu-jraf-message-dialog>

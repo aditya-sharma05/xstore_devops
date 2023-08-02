@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"További információ",videoHelpLaunchLabel:"Útmutató megtekintése"});

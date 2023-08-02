@@ -1,0 +1,1 @@
+define(["ojs/ojcore","ojs/ojmodule"],(function(a){"use strict";var e=a.Translations.getTranslatedString;return function(a){this.headerText=e("jraf.sidebar.appNavigator"),this.menuBodyModule={name:"jraf/appnavigator/NavigatorMenuBody",params:a}}}));

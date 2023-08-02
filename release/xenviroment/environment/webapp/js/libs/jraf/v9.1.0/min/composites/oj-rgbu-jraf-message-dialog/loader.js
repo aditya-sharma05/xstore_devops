@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-message-dialog.html","./oj-rgbu-jraf-message-dialog","text!./component.json","css!./css/oj-rgbu-jraf-message-dialog"],(function(e,s,a,o){"use strict";var t=JSON.parse(o),r=t.name;e.register(r,{view:s,viewModel:a,metadata:t})}));

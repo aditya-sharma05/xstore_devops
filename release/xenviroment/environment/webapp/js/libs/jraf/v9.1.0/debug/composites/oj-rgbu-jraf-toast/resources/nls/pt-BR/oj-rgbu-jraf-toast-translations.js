@@ -1,0 +1,1 @@
+define({dismiss:"Ignorar",standardInfoTitle:"Mensagem de Informação",standardWarningTitle:"Mensagem de Alerta",standardErrorTitle:"Mensagem de Erro",standardSuccessTitle:"Mensagem de Êxito",announcementInfoTitle:"Mensagem de Informação",announcementWarningTitle:"Mensagem de Alerta",announcementErrorTitle:"Mensagem de Erro",announcementSuccessTitle:"Mensagem de Êxito"});

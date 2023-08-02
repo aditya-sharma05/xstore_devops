@@ -1,0 +1,1 @@
+define({dismiss:"Odbaci",standardInfoTitle:"Informativna poruka",standardWarningTitle:"Poruka upozorenja",standardErrorTitle:"Poruka o greški",standardSuccessTitle:"Poruka o uspjehu",announcementInfoTitle:"Informativna poruka",announcementWarningTitle:"Poruka upozorenja",announcementErrorTitle:"Poruka o greški",announcementSuccessTitle:"Poruka o uspjehu"});

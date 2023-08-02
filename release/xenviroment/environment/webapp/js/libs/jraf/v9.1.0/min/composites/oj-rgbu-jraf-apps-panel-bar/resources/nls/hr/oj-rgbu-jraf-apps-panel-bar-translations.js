@@ -1,0 +1,1 @@
+define({nextLabel:"Dalje",previousLabel:"Prethodno"});

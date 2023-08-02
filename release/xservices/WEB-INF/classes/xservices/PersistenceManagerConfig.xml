@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PersistenceManagerTypeSet
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="PersistenceManagerConfig.xsd">
+  <PersistenceManagerType name="APP_VERSION_SERVICE">
+    <Online dtype="LocationGroup">
+      <LookupLocation>
+        <DataSourceName>Xcenter</DataSourceName>
+        <Order>1</Order>
+      </LookupLocation>
+      <LookupLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>2</Order>
+      </LookupLocation>
+      <PersistenceLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>1</Order>
+      </PersistenceLocation>
+    </Online>
+    <Offline dtype="LocationGroup">
+      <LookupLocation>
+        <DataSourceName>Xcenter</DataSourceName>
+        <Order>1</Order>
+      </LookupLocation>
+      <LookupLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>2</Order>
+      </LookupLocation>
+      <PersistenceLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>1</Order>
+      </PersistenceLocation>
+    </Offline>
+    <Training dtype="LocationGroup">
+      <LookupLocation>
+        <DataSourceName>Xcenter</DataSourceName>
+        <Order>1</Order>
+      </LookupLocation>
+      <PersistenceLocation>
+        <DataSourceName>Local</DataSourceName>
+        <Order>1</Order>
+      </PersistenceLocation>
+    </Training>
+  </PersistenceManagerType>
+</PersistenceManagerTypeSet>

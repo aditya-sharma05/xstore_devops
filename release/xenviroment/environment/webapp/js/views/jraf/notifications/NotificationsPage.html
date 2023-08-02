@@ -1,0 +1,98 @@
+<div class="oj-flex-bar oj-sm-flex-direction-column jraf-notificationsDetail-wrapper">
+    <div class="oj-flex-bar-start jraf-notificationsDetail-conveyorbelt-wrapper">
+        <oj-conveyor-belt class="jraf-notificationsDetail-conveyorbelt jraf-infotile-conveyorbelt" style="width: 100%;">
+            <oj-bind-for-each data="[[tileBindings]]">
+                <template>
+                    <oj-bind-if test="[[$current.data.render === undefined || $current.data.render]]">
+                        <oj-rgbu-jraf-info-tile
+                            :id="[[$current.data.tileId]]"
+                            tile-id="[[$current.data.tileId]]"
+                            severity="[[$current.data.severity]]"
+                            type="[[$current.data.type]]"
+                            label="[[$current.data.label]]"
+                            info-title="[[$current.data.infoTitle]]"
+                            metric="[[$current.data.metric]]"
+                            metric-label="[[$current.data.metricLabel]]"
+                            selected="[[$current.data.selected]]"
+                            disabled="[[$current.data.disabled]]"
+                            tile-selection-handler="[[$current.data.tileSelectionHandler]]">
+                                <div slot="customBody">
+                                    <oj-rgbu-jraf-apps-module module-options="[[$current.data.customBodyModuleOptions]]"></oj-rgbu-jraf-apps-module>
+                                </div>
+                        </oj-rgbu-jraf-info-tile>
+                    </oj-bind-if>
+                </template>
+            </oj-bind-for-each>
+        </oj-conveyor-belt>
+    </div>
+
+    <div :id="[[dataGridId]]" class="oj-flex-bar-middle">
+        <oj-rgbu-jraf-apps-table
+            style="height: 100%; width: 100%;"
+            class="jraf-apps-table-stretch-grid"
+            grid-name="[[notificationTable.label]]"
+            handle-refresh="[[notificationTable.handleRefresh]]"
+            handle-delete="[[notificationTable.handleDelete]]"        
+            disable-delete="[[notificationTable.disableDelete]]"
+            translations.delete-label="[[notificationTable.deleteLabel]]"
+            translations.refresh-label="[[notificationTable.refreshLabel]]"
+            columns="[[notificationTable.columns]]"
+            action-menu="[[notificationTable.actionMenu]]"
+            extra-buttons="[[notificationTable.extraButtons]]">
+            <oj-rgbu-jraf-simple-grid
+                slot="grid"
+                table-style="width: 100%"
+                label="[[notificationTable.label]]"
+                collection="[[notificationTable.collection]]"
+                selection="[[notificationTable.selection]]"
+                selection-listener="[[notificationTable.selectionListener]]"
+                columns="[[notificationTable.columns]]"
+                multiple-select="[[notificationTable.multipleSelect]]">
+            </oj-rgbu-jraf-simple-grid>
+        </oj-rgbu-jraf-apps-table>
+    </div>
+
+    <div class="oj-flex-bar-end jraf-notificationsDetail-footer-wrapper">
+        <div class="oj-flex-bar jraf-notificationsDetail-table-footer">
+            <span class="oj-flex-bar-start">
+                <oj-bind-text value="[[rowsSelectedLabel]]"></oj-bind-text>
+            </span>
+            <span class="oj-flex-bar-end">
+                <oj-bind-text value="[[selectedCount]]"></oj-bind-text>
+            </span>
+        </div>
+    </div>
+
+</div>
+
+<oj-dialog :id="[[multipleAssignDialogId]]"
+           style="display:none"
+           initial-visibility="hide"
+           position.my.horizontal="start"
+           position.my.vertical="top"
+           position.at.horizontal="start"
+           position.at.vertical="center"
+           position.of="[[assignDialogTarget()]]"
+           position.collision="flipfit"
+           dialog-title="[[assignmentDialogTitle]]">
+    <div slot="body">
+        <oj-bind-for-each data="[[curRowAssignments]]">
+            <template>
+                <div class="jraf-notificationsDetail-indent">
+                    <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+                </div>
+            </template>
+        </oj-bind-for-each>
+    </div>
+    <div slot="footer">
+      <oj-button on-oj-action="[[closeAssignmentDialog]]">
+          <oj-bind-text value="[[okLabel]]"></oj-bind-text>
+      </oj-button>
+    </div>
+</oj-dialog>
+
+<oj-bind-if test="[[createNotificationDialogModuleOptions]]">
+    <oj-rgbu-jraf-apps-module module-options="[[createNotificationDialogModuleOptions]]"></oj-rgbu-jraf-apps-module>
+</oj-bind-if>
+
+<oj-module config="[[alertsModuleConfig]]"></oj-module>

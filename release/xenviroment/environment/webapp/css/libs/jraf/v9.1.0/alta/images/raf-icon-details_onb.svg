@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="raf-icon-details" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<path style="fill:#FFFFFF;" d="M29,1H3C1.9,1,1,1.9,1,3v26c0,1.1,0.9,2,2,2h26c1.1,0,2-0.9,2-2V3C31,1.9,30.1,1,29,1z M29,15v2v5v2
+	v5h-5h-2h-5h-2h-5H8H3v-5v-2v-5v-2v-5h5h2h5h2h5h2h5V15z"/>
+<rect x="5" y="12" style="fill:#FFFFFF;" width="10" height="2"/>
+<rect x="5" y="16" style="fill:#FFFFFF;" width="10" height="2"/>
+<rect x="5" y="20" style="fill:#FFFFFF;" width="10" height="2"/>
+<rect x="5" y="24" style="fill:#FFFFFF;" width="10" height="2"/>
+<path style="fill:#FFFFFF;" d="M25,14v10h-6V14H25 M27,12H17v14h10V12L27,12z"/>
+</svg>

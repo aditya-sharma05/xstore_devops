@@ -1,0 +1,9 @@
+<oj-bind-if test="[[!isHierarchyRoot()]]">
+    <h3 class="jraf-horizontal-tasks-header" :id="[[tasksHeaderId]]">
+        <a href="#" on-click="[[navigateUpHierarchy]]" class="oj-flex oj-sm-align-items-center oj-sm-flex-items-initial">
+            <span class="jraf-horizontal-tasks-back jraf-icon oj-flex-item"></span>
+            <span class="oj-flex-item"><oj-bind-text value="[[drilledNodeLabel]]"></oj-bind-text></span>
+        </a>
+    </h3>
+</oj-bind-if>
+<div data-bind="ojModule: tasksListBodyModule"></div>

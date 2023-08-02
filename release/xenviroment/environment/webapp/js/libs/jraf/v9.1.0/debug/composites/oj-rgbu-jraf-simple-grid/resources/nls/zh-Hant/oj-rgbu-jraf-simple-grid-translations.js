@@ -1,0 +1,1 @@
+define({filterPlaceholder:"篩選",msgNoData:"沒有項目可顯示。",msgNoFilteredData:"沒有符合目前篩選的項目。"});

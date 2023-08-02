@@ -1,0 +1,1 @@
+define({dismiss:"Chiudi",success:"Operazione riuscita",info:"Informazioni",warning:"Avvertenza",error:"Errore",seeAllLabel:"Visualizza tutti",bulkMessage:{success:"{0} operazioni riuscite.",info:"Si sono verificati {0} eventi.",warning:"Si sono verificate {0} avvertenze.",error:"Si sono verificati {0} errori."}});

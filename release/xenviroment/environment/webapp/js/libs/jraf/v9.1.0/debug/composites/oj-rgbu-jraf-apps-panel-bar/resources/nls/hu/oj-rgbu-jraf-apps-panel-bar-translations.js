@@ -1,0 +1,1 @@
+define({nextLabel:"Következő",previousLabel:"Előző"});

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="raf-icon-alert-circle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#EDA620;}
+</style>
+<path class="st0" d="M16,2C8.3,2,2,8.3,2,16s6.3,14,14,14s14-6.3,14-14S23.7,2,16,2z M24.6,23H7.4c-0.6,0-1.1-0.7-0.7-1.3l8.6-15.4
+	c0.3-0.6,1.2-0.6,1.5,0l8.6,15.4C25.6,22.3,25.2,23,24.6,23z"/>
+<g>
+	<rect x="15" y="19" class="st0" width="2" height="2"/>
+	<rect x="15" y="10" class="st0" width="2" height="7"/>
+</g>
+</svg>

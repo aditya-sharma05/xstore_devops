@@ -1,0 +1,77 @@
+<div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap jraf-login-page">
+
+  <!-- login form area -->
+  <div class="oj-flex-item jraf-login-form-area">
+
+    <div class="oj-flex jraf-login-form-vertical-container oj-sm-justify-content-center oj-md-justify-content-space-around">
+      <div class="oj-flex-item oj-sm-align-self-center oj-sm-12 oj-md-8 oj-lg-4">
+        <div class="oj-form-layout jraf-login-form-container ">
+          <form class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline oj-form-no-dividers"
+                autocomplete="off" on-submit="[[onSubmit]]">
+
+            <h3 class="oj-sm-only-hide" aria-hidden="true">
+              <!-- This is left in here to keep the vertical space used so the box doesn't look lopsided -->
+            </h3>
+
+            <div class="oj-flex">
+              <div class="oj-flex-item">
+                <oj-label for="uid" show-required="false"> <!-- The required asterisk breaks accessibility on iOS -->
+                  <oj-bind-text value="[[userIdLabel]]" ></oj-bind-text>
+                </oj-label>
+              </div>
+              <div class="oj-flex-item">
+                <oj-input-text id="uid" value="{{userName}}"
+                               :class="[[mobileLayoutInputtext]]" required="true"></oj-input-text>
+              </div>
+            </div>
+            <div class="oj-flex">
+              <div class="oj-flex-item">
+                <oj-label for="pwd" show-required="false">
+                  <oj-bind-text value="[[passwordLabel]]"></oj-bind-text>
+                </oj-label>
+              </div>
+              <div class="oj-flex-item">
+                <oj-input-password id="pwd" value="{{pwd}}"
+                                   :class="[[mobileLayoutInputtext]]" required="true"></oj-input-password>
+              </div>
+            </div>
+            <hr aria-hidden="true">
+            <div :class="[[layoutFlexClasses]]">
+              <div :class="[[layoutFlexItemClasses]]">
+                <oj-button disabled="[[handlingLogin]]" on-oj-action="[[processLogin]]"
+                           :class="[[mobileLayoutButton]]">
+                  <oj-bind-text value="[[loginLabel]]"></oj-bind-text>
+                </oj-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="oj-flex-item oj-sm-12 oj-md-8 oj-lg-6 oj-sm-align-self-center oj-sm-only-hide">
+        <oj-module id="statusArea" class="oj-panel" role="main" config="[[statusConfig]]"></oj-module>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- footer area -->
+  <footer role="contentinfo" class="oj-flex-item oj-sm-flex-initial jraf-login-footer-area">
+    <div class="oj-flex">
+      <div class="oj-flex-item oj-sm-12 oj-md-9">
+        <div class="oj-text-secondary-color oj-text-sm">
+          <div><span><oj-bind-text value="[[versionInfo]]"></oj-bind-text></span></div>
+          <div><span><oj-bind-text value="[[copyrightStatement]]"></oj-bind-text></span></div>
+          <div><span><oj-bind-text value="[[trademarksStatement]]"></oj-bind-text></span></div>
+        </div>
+      </div>
+      <div class="oj-flex-item oj-sm-12 oj-md-3 oj-helper-text-align-right">
+        <div id="systemStateArea" role="main" data-bind="ojModule: { name: 'systemstate' }"></div>
+      </div>
+    </div>
+  </footer>
+
+  <oj-rgbu-jraf-message-dialog id="jraf-login-failed-dialog" level="error"
+                               message-text="[[loginErrorMessage]]">
+  </oj-rgbu-jraf-message-dialog>
+</div>

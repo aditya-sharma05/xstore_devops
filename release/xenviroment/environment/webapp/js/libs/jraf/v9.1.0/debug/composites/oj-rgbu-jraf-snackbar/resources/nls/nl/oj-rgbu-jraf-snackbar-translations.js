@@ -1,0 +1,1 @@
+define({dismiss:"Verwerpen",success:"Geslaagd",info:"Info",warning:"Waarschuwing",error:"Fout",seeAllLabel:"Alle tonen",bulkMessage:{success:"{0} successen opgetreden",info:"{0} gebeurtenissen opgetreden",warning:"{0} waarschuwingen opgetreden",error:"{0} fouten opgetreden"}});

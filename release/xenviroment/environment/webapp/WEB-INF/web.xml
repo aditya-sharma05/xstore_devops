@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+  <display-name>Xenvironment</display-name>
+
+  <filter>
+    <filter-name>XenvHeaderFilter</filter-name>
+    <filter-class>oracle.retail.xenvironment.webui.filter.XenvHeaderFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>XenvHeaderFilter</filter-name>
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+
+  <!-- This supplements the security constraints.
+       We basically have two packages: "rest" and "orest" - anything in "rest" requires a user to be logged
+       in, and that's what this filter accomplishes.  Anything in "orest" does NOT require the user to be
+       authenticated, although the code for the rest resource might restrict certain pieces of code based
+       on login status, see for example AlertsResource. -->
+  <filter>
+    <filter-name>notLoggedInFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>notLoggedInFilter</filter-name>
+    <url-pattern>/rest/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>XenvCORSFilter</filter-name>
+    <filter-class>oracle.retail.xenvironment.webui.filter.XenvCORSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>XenvCORSFilter</filter-name>
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>xenvSessionTimeoutFilter</filter-name>
+    <filter-class>oracle.retail.xenvironment.webui.filter.XenvSessionTimeoutFilter</filter-class>
+    <init-param>
+      <param-name>sessionTimeout</param-name>
+      <!-- Set the user session timeout in seconds -->
+      <param-value>600</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>xenvSessionTimeoutFilter</filter-name>
+    <!-- List the servlets below that are subject to the timeout -->
+    <url-pattern>/rest/roles</url-pattern>
+    <url-pattern>/rest/supportcap</url-pattern>
+    <url-pattern>/rest/supportcap/*</url-pattern>
+    <url-pattern>/rest/runaction</url-pattern>
+    <url-pattern>/rest/runaction/*</url-pattern>
+    <url-pattern>/rest/startstop</url-pattern>
+    <url-pattern>/rest/startstop/*</url-pattern>
+    <url-pattern>/rest/keepalive</url-pattern>
+    <url-pattern>/rest/userData</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>xenvWsAuthenticationFilter</filter-name>
+    <filter-class>dtv.util.net.filter.XstBasicAuthFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>xenvWsAuthenticationFilter</filter-name>
+    <url-pattern>/ws</url-pattern>
+  </filter-mapping>
+
+  <!-- IPC TOTP Password Filter -->
+  <filter>
+    <filter-name>xenvIpcAuthenticationFilter</filter-name>
+    <filter-class>dtv.ipc.rest.XstIpcTotpAuthFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>xenvIpcAuthenticationFilter</filter-name>
+    <url-pattern>/ipc/*</url-pattern>
+  </filter-mapping>
+
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>oracle.retail.xenvironment.XenvWebApplicationContext</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>org.eclipse.jetty.servlet.Default.dirAllowed</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
+  <!-- Prevent Jetty from adding the session ID to the URL -->
+  <context-param>
+    <param-name>org.eclipse.jetty.servlet.SessionIdPathParameterName</param-name>
+    <param-value>none</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>oracle.retail.xenvironment.XenvContextListener</listener-class>
+  </listener>
+
+  <!-- add this if we need to have visibility to the request.
+    <listener>
+   <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+   -->
+
+  <servlet>
+    <servlet-name>services</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>oracle.retail.xenvironment.webui.rest</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>services</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Services that do not require authentication -->
+  <servlet>
+    <servlet-name>open-services</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>oracle.retail.xenvironment.webui.orest</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>open-services</servlet-name>
+    <url-pattern>/orest/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- "IPC" Services -->
+  <servlet>
+    <servlet-name>ipcServices</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>oracle.retail.xenvironment.ipc.rest</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ipcServices</servlet-name>
+    <url-pattern>/ipc/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>logoutServlet</servlet-name>
+    <servlet-class>oracle.retail.xenvironment.webui.LogoutServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>logoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>storeStateServlet</servlet-name>
+    <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>storeStateServlet</servlet-name>
+    <url-pattern>/storeState</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>xenvWSServlet</servlet-name>
+    <servlet-class>oracle.retail.xenvironment.websocket.XenvironmentWebSocketServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>xenvWSServlet</servlet-name>
+    <url-pattern>/ws</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>10</session-timeout>
+    <cookie-config>
+      <http-only>true</http-only>
+      <secure>true</secure>
+      <max-age>3600</max-age>
+    </cookie-config>
+    <tracking-mode>COOKIE</tracking-mode>
+  </session-config>
+
+  <!-- This ensures that only the HTTP methods specified in security constraints
+       are allowed by the container - all others are denied by default -->
+  <deny-uncovered-http-methods/>
+
+  <!-- Only admin users can run actions or see the list of actions available to run. -->
+  <security-constraint>
+    <display-name>AdminSecurityConstraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>XenvRunatom</web-resource-name>
+      <url-pattern>/rest/run</url-pattern>
+      <http-method>POST</http-method>
+      <http-method>GET</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>XenvAdmin</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+
+  <!-- Support Capture Constraints -->
+  <!-- All users can perform GETs and POSTs -->
+  <security-constraint>
+    <display-name>AllUserSupportCapSecurityConstraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>XenvGeneralResource</web-resource-name>
+      <url-pattern>/rest/supportcap</url-pattern>
+      <http-method>POST</http-method>
+      <http-method>GET</http-method>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <!-- Only admin users can perform DELETEs -->
+  <security-constraint>
+    <display-name>AdminSupportCapSecurityConstraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>SupportCaptureResource</web-resource-name>
+      <url-pattern>/rest/supportcap</url-pattern>
+      <http-method>DELETE</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>XenvAdmin</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <!-- Anyone can POST to the /j_security_check login endpoint -->
+  <security-constraint>
+    <display-name>UnauthRestGetSecurityConstraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>XenvGeneralResource</web-resource-name>
+      <url-pattern>/j_security_check</url-pattern>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>xenvironmentLoginModule</realm-name>
+    <form-login-config>
+      <form-login-page>/index.html</form-login-page>
+      <form-error-page>/error.html</form-error-page>
+    </form-login-config>
+    <!--    <realm-name>xenvironmentLoginModule</realm-name>    -->
+  </login-config>
+
+  <security-role>
+    <role-name>XenvAdmin</role-name>
+  </security-role>
+
+</web-app>

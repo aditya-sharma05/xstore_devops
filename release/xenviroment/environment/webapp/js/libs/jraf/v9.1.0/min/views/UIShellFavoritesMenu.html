@@ -1,0 +1,80 @@
+<script type="text/html" :id="[[autosuggestOptionTemplateId]]">
+    <div class="jraf-tasks-autosuggest-result oj-listbox-highlighter-section">
+        <span class="jraf-tasks-autosuggest-label">
+            <oj-bind-text value="[[label]]"></oj-bind-text>
+        </span>
+        <oj-bind-if test="[[!$data.pathAvailable]]">
+            <span class="jraf-tasks-autosuggest-path jraf-sub-text">
+                <oj-bind-text value="[[$data.path]]"></oj-bind-text>
+            </span>
+        </oj-bind-if>
+        
+    </div>
+</script>
+
+<!-- Start Menu UI Content -->
+<div class="jraf-favorites-menu">
+    <div class="jraf-menu-header jraf-menu-content-area">
+        <div class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-align-items-center">
+            <div class="oj-flex-item">
+                <oj-bind-if test="[[isHierarchyRoot() || flatListEnabled()]]">
+                    <h3 class="jraf-menu-header-text">
+                        <oj-bind-text value="[[headerText]]"></oj-bind-text>
+                    </h3>
+                </oj-bind-if>
+                <oj-bind-if test="[[ !(isHierarchyRoot() || flatListEnabled()) ]]">
+                    <h3 class="jraf-menu-header-text oj-flex-item">
+                        <a href="#" class="jraf-hierarchy-back-link" on-click="[[navigateUpHierarchy]]">
+                            <oj-bind-text value="[[drilledNodeLabel]]"></oj-bind-text>
+                        </a>
+                    </h3>
+                </oj-bind-if>
+            </div>
+        </div>
+    </div>
+    
+    <div class="jraf-menu-search-container jraf-menu-content-area oj-flex oj-sm-flex-wrap-nowrap">
+        <div class="oj-flex-item">
+            <oj-combobox-one
+                :id="[[searchInputId]]"
+                :aria-label="[[searchHint]]"
+                placeholder="[[searchHint]]"
+                min-length="[[minimumAutosuggestLength]]"
+                value="[[searchString]]"
+                options="[[autosuggestSearch]]"
+                on-oj-value-updated="[[handleAutosuggestSelect]]"
+                option-renderer="[[getAutosuggestOptionTemplate()]]"
+                picker-attributes="[[searchInputPickerAttributes]]">
+                <span slot="end" ></span>
+            </oj-combobox-one>
+        </div>
+        <oj-bind-if test="[[hasFolders]]">
+            <oj-buttonset-many
+                value="{{flatListToggle}}"
+                chroming="borderless"
+                class="jraf-sidebar-grouped-list-toggle oj-flex-item"
+                display="icons">
+                <oj-option value="flatListEnabled"
+                           :title="[[flatListToggleLabel]]">
+                    <span slot='startIcon' class="oj-icon jraf-favorites-view-toggle-icon"></span>
+                </oj-option>
+            </oj-buttonset-many>
+        </oj-bind-if>
+    </div>
+    
+    <div class="jraf-menu-body">
+        <oj-module config="[[favoritesBodyModuleConfig]]"></oj-module>
+    </div>
+
+    <oj-bind-if test="[[!hideEditFavorites]]">
+        <div class="jraf-menu-footer">
+            <a href="#" on-click="[[editFavorites]]">
+                <oj-bind-text value="[[editFavoritesButtonLabel]]"></oj-bind-text>
+            </a>
+        </div>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[!menuDataLoaded()]]">
+        <span class="jraf-sidebar-loading" role="img" :title="[[loadingText]]"></span>
+    </oj-bind-if>
+</div>

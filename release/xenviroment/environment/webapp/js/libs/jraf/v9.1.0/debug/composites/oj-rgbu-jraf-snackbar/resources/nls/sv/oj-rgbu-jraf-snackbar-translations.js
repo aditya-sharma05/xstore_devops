@@ -1,0 +1,1 @@
+define({dismiss:"Avvisa",success:"Utförd",info:"Info",warning:"Varning",error:"Fel",seeAllLabel:"Se alla",bulkMessage:{success:"{0} har utförts.",info:"{0} händelser har inträffat.",warning:"{0} varningar.",error:"{0} fel har uppstått."}});

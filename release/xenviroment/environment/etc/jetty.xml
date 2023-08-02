@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+  <Call id="systemPropertiesLoader" class="oracle.retail.xenvironment.XenvSystemPropertiesLoader" name="load" />
+
+  <!-- =========================================================== -->
+  <!-- Server Thread Pool                                          -->
+  <!-- =========================================================== -->
+  <Get name="ThreadPool">
+    <Set name="minThreads" type="int">5</Set>
+    <Set name="maxThreads" type="int">25</Set>
+    <Set name="idleTimeout" type="int">60000</Set>
+    <Set name="detailedDump">false</Set>
+  </Get>
+
+  <!-- =========================================================== -->
+  <!-- Set connectors                                              -->
+  <!-- =========================================================== -->
+  <Call name="addConnector">
+    <Arg>
+      <New class="org.eclipse.jetty.server.ServerConnector">
+        <Arg name="server">
+          <Ref refid="Server" />
+        </Arg>
+        <Arg name="sslContextFactory">
+          <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory$Server">
+            <Set name="KeyStorePath"><SystemProperty name="dtv.util.net.ssl.keyStore" default="../xstoredata/environment/res/ssl/.keystore" /></Set>
+            <Set name="KeyStorePassword"><SystemProperty  name="server.keystore.password" default="" /></Set>
+            <Set name="KeyManagerPassword"><SystemProperty  name="server.keystore.password" default="" /></Set>
+            <Set name="IncludeCipherSuites">
+              <Array type="java.lang.String">
+                <Item>TLS_AES_256_GCM_SHA384</Item>
+                <Item>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</Item>
+                <Item>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</Item>
+                <Item>TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384</Item>
+                <Item>TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384</Item>
+                <Item>TLS_RSA_WITH_AES_256_GCM_SHA384</Item>
+              </Array>
+            </Set>
+            <Set name="includeProtocols">
+              <Array type="java.lang.String">
+                <Item>TLSv1.2</Item>
+                <Item>TLSv1.3</Item>
+              </Array>
+            </Set>
+            <Set name="certAlias"><SystemProperty  name="server.key.alias" default="" /></Set>
+          </New>
+        </Arg>
+        <Arg name="factories">
+          <Array type="org.eclipse.jetty.server.ConnectionFactory">
+            <Item>
+              <New class="org.eclipse.jetty.server.HttpConnectionFactory">
+                <Arg name="config">
+                  <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
+                    <Set name="secureScheme">https</Set>
+                    <Set name="securePort">9098</Set>
+                    <Set name="outputBufferSize">32768</Set>
+                    <Set name="requestHeaderSize">8192</Set>
+                    <Set name="responseHeaderSize">8192</Set>
+                    <Set name="sendServerVersion">false</Set>
+                    <Set name="sendDateHeader">false</Set>
+                    <Set name="headerCacheSize">512</Set>
+                    <Call name="addCustomizer">
+                      <Arg>
+                        <New class="org.eclipse.jetty.server.SecureRequestCustomizer" />
+                      </Arg>
+                    </Call>
+                  </New>
+                </Arg>
+              </New>
+            </Item>
+          </Array>
+        </Arg>
+        <Set name="port"><Property name="jetty.server.port" default="9098"/></Set>
+        <Set name="idleTimeout">30000</Set>
+      </New>
+    </Arg>
+  </Call>
+
+<!-- =========================================================== -->
+  <!-- Set handler Collection Structure                            --> 
+  <!-- =========================================================== -->
+  <Set name="handler">
+    <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+      <Set name="handlers">
+        <Array type="org.eclipse.jetty.server.Handler">
+     <Item>
+            <New id="WebappContext" class="org.eclipse.jetty.webapp.WebAppContext">
+              <Set name="CopyWebDir">false</Set>
+              <Set name="War">webapp</Set>
+              <Set name="ContextPath">/</Set>
+              <Set name="War"><SystemProperty name="jetty.base" default="."/>/webapp</Set>
+            </New>
+          </Item>
+          <Item>
+            <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection" />
+          </Item>
+          <Item>
+            <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler" />
+          </Item>
+        </Array>
+      </Set>
+    </New>
+  </Set>
+   
+  
+  <Call name="addBean">
+    <Arg>
+      <New class="org.eclipse.jetty.jaas.JAASLoginService">
+      <Set name="name">xenvironmentLoginModule</Set>
+        <Set name="LoginModuleName">xenvironmentLoginModule</Set>
+        <Set name="RoleClassNames">
+          <Array type="java.lang.String">
+            <Item>oracle.retail.xstore.passwd.jaas.SimpleRole</Item>
+          </Array>
+        </Set>
+      </New>
+    </Arg>
+  </Call>
+  
+  <!-- =========================================================== -->
+  <!-- extra options                                               -->
+  <!-- =========================================================== -->
+  <Set name="stopAtShutdown">true</Set>
+  <Set name="stopTimeout">30000</Set>
+  <Set name="dumpAfterStart">false</Set>
+  <Set name="dumpBeforeStop">false</Set>
+
+
+
+
+</Configure>

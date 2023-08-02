@@ -1,0 +1,226 @@
+
+.text-circle {
+    width: 16px;
+    /*height: 16px;*/
+    line-height: 12px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 8px !important;
+    /*border: 2px solid #666;*/
+    border: none;
+    padding: 1px;
+}
+
+
+.xenv-tile {
+    height: 150px;
+    color: white;
+    align-content: flex-start;
+    font-weight: 700;
+    font-size: 95%;
+}
+
+.xenv-tile a:active {
+    font-weight: 700;
+}
+
+.xenv-tile a {
+    color: white;
+}
+
+
+.xenv-tile-leftside {
+    font-size: 115%;
+}
+
+.xenv-tile-margin {
+    margin: 8px;
+}
+
+.xenv-left-justified {
+    justify-content: left !important;
+}
+
+
+/* Red button */
+.xenv-button-red.oj-buttonset .oj-button-jqui.oj-default.oj-button-full-chrome,
+.xenv-button-red.oj-buttonset .oj-button-jqui.oj-focus-only.oj-button-full-chrome, .xenv-button-red.oj-button-jqui.oj-default.oj-button-full-chrome, .xenv-button-red.oj-button-jqui.oj-focus-only.oj-button-full-chrome,
+.xenv-button-red.oj-button.oj-default.oj-button-full-chrome .oj-button-button,
+.xenv-button-red.oj-button.oj-focus-only.oj-button-full-chrome .oj-button-button,
+.xenv-oj-option-red {
+    background-color: #dd3333;
+    background-image: none;
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.tile-color0 {
+    background-color: rgb(172, 76, 46);
+}
+
+.tile-color1 {
+    background-color: rgb(124, 63, 150);;
+}
+
+.tile-color3 {
+    background-color: rgb(199, 55, 19);
+}
+
+.tile-color3 {
+    background-color: rgb(45, 90, 153);
+}
+
+.tile-color4 {
+    background-color: rgb(3, 116, 126);
+}
+
+.tile-color5 {
+    background-color: rgb(12, 121, 5);
+}
+
+.tile-rightside-test {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding-left: 8px;
+}
+
+.tilepad {
+    padding: 5px;
+}
+
+.oj-datagrid-column-header {
+    display: none;
+}
+
+.xenv-two-button {
+    display: flex;
+    flex: 1 1 auto;
+    margin: 2px;
+}
+
+.xenv-navigation-list li {
+    border: none !important;
+    border-width: 0 !important;
+}
+
+.xenv-actions-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4gQUDy4WSSyNYQAAAP9JREFUaN7tmEESgjAMRROH4Vr0ZrISvIYn0bsI1/huWDBVxjattjD/r1j0p32QhkxEKKoOAWgBXAHM2NYEYATQ1ggwIlxDjQBzBMCca1/NCICojVWz7H3a+90jAAEIkE8xpXGqEeD2o7V/bSWGpV3Y0hPApcpW4gNQvzp4z0tMAAIQ4JgA+qUUOhFxxthORLrl+SEid2Ocu6puepuAQ5wzvKhuBWOCOGwKNRFrY9MgJYVc6BdrInMxuCVY2ocug5dllAAEIMBelDJhLuX1AcwT5lJeH8A8YS7lVS+QecJcyssqRAACHAwgZcJcxOsDpEyYS3nffummCXMpL0Ul6gUPkSJw5fGIkwAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+}
+
+.xenv-actions-selected-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4gQUDy4WSSyNYQAAAP9JREFUaN7tmEESgjAMRROH4Vr0ZrISvIYn0bsI1/huWDBVxjattjD/r1j0p32QhkxEKKoOAWgBXAHM2NYEYATQ1ggwIlxDjQBzBMCca1/NCICojVWz7H3a+90jAAEIkE8xpXGqEeD2o7V/bSWGpV3Y0hPApcpW4gNQvzp4z0tMAAIQ4JgA+qUUOhFxxthORLrl+SEid2Ocu6puepuAQ5wzvKhuBWOCOGwKNRFrY9MgJYVc6BdrInMxuCVY2ocug5dllAAEIMBelDJhLuX1AcwT5lJeH8A8YS7lVS+QecJcyssqRAACHAwgZcJcxOsDpEyYS3nffummCXMpL0Ul6gUPkSJw5fGIkwAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    filter: invert(100%);
+}
+
+.xenv-system-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4gUBDxwdaSmOhQAAAgFJREFUaN7tl0trFEEURs8NGjWYBySzMeLClZlsDerKIGp+gfoDfUD8CbpLFoYkWyfZOJCFbsYJeYiaKBw3NTAOeffYMyN1oaChq5v7Vd263ykY8IiiP1ArwA1gCqgAY8B14HLH1F/AN2APaABfgS8R0ShFgHoJuAfMpTEL3AZGC67BPvAJqAFrwCqwGhG/u7JF6iP1jbptebGtvlbniyR+U12297GkTp+7hNQaMNMnZ7UWEbNHvRg6aRP6qNkcm8tJAp4Cy32Q/BKwUOQszKuv1GaJdd9UX6oPL9xG1TsRsdnRRufaRjW10YmCK7wD1IGPwHpqpWvtbVSdiYiN8wrYAl5ExMopOzTZYWQTwFXgWsfUH8DPlHC7kTVP+f8DYDEibp23dFrxTn2mjpV2YnVcfa6+byVxkRLq/OgQWEnbvJ6csx4R+wWTHU2lWAXupnEfGP4r0YgoKuC4aACfgWZ63gO+Awcd864AI8B4KrepVHqVMzHPPxRQDnUeI2Bo0HE6C+hnAZt9lOfGRQQspLbZ6/hQlIWeqG/V3RJZaEddVB93k4WGk8G0zKbaxStlPRljyyRXIuKwLBaqANPAZNulfiQZV3scJIPbTRx0pkt9ZqHMQpmFMgtlAZmFMgtlFsoslFkos1BmocxCWUBmocxCA8ZCRwjpGQt1RUCvWOi/jz8LtW6G/nQx2gAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+}
+
+.xenv-system-selected-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4gUBDxwdaSmOhQAAAgFJREFUaN7tl0trFEEURs8NGjWYBySzMeLClZlsDerKIGp+gfoDfUD8CbpLFoYkWyfZOJCFbsYJeYiaKBw3NTAOeffYMyN1oaChq5v7Vd263ykY8IiiP1ArwA1gCqgAY8B14HLH1F/AN2APaABfgS8R0ShFgHoJuAfMpTEL3AZGC67BPvAJqAFrwCqwGhG/u7JF6iP1jbptebGtvlbniyR+U12297GkTp+7hNQaMNMnZ7UWEbNHvRg6aRP6qNkcm8tJAp4Cy32Q/BKwUOQszKuv1GaJdd9UX6oPL9xG1TsRsdnRRufaRjW10YmCK7wD1IGPwHpqpWvtbVSdiYiN8wrYAl5ExMopOzTZYWQTwFXgWsfUH8DPlHC7kTVP+f8DYDEibp23dFrxTn2mjpV2YnVcfa6+byVxkRLq/OgQWEnbvJ6csx4R+wWTHU2lWAXupnEfGP4r0YgoKuC4aACfgWZ63gO+Awcd864AI8B4KrepVHqVMzHPPxRQDnUeI2Bo0HE6C+hnAZt9lOfGRQQspLbZ6/hQlIWeqG/V3RJZaEddVB93k4WGk8G0zKbaxStlPRljyyRXIuKwLBaqANPAZNulfiQZV3scJIPbTRx0pkt9ZqHMQpmFMgtlAZmFMgtlFsoslFkos1BmocxCWUBmocxCA8ZCRwjpGQt1RUCvWOi/jz8LtW6G/nQx2gAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    filter: invert(100%);
+}
+
+.xenv-home-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAaJJREFUeNpi/P//P8NAAiaGAQa0dEA3EP8D4t9APBGXIkYaRsEXIOaGsj8DMR+1Q4ATiGcC8XIchj9FYv/DaQooBMjAGkB8+T8C3AJiAzQ10kB8ECr/AZdZ5FgeDcSf/2OC70CchqaWA4jXUMsBXEA8D83SVUC8Ek1sCRDzIOljBuI2Sh2AHuS/gDgPST4XKgYDN7FECdkOSEAL8kdAbIFFnQVUDl+UkOQAUJDPRwvenUAsiiYPwtxQMVGoGnxRQpQDtNGC/C8QNwExE1ReB4ivI8lfh4oxQNU0QfVgkyfoAFCQf0XS/AaIPZDk09DkYeArWpB7QPXijRJkDjeWID8BxHJQeT4gXvqfMFgGVcsA1XsCX5Qw4AhSEJgMxOxQeQNoYUMsAKk1hOplh5r1H1uUYAtyUIqPQgqZHCD+8Z908AOqF2ZOFFpuAtmZiC8XCEBLMUrBWqhZWO3BVxveA2JFKtWM94FYidTqmNr1NOOIaxENfwfYQuOVEcomL2FQkAgZKVQ/mgZGHUDQAT+paM83chwwl4oOmD8QXbOhkQYAAgwA261A+cIjI90AAAAASUVORK5CYII=");
+    background-repeat: no-repeat;
+}
+
+.xenv-home-selected-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAaJJREFUeNpi/P//P8NAAiaGAQa0dEA3EP8D4t9APBGXIkYaRsEXIOaGsj8DMR+1Q4ATiGcC8XIchj9FYv/DaQooBMjAGkB8+T8C3AJiAzQ10kB8ECr/AZdZ5FgeDcSf/2OC70CchqaWA4jXUMsBXEA8D83SVUC8Ek1sCRDzIOljBuI2Sh2AHuS/gDgPST4XKgYDN7FECdkOSEAL8kdAbIFFnQVUDl+UkOQAUJDPRwvenUAsiiYPwtxQMVGoGnxRQpQDtNGC/C8QNwExE1ReB4ivI8lfh4oxQNU0QfVgkyfoAFCQf0XS/AaIPZDk09DkYeArWpB7QPXijRJkDjeWID8BxHJQeT4gXvqfMFgGVcsA1XsCX5Qw4AhSEJgMxOxQeQNoYUMsAKk1hOplh5r1H1uUYAtyUIqPQgqZHCD+8Z908AOqF2ZOFFpuAtmZiC8XCEBLMUrBWqhZWO3BVxveA2JFKtWM94FYidTqmNr1NOOIaxENfwfYQuOVEcomL2FQkAgZKVQ/mgZGHUDQAT+paM83chwwl4oOmD8QXbOhkQYAAgwA261A+cIjI90AAAAASUVORK5CYII=");
+    background-repeat: no-repeat;
+    filter: invert(100%);
+}
+
+oj-rgbu-jraf-apps-table.actions-menu-display-none oj-menu-button:nth-child(1) {
+    display: none !important;
+}
+
+oj-rgbu-jraf-apps-table.view-menu-display-none oj-menu-button:nth-child(2) {
+    display: none !important;
+}
+
+oj-rgbu-jraf-apps-table.separator-display-none .oj-toolbar-separator {
+    display: none !important;
+}
+
+.xenv-x-icon {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAApklEQVR42mNgGAWjYBSQCkpKurkbGhpECKkDqQGppcgyoCFcVXVN+4D4Wml9vQQudZWVbaKVdU2XgOqOlJV18lJioUhVXfNFoEH/QTTIYGyWIashJjTwgoqKdkGgYWcgBqL6FMln1LEMn6VU9xmh4KWpZTh8SlvLMBMIZpwO3SDFlkDwpV6KLcOV9KluKd0zPqJow28QwqeNhykq2uheeI+CUTAyAQBhFOCc+9cjbwAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    width: 28px;
+    height: 28px;
+}
+
+.xenv-status-icon {
+    vertical-align: middle;
+    height: 1.2em;
+}
+
+.xenv-closed-background {
+    background-color: darkred;
+}
+
+.xenv-open-background {
+    background-color: #2b6242;
+}
+
+.xenv-status-indicator {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.oj-rgbu-jraf-toast-message {
+    text-align: left !important
+}
+
+oj-menu-button:nth-of-type(2n){
+    display: none !important
+}
+
+/* Make the login form look good on mobile devices */
+.jraf-login-form-container {
+    width: auto;
+}
+
+#alertsTable {
+    min-width: 100%;
+}
+
+.jraf-login-form-area {
+  overflow-y: scroll;
+}
+
+.xenv-device-detail-active-icon:before {
+   content: url('images/device-active-green.png');
+   margin-right: 10px;
+   display: inline-flex;
+   vertical-align: middle;
+}
+
+.xenv-device-detail-inactive-icon:before {
+   content: url('images/device-inactive-red.png');
+   margin-right: 10px;
+   display: inline-flex;
+   vertical-align: middle;
+}
+
+.xenv-device-detail-searching-icon:before {
+   content: url('images/device-time-red.png');
+   margin-right: 10px;
+   display: inline-flex;
+   vertical-align: middle;
+}
+
+.xenv-device-lead-icon:after {
+  content: url('images/device-lead.png');
+   margin-left: 10px;
+   display: inline-flex;
+   vertical-align: middle;
+}
+

@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Ulteriori informazioni",videoHelpLaunchLabel:"Avvio dell'esercitazione"});

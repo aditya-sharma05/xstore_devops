@@ -1,0 +1,79 @@
+{
+    "name": "oj-rgbu-jraf-apps-panel-bar",
+    "displayName": "Apps Panel Bar",
+    "description": "The Apps Panel Bar displays a toolbar at the bottom of the page with four content areas: main actions, navigation actions, additional actions and a custom content region.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "buttonSize": {
+            "description": "An optional parameter to change the size of the buttons. Valid values are: small, large, and xl. No value results in the default medium size.",
+            "type": "string"
+        },
+        "mainActionChroming": {
+            "description": "A chroming value for the main action buttons. Valid values are solid, borderless, and outlined. (full and half are deprecated)",
+            "type": "string",
+            "value": "solid"
+        },
+        "mainActionButtons": {
+            "description": "An array of buttons to display in the main actions section. Buttons are rendered right to left.",
+            "type": "array<object>"
+        },
+        "navigationChroming": {
+            "description": "A chroming value for the navigation buttons. Valid values are solid, borderless and outlined. (full and half are deprecated)",
+            "type": "string",
+            "value": "solid"
+        },
+        "navigationIconOnly": {
+            "description": "A boolean value for whether navigation buttons should render only icons. Default false.",
+            "type": "boolean",
+            "value": false
+        },
+        "nextCallback": {
+            "description": "The navigation callback to be executed when the next button is pressed. Providing this will cause the button to be rendered.",
+            "type": "function"
+        },
+        "nextDisabled": {
+            "description": "A boolean for whether the next button is disabled. This parameter supports observables. Default false.",
+            "type": "boolean",
+            "value": false
+        },
+        "nextShortcut": {
+            "description": "A character to use as part of a keyboard shortcut for the next button. The full shortcut is determined by the browser.",
+            "type": "string"
+        },
+        "prevCallback": {
+            "description": "The navigation callback to be executed when the previous button is pressed. Providing this will cause the button to be rendered.",
+            "type": "function"
+        },
+        "prevDisabled": {
+            "description": "A boolean for whether the previous button is disabled. This parameter supports observables. Default false.",
+            "type": "boolean",
+            "value": false
+        },
+        "prevShortcut": {
+            "description": "A character to use as part of a keyboard shortcut for the previous button. The full shortcut is determined by the browser.",
+            "type": "string"
+        },
+        "extraActionChroming": {
+            "description": "A chroming value for the extra action buttons. Valid values are solid, borderless, and outlined. (full and half are deprecated)",
+            "type": "string",
+            "value": "solid"
+        },
+        "extraActionButtons": {
+            "description": "An array of buttons to display in the extra actions section. Buttons are rendered right to left.",
+            "type": "array<object>"
+        },
+        "layout": {
+            "description": "Layout type.  Supported types include 'float' (default) and 'inline'.  Use inline layout to control the position of the apps panel bar component within your content.",
+            "type": "string",
+            "value": "float"
+        }
+    },
+    "methods": {},
+    "slots": {
+        "customContent": {
+            "displayName": "Custom Content",
+            "description": "Displays user-defined content alongside the buttons"
+        }
+    }
+}

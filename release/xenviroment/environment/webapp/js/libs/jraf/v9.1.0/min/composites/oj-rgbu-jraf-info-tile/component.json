@@ -1,0 +1,81 @@
+{
+    "name": "oj-rgbu-jraf-info-tile",
+    "displayName": "Info Tile",
+    "description": "An info tile component is typically  shown on a page to visually highlight a summary, an important aggregation of information, or available administrative actions on the page",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "tileId": {
+            "displayName": "Tile Id",
+            "description": "A unique id for the tile on the user interface.",
+            "type": "string",
+            "required": true
+        },
+        "severity": {
+            "displayName": "Severity",
+            "description": "The severity of the tile: 'none', 'low', 'medium', or 'high'. Default 'none'. This parameter supports observables.",
+            "type": "string",
+            "enumValues": ["none", "low", "medium", "high"],
+            "required": false,
+            "value": "none"
+        },
+        "type": {
+            "displayName": "Type",
+            "description": "Type of the tile: 'admin' or 'metric'. Default 'metric'.",
+            "type": "string",
+            "enumValues": ["admin", "metric"],
+            "required": false,
+            "value": "metric"
+        },
+        "label": {
+            "displayName": "Label",
+            "description": "Accesibility label for the tile. This parameter supports observables.",
+            "type": "string",
+            "required": false
+        },
+        "infoTitle": {
+            "displayName": "Title",
+            "description": "Title of the tile. This parameter supports observables.",
+            "type": "string",
+            "required": true
+        },
+        "metric": {
+            "displayName": "Metric",
+            "description": "Metric to highlight in the tile. This parameter supports observables.",
+            "type": "string",
+            "required": false
+        },
+        "metricLabel": {
+            "displayName": "Metric Label",
+            "description": "Label for metric displayed in tile. This parameter supports observables.",
+            "type": "string",
+            "required": false
+        },
+        "selected": {
+            "displayName": "Selected",
+            "description": "Contains a boolean tracking whether or not the tile is selected.  This parameter should be an observable.",
+            "type": "boolean",
+            "required": true
+        },
+        "disabled": {
+            "displayName": "Disabled",
+            "description": "Whether the tile is disabled or not. Default false. This parameter supports observables.",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "tileSelectionHandler": {
+            "displayName": "Tile Selection Handler",
+            "description": "Callback for the tile when clicked. Tile id is passed in this function",
+            "type": "function",
+            "required": false
+        }
+    },
+    "methods": {},
+    "slots": {
+        "customBody": {
+            "displayName": "Custom Body",
+            "description": "Displays user-defined content instead of the normal message format"
+        }
+    }
+}

@@ -1,0 +1,288 @@
+{
+    "name": "oj-rgbu-jraf-simple-grid",
+    "displayName": "Simple Grid",
+    "description": "The Simple Grid component provides a basic grid with row-based selections. It leverages the JET data grid (oj-data-grid) and supports multicolumn sorting.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "label": {
+            "displayName": "Label",
+            "description": "Label describing the simple grid",
+            "type": "string",
+            "required": true
+        },
+        "tableClassNames": {
+            "displayName": "Grid Classes",
+            "description": "CSS class string to be applied to the grid.",
+            "type": "string",
+            "required": false
+        },
+        "tableStyle": {
+            "displayName": "Grid Style",
+            "description": "CSS style string to be applied to the grid.",
+            "type": "string",
+            "required": false
+        },
+        "disableSorting": {
+            "displayName": "Disable sorting",
+            "description": "Convenience property to disable sorting for all columns.",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "filteringEnabled": {
+            "displayName": "Filtering Enabled",
+            "description": "Enable filtering columns by value",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "filterMethod": {
+            "displayName": "Filter Method",
+            "description": "How to combine multiple filters. Supported options are 'and' and 'or', defaults to 'and'",
+            "type": "string",
+            "required": false,
+            "value": "and",
+            "enumValues": ["and", "or"]
+        },
+        "columns": {
+            "displayName": "Columns",
+            "description": "Column information",
+            "type": "array",
+            "required": true,
+            "properties": {
+                "valueName": {
+                    "displayName": "Value Name",
+                    "description": "Name of the attribute in the collection that this column data is configuring for display in the simple grid.",
+                    "type": "string",
+                    "required": true
+                },
+                "label": {
+                    "displayName": "Label",
+                    "description": "String to display in the column header. If not provided, defaults to the attribute name in the collection.",
+                    "type": "string",
+                    "required": false
+                },
+                "dataType": {
+                    "displayName": "Data Type",
+                    "description": "Type of data in the column. This affects how cells will be rendered. Supported types are 'string', 'icon', 'date', 'number' and 'custom'. Defaults to 'string'.  See the application table section of the dev guide for more detail about each data type.",
+                    "type": "string",
+                    "required": false
+                },
+                "numberConverterOptions": {
+                    "displayName": "Number Converter Options",
+                    "description": "Options used to initialize the JET IntlNumberConverter for the 'number' data type.  (see IntlNumberConverter.ConverterOptions type definition)",
+                    "type": "object",
+                    "required": false
+                },
+                "customRenderer": {
+                    "displayName": "Custom Renderer",
+                    "description": "The function to call with the JET cell context for the 'custom' data type. It should return either a string or DOM element to display in the cell.",
+                    "type": "function",
+                    "required": false
+                },
+                "callback": {
+                    "displayName": "Callback Function",
+                    "description": "Function to invoke with event and JET cell context when a cell in the column is clicked.",
+                    "type": "function",
+                    "required": false
+                },
+                "width": {
+                    "displayName": "Width",
+                    "description": "String with a CSS length for the width of the column",
+                    "type": "string",
+                    "required": false
+                },
+                "cellAlignment": {
+                    "displayName": "Cell Allignment",
+                    "description": "String designating the alignment of text in the column. Supported options are 'start', 'center', and 'end'.",
+                    "type": "string",
+                    "required": false
+                },
+                "headerClassNameFunction": {
+                    "displayName": "Header Class Name Function",
+                    "description": "A function to call with the JET header context returning a string of CSS classes to apply to the column header.",
+                    "type": "function",
+                    "required": false
+                },
+                "headerStyleFunction": {
+                    "displayName": "Header Style Function",
+                    "description": "A function to call with the JET header context returning a string of CSS styles to apply to the column header.",
+                    "type": "function",
+                    "required": false
+                },
+                "cellClassNameFunction": {
+                    "displayName": "Cell Class Name Function",
+                    "description": "A function to call with the JET cell context returning a string of CSS classes to apply to cells in the column.",
+                    "type": "function",
+                    "required": false
+                },
+                "cellStyleFunction": {
+                    "displayName": "Cell Style Function",
+                    "description": "A function to call with the JET cell context returning a string of CSS styles to apply to cells in the column.",
+                    "type": "function",
+                    "required": false
+                },
+                "sortable": {
+                    "displayName": "Sortable",
+                    "description": "Enable sorting on the column. Defaults to the setting of the data collection.",
+                    "type": "boolean",
+                    "required": false
+                },
+                "filterEnabled": {
+                    "displayName": "Filter Enabled",
+                    "description": "Enable filtering on the column. Defaults to false.",
+                    "type": "boolean",
+                    "required": false,
+                    "value": false
+                },
+                "filterOptions": {
+                    "displayName": "Filter Options",
+                    "description": "Options for filtering the column.  Supports oj.DataProvider. (see oj-select-single 'data' property)",
+                    "type": "object",
+                    "required": false
+                },
+                "filterValue": {
+                    "displayName": "Filter Value",
+                    "description": "Current value to filter by",
+                    "type": "ko.observable",
+                    "required": false
+                },
+                "shown": {
+                    "displayName": "Shown",
+                    "description": "Show or hide the column.  Defaults to true (shown).",
+                    "type": "boolean",
+                    "required": false
+                }
+            }
+        },
+        "collection": {
+            "displayName": "Collection",
+            "description": "Collection containing the data and configurations for the simple grid.  Note: When used with oj-rgbu-jraf-apps-table and multi-column sort is enabled, JRAF sets a sortCriteria property on the collection before sorting the collection and refreshing the grid.  Note: When filtering is enabled, JRAF sets a filterCriteria property on the collection before refreshing the collection.",
+            "type": "oj.Collection",
+            "required": true
+        },
+        "paging": {
+            "displayName": "Paging",
+            "description": "Indicates whether or not the simple grid should use a PagingDataGridDataSource to page the oj.Collection data.",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "rowHeader": {
+            "displayName": "Row Header",
+            "description": "Name of column to use as row header.  Note: By default the row header text is transparent.  Use the rowHeaderClassNameFunction or rowHeaderStyleFunction callbacks to make the text visible.",
+            "type": "string",
+            "required": false
+        },
+        "rowHeaderClassNameFunction": {
+            "displayName": "Row Header Class Name Function",
+            "description": "Function to call with JET header context returning CSS class to apply to the row headers",
+            "type": "function",
+            "required": false
+        },
+        "rowHeaderStyleFunction": {
+            "displayName": "Row Header Style Function",
+            "description": "Function to call with JET header context returning a CSS style string to apply to the row headers",
+            "type": "function",
+            "required": false
+        },
+        "multipleSelect": {
+            "displayName": "Multiple Select",
+            "description": "Whether to allow selecting multiple rows.",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "selection": {
+            "displayName": "Selection",
+            "description": "Observable Array to track the app table's selection",
+            "type": "ko.observableArray",
+            "required": false,
+            "writeback": true
+        },
+        "selectionListener": {
+            "displayName": "Selection Listener",
+            "description": "Callback fired when selection changes",
+            "type": "function",
+            "required": false
+        }, 
+        "scrollPolicy": {
+            "displayName": "Scroll Policy",
+            "description": "Scroll policy for the underlying grid. Valid options are 'scroll' and 'loadMoreOnScroll'",
+            "type": "string",
+            "required": false
+        },
+        "scrollPolicyOptions": {
+            "displayName": "Scroll Policy Options",
+            "description": "See JET Data Grid scrollPolicyOptions",
+            "type": "object",
+            "required": false
+        },
+        "translations": {
+            "displayName": "Translations",
+            "description": "Custom translations for the grid",
+            "type": "object",
+            "required": false,
+            "properties": {
+                "msgNoData": {
+                    "displayName": "No Data Message",
+                    "description": "String to display in the grid when there is no data.",
+                    "type": "string",
+                    "required": false
+                },
+                "msgNoFilteredData": {
+                    "displayName": "No Filtered Data Message",
+                    "description": "String to display in the grid when there is no data matching the current filter",
+                    "type": "string",
+                    "required": false
+                },
+                "filterPlaceholder": {
+                    "displayName": "Filter Placeholder",
+                    "description": "String to display as placeholder in filter inputs",
+                    "type": "string",
+                    "required": false
+                }
+            }
+        }
+    },
+    "methods": {
+        "getDataSource": {
+            "displayName": "getDataSource",
+            "description": "Get the datasource backing the simple grid."
+        },
+        "refresh": {
+            "displayName": "refresh",
+            "description": "Refresh the simple grid"
+        },
+        "reset": {
+            "displayName": "reset",
+            "description": "Reset the simple grid.  Applies changes to the columns and rowHeader properties to the underlying grid."
+        },
+        "resetColumnHeaders": {
+            "displayName": "resetColumnHeaders",
+            "description": "Reset the column headers.  Applies column label changes in the columns property to the column headers.  Note: Should not be used when also applying other column changes.  Call reset instead."
+        },
+        "clearFilters": {
+            "displayName": "clearFilters",
+            "description": "Clear all filters.  Removes any currently applied filters and refreshes the grid."
+        },
+        "getContextByNode": {
+            "displayName": "getContextByNode",
+            "description": "Returns an object with context for the given child DOM node. (see oj-data-grid getContextByNode)"
+        }
+    },
+    "events": {
+        "ojRgbuJrafSimpleGridDataSourceInitialized": {
+            "description" : "The event that consuming views can use to be notified when the data source has been initialized.",
+            "bubbles" : true,
+            "cancelable" : false
+        }
+    },
+    "slots": {
+        "contextMenu": {
+            "displayName": "Context Menu",
+            "description": "Designates the JET Menu that this component should launch as a context menu. (see oj-data-grid contextMenu slot)"
+        }
+    }
+}

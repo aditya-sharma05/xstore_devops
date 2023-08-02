@@ -1,0 +1,339 @@
+<div :id="[[wrapperId]]" class="oj-rgbu-jraf-apps-table-wrapper">
+    <div :id="[[appTableId]]">
+        <oj-conveyor-belt class="oj-rgbu-jraf-apps-table-toolbar-wrapper">
+            <oj-toolbar :id="[[toolbarId]]" :aria-label="[[toolbarLabel]]" :aria-controls="[[gridId]]"
+                    class="oj-rgbu-jraf-apps-table-toolbar" chroming="borderless" data-oj-context>
+
+                <oj-bind-if test="[[renderActionMenu]]">
+                    <oj-menu-button>
+                        <span><oj-bind-text value="[[actionMenuLabel]]"></oj-bind-text></span>
+                        <oj-menu slot="menu" style="display:none" on-oj-action="[[actionMenuSelect]]">
+                            <oj-bind-for-each data="[[actionMenuItems]]">
+                                <template data-oj-as="jrafActionMenuItem">
+                                    <oj-bind-if test="[[jrafActionMenuItem.data.separator]]">
+                                        <oj-option></oj-option>
+                                    </oj-bind-if>
+                                    <oj-bind-if test="[[!jrafActionMenuItem.data.separator]]">
+                                        <oj-option disabled="[[jrafActionMenuItem.data.disabled]]" value="[[jrafActionMenuItem.data.id]]">
+                                            <span slot="startIcon" :class="[[jrafActionMenuItem.data.icon]]"></span>
+                                            <span><oj-bind-text value="[[jrafActionMenuItem.data.label]]"></oj-bind-text></span>
+                                            <oj-bind-if test="[[jrafActionMenuItem.data.children]]">
+                                                <oj-menu>
+                                                    <oj-bind-for-each data="[[jrafActionMenuItem.data.children]]">
+                                                        <template data-oj-as="jrafActionSubmenuItem">
+                                                            <oj-option value="[[jrafActionSubmenuItem.data.id]]">
+                                                                <span>
+                                                                    <oj-bind-text value="[[jrafActionSubmenuItem.data.label]]"></oj-bind-text>
+                                                                </span>
+                                                            </oj-option>
+                                                        </template>
+                                                    </oj-bind-for-each>
+                                                </oj-menu>
+                                            </oj-bind-if>
+                                        </oj-option>
+                                    </oj-bind-if>
+                                </template>
+                            </oj-bind-for-each>
+                        </oj-menu>
+                    </oj-menu-button>
+                </oj-bind-if>
+
+                <oj-menu-button>
+                    <span><oj-bind-text value="[[viewMenuLabel]]"></oj-bind-text></span>
+                    <oj-menu :id="[[viewMenuId]]" data-oj-context slot="menu" style="display:none"
+                            on-oj-animate-start="[[viewMenuAnimateListener]]"
+                            on-oj-action="[[viewMenuSelect]]">
+                        <oj-bind-for-each data="[[viewMenuItems]]">
+                            <template data-oj-as="jrafViewMenuItem">
+                                <oj-option value="[[jrafViewMenuItem.data.id]]">
+                                    <span slot="startIcon"
+                                          :aria-label="[[jrafViewMenuItem.data.ariaLabel]]"
+                                          :class="[[jrafViewMenuItem.data.selected]]"></span>
+                                    <span>
+                                        <oj-bind-text value="[[jrafViewMenuItem.data.label]]"></oj-bind-text>
+                                    </span>
+                                </oj-option>
+                            </template>
+                        </oj-bind-for-each>
+                    </oj-menu>
+                </oj-menu-button>
+
+                <oj-bind-if test="[[hasCrud || hasOtherStandardActions || hasCustomButtons || hasExtraControls]]">
+                    <span role="separator" aria-orientation="vertical" class="oj-toolbar-separator"></span>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[handleCreate]]">
+                    <oj-button display="icons" disabled="[[disableCreate]]" on-oj-action="[[handleCreate]]">
+                        <span slot="startIcon" :class="[[createIcon]]"></span>
+                        <span><oj-bind-text value="[[createButtonLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[handleDuplicate]]">
+                    <oj-button display="icons" disabled="[[disableDuplicate]]" on-oj-action="[[handleDuplicate]]">
+                        <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-duplicate-icon"></span>
+                        <span><oj-bind-text value="[[duplicateButtonLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[handleEdit]]">
+                    <oj-button display="icons" disabled="[[disableEdit]]" on-oj-action="[[handleEdit]]">
+                        <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-edit-icon"></span>
+                        <span><oj-bind-text value="[[editButtonLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[handleView]]">
+                    <oj-button display="icons" disabled="[[disableView]]" on-oj-action="[[handleView]]">
+                        <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-view-icon"></span>
+                        <span><oj-bind-text value="[[viewButtonLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[handleDelete]]">
+                    <oj-button display="icons" disabled="[[disableDelete]]" on-oj-action="[[handleDelete]]">
+                        <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-delete-icon"></span>
+                        <span><oj-bind-text value="[[deleteButtonLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[hasCrud && hasOtherStandardActions]]">
+                    <span role="separator" aria-orientation="vertical" class="oj-toolbar-separator"></span>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[handleRefresh]]">
+                    <oj-button display="icons" disabled="[[disableRefresh]]" on-oj-action="[[handleRefresh]]">
+                        <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-refresh-icon"></span>
+                        <span><oj-bind-text value="[[refreshButtonLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[renderExportButton]]">
+                    <oj-bind-if test="[[renderExportMenu]]">
+                        <oj-menu-button display="icons" disabled="[[disableExport]]">
+                            <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-export-icon"></span>
+                            <span><oj-bind-text value="[[exportButtonLabel]]"></oj-bind-text></span>
+                            <oj-menu slot="menu" on-oj-action="[[exportMenuSelect]]" style="display: none;">
+                                <oj-bind-for-each data="[[exportMenuItems]]">
+                                    <template data-oj-as="jrafExportMenuItem">
+                                        <oj-option value="[[jrafExportMenuItem.data.id]]">
+                                            <span><oj-bind-text value="[[jrafExportMenuItem.data.label]]"></oj-bind-text></span>
+                                        </oj-option>
+                                    </template>
+                                </oj-bind-for-each>
+                            </oj-menu>
+                        </oj-menu-button>
+                    </oj-bind-if>
+
+                    <oj-bind-if test="[[!renderExportMenu]]">
+                        <oj-button display="icons" disabled="[[disableExport]]" on-oj-action="[[invokeExportHandler]]">
+                            <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-export-icon"></span>
+                            <span><oj-bind-text value="[[exportButtonLabel]]"></oj-bind-text></span>
+                        </oj-button>
+                    </oj-bind-if>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[renderQBE]]">
+                    <oj-buttonset-many class="oj-rgbu-jraf-apps-table-filter-button" value="{{filtersSelection}}" focus-management="none" chroming="borderless" display="icons">
+                        <oj-option value="[[filtersEnabledVal]]">
+                            <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-qbe-icon"></span>
+                            <span><oj-bind-text value="[[queryLabel]]"></oj-bind-text></span>
+                        </oj-option>
+                    </oj-buttonset-many>
+                    <oj-bind-if test="[[filtersSelection().length === 1]]">
+                        <oj-menu-button class="oj-rgbu-jraf-apps-table-filter-menu-button" chroming="outlined">
+                            <span><oj-bind-text value="[[filterMenuLabel]]"></oj-bind-text></span>
+                            <oj-menu slot="menu" style="display:none" on-oj-action="[[filterMenuSelect]]">
+                                <oj-bind-if test='[[filterMatchOptionsShown]]'>
+                                    <oj-option value="match-type-or">
+                                        <span slot="startIcon" :class="[[filterMatchType() === 'or' ? 'oj-rgbu-jraf-apps-table-checked-icon' : '']]"></span>
+                                        <span>
+                                            <oj-bind-text value="[[filterMatchTypeOr]]"></oj-bind-text>
+                                        </span>
+                                    </oj-option>
+                                    <oj-option value="match-type-and">
+                                        <span slot="startIcon" :class="[[filterMatchType() === 'and' ? 'oj-rgbu-jraf-apps-table-checked-icon' : '']]"></span>
+                                        <span>
+                                            <oj-bind-text value="[[filterMatchTypeAnd]]"></oj-bind-text>
+                                        </span>
+                                    </oj-option>
+                                    <oj-option></oj-option>
+                                </oj-bind-if>
+                                <oj-option value="clear-filter">
+                                    <span>
+                                        <oj-bind-text value="[[clearFiltersLabel]]"></oj-bind-text>
+                                    </span>
+                                </oj-option>
+                            </oj-menu>
+                        </oj-menu-button>
+                    </oj-bind-if>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[!$properties.hideDetachButton]]">
+                    <oj-buttonset-many value="{{detachButtonSetValue}}" focus-management="none" chroming="borderless">
+                        <oj-option value="[[detachValue]]">
+                            <span slot="startIcon" class="oj-icon oj-rgbu-jraf-apps-table-detach-icon"></span>
+                            <span><oj-bind-text value="[[detachButtonLabel]]"></oj-bind-text></span>
+                        </oj-option>
+                    </oj-buttonset-many>
+                </oj-bind-if>
+
+                <oj-bind-if test="[[hasCustomButtons]]">
+                    <oj-bind-if test="[[hasCrud || hasOtherStandardActions]]">
+                        <span role="separator" aria-orientation="vertical" class="oj-toolbar-separator"></span>
+                    </oj-bind-if>
+                    <oj-bind-for-each data="[[customButtons]]">
+                        <template data-oj-as="jrafCustomButton">
+                            <oj-button
+                                display="[[jrafCustomButton.data.display]]"
+                                disabled="[[jrafCustomButton.data.disabled]]"
+                                on-oj-action="[[jrafCustomButton.data.buttonHandler]]">
+                                <oj-bind-if test="[[jrafCustomButton.data.startIcon]]">
+                                    <span slot="startIcon" :class="[[jrafCustomButton.data.startIcon]]"></span>
+                                </oj-bind-if>
+                                <span><oj-bind-text value="[[jrafCustomButton.data.label]]"></oj-bind-text></span>
+                            </oj-button>
+                        </template>
+                    </oj-bind-for-each>
+                </oj-bind-if>
+                
+                <oj-bind-if test="[[hasExtraControls && !hasCustomButtons && (hasCrud || hasOtherStandardActions)]]">
+                    <span role="separator" aria-orientation="vertical" class="oj-toolbar-separator"></span>
+                </oj-bind-if>
+                
+                <oj-bind-slot name="extraControls"></oj-bind-slot>
+            </oj-toolbar>
+        </oj-conveyor-belt>
+
+        <div class="oj-rgbu-jraf-apps-table-grid-wrapper">
+            <oj-bind-slot name="grid"></oj-bind-slot>
+        </div>
+        <div class="oj-rgbu-jraf-apps-table-paging-wrapper">
+            <oj-bind-slot name="pagingControl"></oj-bind-slot>
+        </div>
+    </div>
+</div>
+
+<oj-dialog :id="[[detachDialogId]]" dialog-title="[[detachDialogTitle]]" data-oj-context
+    initial-visibility="hide" on-oj-close="[[handleDetachDialogClose]]" on-oj-resize-stop='[[handleDetachDialogResized]]'
+    style="display:none;width:90vw;height:90vh;" class="oj-rgbu-jraf-apps-table-detach-wrapper">
+    <div :id="[[dialogAnchorId]]" slot="body"></div>
+</oj-dialog>
+
+<oj-bind-if test="[[renderSorting]]">
+    <oj-dialog :id="[[sortDialogId]]" dialog-title="[[sortMenuLabel]]" initial-visibility="hide" style="display:none;width:100vw;max-width:35em;max-height:35em;">
+        <div slot="body">
+            <oj-bind-for-each data="[[sortCriteria]]">
+                <template data-oj-as="jrafSort">
+                    <div class="oj-rgbu-jraf-apps-table-sort-selection">
+                        <oj-label for="[[sortDialogId + '-' + jrafSort.observableIndex() + '-select']]">
+                            <oj-bind-text value="[[jrafSort.data.label]]"></oj-bind-text>
+                        </oj-label>
+                        <oj-select-single :id="[[sortDialogId + '-' + jrafSort.observableIndex() + '-select']]"
+                            value="{{jrafSort.data.column}}"
+                            placeholder=""
+                            data="[[sortableColumnsDataProvider]]"
+                            style="width:15em;"></oj-select-single>
+
+                        <oj-radioset :id="[[sortDialogId + '-' + jrafSort.observableIndex() + '-radio']]"
+                            :aria-label="[[jrafSort.data.label]]"
+                            value="{{jrafSort.data.direction}}">
+                            <oj-option value="asc">
+                                <span><oj-bind-text value="[[ascendingLabel]]"></oj-bind-text></span>
+                            </oj-option>
+                            <oj-option value="desc">
+                                <span><oj-bind-text value="[[descendingLabel]]"></oj-bind-text></span>
+                            </oj-option>
+                        </oj-radioset>
+                    </div>
+                </template>
+            </oj-bind-for-each>
+        </div>
+        <div slot="footer">
+            <oj-button on-oj-action="[[closeSortDialog]]">
+                <span><oj-bind-text value="[[cancelLabel]]"></oj-bind-text></span>
+            </oj-button>
+            <oj-button on-oj-action="[[executeSortDialog]]">
+                <span><oj-bind-text value="[[applyLabel]]"></oj-bind-text></span>
+            </oj-button>
+        </div>
+    </oj-dialog>
+</oj-bind-if>
+
+<oj-bind-if test="[[renderColumnManagement]]">
+    <oj-dialog style="display: none;"
+               class="oj-rgbu-jraf-apps-table-col-mgmt-dialog"
+               :id="[[columnManagementDialogId]]"
+               dialog-title="[[manageColumnsLabel]]"
+               on-oj-before-open="[[beforeColumnManagementDialogOpen]]"
+               on-oj-close="[[handleColumnManagementDialogClose]]">
+        <div slot="body">
+            <oj-list-view
+                :id="[[columnManagementListViewId]]"
+                class="oj-rgbu-jraf-apps-table-col-mgmt-list"
+                :aria-label="[[manageColumnsList]]"
+                data="[[columnManagementDataSource]]"
+                current-item="{{columnManagementCurrentItem}}"
+                item.focusable="[[isColumnManagementListItemFocusable]]"
+                drill-mode="none"
+                expanded="[[columnManagementExpandedKeySet]]"
+                group-header-position="sticky"
+                dnd.reorder.items="enabled"
+                on-oj-reorder="[[handleColumnReorder]]">
+                <oj-menu :id="[[manageColumnsContextMenuId]]" slot="contextMenu" style="display:none" :aria-label="[[manageColumnsContextMenuAriaLabel]]">
+                  <oj-option :id="[[manageColumnsCutOptionId]]" data-oj-command="oj-listview-cut"></oj-option>
+                  <oj-option :id="[[manageColumnsPasteBeforeOptionId]]" data-oj-command="oj-listview-paste-before"></oj-option>
+                  <oj-option :id="[[manageColumnsPasteAfterOptionId]]" data-oj-command="oj-listview-paste-after"></oj-option>
+                </oj-menu>
+                <template slot="itemTemplate">
+                    <oj-bind-if test="[[!$current.leaf]]">
+                        <div class="oj-flex-bar">
+                            <div class="oj-flex-bar-start oj-sm-align-items-center">
+                                <span>
+                                    <oj-bind-text value="[[column]]"></oj-bind-text>
+                                </span>
+                            </div>
+                            <div class="oj-flex-bar-end oj-sm-align-items-center  oj-rgbu-jraf-apps-table-col-mgmt-end">
+                                <span>
+                                    <oj-bind-text value="[[displayed]]"></oj-bind-text>
+                                </span>
+                            </div>
+                        </div>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[$current.leaf]]">
+                        <div class="oj-flex-bar">
+                            <div class="oj-flex-bar-start">
+                                <div role="button" tabindex="0" :aria-label="[[gripperLabel]]" class="oj-listview-drag-handle oj-rgbu-jraf-apps-table-col-mgmt-list-view-gripper oj-sm-align-items-center"></div>
+                            </div>
+                            <div class="oj-flex-bar-middle oj-sm-align-items-center">
+                                <span>
+                                    <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                                </span>
+                            </div>
+                            <div class="oj-flex-bar-end oj-sm-align-items-center oj-rgbu-jraf-apps-table-col-mgmt-end">
+                                <span>
+                                    <oj-bind-text value="[[$current.data.shown() ? yesLabel : noLabel]]"></oj-bind-text>
+                                </span>
+                                <oj-switch
+                                    :aria-label="[[displayed]]"
+                                    class="oj-rgbu-jraf-apps-table-switch"
+                                    value="{{$current.data.shown}}"></oj-switch>
+                            </div>
+                        </div>
+                    </oj-bind-if>
+                </template>
+            </oj-list-view>
+        </div>
+        <div slot="footer">
+            <oj-button on-oj-action="[[resetColumnsToDefaults]]">
+                <span><oj-bind-text value="[[resetToDefaults]]"></oj-bind-text></span>
+            </oj-button>
+            <oj-button on-oj-action="[[cancelColumnChanges]]">
+                <span><oj-bind-text value="[[cancelLabel]]"></oj-bind-text></span>
+            </oj-button>
+            <oj-button on-oj-action="[[applyColumnChanges]]">
+                <span><oj-bind-text value="[[applyLabel]]"></oj-bind-text></span>
+            </oj-button>
+        </div>
+    </oj-dialog>
+</oj-bind-if>

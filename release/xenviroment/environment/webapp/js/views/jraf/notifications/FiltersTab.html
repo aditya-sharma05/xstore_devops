@@ -1,0 +1,42 @@
+<oj-form-layout :id="[[filterFormId]]" class="open">
+    <oj-label for="[[filterTimeSelectId]]">
+        <oj-bind-text value="[[filterTimeSelectLabel]]"></oj-bind-text>
+    </oj-label>
+    <oj-select-single :id="[[filterTimeSelectId]]"
+        value="{{activeFilter.time}}"
+        data="[[timeSelectOptionsDataProvider]]"
+        placeholder="[[filterTimePlaceholder]]">
+    </oj-select-single>
+
+    <oj-label for="[[filterTypeSelectId]]">
+        <oj-bind-text value="[[filterTypeSelectLabel]]"></oj-bind-text>
+    </oj-label>
+    <oj-select-many :id="[[filterTypeSelectId]]"
+        value="{{activeFilter.type}}"
+        options="[[filterTypeSelectOptions]]"
+        placeholder="[[filterTypePlaceholder]]">
+    </oj-select-many>
+
+    <oj-label for="[[filterSeveritySelectId]]">
+        <oj-bind-text value="[[filterSeveritySelectLabel]]"></oj-bind-text>
+    </oj-label>
+    <oj-select-many :id="[[filterSeveritySelectId]]"
+        value="{{activeFilter.severity}}"
+        options="[[severitySelectOptions]]"
+        placeholder="[[filterSeverityPlaceholder]]">
+    </oj-select-many>
+
+    <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-align-items-center">
+        <a href="#" on-click="[[resetFilters]]" class="jraf-sidebar-link-button oj-flex-item">
+            <oj-bind-text value="[[filterResetLabel]]"></oj-bind-text>
+        </a>
+        <div class="oj-flex-item">
+            <oj-button on-oj-action="[[revertFilters]]">
+                <span><oj-bind-text value="[[cancelLabel]]"></oj-bind-text></span>
+            </oj-button>
+            <oj-button on-oj-action="[[executeFilters]]">
+                <span><oj-bind-text value="[[applyLabel]]"></oj-bind-text></span>
+            </oj-button>
+        </div>
+    </div>
+</oj-form-layout>

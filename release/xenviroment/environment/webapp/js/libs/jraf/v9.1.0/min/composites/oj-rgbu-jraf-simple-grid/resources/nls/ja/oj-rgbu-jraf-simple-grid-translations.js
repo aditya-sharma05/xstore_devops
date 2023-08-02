@@ -1,0 +1,1 @@
+define({filterPlaceholder:"フィルタ",msgNoData:"表示するアイテムがありません。",msgNoFilteredData:"現在のフィルタに一致するアイテムはありません。"});

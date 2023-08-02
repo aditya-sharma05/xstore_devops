@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="daoConverter" class="com.micros_retail.xservices.daoconverter.NoDaoConverters" lazy-init="true" />
+  <!-- the following is a duplicate of what is in persistence-beans.xml to avoid using the XcenterDtxJsonDeserializer -->
+  <bean id="dtxJsonDeserializerBuilder" class="dtv.data2.access.json.DtxJsonDeserializer$Builder">
+    <property name="persistenceDefaults" ref="persistenceDefaults" />
+    <property name="eventManager" ref="eventManager" />
+  </bean>
+
+</beans>

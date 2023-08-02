@@ -1,0 +1,47 @@
+<div style="position:relative;height:100%;width:100%;">
+    <oj-rgbu-jraf-info-tile
+        tile-id="[[tileId]]"
+        severity="[[content.severity]]"
+        type="[[content.type]]"
+        label="[[content.label]]"
+        info-title="[[content.title]]"
+        metric="[[content.metric]]"
+        metric-label="[[content.metricLabel]]"
+        selected="{{content.selected}}"
+        disabled="[[content.disabled]]"
+        tile-selection-handler="[[handleTileSelection]]">
+        <oj-bind-if test="[[content.tileModuleBinding() || content.tileModuleOptions()]]">
+            <oj-rgbu-jraf-apps-module 
+                slot="customBody"
+                module-binding="[[content.tileModuleBinding]]"
+                module-options="[[content.tileModuleOptions]]"
+                before-load-module-handler="[[dashboard.getBeforeLoadModuleHandler()]]"
+                after-unload-module-handler="[[dashboard.getAfterUnloadModuleHandler()]]"></oj-rgbu-jraf-apps-module>
+        </oj-bind-if>
+    </oj-rgbu-jraf-info-tile>
+
+    <oj-bind-if test="[[dashboard.editMode]]">
+        <oj-bind-if test="[[content.removable]]">
+            <oj-button
+                chroming="solid"
+                display="icons"
+                class="oj-panel-remove-button"
+                on-oj-action="[[dashboard.removeTile]]"
+                :title="[[dashboard.removeTileTitle]]"
+                :aria-label="[[dashboard.removeTileTitle() + ', ' + content.title()]]">
+                <span slot="startIcon" class="oj-panel-remove-icon"></span>
+                <span>
+                    <oj-bind-text value="[[removeLabel]]"></oj-bind-text>
+                </span>
+            </oj-button>
+        </oj-bind-if>
+        <div
+            class="oj-panel-drag-handle"
+            tabindex="0"
+            role="separator"
+            :title="[[dashboard.reorderTileTitle]]"
+            :aria-label="[[dashboard.reorderTileLabel() + ', ' + content.title()]]">
+            <span class="oj-panel-drag-icon"></span>
+        </div>
+    </oj-bind-if>
+</div>

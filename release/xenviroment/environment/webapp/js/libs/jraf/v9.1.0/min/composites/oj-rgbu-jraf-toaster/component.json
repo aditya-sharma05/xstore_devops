@@ -1,0 +1,26 @@
+{
+    "name": "oj-rgbu-jraf-toaster",
+    "displayName": "Toaster",
+    "description": "A container to display and manage a set of toast messages (oj-rgbu-jraf-toast).",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "maximum": {
+            "displayName": "Maximum Toasts Visible",
+            "description": "The maximum number of toasts to display at once. Additional toasts are queued for display.",
+            "type": "number",
+            "value": 3
+        }
+    },
+    "methods": {
+        "openToast": {
+            "displayName": "Open a Toast",
+            "description": "Method to queue a new toast message.",
+            "params": [{
+                "name": "toastConfig",
+                "description": "The toast configuration (see JSDoc for details)",
+                "type": "object"
+            }]
+        }
+    }
+}

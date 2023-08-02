@@ -1,0 +1,64 @@
+<script type="text/html" :id="[[menuItemTemplateId]]">
+    <oj-bind-if test="[[$data.label]]">
+    <li :id="[[$data.id]]" :class="[[$data.classNameMap]]">
+        <a href="#">
+            <oj-bind-if test="[[$data.type === 'usermenu']]">
+                <span class="oj-navigationlist-item-icon" role="presentation"
+                    :class="[[{ 'jraf-mobile-menu-user-avatar': $data.avatar, 'jraf-global-header-user-button-icon': !$data.avatar() }]]"
+                    :style="[[ $data.avatar ]]">
+                </span>
+            </oj-bind-if>
+            <oj-bind-if test="[[$data.type === 'helpmenu']]">
+                <span class="oj-navigationlist-item-icon jraf-global-header-help-button-icon"
+                    role="presentation">
+                </span>
+            </oj-bind-if>
+            <oj-bind-if test="[[$data.type !== 'usermenu' && $data.type !== 'helpmenu']]">
+                <oj-bind-if test="[[$data.selected !== undefined]]">
+                    <span class="oj-navigationlist-item-icon jraf-menu-icon" role="img"
+                        :class="[[{'jraf-menu-icon-checked' : $data.selected }]]">
+                    </span>
+                </oj-bind-if>
+            </oj-bind-if>
+            <span class="oj-navigationlist-item-title">
+                <oj-bind-text value="[[$data.label]]"></oj-bind-text>
+            </span>
+        </a>
+    </li>
+    </oj-bind-if>
+    <oj-bind-if test="[[!$data.label]]">
+        <li class="oj-navigationlist-category-divider"> </li>
+    </oj-bind-if>
+</script>
+
+<div class="jraf-menu-header jraf-menu-content-area">
+    <oj-bind-if test='[[!drillLabel()]]'>
+        <h3 class="jraf-menu-header-text">
+            <oj-bind-text value="[[rootLabel]]"></oj-bind-text>
+        </h3>
+    </oj-bind-if>
+    <oj-bind-if test='[[drillLabel()]]'>
+        <h3 class="jraf-menu-header-text oj-flex-item">
+            <a href="#" class="jraf-hierarchy-back-link"
+               on-click="[[navigateBack]]">
+                <span>
+                    <oj-bind-text value="[[drillLabel]]"></oj-bind-text>
+                </span>
+            </a>
+        </h3>
+    </oj-bind-if>
+</div>
+
+<div class="jraf-menu-body">
+    <oj-navigation-list
+        :id="[[navListId]]"
+        :aria-label="[[rootLabel]]"
+        drill-mode="sliding"
+        data="[[dataSource]]"
+        item.renderer="[[getMenuItemTemplate()]]"
+        on-oj-before-select="[[beforeSelect]]"
+        on-oj-before-expand="[[beforeExpand]]"
+        on-oj-before-collapse="[[beforeCollapse]]"
+        class="jraf-sliding-navigation">
+    </oj-navigation-list>
+</div>

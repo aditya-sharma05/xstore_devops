@@ -1,0 +1,171 @@
+<div class="jraf-app-table-wrapper" data-bind="attr:{id: wrapperId}">
+    <!-- ko if: renderActionMenu -->
+    <ul data-bind="attr:{id: actionMenuId}, ojComponent: {component: 'ojMenu', select: actionMenuSelect}">
+        <!-- ko foreach: actionMenuItems -->
+        <li data-bind="attr:{id:id}, css:{'oj-disabled': $data.disabled}">
+            <a href="#">
+                <span data-bind="attr:{'class':icon +' oj-menu-item-icon'}"></span>
+                <span data-bind="text:label"></span>
+            </a>
+        </li>
+        <!-- /ko -->
+    </ul>
+    <!-- /ko -->
+    <ul data-bind="attr:{id: viewMenuId}, ojComponent: {component: 'ojMenu', select: viewMenuSelect}">
+        <li data-bind="attr:{id: viewMenuId + '-2'}">
+            <a href="#" data-bind="text:detachOpen() ? attachButtonLabel : detachButtonLabel"></a>
+        </li>
+        <!-- ko if: renderSortButton -->
+        <li data-bind="attr:{id: viewMenuId + '-3'}">
+            <a href="#" data-bind="text:sortMenuLabel"></a>
+        </li>
+        <!-- /ko -->
+    </ul>
+    <div data-bind="attr: {id: appTableId}" style="height: 100%">
+        <div data-bind="ojComponent: {component: 'ojConveyorBelt'}">
+            <div data-bind="attr: {id: toolbarId}, ojComponent: {component: 'ojToolbar', chroming: 'half'}">
+                <!-- ko if: renderActionMenu -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: actionMenuLabel, menu: '#'+actionMenuId}"></button>
+                <!-- /ko -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: viewMenuLabel, menu: '#'+viewMenuId}"></button>
+                <span role="separator" class="oj-toolbar-separator"></span>
+                <!-- ko if: handleCreate -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: createButtonLabel, display: 'icons',
+                icons: {start: 'oj-icon '+createIcon}, disabled: disableCreate}, click: handleCreate"></button>
+                <!-- /ko -->
+                <!-- ko if: handleDuplicate -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: duplicateButtonLabel, display: 'icons',
+                icons: {start: 'oj-icon '+duplicateIcon}, disabled: disableDuplicate}, click: handleDuplicate"></button>
+                <!-- /ko -->
+                <!-- ko if: handleEdit -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: editButtonLabel, display: 'icons',
+                icons: {start: 'oj-icon '+editIcon}, disabled: disableEdit}, click: handleEdit"></button>
+                <!-- /ko -->
+                <!-- ko if: handleView -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: viewButtonLabel, display: 'icons',
+                icons: {start: 'oj-icon '+viewIcon}, disabled: disableView}, click: handleView"></button>
+                <!-- /ko -->
+                <!-- ko if: handleDelete -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: deleteButtonLabel, display: 'icons',
+                icons: {start: 'oj-icon '+deleteIcon}, disabled: disableDelete}, click: handleDelete"></button>
+                <!-- /ko -->
+                <!-- ko if: hasCrud -->
+                <span role="separator" class="oj-toolbar-separator"></span>
+                <!-- /ko -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: refreshButtonLabel, display:'icons',
+                icons: {start: 'oj-icon jraf-refresh-icon'}, disabled: disableRefresh}, click: handleRefresh"></button>
+                <!-- ko if: $data.handleExport -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: exportButtonLabel, display:'icons',
+                icons: {start: 'oj-icon jraf-export-icon'}, disabled: disableExport}, click: handleExport"></button>
+                <!-- /ko -->
+                <button data-bind="ojComponent: {component: 'ojButton', label: detachButtonLabel},
+                click: toggleDetachTable, css: {'jraf-toggle-button-active': detachOpen}"></button>
+                <!-- ko if: hasCustomButtons -->
+                <span role="separator" class="oj-toolbar-separator"></span>
+                <!-- /ko -->
+                <!-- ko foreach: customButtons -->
+                <button data-bind="ojComponent: button, click: buttonHandler"></button>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div data-bind="attr: {
+            id:dataGridId,
+            'aria-label': label,
+            style: tableStyle,
+            'class': tableClassNames
+        },
+        ojComponent: {
+            component: 'ojDataGrid',
+            data: dataSource,
+            selection: selection,
+            selectionMode: {
+                row: selectMode
+            },
+            header: {
+                column: {
+                    resizable: { width: 'enable' },
+                    className: getColumnHeaderClass,
+                    style: getColumnHeaderStyle,
+                    renderer: prepareColumn,
+                    sortable: getSortableValue
+                },
+                row: {
+                    className: getRowHeaderClass,
+                    style: getRowHeaderStyle
+                }
+            },
+            cell: {
+                renderer: prepareCell,
+                className: getCellClass,
+                style: getCellStyle
+            },
+            optionChange: selectChange,
+            translations: {
+                msgNoData: $data.msgNoData
+            }
+        }"></div>
+        <!-- ko if: $data.renderPageControl -->
+        <div data-bind="attr: {id: pagingControlId},
+        ojComponent: {
+            component: 'ojPagingControl',
+            data: dataSource,
+            pageSize: $data.pageSize,
+            overflow: 'fit',
+            pageOptions: {
+                layout: ['all'],
+                maxPageLinks: 10
+            }
+        }"></div>
+        <!-- /ko -->
+    </div>
+</div>
+<div data-bind="attr: {id: detachDialogId}, ojComponent: {
+    component: 'ojDialog',
+    initialVisibility: 'hide',
+    title: detachDialogTitle,
+    rootAttributes: {
+        style: 'width: 90vw; height: 90vh',
+        class: 'jraf-appTable-detach-wrapper'
+    },
+    close: closeDetachDialog
+}" style="display: none">
+    <div class="oj-dialog-body" data-bind="attr: {id: dialogAnchorId}"></div>
+</div>
+<div data-bind="attr: {id: sortDialogId}, ojComponent: {
+    component: 'ojDialog',
+    initialVisibility: 'hide',
+    title: sortMenuLabel,
+    rootAttributes: {
+        style: 'width: 40em; height: 28em'
+    }}" style="display: none">
+    <div class="oj-dialog-body">
+        <!-- ko foreach:sortCriteria -->
+        <div class="jraf-sort-selection">
+            <label class="oj-label" data-bind="attr: {for:$parent.sortDialogId+'-'+$index()+'-select'}, text: label"></label>
+            <select data-bind="ojComponent: {
+                    component: 'ojSelect',
+                    value: column,
+                    options: $parent.sortableColumns,
+                    placeholder: '',
+                    rootAttributes: {
+                        style: 'width: 15em;'
+                    }
+            }, attr:{id: $parent.sortDialogId+'-'+$index()+'-select'}"></select>
+            <div data-bind="attr:{id: $parent.sortDialogId+'-'+$index()+'-radio'}, ojComponent: {component: 'ojRadioset', value: direction}">
+                <span class="oj-choice-row">
+                    <input data-bind="attr:{id: $parent.sortDialogId+'-'+$index()+'radio-asc', name: $parent.sortDialogId+'-'+$index()+'-radio'}" type="radio" value="asc"/>
+                    <label data-bind="attr:{for: $parent.sortDialogId+'-'+$index()+'radio-asc'}, text:$parent.ascendingLabel"></label>
+                </span>
+                <span class="oj-choice-row">
+                    <input data-bind="attr:{id: $parent.sortDialogId+'-'+$index()+'radio-desc', name: $parent.sortDialogId+'-'+$index()+'-radio'}" type="radio" value="desc"/>
+                    <label data-bind="attr:{for: $parent.sortDialogId+'-'+$index()+'radio-desc'}, text: $parent.descendingLabel"></label>
+                </span>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <div class="oj-dialog-footer">
+        <button data-bind="ojComponent: {component: 'ojButton', label: cancelLabel}, click: closeSortDialog"></button>
+        <button data-bind="ojComponent: {component: 'ojButton', label: applyLabel}, click: executeSortDialog"></button>
+    </div>
+</div>

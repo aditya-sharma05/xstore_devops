@@ -1,0 +1,1 @@
+define([],(function(){"use strict";return{getCapabilities:function(){return[]},handleDetached:function(e){e.refresh()},handleDetachDialogResized:function(e){},handleAttached:function(e){e.refresh()}}}));

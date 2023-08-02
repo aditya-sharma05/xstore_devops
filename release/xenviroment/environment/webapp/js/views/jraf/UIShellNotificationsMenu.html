@@ -1,0 +1,238 @@
+<script type="text/html" :id="[[notificationListTemplateId]]">
+    <li class="jraf-sidebar-list-item" :id="[[$current.data.id]]"
+        on-click="[[$module.handleNotificationClick]]" :class="[[{ 'jraf-not-launchable': !$current.data.launchable }]]">
+        <div class="jraf-sidebar-list-item-group">
+            <a href="#" class="jraf-menu-icon-link"
+               on-click="[[$module.markNotificationAsRead]]">
+                <div :class="[[ {'jraf-read-indicator-read': $current.data.readState} ]]" :title="[[$module.dismissLabel]]"
+                     class="jraf-read-indicator"></div>
+            </a>
+            <div class="jraf-sidebar-list-item-content">
+                <div :title="[[$current.data.type]]" class="jraf-sidebar-list-item-header">
+                    <span class="oj-navigationlist-item-title">
+                        <oj-bind-text value="[[$current.data.type]]"></oj-bind-text>
+                    </span>
+                </div>
+                <div :class="[[ 'jraf-severity-badge ' + $data['severityClass'] ]]">
+                    <span class="oj-navigationlist-item-title">
+                        <oj-bind-text value="[[$current.data.severity]]"></oj-bind-text>
+                    </span>
+                </div>
+                <div :title="[[$current.data.message]]">
+                    <span class="oj-navigationlist-item-title">
+                        <oj-bind-text value="[[$current.data.message]]"></oj-bind-text>
+                    </span>
+                </div>
+                <div class="jraf-sub-text">
+                    <span class="oj-navigationlist-item-title">
+                        <oj-bind-text value="[[$current.data.timestamp]]"></oj-bind-text>
+                    </span>
+                </div>
+                <div class="jraf-sub-text">
+                    <span class="oj-navigationlist-item-title">
+                        <oj-bind-text value="[[$current.data.author]]"></oj-bind-text>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </li>
+</script>
+
+<script type="text/html" :id="[[groupingListTemplateId]]">
+    <li :id="[[ $parent.groupingListTemplateId+'-'+groupId ]]" class="jraf-no-padding jraf-group-wrapper">
+        <div class="jraf-sidebar-list-item-group">
+            <h4 :title="[[groupName]]">
+                <span class="oj-navigationlist-item-title">
+                    <oj-bind-text value="[[groupName]]"></oj-bind-text>
+                </span>
+            </h4>
+            <ul>
+
+                <oj-bind-for-each data="[[$data.children]]">
+                    <template>
+                        <oj-bind-if test="[[!$module.displaySummary()]]">
+                            <!-- ko template: $module.notificationListTemplateId --><!-- /ko -->
+                        </oj-bind-if>
+                        <oj-bind-if test="[[$module.displaySummary()]]">
+                            <li class="jraf-sidebar-list-item" :id="[[$current.data.type]]">
+                                <div class="jraf-sidebar-list-item-group" on-click="[[$module.launchDetailSummaryPage]]" on-keydown="[[$module.handleSummaryEvent]]">
+                                    <div class="jraf-sidebar-list-item-content">
+                                        <div class="jraf-sidebar-list-item-header oj-flex oj-sm-flex-wrap-nowrap">
+                                            <div :title="[[$current.data.type]]" class="oj-flex-item">
+                                                <span class="oj-navigationlist-item-title">
+                                                    <oj-bind-text value="[[$current.data.type]]"></oj-bind-text>
+                                                </span>
+                                            </div>
+                                            <div class="oj-sm-flex-initial oj-flex-item">
+                                                <span data-bind="jrafBadgeValue: $current.data.notificationCount" class="jraf-inline-badge"></span>
+                                            </div>
+                                        </div>
+                                        <div class="jraf-severity-badge-group">
+                                            <oj-bind-if test="[[$current.data.criticalString]]">
+                                                <span :title="[[$current.data.criticalString]]" class="jraf-severity-badge jraf-severity-critical oj-navigationlist-item-title">
+                                                    <oj-bind-text value="[[$current.data.criticalString]]"></oj-bind-text>
+                                                </span>
+                                            </oj-bind-if>
+                                            <oj-bind-if test="[[$current.data.importantString]]">
+                                                <span :title="[[$current.data.importantString]]" class="jraf-severity-badge jraf-severity-medium oj-navigationlist-item-title">
+                                                    <oj-bind-text value="[[$current.data.importantString]]"></oj-bind-text>
+                                                </span>
+                                            </oj-bind-if>
+                                            <oj-bind-if test="[[$current.data.normalString]]">
+                                                <span :title="[[$current.data.normalString]]" class="jraf-severity-badge jraf-severity-low oj-navigationlist-item-title">
+                                                    <oj-bind-text value="[[$current.data.normalString]]"></oj-bind-text>
+                                                </span>
+                                            </oj-bind-if>
+                                        </div>
+                                        <div class="jraf-sub-text">
+                                            <span class="oj-navigationlist-item-title">
+                                                <oj-bind-text value="[[$current.data.timestamp]]"></oj-bind-text>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </oj-bind-if>
+                    </template>
+                </oj-bind-for-each>
+
+                <oj-bind-if test="[[canLoadMore]]">
+                    <li class="jraf-sidebar-see-more-wrapper">
+                        <a href="#" on-click="[[$parent.handleGroupShowMoreClick]]">
+                            <oj-bind-text value="[[$parent.groupingSeeMoreLabel]]"></oj-bind-text>
+                        </a>
+                    </li>
+                </oj-bind-if>
+            </ul>
+        </div>
+    </li>
+</script>
+
+<!-- Start Menu UI Content -->
+<div class="jraf-menu-header jraf-menu-content-area">
+    <h3 class="jraf-menu-header-text">
+        <oj-bind-text value="[[menuTitle]]"></oj-bind-text>
+    </h3>
+</div>
+
+<div class="jraf-notifications-menu-search-container jraf-menu-content-area oj-flex oj-sm-flex-wrap-nowrap">
+    <div class="oj-flex-item">
+        <oj-combobox-one
+            :id="[[searchInputId]]"
+            :aria-label="[[searchHint]]"
+            placeholder="[[searchHint]]"
+            min-length="[[minimumAutosuggestLength]]"
+            value="[[searchString]]"
+            options="[[autosuggestSearch]]"
+            on-oj-value-updated="[[handleAutosuggestSelect]]"
+            picker-attributes="[[ { class: 'jraf-sidebar-search' } ]]">
+            <span slot="end" ></span>
+        </oj-combobox-one>
+    </div>
+    <oj-buttonset-many
+        :id="[[groupingToggleId]]"
+        value="{{groupingToggle}}"
+        chroming="borderless"
+        disabled="[[disableModeChange]]"
+        class="jraf-sidebar-grouped-list-toggle oj-flex-item"
+        display="icons">
+        <oj-option value="groupingEnabled"
+                   :title="[[groupingToggleLabel]]">
+            <span slot='startIcon' class="oj-icon jraf-notifications-grouping-toggle-icon"></span>
+        </oj-option>
+    </oj-buttonset-many>
+</div>
+
+<div class="jraf-menu-filter-container jraf-menu-content-area">
+    <div class="oj-flex oj-sm-flex-wrap-nowrap">
+        <oj-buttonset-many
+            :id="[[filterTabId]]"
+            value="{{filterTabToggle}}"
+            chroming="borderless"
+            class="oj-flex-item jraf-notification-tab">
+            <oj-option value="[[filterTabId]]">
+                <div class="oj-button-label">
+                    <span class="jraf-tab-label"><oj-bind-text value="[[filterTabLabel]]"></oj-bind-text></span>
+                    <span data-bind="jrafBadgeValue: filtersCount" class="jraf-inline-badge"></span>
+                </div>
+            </oj-option>
+        </oj-buttonset-many>
+        <oj-buttonset-many
+            :id="[[groupingTabId]]"
+            :class="[[ {'jraf-hidden': !groupingEnabled(), 'oj-flex-item jraf-notification-tab' : true } ]]"
+            value="{{groupingTabToggle}}"
+            chroming="borderless">
+            <oj-option value="[[groupingTabId]]">
+                <div class="oj-button-label">
+                    <span class="jraf-tab-label"><oj-bind-text value="[[groupingTabLabel]]"></oj-bind-text></span>
+                    <span data-bind="jrafBadgeValue: groupingCount" class="jraf-inline-badge"></span>
+                </div>
+            </oj-option>
+        </oj-buttonset-many>
+    </div>
+
+    <oj-bind-if test="[[openFiltersTab]]">
+        <oj-rgbu-jraf-apps-module module-options="[[filtersTabModuleOptions]]"></oj-rgbu-jraf-apps-module>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[openGroupingTab]]">
+        <oj-form-layout :id="[[groupingFormId]]" class="open">
+            <oj-label for="[[groupingPrimarySelectId]]">
+                <oj-bind-text value="[[groupingPrimaryLabel]]"></oj-bind-text>
+            </oj-label>
+            <oj-select-single :id="[[groupingPrimarySelectId]]"
+                value="{{activeGrouping.primary}}"
+                data="[[primaryGroupingSelectOptionsDataProvider]]">
+            </oj-select-single>
+            <oj-label for="[[groupingSecondarySelectId]]">
+                <oj-bind-text value="[[groupingSecondaryLabel]]"></oj-bind-text>
+            </oj-label>
+            <oj-select-single :id="[[groupingSecondarySelectId]]"
+                value="{{activeGrouping.secondary}}"
+                data="[[secondaryGroupingSelectOptionsDataProvider]]">
+            </oj-select-single>
+            <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-align-items-center">
+                <a href="#" on-click="[[resetGrouping]]" class="jraf-sidebar-link-button oj-flex-item">
+                    <oj-bind-text value="[[groupingResetLabel]]"></oj-bind-text>
+                </a>
+                <div class="oj-flex-item">
+                    <oj-button on-oj-action="[[revertGrouping]]">
+                        <span><oj-bind-text value="[[cancelLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                    <oj-button on-oj-action="[[executeGrouping]]">
+                        <span><oj-bind-text value="[[applyLabel]]"></oj-bind-text></span>
+                    </oj-button>
+                </div>
+            </div>
+        </oj-form-layout>
+    </oj-bind-if>
+</div>
+
+<div class="jraf-menu-body" :style.height="[[notificationListHeight]]">
+    <oj-bind-if test="[[menuDataLoaded]]">
+        <oj-bind-if test="[[!groupingEnabled()]]">
+            <oj-rgbu-jraf-apps-module module-options="[[notificationsListModuleOptions]]"></oj-rgbu-jraf-apps-module>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[groupingEnabled()]]">
+            <oj-navigation-list
+                :aria-label="[[groupedNotificationsListDesc]]"
+                drill-mode="none"
+                data="[[groupingList]]"
+                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer(groupingListTemplateId, true)]]"
+                class="jraf-sidebar-list-items jraf-notifications-list">
+            </oj-navigation-list>
+        </oj-bind-if>
+
+    </oj-bind-if>
+
+    <oj-bind-if test="[[!menuDataLoaded]]">
+        <span class="jraf-sidebar-loading" role="img" :title="[[loadingText]]"></span>
+    </oj-bind-if>
+</div>
+
+<div class="jraf-menu-footer">
+    <a href="#" on-click="[[launchDetailPage]]">
+        <oj-bind-text value="[[footerButtonLabel]]"></oj-bind-text>
+    </a>
+</div>

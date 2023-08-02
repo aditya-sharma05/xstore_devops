@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+	<handler-chain>
+		<handler>
+			<handler-name>MrServerSOAPHandler</handler-name>
+			<handler-class>com.micros_retail.xservices.serverhandler.MrServerSOAPHandler</handler-class>
+		</handler>
+	</handler-chain>
+</handler-chains>

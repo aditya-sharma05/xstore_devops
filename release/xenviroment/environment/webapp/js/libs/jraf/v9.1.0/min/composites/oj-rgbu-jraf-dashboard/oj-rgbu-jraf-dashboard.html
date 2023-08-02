@@ -1,0 +1,175 @@
+<oj-bind-if test="[[dashboardDataLoaded]]">
+    <div class="oj-flex oj-sm-flex-direction-column oj-rgbu-jraf-dashboard-container">
+        <div class="oj-flex-item">
+            <div :id="[[removedTilesContainerId]]" style="display: none;">
+                <oj-bind-for-each data="[[availableDashboardTiles]]">
+                    <template data-oj-as="ojRgbuJrafDashboardTile">
+                        <oj-module :id="[[ojRgbuJrafDashboardTile.data.id]]"
+                                   class="oj-rgbu-jraf-dashboard-tile oj-panel oj-masonrylayout-tile-1x1"
+                                   config="[[ojRgbuJrafDashboardTile.data.moduleConfig]]"></oj-module>
+                    </template>
+                </oj-bind-for-each>
+            </div>
+            <oj-conveyor-belt :id="[[conveyorBeltId]]">
+                <oj-masonry-layout
+                    :id="[[masonryLayoutId]]"
+                    :style.width="[[tileContainerWidth]]"
+                    :class="[[{ 'oj-rgbu-jraf-dashboard-edit-mode': editMode }]]"
+                    on-oj-remove="[[handleTileRemoval]]"
+                    on-oj-insert="[[handleTileInsertion]]"
+                    on-oj-reorder="[[handleTileReorder]]"
+                    reorder-handle=".oj-panel-drag-handle">
+                    <oj-menu slot="contextMenu" style="display:none" :aria-label="[[dashboardReorderMenuLabel]]">
+                        <oj-option data-oj-command="oj-masonrylayout-cut"></oj-option>
+                        <oj-option data-oj-command="oj-masonrylayout-paste-before"></oj-option>
+                        <oj-option data-oj-command="oj-masonrylayout-paste-after"></oj-option>
+                    </oj-menu>
+
+                    <oj-bind-for-each data="[[dashboardTiles]]">
+                        <template data-oj-as="ojRgbuJrafDashboardTile">
+                            <oj-bind-if test="[[!ojRgbuJrafDashboardTile.data.administrationTile]]">
+                                <oj-module :id="[[ojRgbuJrafDashboardTile.data.id]]"
+                                           class="oj-rgbu-jraf-dashboard-tile oj-panel oj-masonrylayout-tile-1x1"
+                                           config="[[ojRgbuJrafDashboardTile.data.moduleConfig]]"></oj-module>
+                            </oj-bind-if>
+
+                            <oj-bind-if test="[[ojRgbuJrafDashboardTile.data.administrationTile]]">
+                                <div :id="[[adminTileId]]" class="oj-panel oj-masonrylayout-tile-1x1 oj-rgbu-jraf-dashboard-tile oj-rgbu-jraf-dashboard-administration-container">
+                                    <div class="oj-sm-flex-direction-column oj-sm-flex-items-initial oj-sm-flex-wrap-nowrap oj-sm-justify-content-space-between">
+                                        <div class="oj-flex-item">
+                                            <div class="oj-rgbu-jraf-dashboard-add-tile-container">
+                                                <oj-button
+                                                    class="oj-rgbu-jraf-dashboard-add-tile-button"
+                                                    chroming="outlined"
+                                                    display="icons"
+                                                    disabled="[[editMode]]"
+                                                    on-oj-action="[[openAddTileDialog]]">
+                                                    <span slot="startIcon" class="oj-rgbu-jraf-dashboard-add-tile-plus-icon"></span>
+                                                    <oj-bind-text value="[[addTileLinkText]]"></oj-bind-text>
+                                                </oj-button>
+                                            </div>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <div class="oj-rgbu-jraf-dashboard-edit-tile-container">
+                                                <oj-buttonset-many
+                                                    class="oj-rgbu-jraf-dashboard-edit-dashboard-button"
+                                                    value="{{editDashboardChecked}}"
+                                                    chroming="outlined">
+                                                    <oj-option value="editDashboard">
+                                                        <span>
+                                                            <oj-bind-text value="[[editDashboardButtonLabel]]"></oj-bind-text>
+                                                        </span>
+                                                    </oj-option>
+                                                </oj-buttonset-many>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </oj-bind-if>
+                        </template>
+                    </oj-bind-for-each>
+                </oj-masonry-layout>
+            </oj-conveyor-belt>
+        </div>
+
+        <oj-bind-if test="[[!hasTiles()]]">
+            <div class="oj-flex-item oj-rgbu-jraf-dashboard-no-tile-data-msg-container">
+                <span>
+                    <oj-bind-text value="[[noTileDataMsg]]"></oj-bind-text>
+                </span>
+                <oj-bind-if test="[[$properties.renderTileAdministration]]">
+                    <a href="#" on-click="[[openAddTileDialog]]">
+                        <oj-bind-text value="[[addTileLinkText]]"></oj-bind-text>
+                    </a>
+                </oj-bind-if>
+            </div>
+        </oj-bind-if>
+
+        <div class="oj-flex-item">
+            <oj-bind-if test="[[hasTiles() && (contentModuleBinding() || contentModuleOptions())]]">
+                <oj-rgbu-jraf-apps-module 
+                    class="oj-rgbu-jraf-dashboard-content"
+                    module-binding="[[contentModuleBinding]]"
+                    module-options="[[contentModuleOptions]]"
+                    before-load-module-handler="[[$properties.beforeLoadModuleHandler]]"
+                    after-unload-module-handler="[[$properties.afterUnloadModuleHandler]]"></oj-rgbu-jraf-apps-module>
+            </oj-bind-if>
+        </div>
+    </div>
+</oj-bind-if>
+
+<oj-bind-if test="[[$properties.renderTileAdministration]]">
+    <oj-dialog
+        style="display: none; width: 720px; height: 450px;"
+        :id="[[addTileDialogId]]"
+        dialog-title="[[addDashboardTileText]]"
+        initial-visibility="hide"
+        resize-behavior="resizable"
+        cancel-behavior="icon">
+        <div slot="body">
+            <oj-bind-if test="[[addTileDialogOpen]]">
+                <oj-list-view
+                    :aria-label="[[dashboardTilesListLabel]]"
+                    class="oj-rgbu-jraf-dashboard-add-tile-listview"
+                    data="[[availableDashboardContentDataSource]]"
+                    selection-mode="single"
+                    selection="{{addTileSelection}}"
+                    current-item="{{addTileCurrentItem}}"
+                    translations.msg-no-data="[[noDataText]]">
+                    <template slot="itemTemplate">
+                        <li>
+                            <div class="oj-flex oj-sm-flex-items-initial oj-sm-align-items-center oj-sm-padding-2x-horizontal oj-sm-flex-wrap-nowrap">
+                                <div class="oj-flex-item">
+                                    <div class="oj-flex oj-sm-flex-items-initial oj-sm-flex-wrap-nowrap oj-sm-align-items-center oj-sm-justify-content-space-between oj-rgbu-jraf-dashboard-content-preview-container">
+                                        <oj-bind-if test="[[$current.data.hasPreview]]">
+                                            <div class="oj-flex-item">
+                                                <span role="img"
+                                                      :class="[['oj-rgbu-jraf-dashboard-preview-icon ' + $current.data.preview()]]"
+                                                      :title="[[previewLabel]]"></span>
+                                            </div>
+                                        </oj-bind-if>
+
+                                        <oj-bind-if test="[[!$current.data.hasPreview()]]">
+                                            <div class="oj-flex-item">
+                                                <span>
+                                                    <oj-bind-text value="[[previewUnavailableText]]"></oj-bind-text>
+                                                </span>
+                                            </div>
+                                        </oj-bind-if>
+                                    </div>
+                                </div>
+
+                                <div class="oj-flex-item">
+                                    <div>
+                                        <h3><oj-bind-text value="[[$current.data.name]]"></oj-bind-text></h3>
+                                    </div>
+                                    <div>
+                                        <span class="oj-typography-body-xs oj-text-color-secondary">
+                                            <oj-bind-text value="[[$current.data.description]]"></oj-bind-text>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </oj-list-view>
+            </oj-bind-if>
+        </div>
+        <div slot="footer">
+            <oj-button on-oj-action="[[handleDialogCancel]]">
+                <oj-bind-text value="[[cancelText]]"></oj-bind-text>
+            </oj-button>
+            <oj-button on-oj-action="[[handleDialogAddTile]]" disabled="[[!addTileSelected()]]">
+                <oj-bind-text value="[[addTileText]]"></oj-bind-text>
+            </oj-button>
+        </div>
+    </oj-dialog>
+</oj-bind-if>
+
+<oj-rgbu-jraf-message-dialog
+    :id="[[messageDialogId]]"
+    level="error"
+    message-text="[[messageDialogBody]]">
+</oj-rgbu-jraf-message-dialog>
+
+<oj-rgbu-jraf-snackbar :id="[[snackbarId]]"></oj-rgbu-jraf-snackbar>

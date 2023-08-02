@@ -1,0 +1,86 @@
+<oj-dialog :id="[[dialogId]]" :style.width="35em"
+    initial-visibility="hide"
+    dialog-title="[[dialogTitle]]"
+    on-oj-open='[[onOpen]]'>
+    <div class="oj-dialog-body jraf-create-notifications-dialog">
+        <div class="oj-flex">
+            <div class="oj-sm-6 oj-flex-item">
+                <oj-label for="[[severitySelectId]]"><oj-bind-text value="[[severitySelectLabel]]"></oj-bind-text></oj-label>
+                <oj-select-single :id="[[severitySelectId]]" 
+                    data="[[severityOptionsDataProvider]]"
+                    value="{{selectedSeverity}}">
+                </oj-select-single>
+            </div>
+            <div class="oj-sm-6 oj-flex-item">
+                <oj-label for="[[typeSelectId]]"><oj-bind-text value="[[typeSelectLabel]]"></oj-bind-text></oj-label>
+                <oj-select-single :id="[[typeSelectId]]" 
+                    data="[[typeOptionsDataProvider]]"
+                    value="{{selectedType}}"
+                    on-value-changed="[[handleTypeSelection]]">
+                </oj-select-single>
+            </div>
+        </div>
+        <oj-label for="[[messageFieldId]]"><oj-bind-text value="[[messageFieldLabel]]"></oj-bind-text></oj-label>
+        <oj-text-area :id="[[messageFieldId]]" :title="[[messageCharLimitLabel]]" :style.max-length="[[maxMessageLength]]" value="{{messageValue}}"></oj-text-area>
+        <div class="oj-flex">
+            <div class="oj-sm-6 oj-flex-item">
+                <div>
+                    <oj-label for="[[assigneeSearchId]]"><oj-bind-text value="[[assigneeSearchLabel]]"></oj-bind-text></oj-label>
+                    <oj-combobox-one :id="[[assigneeSearchId]]"
+                        value="{{assigneeSearchValue}}"
+                        on-oj-value-updated="[[handleUsersSearch]]"
+                        min-length="3"
+                        placeholder="[[assigneeSearchPlaceholder]]">
+                        <a slot="end" role="button" href="#" on-click="[[handleUsersSearch]]" :style.width="15px" class="jraf-create-notifications-assignee-search">&nbsp</a>
+                    </oj-combobox-one>
+                </div>
+                <div class="jraf-create-notifications-options">
+                    <oj-select-many :aria-label="[[matchingRecipientsLabel]]"
+                        options="[[assigneeOptions]]"
+                        value-options="{{selectedAssignees}}"
+                        render-mode="native"></oj-select-many>
+                </div>
+            </div>
+            <div class="oj-sm-6 oj-flex-item">
+                <oj-label for="[[assigneeListId]]"><oj-bind-text value="[[assigneeListLabel]]"></oj-bind-text></oj-label>
+                <div :id="[[assigneeListId]]" class="jraf-create-notifications-selectedList">
+                    <oj-bind-for-each data="[[assigneeList]]">
+                        <template data-oj-as="assignee">
+                            <div>
+                                <oj-button chroming='borderless'
+                                    display='icons'
+                                    on-oj-action="[[removeAssignee]]"
+                                    class="jraf-create-notifications-clearButton">
+                                        <span slot="startIcon" class="oj-icon  jraf-delete-icon"></span>
+                                        <span><oj-bind-text value="[[assignee.data.removeAssigneeLabel]]"></oj-bind-text></span>
+                                </oj-button>
+                                <span><oj-bind-text value="[[assignee.data.label]]"></oj-bind-text></span>
+                            </div>
+                        </template>
+                    </oj-bind-for-each>
+                    <oj-bind-for-each data="[[assignedGroups]]">
+                        <template data-oj-as="assigneegroup">
+                            <div>
+                                <div class="jraf-create-notifications-selectedListGroupPadding"></div>
+                                <span><oj-bind-text value="[[assigneegroup.data.description || assigneegroup.data.name]]"></oj-bind-text></span>
+                            </div>
+                        </template>
+                    </oj-bind-for-each>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="oj-dialog-footer">
+        <oj-button on-oj-action='[[closeDialog]]'><span><oj-bind-text value="[[cancelLabel]]"></oj-bind-text></span></oj-button>
+        <oj-button on-oj-action='[[createNotification]]'><span><oj-bind-text value="[[okLabel]]"></oj-bind-text></span></oj-button>
+    </div>
+</oj-dialog>
+<oj-popup :id="[[errorId]]"
+    position.my.horizontal="[[errorMyPosH]]"
+    position.my.vertical="[[errorMyPosV]]"
+    position.at.horizontal="[[errorAtPosH]]"
+    position.at.vertical="[[errorAtPosV]]">
+    <div><span><oj-bind-text value="[[errorMessage]]"></oj-bind-text></span></div>
+</oj-popup>
+<oj-rgbu-jraf-message-dialog :id="[[createFailedDialogId]]" level="error" type="ok"
+    message-text="[[createFailedMsg]]"></oj-rgbu-jraf-message-dialog>

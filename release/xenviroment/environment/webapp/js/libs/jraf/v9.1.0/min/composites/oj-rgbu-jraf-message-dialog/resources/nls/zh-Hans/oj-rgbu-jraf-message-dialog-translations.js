@@ -1,0 +1,1 @@
+define({ok:"确定",cancel:"取消",yes:"是",no:"否",error:"错误",confirmation:"确认",information:"信息",warning:"警告"});

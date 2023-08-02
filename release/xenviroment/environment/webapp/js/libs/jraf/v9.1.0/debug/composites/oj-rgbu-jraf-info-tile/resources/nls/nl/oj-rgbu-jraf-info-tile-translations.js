@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Huidige tegelselectie",adminTileLabel:"Beheertegel",criticalSeverityLabel:"Ernst: kritiek",importantSeverityLabel:"Ernst: belangrijk",normalSeverityTile:"Ernst: normaal",noSeverityLabel:"Geen ernst"});

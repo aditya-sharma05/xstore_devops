@@ -1,0 +1,27 @@
+<!--
+Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+The Universal Permissive License (UPL), Version 1.0
+-->
+
+<div class="oj-hybrid-padding" id="systemStatePage">
+
+  <div class="oj-flex-item oj-sm-12">
+    <div data-bind="visible: isOpen">
+      <div class="xenv-status-indicator xenv-open-background" >
+        <img role="tooltip" class="xenv-status-icon"
+             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADpHpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjazZdrtqsoEIX/1yh6CFZBUTAcFFmrZ9DD7w0SY3LyMCf3x5UV0ZLHdn8FSWj9799K/+CQyTx5tRhSCBMOn3ySjIs4bcdW8+T7uR8yHuH+Jk77A0HIoXbbbVhH+4y4XjuYH/H5Nk62jHHiGGg8uAzo2sxtttEujoGcbHEe95RGv+wPrzM+pW7dtWyP7u+9wYyiGM8JyerYTTiHNouDAhddRp1wFmfSIq5ft4h3T7yj/fLOvP3qzrspj7i7tYKmMBqEO49GnPWxd92hoyK+znzzAB1sOh4H72otsdZ1e7vsA5wKNF7q8ir9Cg1nWOl6t4Bi+CiurZeEEvGKC4gV2D+jLMSJBW5X9lw4c+W11wsvkOhlFdgtIou4HouwP8nSofhWuIoBQyEwEreAmkNYdi3c5019voUjZi6MlsIYjNHjR6FHwd+UfaBaW64xT3H3Crqk5TRkNHLtjFYAwnV4qt3fXuiQN9MBrANB7TZHvGCe5m2IWfmaW65zdmink6dpWxpsZQwAizC3Qgw7EJgCO+XAk4kYM3yM4JOhXJyXGQRYVQpTBRvnAuBEaXOjj3FvKypbGFsLQKgLzoAGCwWwvFfkj/mIHMrq1JOqBjWNmjQHF3zQEIKFtkdlc+ZNLZhZtGQ5uuijxhAtxphiTpIctjBNIRmlmFLKGZNmDJ3RO6NFzrPMbvazzmG2Oc5pzgvSZ/GLLmGxJS5pyUWKK1j+JRSjEksqeeUVqbT6Vdew2hrXtOaKXKuu+qo1VKuxppp3aoPqLTW+I/eaGg9qjZjv7exKDWGzyxDcthNtzEBMPIO4NQJIaGnMpsjeSyPXmE1JsChUQI21wSnciIGgX1m08s7uSu4lN1L/ETd5Ro4auj9Bjhq6Qe4ntwfUSu7fKK4DaquweTq5io0NDdaYJeb2nfTrmr4d4O1AdW46oTdOMq8VG8frsWgPzNjMb7pvg/XwCU307MEZFceaXjZ4oPKkR5/quNZ0ouEpXXTQcQH0K/70WYfnNC/UNuVfZCU98+TG/Ecvfecc/VT/O230nNMeegNg841OqNlavtFK32g5aqL3Dv1EfkCw96FX2fyJMvo591mGt0rpmdRPldH7BfFA4YMEpfOr6QtFW9/HW+29HfR+QVw1ntv846lEeDjTlkdfbWcnPDr7NXRRRc9wflrTFypebv4vk+6lR0PFnoF/76+RWyb4gYW/4/Q/YE/6SC6rbGEAAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfiCRsRHTWpa8O+AAABpElEQVRYw+2XvU4CQRSFz2iIr2CMgLGzMGgpxJ8X0IAWPoqd8jbGAqKJpRqEUJsYEbW1UEMHhSQWn82SbDbL7uzuUOkpmcn9ziz33rkj/XWZJJuBTUlVSTuSFiXlvaV3SR+S2pKujDEPzhwCBjgE+tjrGai5gK8AXdKrAxTSwsvAJ9k1APaSwreBMe40Biq28CLwhXsNgFWbhOs6hAYTtx1n4Mgh/BpYAE4Cv1ejTt93BG8COV/sum+tN7XJzALuxc55vWGi0mRtzrev6qBvNSUdG2N+/HBJF5LWIlnAnUUSpTl5M2TvbZiBt8Cms4gAQTUSwAFewgyM/HDLQGngAKMwA0PfRWIbMA0cYBhm4DVYw4H1eeDcARygb5OE05KqkREOcBNmoJ4gs7PAAU7DDGxEtdSI9p0UDrA+LVjPtsYDf0kSPUVdRrW4yyXjyQH2427ETlzNpzw5QMtmICnEDCSNlPAPIG87FVUcj2TfQDnpXLjluXYxiu2mnYyLQDsDvGX92WOMVCNKNLTUgINZPM1KvqfZkqTlwNPsXtKlMeZR/7LUL34/WjdWQRQdAAAAAElFTkSuQmCC"/>
+        <span role="img" data-bind="text: storeInformationText, attr: { 'aria-label' : accessibleStoreOpenStatusText }"
+              style="color: white" tabindex="0"></span>
+      </div>
+    </div>
+
+    <div data-bind="hidden: isOpen">
+      <div class="xenv-status-indicator xenv-closed-background">
+        <img class="xenv-status-icon"
+             src="data:image/png;base64,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"/>
+        <span role="img" data-bind="text: storeInformationText, attr: { 'aria-label' : accessibleStoreClosedStatusText }"
+              style="color: white" tabindex="0"></span>
+      </div>
+    </div>
+  </div>
+</div>

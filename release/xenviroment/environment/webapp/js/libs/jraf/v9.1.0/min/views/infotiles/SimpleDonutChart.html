@@ -1,0 +1,18 @@
+<div data-bind="ojComponent: {
+    component: 'ojChart',
+    type: 'pie',
+    series: pieSeriesValue,
+    groups: pieGroupsValue,
+    valueFormats: valueFormats,
+    styleDefaults: {
+        pieInnerRadius: ko.toJS(innerRadius),
+        dataLabelPosition: 'none'
+    },
+    animationOnDataChange: 'auto',
+    legend: {rendered: 'off'},
+    pieCenterLabel: {
+      text: ko.toJS(centerLabel),
+      style: ko.toJS(labelStyle)}
+    }"
+    style="width:100%;height:115px;">
+</div>

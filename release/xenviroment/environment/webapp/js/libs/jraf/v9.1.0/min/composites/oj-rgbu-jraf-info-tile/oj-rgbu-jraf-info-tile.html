@@ -1,0 +1,60 @@
+<div tabindex="0"
+        :id="[[tileId]]"
+        :aria-label="[[label]]"
+        :class="[[{'oj-rgbu-jraf-info-tile-tile-container': true, 'oj-rgbu-jraf-info-tile-selected': selected}]]"
+        on-click="[[handleTileSelection]]"
+        on-keydown="[[handleTileKeydown]]">
+    <div :class="[[{ 'oj-rgbu-jraf-info-tile-disabled' : disabled, 'oj-rgbu-jraf-info-tile-tile-root' : true, 'oj-rgbu-jraf-info-tile-admin-tile' : type === 'admin',
+                     'oj-rgbu-jraf-info-tile-normal': severity() === 'low', 'oj-rgbu-jraf-info-tile-important': severity() === 'medium', 'oj-rgbu-jraf-info-tile-critical': severity() === 'high'}]]">
+        <div class="oj-rgbu-jraf-info-tile-tile-box-container">
+            <div :class="[[{ 'oj-flex' : true, 'oj-sm-flex-direction-column' : true, 'oj-sm-flex-items-initial' : true,
+                     'oj-sm-flex-wrap-nowrap': true, 'oj-sm-justify-content-space-between': true, 'oj-rgbu-jraf-info-tile-tile': true}]]">
+                <div class="oj-flex-item oj-rgbu-jraf-info-tile-tile-header-block">
+                    <div class="oj-flex-bar">
+                        <div class="oj-flex-bar-start">
+                            <span class="oj-rgbu-jraf-info-tile-tile-indicator" role="img" :aria-label="[[tileIndicatorLabel]]" :title="[[tileIndicatorLabel]]">
+                            </span>
+                        </div>
+
+                        <div class="oj-flex-bar-end">
+
+                            <h3 class="oj-rgbu-jraf-info-tile-tile-header oj-rgbu-jraf-info-tile-header-text" :title="[[$properties.infoTitle]]">
+                                <oj-bind-text value="[[$properties.infoTitle]]"></oj-bind-text>
+                            </h3>
+
+                        </div>
+                    </div>
+
+                    <div class="oj-flex-bar">
+                        <div class="oj-flex-bar-end">
+                            <span class="oj-rgbu-jraf-info-tile-tile-metric-value oj-rgbu-jraf-info-tile-header-text" :title="[[metric]]">
+                                <oj-bind-text value="[[metric]]"></oj-bind-text>
+                            </span>
+                        </div>
+                    </div>
+
+                    <oj-bind-if test="[[metricLabel]]">
+                        <div class="oj-flex-bar">
+                            <div class="oj-flex-bar-end">
+                                <span class="oj-rgbu-jraf-info-tile-tile-metric-label oj-rgbu-jraf-info-tile-header-text"  :title="[[metricLabel]]">
+                                    <oj-bind-text value="[[metricLabel]]"></oj-bind-text>
+                                </span>
+                            </div>
+                        </div>
+                    </oj-bind-if>
+                </div>
+                
+                <oj-bind-if test="[[displaySlot]]">
+                    <div class="oj-flex-item">
+                        <oj-bind-slot name="customBody"></oj-bind-slot>
+                    </div>
+                </oj-bind-if>
+                     
+            </div>
+        </div>
+        <div class="oj-rgbu-jraf-info-tile-tile-selection-indicator-container">
+            <span class="oj-rgbu-jraf-info-tile-tile-selection-indicator" role="img" :aria-label="[[tileSelectionIndicatorAriaLabel]]"  :title="[[tileSelectionIndicatorAriaLabel]]"></span>
+        </div>
+    </div>
+
+</div>

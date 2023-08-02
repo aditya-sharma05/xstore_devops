@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"자세히 보기",videoHelpLaunchLabel:"자습서 보기"});

@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"추가 정보",toolbarLabel:"도구모음",contextualHelpLabel:"도움말",closeLabel:"닫기"});

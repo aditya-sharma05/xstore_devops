@@ -1,0 +1,1 @@
+define({filterPlaceholder:"Фильтр",msgNoData:"Нет товаров для вывода.",msgNoFilteredData:"Нет товаров, соответствующих фильтрам."});

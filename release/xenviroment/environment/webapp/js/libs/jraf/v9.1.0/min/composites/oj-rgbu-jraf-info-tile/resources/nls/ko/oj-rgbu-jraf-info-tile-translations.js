@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"현재 타일 선택",adminTileLabel:"관리 타일",criticalSeverityLabel:"치명적 심각도",importantSeverityLabel:"중요 심각도",normalSeverityTile:"보통 심각도",noSeverityLabel:"심각도 없음"});

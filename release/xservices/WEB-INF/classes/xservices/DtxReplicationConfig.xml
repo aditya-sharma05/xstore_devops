@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DtxReplicationConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DtxReplicationConfig.xsd">
+  <ReplicationQueue dataSource="Replication" cycleInterval="30000" maxRecsPerCycle="50" errorNotificationCycles="60">
+    <relegationLevel failedAttempts="3" retryAfterCycles="30"/>
+    <relegationLevel failedAttempts="10" retryAfterCycles="240"/>
+    <relegationLevel failedAttempts="15" retryAfterCycles="480"/>
+    <relegationLevel failedAttempts="20" retryAfterCycles="960"/>
+    <relegationLevel failedAttempts="25" retryAfterCycles="2880"/>
+    <relegationLevel failedAttempts="30" retryAfterCycles="9999999"/>
+  </ReplicationQueue>
+</DtxReplicationConfig>

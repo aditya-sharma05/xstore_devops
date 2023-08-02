@@ -1,0 +1,46 @@
+<!--
+ Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <h2><span><oj-bind-text value="[[supportCapTitle]]"></oj-bind-text></span></h2>
+  <div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12 oj-panel">
+      <oj-button :id=[[runSupCaptureButtonId]] on-oj-action="[[runSupportCap]]">
+        <span data-bind="text: generateSupportCap"></span>
+      </oj-button>
+    </div>
+    <div class="oj-flex-item oj-sm-12 oj-panel">
+      <oj-rgbu-jraf-apps-table id="appsTable"
+                               columns="[[gridColumns]]"
+                               create-pattern-type="add"
+                               handle-refresh="[[handleRefresh]]"
+                               hide-detach-button="true"
+                               class="view-menu-display-none actions-menu-display-none separator-display-none"
+                               disable-create="true"
+                               disable-refresh="false"
+                               disable-delete="false"
+                               disable-duplicate="true"
+                               disable-view="true"
+                               disable-export="true"
+                               grid-name="[[gridName]]">
+        <oj-rgbu-jraf-simple-grid id="fileGrid" slot="grid" columns="[[gridColumns]]"
+                                  collection="[[supportCapFileCollection]]" multipleSelect="false"
+                                  table-style="width: 100%" selection="{{selectedItems}}"
+                                  translations="[[noDataLabel]]"
+                                  label="[[gridName]]"></oj-rgbu-jraf-simple-grid>
+      </oj-rgbu-jraf-apps-table>
+
+    </div>
+  </div>
+
+  <oj-rgbu-jraf-message-dialog :id="[[deleteDialogElementId]]" level="warning" type="yesNo"
+                               ok-action="[[deleteCallback]]"
+                               cancel-action="[[cancelCallback]]"
+                               dialogStyle="{ max-width: 50% !important; width: 50% !important }">
+  </oj-rgbu-jraf-message-dialog>
+
+
+  <oj-rgbu-jraf-snackbar :id="[[snackBarId]]"></oj-rgbu-jraf-snackbar>
+
+</div>

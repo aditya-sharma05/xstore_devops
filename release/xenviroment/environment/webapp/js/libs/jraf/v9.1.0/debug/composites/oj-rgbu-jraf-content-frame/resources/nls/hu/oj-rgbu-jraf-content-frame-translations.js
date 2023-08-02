@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"További információk",toolbarLabel:"Eszköztár",contextualHelpLabel:"Súgó",closeLabel:"Bezárás"});

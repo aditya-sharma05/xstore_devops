@@ -1,0 +1,1 @@
+define({upArrow:{noseverity:"向上箭头，“无”严重性",normal:"向上箭头，“一般”严重性",important:"向上箭头，“重要”严重性",critical:"向上箭头，“紧急”严重性",admin:"向上箭头，管理",disabled:"向上箭头，禁用"},downArrow:{noseverity:"向下箭头，“无”严重性",normal:"向下箭头，“一般”严重性",important:"向下箭头，“重要”严重性",critical:"向下箭头，“紧急”严重性",admin:"向下箭头，管理",disabled:"向下箭头，禁用"}});

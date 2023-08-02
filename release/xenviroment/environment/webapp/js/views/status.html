@@ -1,0 +1,51 @@
+<!--
+Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+-->
+<div class="oj-hybrid-padding" id="statusPage">
+  <h3 class="oj-sm-only-hide"><oj-bind-text value="[[statusHeader]]"></oj-bind-text></h3>
+
+  <div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12">
+      <div class="oj-flex-item oj-sm-only-flex-direction-column oj-flex oj-panel oj-margin oj-panel-alt1"
+           id="container">
+        <oj-table :id="[[alertsTableId]]" aria-label="Alerts Table"
+                  data="[[alertsTableDatasource]]"
+                  columns-default.sortable="disabled"
+                  columns="[[columnList]]"
+                  row-renderer="[[rowRenderer]]"
+                  selection-mode='{"row": "single", "column": "none"}'
+                  on-selected-changed='{{selectedChangedListener}}'
+                  selected.row='{{selectedRows}}'
+                  translations.msg-no-data='{{noDataMsg}}'
+                  style='height:200px'>
+        </oj-table>
+        <div style=display:none :id="[[errContainerId]]"></div>
+      </div>
+
+    </div>
+  </div>
+ 
+  
+  <oj-rgbu-jraf-message-dialog :id="[[alertErrorDialogId]]"
+                               level="error"
+                               type="custom"
+                               custom-cancel-button-label="{{cancelButtonLabel}}"
+                               custom-ok-button-label="{{okButtonLabel}}"
+                               cancel-action="[[deleteAlert]]"
+                               ok-action="[[closeDialog]]">
+    <div slot="customBody" :id="[[alertErrorDialogMessageBodyId]]"></div>
+  </oj-rgbu-jraf-message-dialog>
+ 
+ 
+  
+  <oj-rgbu-jraf-message-dialog :id="[[alertWarnDialogId]]"
+                               level="warning"
+                               type="custom"
+                               custom-cancel-button-label="{{cancelButtonLabel}}"
+                               custom-ok-button-label="{{okButtonLabel}}"
+                               cancel-action="[[deleteAlert]]"
+                               ok-action="[[closeDialog]]">
+    <div slot="customBody" :id="[[alertWarnDialogMessageBodyId]]"></div>
+  </oj-rgbu-jraf-message-dialog>
+ 
+</div>

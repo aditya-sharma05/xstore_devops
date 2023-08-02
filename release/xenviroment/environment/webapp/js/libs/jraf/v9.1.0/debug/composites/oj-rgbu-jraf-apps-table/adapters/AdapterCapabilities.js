@@ -1,0 +1,1 @@
+define([],(function(){"use strict";return{HIDE_SHOW_COLUMNS:1,QUERY_BY_EXAMPLE:2,EXPORT_TO_EXCEL:3,MULTI_COLUMN_SORT:4,hasCapability:function(t,i){return t.getCapabilities().filter((function(t){return t===i})).length>0}}}));

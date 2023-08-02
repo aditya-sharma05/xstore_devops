@@ -1,0 +1,1 @@
+define({dismiss:"Отказаться",success:"Успешно",info:"Сведения",warning:"Предупреждение",error:"Ошибка",seeAllLabel:"Просмотреть все",bulkMessage:{success:"{0} успехов.",info:"{0} событий.",warning:"{0} предупреждений.",error:"{0} ошибок."}});

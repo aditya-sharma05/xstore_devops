@@ -1,0 +1,204 @@
+<div class="jraf-global-header">
+
+    <oj-bind-if test="[[renderProcessingIndicator]]">
+        <div :class="[[ { 'active': headerState.processingIndicatorManager.active() , 'jraf-global-header-processing-indicator': true } ]]"
+            :style.background-color="[[headerState.processingIndicatorColor]]"></div>
+    </oj-bind-if>
+
+    <header role="banner" class="oj-web-applayout-header">
+        <div class="oj-web-applayout-max-width oj-flex-bar">
+
+            <!-- Menu Pinning -->
+            <oj-bind-if test="[[renderMenuPin]]">
+                <div class="oj-flex-bar-start  oj-sm-align-items-center jraf-menu-pin-wrapper" :class="[[{ 'active': menuPinned }]]">
+                    <div class="jraf-menu-pin-header">
+                        <a class="jraf-menu-pin-header-link" href="#" on-click="[[toggleMenuPin]]">
+                            <oj-bind-text value="[[menuPinHeaderLabel]]"></oj-bind-text>
+                        </a>
+                    </div>
+                    <div class="jraf-menu-pin">
+                        <a class="jraf-menu-pin-link" href="#"
+                           on-click="[[toggleMenuPin]]" :title="[[menuPinTooltip]]">
+                        </a>
+                    </div>
+                </div>
+            </oj-bind-if>
+
+            <!-- Branding -->
+            <div class="oj-flex-bar-middle oj-sm-align-items-center jraf-global-header-branding">
+                <oj-bind-if test="[[headerState.configLoaded()]]">
+                    <oj-bind-if test="[[!headerState.applicationIcon()]]">
+                        <span role="presentation" class="oj-icon jraf-application-icon"></span>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[headerState.applicationIcon()]]">
+                        <img class="jraf-application-icon-custom" role="presentation" :src="[[headerState.applicationIcon]]"/>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[renderApplicationName]]">
+                        <h1 class="oj-web-applayout-header-title">
+                            <oj-bind-text value="[[applicationName]]"></oj-bind-text>
+                        </h1>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[renderApplicationName && applicationContext && applicationContext.displayName]]">
+                        <span class="jraf-global-header-application-context-divider"></span>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[applicationContext]]">
+                        <a href="#" on-click="[[applicationContext.changeCallback]]" class="jraf-global-header-application-context">
+                            <oj-bind-text value="[[applicationContext.displayName]]"></oj-bind-text>
+                        </a>
+                    </oj-bind-if>
+                </oj-bind-if>
+            </div>
+
+            <!-- Global Header Menus -->
+            <oj-bind-if test="[[renderGlobalMenuArea]]">
+                <style data-bind="text: userAvatar"></style>
+                <div class="oj-flex-bar-end oj-sm-align-items-center">
+
+                    <!-- Global Search Section Menu -->
+                    <oj-bind-if test="[[hasGlobalSearchCallback]]">
+                        <div class="jraf-global-header-filter-container" :class="[[{ 'active': searchActive }]]">
+                            <oj-select-single :id="[[sectionFilterInputId]]"
+                                :aria-label="[[searchFilterComponentLabel]]"
+                                data-jraf-test-id="global-header-search-section"
+                                style="max-width:20em"
+                                value="{{searchMenuFilterListSelection}}"
+                                disabled="[[filterDisabled()]]"
+                                data="[[sectionFiltersDataProvider]]">
+                            </oj-select-single>
+                        </div>
+                        <div class="jraf-global-header-search-icon">
+                            <a href="#"
+                               on-click="[[toggleGlobalSearch]]"
+                               :title="[[currentGlobalSearchAriaLabel]]"
+                               data-jraf-test-id="global-header-search-icon">
+                                <span class="jraf-global-header-search-icon-link" role="img" :aria-label="[[currentGlobalSearchAriaLabel]]"></span>
+                            </a>
+                        </div>
+                        <div class="jraf-global-header-search-container" :class="[[{ 'active': searchActive }]]">
+                            <oj-combobox-one :id="[[globalSearchInputId]]"
+                                :aria-label="[[globalSearchAriaLabel]]"
+                                data-jraf-test-id="global-header-search-field"
+                                min-length="[[minimumAutosuggestLength]]"
+                                value="[[globalSearchString]]"
+                                placeholder="[[globalSearchPlaceholderText]]"
+                                options="[[getGlobalSearchAutosuggestOptions]]"
+                                on-oj-value-updated="[[handleGlobalSearchSubmission]]"
+                                option-renderer="[[getGlobalSearchOptionTemplate()]]"
+                                picker-attributes="[[pickerAttributes]]">
+                                <span slot="end"></span>
+                            </oj-combobox-one>
+                        </div>
+
+                        <script type="text/html" :id="[[globalSearchOptionTemplateId]]">
+                            <oj-bind-if test="[[ !$context['data']['last'] ]]">
+                                <div class="jraf-global-header-search-autosuggest-result oj-listbox-highlighter-section"
+                                     :data-jraf-test-id="[[ $data['jrafTestId'] ]]">
+                                    <span class="jraf-global-header-autosuggest-label">
+                                        <oj-bind-text value="[[$data.label]]"></oj-bind-text>
+                                    </span>
+                                    <span class="jraf-global-header-autosuggest-path jraf-sub-text">
+                                        <oj-bind-text value="[[ $data['metadata'] ]]"></oj-bind-text>
+                                    </span>
+                                </div>
+                            </oj-bind-if>
+
+                            <oj-bind-if test="[[ $context['data']['last'] ]]">
+                                <div class="jraf-global-header-search-autosuggest-result jraf-global-header-autosuggest-see-all-wrapper"
+                                     data-jraf-test-id="global-header-search-result-all">
+                                    <span class="jraf-global-header-autosuggest-see-all">
+                                        <oj-bind-text value="[[$data.label]]"></oj-bind-text>
+                                    </span>
+                                </div>
+                            </oj-bind-if>
+                        </script>
+
+                        <div class="jraf-global-header-close-search-icon-container">
+                            <a href="#"
+                               on-click="[[toggleGlobalSearch]]"
+                               :title="[[currentGlobalSearchAriaLabel]]">
+                                <span class="jraf-global-header-close-search-icon-link" role="img" :aria-label="[[currentGlobalSearchAriaLabel]]"></span>
+                            </a>
+                        </div>
+                    </oj-bind-if>
+
+                    <!-- User Menu -->
+                    <oj-menu-button chroming="borderless"
+                                  data-jraf-test-id="global-header-user-menu"
+                                  :class="[[ { 'jraf-global-header-menu-button': true, 'jraf-global-header-user-avatar': userAvatar } ]]">
+                        <span><oj-bind-text value="[[username]]"></oj-bind-text></span>
+                        <span class="jraf-global-header-user-button-icon oj-icon" slot="startIcon"></span>
+
+                        <oj-menu :id="[[userMenuId]]"
+                            slot="menu"
+                            style="display:none"
+                            on-oj-action="[[handleMenuSelect]]">
+
+                            <oj-bind-for-each data="[[userMenuItems]]">
+                                <template data-oj-as="userItem">
+                                    <oj-bind-if test="[[userItem.data.label && userItem.data.rendered]]">
+                                        <oj-option :id="[[userItem.data.id]]"
+                                                   :data-jraf-test-id="[[userItem.data.jrafTestId]]"
+                                                   :class="[[userItem.data.classNameMap]]"
+                                                   value="[[userItem.data.label]]">
+                                            <span>
+                                                <oj-bind-text value="[[userItem.data.label]]"></oj-bind-text>
+                                            </span>
+
+                                            <oj-bind-if test="[[userItem.data.children]]">
+                                                <oj-menu>
+                                                    <oj-bind-for-each data="[[userItem.data.children]]">
+                                                        <template data-oj-as="submenu">
+                                                            <oj-option :id="[[submenu.data.id]]"
+                                                                       :data-jraf-test-id="[[submenu.data.jrafTestId]]"
+                                                                       :class="[[submenu.data.classNameMap]]"
+                                                                       value="[[submenu.data.label]]">
+                                                                <span class="jraf-menu-icon-checked jraf-global-header-user-menu-check-icon"
+                                                                        :class="[[{ 'active': submenu.data.selected }]]"
+                                                                        slot="startIcon"
+                                                                        :aria-label="[[currentSelectionLabel]]"></span>
+                                                                <span :aria-label="[[submenu.data.label]]">
+                                                                    <oj-bind-text value="[[submenu.data.label]]"></oj-bind-text>
+                                                                </span>
+                                                            </oj-option>
+                                                        </template>
+                                                    </oj-bind-for-each>
+                                                </oj-menu>
+                                            </oj-bind-if>
+                                        </oj-option>
+                                    </oj-bind-if>
+                                </template>
+                            </oj-bind-for-each>
+                        </oj-menu>
+                    </oj-menu-button>
+
+                    <!-- Help Menu -->
+                    <oj-menu-button chroming="borderless"
+                                    display="icons"
+                                    data-jraf-test-id="global-header-help-menu"
+                                    :class="jraf-global-header-menu-button">
+                        <span><oj-bind-text value="[[helpMenuLabel]]"></oj-bind-text></span>
+                        <span class="jraf-global-header-help-button-icon oj-icon" slot="startIcon"></span>
+                        <oj-menu :id="[[helpMenuId]]"
+                                slot="menu"
+                                style="display:none"
+                                on-oj-action="[[handleMenuSelect]]">
+                            <oj-bind-for-each data="[[helpMenuItems]]">
+                                <template data-oj-as="helpItem">
+                                    <oj-option :id="[[helpItem.data.id]]"
+                                               :data-jraf-test-id="[[helpItem.data.jrafTestId]]"
+                                               :class="[[helpItem.data.classNameMap]]"
+                                               value="[[helpItem.data.label]]">
+                                        <span>
+                                            <oj-bind-text value="[[helpItem.data.label]]"></oj-bind-text>
+                                        </span>
+                                    </oj-option>
+                                </template>
+                            </oj-bind-for-each>
+                        </oj-menu>
+                    </oj-menu-button>
+
+                </div>
+            </oj-bind-if>
+        </div>
+    </header>
+</div>

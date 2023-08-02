@@ -1,0 +1,55 @@
+{
+    "name": "oj-rgbu-jraf-apps-module",
+    "displayName": "Apps Module",
+    "description": "Internal JRAF component used to display content provided by the consuming application.  Uses either the oj-module component or the ojModule binding internally depending on configuration.  When configured to use the oj-module component it also supports a callback which can take over the loading of the module.  Consuming applications can use this to provide custom loading / caching logic.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "moduleBinding": {
+            "displayName": "Module Binding",
+            "description": "Module Binding configuration. (see Options field of JET's ojModule binding)",
+            "type": "object",
+            "required": false
+        },
+        "moduleOptions": {
+            "displayName": "Module Options",
+            "description": "Module Options configuration.  (see options parameter of JET's ModuleElementUtils.createConfig function)",
+            "type": "object",
+            "required": false
+        },
+        "beforeLoadModuleHandler": {
+            "displayName": "Before Load Module Handler",
+            "description": "Function called before loading the module (when configured with moduleOptions).  The moduleOptions property is passed to the function.  The function should return a Promise resolving to the module config (see config attribute of oj-module) or resolving to null or undefined to continue with default module loading behavior (using ModuleElementUtils.createConfig).",
+            "type": "function",
+            "required": false
+        },
+        "afterLoadModuleHandler": {
+            "displayName": "After Load Module Handler",
+            "description": "Function called after loading the module (when configured with moduleOptions).  The moduleOptions property is passed to the function along with the loaded module config.  The function should return a Promise resolving to a module config (see config attribute of oj-module).",
+            "type": "function",
+            "required": false
+        },
+        "transitionEndHandler": {
+            "displayName": "Transition End Event Handler",
+            "description": "Event Handler for ojTransitionEnd event on oj-module element.",
+            "type": "function",
+            "required": false
+        },
+        "afterUnloadModuleHandler": {
+            "displayName": "After Unload Module Handler",
+            "description": "Function called aftter the module has been removed from the DOM (when configured with moduleOptions).  The moduleOptions property is passed to the function along with the viewModel and view that were unloaded.",
+            "type": "function",
+            "required": false
+        }
+    },
+    "methods": {
+        "refresh": {
+            "description": "Refresh the currently configured module."
+        },
+        "invokeModuleEventHandler": {
+            "description": "Pass a method name, event, ui object and default return value to invoke one of the standard UI Shell convention methods.  The default return value is returned if the method does not exist on the view model."
+        }
+    },
+    "events": {},
+    "slots": {}
+}

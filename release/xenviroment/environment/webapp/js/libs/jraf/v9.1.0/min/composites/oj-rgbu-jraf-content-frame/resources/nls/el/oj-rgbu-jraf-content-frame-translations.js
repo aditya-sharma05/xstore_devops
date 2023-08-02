@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"Πρόσθετες πληροφορίες",toolbarLabel:"Γραμμή εργαλείων",contextualHelpLabel:"Βοήθεια",closeLabel:"Κλείσιμο"});

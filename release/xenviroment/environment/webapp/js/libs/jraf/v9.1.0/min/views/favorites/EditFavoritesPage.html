@@ -1,0 +1,211 @@
+<script type="text/html" :id="[[favoritesTreeNodeTemplateId]]">
+    <li :id="[[$module.getFavoriteGuid($data)]]">
+        <span :class="[[$module.getPinClasses($data)]]"></span>
+        <span :class="[[$module.getImageClasses($data)]]"></span>
+        <span class="oj-treeview-item-text"
+            :title="[[$module.getLocalizedTitle($data)]]">
+            <oj-bind-text value="[[$module.getLocalizedTitle($data)]]"></oj-bind-text>
+        </span>
+        <oj-bind-if test="[[$data.isFolder]]">
+            <ul>
+                <!-- ko template: {name: $module.favoritesTreeNodeTemplateId, foreach: $data.children} --><!-- /ko -->
+            </ul>
+        </oj-bind-if>
+    </li>
+</script>
+
+<div class="oj-flex jraf-edit-favorites-page" data-oj-context>
+    <div class="oj-flex-item oj-sm-12 oj-md-6">
+        <div class="jraf-edit-favorites-panel">
+            <h2>
+                <oj-bind-text value="[[organizedFavoritesHeader]]"></oj-bind-text>
+            </h2>
+            <div class="jraf-edit-favorites-body">
+                <oj-bind-if test="[[favoritesContentLoaded]]">
+                    <oj-bind-if test="[[!hasFavorites()]]">
+                        <span>
+                            <oj-bind-text value="[[noFavoritesToDisplayMessage]]"></oj-bind-text>
+                        </span>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[hasFavorites()]]">
+                        <oj-toolbar :id='[[favoritesToolbarId]]' :aria-label='[[favoritesToolbarAriaLabel]]' :aria-controls='[[favoritesTreeId]]'
+                            chroming='borderless' class='oj-toolbar-bottom-border'>
+                            <oj-button :id='[[toolbarEditButtonId]]' display='icons' disabled='[[!favoriteIsSelected()]]' on-oj-action='[[handleEditButton]]'>
+                                <span slot='startIcon' class='oj-icon jraf-favorites-toolbar-edit-button-icon'></span>
+                                <oj-bind-text value="[[toolbarEditButtonName]]"></oj-bind-text>
+                            </oj-button>
+                            <oj-button :id='[[toolbarDeleteButtonId]]' display='icons' disabled='[[!favoriteIsSelected()]]' on-oj-action='[[handleDeleteButton]]'>
+                                <span slot='startIcon' class='oj-icon jraf-favorites-toolbar-delete-button-icon'></span>
+                                <oj-bind-text value="[[toolbarDeleteButtonName]]"></oj-bind-text>
+                            </oj-button>
+                            <span role="separator" aria-orientation="vertical" class="oj-toolbar-separator"></span>
+                            <oj-button :id='[[toolbarCreateFolderButtonId]]' display='icons' on-oj-action='[[handleCreateFolderButton]]'>
+                                <span slot='startIcon' class='oj-icon jraf-favorites-toolbar-create-folder-button-icon'></span>
+                                <oj-bind-text value="[[toolbarCreateFolderButtonName]]"></oj-bind-text>
+                            </oj-button>
+                            <oj-button :id='[[toolbarPinButtonId]]' display='icons' disabled='[[!favoriteIsSelected() || selectedFavoriteIsFolder()]]' on-oj-action='[[handlePinButton]]'>
+                                <span slot='startIcon' class='oj-icon jraf-favorites-toolbar-pin-button-icon'></span>
+                                <oj-bind-text value="[[toolbarPinButtonName]]"></oj-bind-text>
+                            </oj-button>
+                        </oj-toolbar>
+                        <oj-tree-view :id='[[favoritesTreeId]]'
+                                :aria-label='[[organizedFavoritesAriaLabel]]'
+                                selection-mode='single'
+                                selection='{{favoritesSelection}}'
+                                dnd.drag.items.data-types='["application/favoriteitem+json"]'
+                                dnd.drop.items.data-types='["application/favoriteitem+json"]'
+                                dnd.drag.items.drag-start='[[handleDragStart]]'
+                                dnd.drop.items.drop="[[handleDrop]]" >
+                            <ul>
+                                <!-- ko template: {name: favoritesTreeNodeTemplateId, foreach: favorites} --><!-- /ko -->
+                            </ul>
+                            <oj-menu :id='[[favoriteContextMenuId]]'
+                                     slot="contextMenu"
+                                     style="display:none"
+                                     :aria-label="[[favoriteContextMenuAriaLabel]]"
+                                     on-oj-action="[[favoriteContextMenuAction]]"
+                                     on-oj-before-open="[[favoriteContextMenuBeforeOpen]]">
+                                <oj-option value='edit'>
+                                    <span>
+                                        <oj-bind-text value="[[favoriteContextEditOption]]"></oj-bind-text>
+                                    </span>
+                                </oj-option>
+                                <oj-option value='cut'>
+                                    <span>
+                                        <oj-bind-text value="[[favoriteContextCutOption]]"></oj-bind-text>
+                                    </span>
+                                </oj-option>
+                                <oj-option value='before' disabled="[[preventPasteAdjacentToTarget]]">
+                                    <span>
+                                        <oj-bind-text value="[[favoriteContextPasteBeforeOption]]"></oj-bind-text>
+                                    </span>
+                                </oj-option>
+                                <oj-option value='after' disabled="[[preventPasteAdjacentToTarget]]">
+                                    <span>
+                                        <oj-bind-text value="[[favoriteContextPasteAfterOption]]"></oj-bind-text>
+                                    </span>
+                                </oj-option>
+                                <oj-bind-if test="[[includePasteInsideMenuItem]]">
+                                    <oj-option value='inside' disabled="[[preventPasteInsideTarget]]">
+                                        <span>
+                                            <oj-bind-text value="[[favoriteContextPasteInsideOption]]"></oj-bind-text>
+                                        </span>
+                                    </oj-option>
+                                </oj-bind-if>
+                                <oj-bind-if test="[[includePinFavoriteMenuItem]]">
+                                    <oj-option value='pin'>
+                                        <span>
+                                            <oj-bind-text value="[[favoriteContextPinOption]]"></oj-bind-text>
+                                        </span>
+                                    </oj-option>
+                                </oj-bind-if>
+                                <oj-bind-if test="[[includeUnpinFavoriteMenuItem]]">
+                                    <oj-option value='unpin'>
+                                        <span>
+                                            <oj-bind-text value="[[favoriteContextUnpinOption]]"></oj-bind-text>
+                                        </span>
+                                    </oj-option>
+                                </oj-bind-if>
+                                <oj-option value='delete'>
+                                    <span>
+                                        <oj-bind-text value="[[favoriteContextDeleteOption]]"></oj-bind-text>
+                                    </span>
+                                </oj-option>
+                            </oj-menu>
+                        </oj-tree-view>
+                    </oj-bind-if>
+                </oj-bind-if>
+            </div>
+        </div>
+    </div>
+    <div class="oj-flex-item oj-sm-12 oj-md-6">
+        <div class="jraf-edit-pinned-favorites-panel">
+            <oj-bind-if test="[[!hidePinnedFavorites]]">
+                <oj-module config="[[editPinnedFavoritesModuleConfig]]"></oj-module>
+            </oj-bind-if>
+        </div>
+    </div>
+</div>
+<oj-rgbu-jraf-apps-panel-bar main-action-buttons="[[mainActionButtons]]" extra-action-buttons="[[extraActionButtons]]">
+</oj-rgbu-jraf-apps-panel-bar>
+
+<oj-rgbu-jraf-snackbar :id="[[snackbarId]]"></oj-rgbu-jraf-snackbar>
+
+<!-- create/edit folder dialog -->
+<oj-dialog style="display:none; min-width: 400px; width: auto;"
+           :id="[[folderDialogId]]"
+           dialog-title="[[folderDialogTitle]]"
+           on-oj-close="[[handleFolderDialogClose]]">
+    <div slot="body">
+        <oj-form-layout>
+            <oj-label for="[[folderNameInputId]]">
+                <oj-bind-text value="[[folderNameInputLabel]]"></oj-bind-text>
+            </oj-label>
+            <oj-validation-group :id="[[folderDialogTracker]]"
+                valid="{{folderDialogGroupValid}}">
+                <oj-input-text :id="[[folderNameInputId]]"
+                    value="{{folderName}}"
+                    required="true"
+                    validators="[[folderNameValidators]]"
+                    style="max-width:100%">
+                </oj-input-text>
+            </oj-validation-group>
+        </oj-form-layout>
+    </div>
+
+    <div slot="footer">
+        <oj-button on-oj-action="[[handleFolderDialogCancel]]">
+            <span>
+                <oj-bind-text value="[[cancelButtonLabel]]"></oj-bind-text>
+            </span>
+        </oj-button>
+        <oj-button on-oj-action="[[handleFolderDialogOk]]">
+            <span>
+                <oj-bind-text value="[[okButtonLabel]]"></oj-bind-text>
+            </span>
+        </oj-button>
+    </div>
+</oj-dialog>
+
+<!-- edit favorite dialog -->
+<oj-dialog style="display:none; min-width: 400px; width: auto;"
+           :id="[[favoriteDialogId]]"
+           dialog-title="[[favoriteDialogTitle]]"
+           on-oj-close="[[handleFavoriteDialogClose]]">
+    <div slot="body">
+        <oj-form-layout>
+            <oj-label for="[[customFavoriteNameInputId]]">
+                <oj-bind-text value="[[customFavoriteNameInputLabel]]"></oj-bind-text>
+            </oj-label>
+            <oj-validation-group :id="[[favoriteDialogTracker]]"
+                valid="{{favoriteDialogGroupValid}}">
+                <oj-input-text :id="[[customFavoriteNameInputId]]"
+                    value="{{customFavoriteName}}"
+                    validators="[[customFavoriteNameValidators]]"
+                    style="max-width:100%">
+                </oj-input-text>
+            </oj-validation-group>
+            <oj-label for="[[originalFavoriteNameInputId]]">
+                <oj-bind-text value="[[originalFavoriteNameInputLabel]]"></oj-bind-text>
+            </oj-label>
+            <oj-input-text :id="[[originalFavoriteNameInputId]]"
+                value="{{originalFavoriteName}}"
+                readonly
+                style="max-width:100%">
+            </oj-input-text>
+        </oj-form-layout>
+    </div>
+
+    <div slot="footer">
+        <oj-button on-oj-action="[[handleFavoriteDialogCancel]]">
+            <span>
+                <oj-bind-text value="[[cancelButtonLabel]]"></oj-bind-text>
+            </span>
+        </oj-button>
+        <oj-button on-oj-action="[[handleFavoriteDialogOk]]">
+            <span>
+                <oj-bind-text value="[[okButtonLabel]]"></oj-bind-text>
+            </span>
+        </oj-button>
+    </div>
+</oj-dialog>

@@ -1,0 +1,58 @@
+<!--
+Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+-->
+<div class="oj-hybrid-padding" id="devicesPage">
+	<div id="container">
+		<div class="oj-flex">
+			<div class="oj-flex-item">
+				<h3 class="oj-sm-only-hide">
+					<oj-bind-text value="[[deviceSummaryHeader]]"></oj-bind-text>
+				</h3>
+			</div>
+			<div class="oj-flex-item">
+				<oj-button class="xenv-left-justified" on-oj-action="[[refresh]]"
+					:id="[[refreshButtonId]]"> <span> <oj-bind-text
+						value="[[refreshButtonLabel]]"></oj-bind-text>
+				</span> </oj-button>
+			</div>
+		</div>
+	</div>
+	<div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12">
+    <div class="oj-flex-item oj-margin" id="filterContainer">
+        <oj-form-layout max-columns="5" direction="row">
+          <oj-select-one id="selectDeviceType" 
+                          label-hint="[[typeFilterLabel]]" options="[[deviceTypeOptions]]" 
+                          value="{{selectedDeviceType}}"
+                          on-value-changed="[[typeChangedHandler]]"
+                          style="max-width:20em">
+          </oj-select-one>
+          <oj-select-one id="selectDeviceStatus" 
+                          label-hint="[[statusFilterLabel]]" options="[[deviceStatusOptions]]" 
+                          value="{{selectedDeviceStatus}}"
+                          on-value-changed="[[statusChangedHandler]]"
+                          style="max-width:20em">
+          </oj-select-one>
+          </oj-form-layout>
+      </div>
+      <div class="oj-flex-item oj-sm-only-flex-direction-column oj-flex oj-panel oj-margin oj-panel-alt1"
+           id="tableContainer" style="overflow-x:auto">
+        <oj-table :id="[[devicesTableId]]" aria-label="devices Table"
+                  data="[[DevicesTableDatasource]]"
+                  columns-default ='{"sortable": "enabled"}'
+                  columns="[[columnList]]"
+                  row-renderer="[[rowRenderer]]"
+                  selection-mode='{"row": "single", "column": "none"}'
+                  scroll-policy='loadMoreOnScroll'
+                  scroll-policy-options='{"fetchSize": 10}'
+                  on-selected-changed='{{selectedChangedListener}}'
+                  selected.row='{{selectedRows}}'
+                  translations.msg-no-data='{{noDataMsg}}'>
+        </oj-table>
+        <div style=display:none :id="[[errContainerId]]"></div>
+      </div>
+
+    </div>
+  </div>
+ 
+</div>

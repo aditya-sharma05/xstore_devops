@@ -1,0 +1,41 @@
+<div class="jraf-menu-body">
+    <oj-bind-if test="[[menuDataLoaded]]">
+        <oj-navigation-list
+            class="jraf-sliding-navigation"
+            :id="[[navListId]]"
+            :aria-label="[[navListLabel]]"
+            drill-mode="sliding"
+            on-oj-before-expand="[[beforeExpand]]"
+            on-oj-before-collapse="[[beforeCollapse]]"
+            on-oj-before-select="[[beforeSelect]]"
+            data="[[menuData]]">
+            <template slot="itemTemplate" data-oj-as="item">
+                <li :id="[[item.data.attr.id]]" :class="[[ {'oj-disabled': item.data.attr.isSection, 'jraf-section-header-wrapper': item.data.attr.isSection} ]]">
+                    <div :class="[[ {'jraf-section-header': item.data.attr.isSection } ]]" class="jraf-favorites-compatible">
+                        <oj-bind-if test="[[favoritesEnabled]]">
+                            <oj-bind-if test="[[!item.data.attr.isFolder && !item.data.attr.isSection]]">
+                                <a href="#" on-click="[[item.data.attr.toggleFavoriteSelection]]" class="jraf-menu-icon-link">
+                                    <span role="img" :class="[[ { 'jraf-icon': true, 'jraf-mark-favorite-icon': !item.data.attr.isFavorite(),
+                                        'jraf-unmark-favorite-icon': item.data.attr.isFavorite } ]]"
+                                        :title="[[ item.data.attr.isFavorite() ? unmarkFavoriteLabel : markFavoriteLabel ]]"
+                                        :aria-label="[[ item.data.attr.isFavorite() ? unmarkFavoriteLabel : markFavoriteLabel ]]">
+                                    </span>
+                                </a>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[item.data.attr.isFolder && !item.data.attr.isSection]]">
+                                <span class="jraf-icon"></span>
+                            </oj-bind-if>
+                        </oj-bind-if>
+                        <span class="oj-navigationlist-item-title" :title="[[item.data.attr.label]]">
+                            <oj-bind-text value="[[item.data.attr.label]]"></oj-bind-text>
+                        </span>
+                    </div>
+                </li>
+            </template>
+        </oj-navigation-list>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[!menuDataLoaded()]]">
+        <span class="jraf-sidebar-loading" role="img" :title="[[loadingText]]"></span>
+    </oj-bind-if>
+</div>

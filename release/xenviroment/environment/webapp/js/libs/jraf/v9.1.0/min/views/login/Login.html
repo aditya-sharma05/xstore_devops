@@ -1,0 +1,53 @@
+<div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap jraf-login-page">
+
+    <!-- login form area -->
+    <div class="oj-flex-item jraf-login-form-area">
+
+        <div class="oj-flex jraf-login-form-vertical-container">
+            <div class="oj-flex-item oj-sm-align-self-center">
+                <form class="oj-sm-odd-cols-12 oj-md-odd-cols-4"
+                        autocomplete="off" on-submit="[[onSubmit]]">
+                    <oj-form-layout label-edge="[[formLabelEdge]]" class="jraf-login-form-container">
+
+                        <h1>
+                            <oj-bind-text value="[[headerText]]"></oj-bind-text>
+                        </h1>
+
+                        <oj-label for="uid" show-required="true">
+                            <oj-bind-text value="[[userIdLabel]]"></oj-bind-text>
+                        </oj-label>
+                        <oj-input-text id="uid" value="{{userName}}" :class="[[mobileLayoutInputtext]]"></oj-input-text>
+
+                        <oj-label for="pwd" show-required="true">
+                            <oj-bind-text value="[[passwordLabel]]"></oj-bind-text>
+                        </oj-label>
+                        <oj-input-password id="pwd" value="{{pwd}}" :class="[[mobileLayoutInputtext]]"></oj-input-password>
+
+                        <hr/>
+
+                        <div :class="[[layoutFlexClasses]]">
+                            <div :class="[[layoutFlexItemClasses]]">
+                                <oj-button disabled="[[handlingLogin]]" on-oj-action="[[processLogin]]" :class="[[mobileLayoutButton]]">
+                                    <oj-bind-text value="[[loginLabel]]"></oj-bind-text>
+                                </oj-button>
+                            </div>
+                        </div>
+                    </oj-form-layout>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- footer area -->
+    <footer role="contentinfo" class="oj-flex-item oj-sm-flex-initial jraf-login-footer-area">
+        <div class="oj-text-color-secondary oj-typography-body-sm">
+            <div><span><oj-bind-text value="[[copyrightStatement]]"></oj-bind-text></span></div>
+            <div><span><oj-bind-text value="[[trademarksStatement]]"></oj-bind-text></span></div>
+        </div>
+    </footer>
+
+    <oj-rgbu-jraf-message-dialog id="jraf-login-failed-dialog" level="error"
+                         message-text="[[loginErrorMessage]]">
+    </oj-rgbu-jraf-message-dialog>
+</div>

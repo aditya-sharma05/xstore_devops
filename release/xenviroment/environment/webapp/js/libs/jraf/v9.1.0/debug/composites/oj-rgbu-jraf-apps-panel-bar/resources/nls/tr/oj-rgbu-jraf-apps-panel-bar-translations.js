@@ -1,0 +1,1 @@
+define({nextLabel:"Sonraki",previousLabel:"Önceki"});

@@ -1,0 +1,17 @@
+{
+    "name": "oj-rgbu-jraf-value-list",
+    "displayName": "Value List",
+    "description": "Displays a list of key/label and value pairs or individual messages.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "values": {
+            "displayName": "Values",
+            "description": "An array of value entries to display. Value entries have the following properties: label - Label of the entry; value - Value of the entry; message - Alternate field to show a left-aligned message on row; This component does not require or limit you to displaying any certain number of entries; however, when rendering inside of an Info Tile, there is a limit in terms of the size of the Info Tile.",
+            "type": "array",
+            "required": true
+        }
+    },
+    "methods": {},
+    "slots": {}
+}

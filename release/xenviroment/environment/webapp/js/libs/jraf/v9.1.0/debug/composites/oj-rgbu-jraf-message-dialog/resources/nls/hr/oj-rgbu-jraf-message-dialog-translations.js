@@ -1,0 +1,1 @@
+define({ok:"U redu",cancel:"Odustani",yes:"Da",no:"Ne",error:"Greška",confirmation:"Potvrda",information:"Informacije",warning:"Upozorenje "});

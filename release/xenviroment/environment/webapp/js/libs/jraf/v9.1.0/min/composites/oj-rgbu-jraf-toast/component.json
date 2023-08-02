@@ -1,0 +1,95 @@
+{
+    "name": "oj-rgbu-jraf-toast",
+    "displayName": "Toast",
+    "description": "A temporary notification to the user which allows the user to take action.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "toastType": {
+            "displayName": "Toast Type",
+            "description": "The type of toast to display: 'standard' or 'announcement'.  Default is 'standard'.",
+            "type": "string",
+            "value": "standard",
+            "enumValues": ["standard", "announcement"]
+        },
+        "toastTitle": {
+            "displayName": "Toast Title",
+            "description": "An optional title to display on the toast.  A default will be provided based on toast type and severity.",
+            "type": "string"
+        },
+        "message": {
+            "displayName": "Message",
+            "description": "An optional message to display in the body of the toast.",
+            "type": "string"
+        },
+        "severity": {
+            "displayName": "Severity",
+            "description": "Severity level of the toast. Valid values are 'info', 'warning', 'error', 'success'.",
+            "type": "string",
+            "required": true,
+            "enumValues": ["info", "warning", "error", "success"]
+        },
+        "autoDismiss": {
+            "displayName": "Automatic Dismiss",
+            "description": "If true an automatic dismiss timeout will be set. (default false)",
+            "type": "boolean",
+            "value": false
+        },
+        "autoDismissTimeout": {
+            "displayName": "Automatic Dismiss Timeout (millis)",
+            "description": "How long (in millis) to wait before closing the toast automatically. Default is configurable.",
+            "type": "number"
+        },
+        "primaryButton": {
+            "displayName": "Primary Button",
+            "description": "Configuration of the optional primary button",
+            "type": "object",
+            "properties": {
+                "label": {
+                    "displayName": "Primary Button Label",
+                    "description": "The label to display on the primary button.",
+                    "type": "string",
+                    "required": true
+                },
+                "callback": {
+                    "displayName": "Primary Button Callback",
+                    "description": "The callback to invoke when the primary button is pressed.",
+                    "type": "function",
+                    "required": true
+                }
+            }
+        },
+        "secondaryButton": {
+            "displayName": "Secondary Button",
+            "description": "Configuration of the optional secondary button",
+            "type": "object",
+            "properties": {
+                "label": {
+                    "displayName": "Secondary Button Label",
+                    "description": "The label to display on the secondary button.",
+                    "type": "string",
+                    "required": true
+                },
+                "callback": {
+                    "displayName": "Secondary Button Callback",
+                    "description": "The callback to invoke when the secondary button is pressed.",
+                    "type": "function",
+                    "required": true
+                }
+            }
+        }
+    },
+    "methods": {
+        "dismiss": {
+            "displayName": "Dismiss the toast",
+            "description": "Method to dismiss toast message."
+        }
+    },
+    "events": {
+        "ojRgbuJrafToastDismissed": {
+            "description" : "The event that consuming views can use to be notified when the toast has been dismissed.",
+            "bubbles" : true,
+            "cancelable" : false
+        }
+    }
+}

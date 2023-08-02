@@ -1,0 +1,1 @@
+define(["jquery","knockout"],(function(n,a){"use strict";a.bindingHandlers.jrafBadgeValue={update:function(d,e){var i=e(),r=a.unwrap(i);99<+r&&(r="99+"),0!=+r?d.classList.remove("jraf-hidden"):d.classList.add("jraf-hidden"),r=+r||r,n(d).text(r)}};var d={};a.bindingHandlers.uniqueId={update:function(e,i){var r=i(),t=a.unwrap(r),u=d[t]||1;n(e).attr({id:t+"-"+u}),d[t]=u+1}}}));

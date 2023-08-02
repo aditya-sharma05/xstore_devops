@@ -1,0 +1,1 @@
+define({filterPlaceholder:"Φίλτρο",msgNoData:"Δεν υπάρχουν στοιχεία προς εμφάνιση.",msgNoFilteredData:"Κανένα στοιχείο δεν συμφωνεί με τα τρέχοντα φίλτρα."});

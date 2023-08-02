@@ -1,0 +1,123 @@
+<div class="oj-rgbu-jraf-contentframe">
+    <div class="oj-rgbu-jraf-contentframe-header oj-flex oj-sm-align-items-center oj-sm-flex-wrap-nowrap">
+        <oj-bind-if test="[[headerTitle]]">
+            <h3 class="oj-flex-item oj-rgbu-jraf-contentframe-header-title">
+                <oj-bind-text value="[[headerTitle]]"></oj-bind-text>
+            </h3>
+        </oj-bind-if>
+        <div class="oj-flex-item oj-rgbu-jraf-contentframe-header-module">
+            <oj-bind-slot name="header"></oj-bind-slot>
+        </div>
+        <div class="oj-flex-item oj-rgbu-jraf-contentframe-header-toolbar">
+            <oj-toolbar
+                :id="[[toolbarId]]"
+                :aria-label="[[toolbarLabel]]"
+                :aria-controls="[[contentFrameDrawerId]]">
+                <oj-bind-if test="[[renderCustomButtons]]">
+                    <oj-buttonset-many :id="[[customButtonsSetId]]"
+                                      focus-management="none"
+                                      display="icons"
+                                      value="{{selectedCustomButton}}"
+                                      on-value-changed="[[handleCustomButtonChange]]">
+                        <oj-bind-for-each data="[[customButtons]]">
+                            <template data-oj-as="button">
+                                <oj-option
+                                    value="[[button.index]]"
+                                    disabled="[[button.data.disabled]]">
+                                    <span slot="startIcon" class="jraf-icon" :class="[[getButtonIconClass(button.data)]]"></span>
+                                    <span><oj-bind-text value="[[button.data.label]]"></oj-bind-text></span>
+                                </oj-option>
+                            </template>
+                        </oj-bind-for-each>
+                    </oj-buttonset-many>
+                </oj-bind-if>
+                <oj-bind-if test="[[renderSeparator]]">
+                    <span role="separator"
+                          class="oj-toolbar-separator oj-flex-item"
+                          aria-orientation="vertical">
+                    </span>
+                </oj-bind-if>
+                <!-- Content frame defined buttons -->
+                <oj-bind-if test="[[defaultButtons]]">
+                    <oj-buttonset-many :id="[[defaultButtonsSetId]]"
+                                      focus-management="none"
+                                      display="icons"
+                                      value="{{selectedDefaultButton}}"
+                                      on-value-changed="[[handleDefaultButtonChange]]">
+                        <oj-bind-for-each data="[[defaultButtons]]">
+                            <template data-oj-as="button">
+                                <oj-option
+                                    value="[[button.index]]"
+                                    disabled="[[button.data.disabled]]">
+                                    <span slot="startIcon" :class="[[button.data.iconClass + ' jraf-icon']]"></span>
+                                    <span><oj-bind-text value="[[button.data.label]]"></oj-bind-text></span>
+                                </oj-option>
+                            </template>
+                        </oj-bind-for-each>
+                    </oj-buttonset-many>
+                </oj-bind-if>
+            </oj-toolbar>
+        </div>
+    </div>
+    <div class="oj-offcanvas-outer-wrapper oj-rgbu-jraf-contentframe-body">
+        <div :class="[[{ 'oj-rgbu-jraf-panel-open' : compactMainContent, 'oj-rgbu-jraf-contentframe-content-wrapper' : true, 'oj-rgbu-jraf-contentframe-content-responsive': $properties.responsivePanelWidth}]]">
+            <div class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-flex-direction-column" style="width:100%; height:100%;">
+                <!-- Scrolling needs to be split from the resizing to allow absolute
+                    positioning to work right inside the module -->
+                <div :id="[[mainContentId]]" class="oj-flex-item"
+                    :class="[[{ 'oj-rgbu-jraf-contentframe-content-scrolling' : true, 'oj-rgbu-jraf-contentframe-body-padding' : !compact() }]]">
+                    <oj-bind-slot name="localArea">
+                    </oj-bind-slot>
+                </div>
+                <div class="oj-flex-item oj-sm-flex-initial">
+                    <oj-bind-slot name="footer">
+                    </oj-bind-slot>
+                </div>
+            </div>
+        </div>
+        <oj-bind-if test="[[showModalOverlay]]">
+            <div class="oj-offcanvas-glasspane oj-offcanvas-glasspane-dim"></div>
+        </oj-bind-if>
+        <oj-bind-if test="[[isPanelActive]]">
+            <div class="oj-offcanvas-end oj-rgbu-jraf-contentframe-panel-wrapper"
+                 :class='[[{"oj-rgbu-jraf-contentframe-panel-responsive": $properties.responsivePanelWidth}]]'
+                 :id="[[contentFrameDrawerId]]">
+                <div class="oj-rgbu-jraf-contentframe-panel-inner-wrapper">
+                    <div>
+                        <div class="oj-rgbu-jraf-contentframe-panel-header oj-flex oj-sm-align-items-center">
+                            <h3 class="oj-flex-item oj-rgbu-jraf-contentframe-panel-header-title">
+                                <span :title="[[selectedPanelTitle]]">
+                                    <oj-bind-text value="[[selectedPanelTitle]]"></oj-bind-text>
+                                </span>
+                            </h3>
+                            <oj-button on-oj-action="[[closePanel]]"
+                                       display="icons"
+                                       chroming="borderless">
+                                <span slot='startIcon' class='oj-rgbu-jraf-contentframe-close-icon jraf-icon'></span>
+                                <span><oj-bind-text value="[[closeLabel]]"></oj-bind-text></span>
+                            </oj-button>
+                        </div>
+                        <div :class="[[{ 'oj-rgbu-jraf-contentframe-panel-body' : true, 'oj-rgbu-jraf-contentframe-body-padding' : !compact() }]]">
+                            <oj-bind-for-each data="[[new Array(contextualAreaCount)]]">
+                                <template data-oj-as="contextualAreaPanel">
+                                    <oj-bind-if test="[[isContextualPanelRendered(contextualAreaPanel.index)]]">
+                                        <div>
+                                            <oj-bind-slot name="contextualArea" index="[[contextualAreaPanel.index]]"></oj-bind-slot>
+                                        </div>
+                                    </oj-bind-if>
+                                </template>
+                            </oj-bind-for-each>
+                        </div>
+                    </div>
+                </div>
+                <oj-bind-if test="[[panelLoading]]">
+                    <div>
+                        <div class="oj-rgbu-jraf-contentframe-loading-icon">
+                            <div class="oj-rgbu-jraf-contentframe-loading"></div>
+                        </div>
+                    </div>
+                </oj-bind-if>
+            </div>
+        </oj-bind-if>
+    </div>
+</div>

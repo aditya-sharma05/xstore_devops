@@ -1,0 +1,1 @@
+define({dismiss:"At",success:"Başarı",info:"Bilgi",warning:"Uyarı",error:"Hata",seeAllLabel:"Tümünü Gör",bulkMessage:{success:"{0} başarı gerçekleşti.",info:"{0} olay gerçekleşti.",warning:"{0} uyarı gerçekleşti.",error:"{0} hata gerçekleşti."}});

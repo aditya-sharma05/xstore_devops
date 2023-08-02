@@ -1,0 +1,1 @@
+define({dismiss:"Elvetés",success:"Sikeres",info:"Infó",warning:"Figyelmeztetés ",error:"Hiba",seeAllLabel:"Összes megtekintése",bulkMessage:{success:"{0} sikeres esemény",info:"{0} esemény történt",warning:"{0} figyelmeztetés történt",error:"{0} hiba történt"}});

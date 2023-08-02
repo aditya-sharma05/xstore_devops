@@ -1,0 +1,1 @@
+define({dismiss:"Rejeter",success:"Succès",info:"Infos",warning:"Avertissement",error:"Erreur",seeAllLabel:"Tout afficher",bulkMessage:{success:"{0} opérations réussies ont eu lieu.",info:"{0} événements ont eu lieu.",warning:"{0} avertissements ont été émis.",error:"{0} erreurs ont eu lieu."}});

@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Дополнительные сведения",videoHelpLaunchLabel:"Просмотр руководства"});

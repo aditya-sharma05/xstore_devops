@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+  default-init-method="init">
+
+  <!-- Spring beans that are singletons or framework beans can be defined in this file. Any realm-specific beans 
+    (validations, services, workers, etc) should be defined in their relevant Spring file that should be in the same 
+    directory as this file. -->
+
+  <!-- Takes session-scoped "form factor" beans from the xstore profile and 
+  converts them back into singletons -->
+  <bean id="sessionScopePostProcessor"
+  class="com.micros_retail.xservices.spring.XservicesSessionScopePostProcessor" />
+  
+
+  <bean id="dealEngineItemCaching" class="dtv.pricing2.engine.CachingEngine">
+    <constructor-arg ref="dealEngineItemFiltering" />
+    <!-- Disable caching of deal engine calculations cause it will lead to very subtle and really hard to troubleshoot
+      issues in Xservices. -->
+    <property name="cacheSize" value="0" />
+  </bean>
+
+  <bean id="extensionStoreConnectivityCheck" class="dtv.pos.common.ExtensionStoreConnectivityCheckNoop"/>
+
+  <bean id="xservicesUrlStreamHandlerFactory" class="com.micros_retail.xservices.XservicesUrlStreamHandlerFactory">
+    <constructor-arg>
+      <map value-type="java.net.URLStreamHandler">
+        <entry key="data">
+          <bean class="dtv.util.protocol.data.Handler" />
+        </entry>
+      </map>
+    </constructor-arg>
+  </bean>
+  <bean id="xservicesProtocolInitializer" class="com.micros_retail.xservices.XservicesProtocolInitializer" scope="singleton" >
+    <constructor-arg ref="xservicesUrlStreamHandlerFactory" />
+  </bean>
+  <bean id="xservicesApplicationListener" class="com.micros_retail.xservices.spring.XservicesApplicationListener" />
+  <bean id="xservicesFilter" class="com.micros_retail.xcenter.servlet.filter.StatusFilter">
+    <property name="statusReporters" ref="showStatusReporters"/>
+    <property name="title" value="Oracle Retail Xstore Services Status"/>
+  </bean>
+  <bean id="showStatusReporters" class="com.micros_retail.xcenter.servlet.filter.StatusReporterHolder">
+    <property name="map">
+      <map value-type="com.micros_retail.xcenter.servlet.filter.IStatusReporter">
+        <entry key="dtx">
+          <bean class="com.micros_retail.xcenter.servlet.filter.DtxStatus">
+            <property name="title" value="Oracle Retail Xstore Services DTX Status"/>
+          </bean>
+        </entry>
+        <entry key="replication">
+          <bean class="com.micros_retail.xservices.XservicesReplicationStatus" />
+        </entry>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="receiptServiceHelper" class="com.micros_retail.xservices.ReceiptServiceHelper" />
+  <bean id="sequenceFactory" class="com.micros_retail.xservices.WebServiceSequenceFactory" factory-method="getInstance" />
+  <bean id="sequenceBuilderProviderFactory" class="com.micros_retail.xservices.XservicesSequenceBuilderFactory" />
+  
+  <bean id="authorizationService" class="com.micros_retail.xcenter.service.rest.v1.filter.NoOpAuthorizationService" />
+  <bean id="softDataFactory" class="com.micros_retail.xcenter.data.NoSoftDataFactory" />
+
+  <bean id="inputServiceHelper" class="com.micros_retail.xservices.input.InputServiceHelper" />
+  <bean id="itemServiceHelper" class="com.micros_retail.xservices.item.ItemServiceHelper" />
+  <bean id="transactionServiceHelper" class="com.micros_retail.xservices.trans.TransactionServiceHelper" scope="session" />
+  <bean id="tenderAuthHelper" class="dtv.tenderauth.TenderAuthHelper" />
+  <bean id="serviceHelper" class="com.micros_retail.xservices.ServiceHelper" />
+  <bean id="reasonCodeServiceHelper" class="com.micros_retail.xservices.reasoncode.ReasonCodeServiceHelper" />
+  <bean id="customerServiceHelper" class="com.micros_retail.xservices.customer.CustomerServiceHelper" />
+  <bean id="houseAccountServiceHelper" class="com.micros_retail.xservices.customer.account.house.HouseAccountServiceHelper" />
+  <bean id="inventoryServiceHelper" class="com.micros_retail.xservices.inventory.InventoryServiceHelper" />
+  <bean id="employeeServiceHelper" class="com.micros_retail.xservices.employee.EmployeeServiceHelper" />
+  <bean id="receivingServiceHelper" class="com.micros_retail.xservices.inventory.receiving.ReceivingServiceHelper" />
+  <bean id="tenderServiceHelper" class="com.micros_retail.xservices.tender.TenderServiceHelper" />
+  <bean id="timeclockServiceHelper" class="com.micros_retail.xservices.employee.TimeclockServiceHelper" />
+  <bean id="discountServiceHelper" class="com.micros_retail.xservices.discount.DiscountServiceHelper" />
+  <bean id="voucherAuthHelper" class="com.micros_retail.xservices.VoucherAuthHelper" />
+  <bean id="serviceAuthHelper" class="com.micros_retail.xservices.ServiceAuthHelper" />
+  <bean id="shippingServiceHelper" class="com.micros_retail.xservices.inventory.shipping.ShippingServiceHelper" />
+  <bean id="tillServiceHelper" class="com.micros_retail.xservices.register.TillServiceHelper" />
+  <bean id="registerServiceHelper" class="com.micros_retail.xservices.register.RegisterServiceHelper" />
+  <bean id="invCountServiceHelper" class="com.micros_retail.xservices.inventory.count.InvCountServiceHelper" />
+  <bean id="invAdjustmentServiceHelper" class="com.micros_retail.xservices.inventory.adjustment.InvAdjustmentServiceHelper" />
+  <bean id="loggingServiceHelper" class="com.micros_retail.xservices.logging.LoggingServiceHelper" />
+  <bean id="wsHandlerFactory" class="com.micros_retail.xservices.router.WsHandlerFactory" init-method="init" />
+  <bean id="webServiceRouterCache" class="com.micros_retail.xservices.router.WebServiceRouterCache" />
+  <bean id="transactionCleanupManager" class="com.micros_retail.xservices.session.TransactionCleanupManager" />
+  <bean id="ClientSessionListener" class="com.micros_retail.xservices.session.ClientSessionListener" />
+  <bean id="clientSessionManager" class="com.micros_retail.xservices.session.ClientSessionManager" init-method="init">
+    <property name="transactionServiceHelper">
+      <ref bean="transactionServiceHelper" />
+    </property>
+    <property name="transactionCleanupManager">
+      <ref bean="transactionCleanupManager" />
+    </property>
+    <property name="listeners">
+      <list>
+        <ref bean="ClientSessionListener" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- These are overridden from Xstore until such time as they potentially can be excluded by creating more 
+       Spring profiles about which Xservices would not care. -->
+  <bean id="uiBusyState" class="com.micros_retail.xservices.NoUIBusyState" />
+
+  <!-- Due to the dynamic nature of Xstore switching between different application modes (register, back office), 
+    the fact that injections are satisfied at instantiation, the fact that the singleton pattern is abused all over 
+    the place and the fact that Xstore instantiates a lot of things up front and is in a different mode when it goes 
+    to use them, all references to "applicationMode" scoped bean injections need to be paired with the javax.inject.Provider 
+    interface to ensure that the instance for the proper mode is being used. There should be very few beans that are 
+    defined with this scope and, for ease of reference, all of those beans should be defined in this little section. -->
+
+  <!-- ohernando - Don't remove this bean, otherwise the credit card authorization will fail. -->
+  <bean id="modeController" class="dtv.pos.framework.ModeController" scope="applicationMode">
+    <property name="eventRouter">
+      <bean class="dtv.pos.framework.event.XstEventRouter" />
+    </property>
+    <property name="UIController">
+      <bean class="dtv.pos.framework.ui.UIControllerImplAnimated" />
+    </property>
+    <property name="contextManager">
+      <bean class="dtv.ui.context.ContextManager" />
+    </property>
+    <property name="stationModel">
+      <bean class="dtv.pos.framework.ui.model.DefaultStationModel">
+        <!-- <property name="listPromptModel"> <bean class="dtv.pos.framework.ui.model.DefaultListPromptModel" 
+          /> </property> -->
+        <property name="notifyPromptModel">
+          <bean class="dtv.pos.framework.ui.model.DefaultNotifyPromptModel" />
+        </property>
+        <property name="promptActionModel">
+          <bean class="dtv.pos.framework.ui.model.DefaultPromptActionModel" />
+        </property>
+        <property name="textPromptModel">
+          <bean class="dtv.pos.framework.ui.model.DefaultTextPromptModel" />
+        </property>
+        <property name="longTextPromptModel">
+          <bean class="dtv.pos.framework.ui.model.DefaultTextPromptModel" />
+        </property>
+        <property name="messageModel">
+          <bean class="dtv.pos.framework.ui.model.DefaultMessageModel" />
+        </property>
+        <property name="helpModel">
+          <bean class="dtv.pos.framework.ui.model.DefaultHelpModel" />
+          <!-- <bean class="dtv.pos.framework.help.DefaultHelpModel" /> -->
+        </property>
+        <!-- <property name="menuModel"> <bean class="dtv.pos.framework.ui.model.DefaultMenuModel" /> </property> -->
+      </bean>
+    </property>
+  </bean>
+
+  <bean id="webServiceRouter" class="com.micros_retail.xservices.router.WebServiceRouter" init-method="init">
+    <constructor-arg>
+      <props>
+        <prop key="com.micros_retail.xservices.retaillocation.RetailLocationServices">LOG_IN</prop>
+        <prop key="com.micros_retail.xservices.retaillocation.RetailLocationServices.closeStore">CLOSE_WITH_SUSPENDED_TRANS</prop>
+        <prop key="com.micros_retail.xservices.retaillocation.RetailLocationServices.openStore">OPEN_STORE_SAFE</prop>
+        <!-- This service is called when trying to open the store. -->
+        <prop key="com.micros_retail.xservices.retaillocation.RetailLocationServices.validateStoreClosed">OPEN_STORE_SAFE</prop>
+        <!-- This service is called when trying to sell an item in miStore. -->
+        <prop key="com.micros_retail.xservices.retaillocation.RetailLocationServices.validateStoreOpen">SELL_ITEM</prop>
+        <!-- These services are used in send sale, order and customer maintenance. -->
+        <prop key="com.micros_retail.xservices.address.AddressServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.address.AddressServices.getAvailableCountries">CREATE_CUSTOMER, EDIT_CUSTOMER</prop>
+        <prop key="com.micros_retail.xservices.address.AddressServices.translatePostalCode">CREATE_CUSTOMER, EDIT_CUSTOMER</prop>
+        <prop key="com.micros_retail.xservices.customer.CustomerServices">CREATE_CUSTOMER</prop>
+        <prop key="com.micros_retail.xservices.customer.CustomerServices.getCustomerByParty">VIEW_CUSTOMER</prop>
+        <prop key="com.micros_retail.xservices.customer.CustomerServices.getCustomerHistory">VIEW_CUSTOMER</prop>
+        <prop key="com.micros_retail.xservices.customer.CustomerServices.saveCustomerChanges">EDIT_CUSTOMER</prop>
+        <prop key="com.micros_retail.xservices.customer.CustomerServices.searchCustomers">VIEW_CUSTOMER</prop>
+        <prop key="com.micros_retail.xservices.employee.EmployeeServices">LOG_IN</prop>
+        <prop key="com.micros_retail.xservices.employee.EmployeeServices.addMessage">MAINTAIN_EMPLOYEE_MESSAGES</prop>
+        <prop key="com.micros_retail.xservices.employee.EmployeeServices.changePassword">CHANGE_OTHERS_PASSWORD</prop>
+        <prop key="com.micros_retail.xservices.employee.EmployeeServices.deleteMessage">MAINTAIN_EMPLOYEE_MESSAGES</prop>
+        <prop key="com.micros_retail.xservices.employee.EmployeeServices.updateMessage">MAINTAIN_EMPLOYEE_MESSAGES</prop>
+        <prop key="com.micros_retail.xservices.employee.EmployeeServices.getCommissionedAssociates">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.item.ItemServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.item.ItemServices.getCurrentItemPrices">CHANGE_PRICE</prop>
+        <prop key="com.micros_retail.xservices.item.ItemServices.getGiftCardItems">SELL_GIFT_CARD</prop>
+        <prop key="com.micros_retail.xservices.item.ItemServices.getItemNotOnFileItems">SELL_ITEM_NOT_ON_FILE</prop>
+        <prop key="com.micros_retail.xservices.item.ItemServices.getNonPhysicalItems">SELL_NON_PHYSICAL</prop>
+        <prop key="com.micros_retail.xservices.item.ItemServices.getVoucherItemForActivity">SELL_GIFT_CARD, RELOAD_GIFT_CARD</prop>
+        <prop key="com.micros_retail.xservices.customer.account.house.HouseAccountServices">HOUSE_ACCNT_MANAGER_OVERRIDE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.addCouponLineItem">ADD_COUPON</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.addCustomerToRetailTrans">CUST_ASSOC</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.addLocalCurrencyTenderLineItem">STORE_BANK_CASH_DEPOSIT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.addVoucherSaleLineItem">SELL_GIFT_CARD</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.applyLineItemTaxExemption">CHANGE_TAX_TO_EXEMPT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.authorizeVoucherSale">SELL_GIFT_CARD</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.cancelRetailTransaction">EJOURNAL_POST_VOID, VOID_TENDER, VOID_LINE, VOID_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeLineItemCommissionedAssociate">ASSOCIATE_ADVANCE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeLineItemPrice">CHANGE_PRICE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeLineItemQty">CHANGE_QUANTITY</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeLineItemTax">CHANGE_TAX, CHANGE_TAX_BY_AMOUNT, CHANGE_TAX_BY_PERCENT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeLineItemTaxLocation">CHANGE_TAX_LOCATION</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeTransactionCommissionedAssociate">ASSOCIATE_ADVANCE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeTransactionTax">CHANGE_TAX, CHANGE_TAX_BY_AMOUNT, CHANGE_TAX_BY_PERCENT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.changeTransactionTaxLocation">CHANGE_TAX_LOCATION</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.discountGroupLineItems">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.discountLineItem">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.discountTransaction">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.getPosConfig">LOG_IN</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.isBounceBackCouponInRange">ADD_COUPON</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.issueRedeemBounceBackCoupon">ADD_COUPON</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.postVoidTransaction">EJOURNAL_POST_VOID, VOID_LINE, VOID_TENDER, VOID_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.redeemLoyaltyAward">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.removeCustomerFromRetailTrans">CUST_ASSOC</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.selectLoyaltyCard">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.setTaxExemptionAccount">CHANGE_TAX_TO_EXEMPT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateCommissionedAssociates">ASSOCIATE_ADVANCE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateGroupDiscount">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateLineItemChangePrice">CHANGE_PRICE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateLineItemChangeQty">CHANGE_QUANTITY</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateLineItemDiscount">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateLineItemVoid">VOID_LINE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateTenderLineItemVoid">VOID_TENDER</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateTransactionDiscount">ADD_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.validateVoucherSale">SELL_GIFT_CARD</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.voidLineItem">VOID_LINE</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.voidLineItemDiscount">VOID_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.voidTenderLineItem">VOID_TENDER</prop>
+        <prop key="com.micros_retail.xservices.trans.TransServices.voidTransactionDiscount">VOID_DISCOUNT</prop>
+        <prop key="com.micros_retail.xservices.tender.TenderServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.tender.TenderServices.authorizeVoidCredit">VOID_TENDER</prop>
+        <prop key="com.micros_retail.xservices.tender.TenderServices.authorizeVoidVoucherTender">VOID_TENDER</prop>
+        <prop key="com.micros_retail.xservices.configuration.ConfigurationServices">LOG_IN</prop>
+        <prop key="com.micros_retail.xservices.configuration.ConfigurationServices.checkFirmwareUpdate">CHECK_FOR_UPDATES</prop>
+        <prop key="com.micros_retail.xservices.configuration.ConfigurationServices.checkForEncryptionKeyUpdate">CHECK_FOR_UPDATES</prop>
+        <prop key="com.micros_retail.xservices.discount.DiscountServices">ADD_DISCOUNT</prop>
+        <!-- Widely used when voiding a line item. Also used in price override and tax changes -->
+        <prop key="com.micros_retail.xservices.reasoncode.ReasonCodeServices">VOID_LINE</prop>
+        <prop key="com.micros_retail.xservices.reasoncode.ReasonCodeServices.getReasonCodesByType">VOID_TENDER, CHANGE_PRICE, CHANGE_TAX, CHANGE_TAX_BY_AMOUNT, CHANGE_TAX_BY_PERCENT, CHANGE_TAX_LOCATION</prop>
+        <prop key="com.micros_retail.xservices.input.InputServices.translateInput">SELL_ITEM, SELL_GIFT_CARD</prop>
+        <prop key="com.micros_retail.xservices.employee.TimeclockServices">TIME_CLOCK</prop>
+        <prop key="com.micros_retail.xservices.inventory.InventoryServices">CREATE_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.InventoryServices.getOnHandStockLedger">SEARCH_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.InventoryServices.getStockLedger">SEARCH_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.receiving.ReceivingServices">RECEIVING</prop>
+        <prop key="com.micros_retail.xservices.inventory.shipping.ShippingServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.inventory.shipping.ShippingServices.getShippingMethods">SHIPPER_METHOD_OVERRIDE</prop>
+        <!-- This is used to print receipts, so assigning SELL_ITEM in here -->
+        <prop key="com.micros_retail.xservices.printer.PrintingServices">SELL_ITEM</prop>
+        <!-- Used by client to write logs through the service. Logs include crash reports and any diagnostic data -->
+        <prop key="com.micros_retail.xservices.logging.LoggingServices">LOG_IN</prop>
+        <!-- If you are opening a register, perhaps because you want to sell items -->
+        <prop key="com.micros_retail.xservices.register.RegisterServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.register.RegisterServices.openRegister">UNLOCK_OTHERS_REGISTER</prop>
+        <prop key="com.micros_retail.xservices.register.RegisterServices.validateRegisterOpen">UNLOCK_OTHERS_REGISTER</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices">CREATE_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices.cancelCurrentInventoryCountSession">CANCEL_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices.cancelInventoryCountDocument">CANCEL_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices.completeInventoryCount">COMPLETE_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices.getInventoryCountSheetsForCycle">SEARCH_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices.getInventoryCountSummaryForCycle">SEARCH_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices.initiateInventoryCount">INITIATE_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.inventory.count.InventoryCountServices.searchInventoryCountDocuments">SEARCH_INVENTORY_COUNT</prop>
+        <!-- The user might want to change the tax location and needs the list. -->
+        <prop key="com.micros_retail.xservices.tax.TaxServices.getTaxLocations">CHANGE_TAX_LOCATION</prop>
+        <prop key="com.micros_retail.xservices.inventory.adjustment.InvAdjustServices">CREATE_INVENTORY_COUNT</prop>
+        <prop key="com.micros_retail.xservices.clienteling.ClientelingServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.engagement.EngagementServices">SELL_ITEM</prop>
+        <prop key="com.micros_retail.xservices.order.OrderServices">SELL_ITEM</prop>
+        <!-- This service is called in the Item and Transaction details of miStore operation. -->
+        <prop key="com.micros_retail.xservices.configuration.MenuServices.getMenu">SELL_ITEM</prop>
+      </props>
+    </constructor-arg>
+    <property name="afterInitSteps">
+      <list value-type="com.micros_retail.xservices.bootstrap.AfterInitStep">
+        <bean class="com.micros_retail.xservices.bootstrap.InitHardwareStartup" />
+        <bean class="com.micros_retail.xservices.bootstrap.InitQuartzScheduler" />
+        <bean class="com.micros_retail.xservices.bootstrap.InitSharedContext" />
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="printingServiceHelper" class="com.micros_retail.xservices.printer.PrintingServiceHelper" />
+  <bean id="sendSaleServiceHelper" class="com.micros_retail.xservices.trans.sendsale.SendSaleServiceHelper" />
+  <!-- bean id="configurationHelper" class="com.micros_retail.xservices.ConfigurationHelper"/ -->
+  <bean id="shippingConfigHelper" class="com.micros_retail.xservices.inventory.shipping.ShippingConfigHelper" />
+  <bean id="receivingConfigHelper" class="com.micros_retail.xservices.inventory.receiving.ReceivingConfigHelper" />
+  <bean id="invAdjustmentConfigHelper" class="com.micros_retail.xservices.inventory.adjustment.InvAdjustmentConfigHelper" />
+  <bean id="posConfigHelper" class="com.micros_retail.xservices.trans.PosConfigHelper" />
+  <bean id="inventoryCountConfigHelper" class="com.micros_retail.xservices.inventory.count.InventoryCountConfigHelper" />
+  <bean id="applicationConfigHelper" class="com.micros_retail.xservices.configuration.ApplicationConfigHelper" />
+  <bean id="transactionV2ServiceHelper" class="com.micros_retail.xservices.trans.TransactionV2ServiceHelper" />
+  <bean id="orderServiceHelper" class="com.micros_retail.xservices.order.OrderServiceHelper" scope="session" />
+  <bean id="engagementServiceHelper" class="com.micros_retail.xservices.engagement.EngagementServiceHelper" />
+  <bean id="passcodeHelper" class="com.micros_retail.xservices.PasscodeHelper" />
+  <bean id="retailLocationServiceHelper" class="com.micros_retail.xservices.retaillocation.RetailLocationServiceHelper" />
+  <bean id="reportPrintingServiceHelper" class="com.micros_retail.xservices.reportprinting.ReportPrintingServiceHelper" />
+  <bean id="xservicesProfileProvider" class="com.micros_retail.xservices.XservicesProfileProvider" init-method="init" />
+  <bean id="accountManager" class="dtv.pos.customer.account.AccountManager" />
+  <bean id="xenvPasswordFileCreationScheduler" class="com.micros_retail.xservices.EmptySchedulerFactoryBean" />
+  <bean id="autoClockOutTaskScheduler" class="com.micros_retail.xservices.EmptySchedulerFactoryBean" />
+  <bean id="autoPostPayrollTaskScheduler" class="com.micros_retail.xservices.EmptySchedulerFactoryBean" />
+  <bean id="updateLayawayAccountStatusTaskScheduler" class="com.micros_retail.xservices.EmptySchedulerFactoryBean" />
+
+  <!-- do not use all the html content related Xstore Retail classes - these don't work headless -->
+  <bean id="infoTabHelper" class="dtv.pos.framework.info.InfoTabHelperHeadless" />
+  
+  <bean id="infoMetaDataManager" class="java.lang.Object" />
+  <bean id="listViewBuilderHelper" class="java.lang.Object" />
+  <bean id="htmlContentManager" class="java.lang.Object" />
+
+  <bean id="employeeMessageHtmlContentInfo" class="java.lang.Object" />
+  <bean id="salesGoalHtmlContentInfo"  class="java.lang.Object" />
+  <bean id="associateTasksHtmlContentInfo" class="java.lang.Object" />
+  <bean id="transactionCouponsHtmlContentInfo" class="java.lang.Object" />
+  <bean id="messageAreaHtmlContentInfo" class="java.lang.Object" />
+  <bean id="airsideMessagesHtmlContentInfo" class="java.lang.Object" />
+  <bean id="employeeScheduleHtmlContentInfo" class="java.lang.Object" />
+  <bean id="activityStreamHtmlContentInfo" class="java.lang.Object" />
+  <bean id="customerInfoHtmlContentInfo" class="java.lang.Object" />
+  <bean id="quickItemsHtmlContentInfo" class="java.lang.Object" />
+  <bean id="quickLaunchHtmlContentInfo" class="java.lang.Object" />
+  <bean id="orderWorklistHtmlContentInfo" class="java.lang.Object" />
+  <bean id="orderDashboardHtmlContentInfo" class="java.lang.Object" />
+  <bean id="associatedItemsHtmlContentInfo" class="java.lang.Object" />
+
+  <bean id="htmlContentBuilderLocator" class="java.lang.Object" />
+
+  <bean id="employeeMessageContentBuilder" class="java.lang.Object" />
+  <bean id="employeeScheduleContentBuilder" class="java.lang.Object" />
+  <bean id="activityStreamContentBuilder" class="java.lang.Object" />
+  <bean id="salesGoalContentBuilder" class="java.lang.Object" />
+  <bean id="employeeTaskContentBuilder" class="java.lang.Object" />
+  <bean id="transactionCouponContentBuilder" class="java.lang.Object" />
+  <bean id="messageAreaContentBuilder" class="java.lang.Object" />
+  <bean id="orderWorklistContentBuilder" class="java.lang.Object" />
+  <bean id="orderDashboardContentBuilder" class="java.lang.Object" />
+  <bean id="airsideMessageAreaContentBuilder" class="java.lang.Object" />
+  <bean id="associatedItemsContentBuilder" class="java.lang.Object" />
+  <bean id="quickItemsTabActionAssembler" class="java.lang.Object" />
+  <bean id="quickItemsContentBuilder" class="java.lang.Object" /> 
+  <bean id="customerInfoContentBuilder" class="java.lang.Object" />
+  <bean id="listViewElementFactory" class="java.lang.Object" />
+  
+  <bean id="orceSftpClient" class="java.lang.Object" />  
+  <bean id="orobSftpClient" class="java.lang.Object" /> 
+  <bean id="djBrowserManager" class="java.lang.Object" />
+  <bean id="taxFreeBrowserManager" class="java.lang.Object" />
+</beans>

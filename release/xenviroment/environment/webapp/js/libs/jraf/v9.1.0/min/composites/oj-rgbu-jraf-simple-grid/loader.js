@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-simple-grid.html","./oj-rgbu-jraf-simple-grid","text!./component.json","css!./oj-rgbu-jraf-simple-grid.min"],(function(e,i,r,t){"use strict";var o=JSON.parse(t),s=o.name;e.register(s,{view:i,viewModel:r,metadata:o})}));

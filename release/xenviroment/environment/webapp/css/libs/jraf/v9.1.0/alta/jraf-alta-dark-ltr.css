@@ -1,0 +1,5131 @@
+@charset "UTF-8";
+/*
+ * Pull in common variables and utilities from JET
+ */
+/* This padding is needed to bring the text field below the label, so that the label and the text inside the text field don't overlap. */
+/*
+ *  Mixins and functions for handling generation of RTL CSS.
+ *
+ *  Set $textDirection to 'ltr' or 'rtl' prior to invoking these mixins.
+ *  (See Jet documentation for RTL for further details.)
+ */
+/*
+ * Variables
+ *
+ * We want to refactor the variables to two files - a constant one for things
+ * skins don't change and then a separate one for things they do, and import both
+ */
+/* Common Colors */
+/* mapping colors to severity */
+/* Common Sizing Variables */
+/* Global Header Variables */
+/* Content Area Variables */
+/* includes 1px border */
+/* Sidenav Variables */
+/* Horizontal Nav Variables */
+/* Dashboard Variables */
+/* Notifications Variables */
+/* Components Variables */
+/* Login Page */
+/* Drag and Drop Variables */
+/* From Alta */
+/* Application Frame Variables */
+/* Help Tiles Variables */
+/* Snackbar Variables */
+/* Train Variables */
+/* Mobile Variables */
+/* Modal Page Variables */
+.jraf-spinner-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.jraf-spinner, .jraf-global-tabs-spinner {
+  display: block;
+}
+
+.jraf-spinner::before, .jraf-global-tabs-spinner::before {
+  content: url(images/raf-icon-spinner.svg);
+  display: block;
+  /*Animation code for older Chrome, Safari, Opera*/
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 1.1s;
+  -webkit-animation-name: rotate;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  /*Animation code for older Firefox*/
+  -moz-transition-property: -moz-transform;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 1.1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  /*Default animation code*/
+  transition-property: transform;
+  animation-name: jraf-spinner-rotate;
+  animation-duration: 1.1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/*keyframes rule for older Chrome, Safari, Opera*/
+@-webkit-keyframes jraf-spinner-rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+/*keyframes rule for older Firefox version*/
+@-moz-keyframes jraf-spinner-rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+/*Default @keyframes rule*/
+@keyframes jraf-spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.jraf-spinner-xlarge,
+.jraf-spinner-xlarge::before,
+.jraf-spinner-xlarge svg {
+  width: 64px;
+  height: 64px;
+}
+
+.jraf-spinner-large,
+.jraf-spinner-large::before,
+.jraf-spinner-large svg {
+  width: 48px;
+  height: 48px;
+}
+
+.jraf-spinner-medium,
+.jraf-spinner-medium::before,
+.jraf-spinner-medium svg {
+  width: 32px;
+  height: 32px;
+}
+
+.jraf-spinner-small,
+.jraf-spinner-small::before,
+.jraf-spinner-small svg {
+  width: 24px;
+  height: 24px;
+}
+
+.jraf-spinner-xsmall,
+.jraf-spinner-xsmall::before,
+.jraf-spinner-xsmall svg {
+  width: 16px;
+  height: 16px;
+}
+
+.jraf-spinner-blue::before, .jraf-tabs-uishell-tab.oj-selected .jraf-global-tabs-spinner::before {
+  content: url(images/raf-icon-spinner_blue.svg);
+}
+
+.jraf-spinner-gray::before, .jraf-global-tabs-spinner::before {
+  content: url(images/raf-icon-spinner_gray.svg);
+}
+
+.jraf-spinner-white::before {
+  content: url(images/raf-icon-spinner_onb.svg);
+}
+
+/*
+ * Global styles for the UI Shell.
+ */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-image: none;
+}
+
+html body .oj-button:hover {
+  cursor: pointer;
+}
+
+.jraf-global-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.jraf-global-bottom-content {
+  height: calc(100% - 42px);
+}
+
+.jraf-loading {
+  background-image: url("images/spinner_blue_32@2x.gif");
+  display: block;
+  background-size: 32px 32px;
+  height: 32px;
+  width: 32px;
+  margin: 30px auto;
+}
+
+.jraf-sub-text {
+  font-size: 10px;
+}
+
+.jraf-inline-badge, .jraf-mobile-sidebar-badge-value {
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  background-color: #abaeb1;
+  padding: 3px 7px;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.jraf-hidden {
+  display: none;
+}
+
+.jraf-severity-badge {
+  border-radius: 2px;
+  border: 1px solid #000;
+  display: inline-block;
+  margin-right: 5px;
+  max-width: 194px;
+  overflow: hidden;
+  padding: 1px 3px;
+  text-overflow: ellipsis;
+}
+
+.jraf-severity-critical {
+  background-color: #ab1b21;
+  color: #fff;
+}
+
+.oj-datagrid-cell.oj-hover.jraf-severity-critical,
+.oj-datagrid-cell.oj-selected.jraf-severity-critical,
+.oj-datagrid-cell.oj-focus.jraf-severity-critical {
+  color: #000;
+}
+
+.jraf-severity-badge.jraf-severity-critical {
+  border-color: #ab1b21;
+}
+
+.jraf-severity-medium {
+  background-color: #fdf5e7;
+  color: #000;
+}
+
+.jraf-severity-badge.jraf-severity-medium {
+  border-color: #eda620;
+}
+
+.jraf-severity-badge.jraf-severity-low {
+  border-color: #72c17f;
+}
+
+.jraf-icon, .jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-treeview-icon::before, .jraf-contentframe-close-icon, .jraf-navbar-icon, .jraf-global-navigation-bar .jraf-navbar-loading, .jraf-navbar-loading {
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+}
+
+.jraf-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-treeview-icon::before, .jraf-contentframe-close-icon::before, .jraf-navbar-icon::before, .jraf-global-navigation-bar .jraf-navbar-loading::before, .jraf-navbar-loading::before {
+  content: " ";
+  /* nbsp */
+  height: 16px;
+  width: 16px;
+  display: block;
+}
+
+.jraf-menu-icon, .jraf-menu-icon-checked {
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  height: 12px;
+  width: 12px;
+}
+
+.oj-hicontrast .jraf-loading::before {
+  content: url("images/spinner_blue_32@2x.gif");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -50%;
+}
+
+.oj-dialog-option-defaults {
+  font-family: '{"animation":{"open":[{"effect":"fadeIn","duration":"200ms"},"fadeIn"],"close":[{"effect":"fadeOut","duration":"200ms"},"fadeOut"]},"resizeBehavior":"resizable","cancelBehavior":"icon","dragAffordance":"title-bar"}';
+}
+
+.oj-rgbu-jraf-modal-page-body.jraf-modal-page-fill-content-area {
+  padding: 0px;
+}
+
+.jraf-global-modal-page > oj-rgbu-jraf-modal-page > .oj-rgbu-jraf-modal-page-root {
+  top: 2px;
+  height: calc(100% - 2px);
+  z-index: 3;
+}
+
+@media screen and (max-width: 767px) {
+  .jraf-modal-page-container .oj-rgbu-jraf-modal-page-root {
+    position: fixed;
+    top: 2px;
+    height: calc(100% - 2px);
+  }
+}
+h1.oj-web-applayout-header-title {
+  padding: 0;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jraf-global-header-processing-indicator {
+  width: 100%;
+  height: 2px;
+  background-color: #c5171e;
+}
+
+.jraf-global-header-processing-indicator.active {
+  background-image: url("images/progress-bar-looping.gif");
+}
+
+.jraf-global-header-branding {
+  min-width: 0;
+}
+
+.jraf-application-icon {
+  background-position: left center;
+  background-image: url("images/oracle_clr_rgb.svg");
+  background-repeat: no-repeat;
+  background-size: 140px 18px;
+  width: 140px;
+  height: 18px;
+  min-width: 140px;
+  min-height: 18px;
+  padding-right: 10px;
+}
+
+.jraf-application-icon-custom {
+  max-height: 18px;
+  max-width: 140px;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+/* Adding height so menu button outline wraps user avatar */
+.jraf-global-header-menu-button.oj-button {
+  height: 36px;
+}
+
+.jraf-global-header-user-button-icon {
+  background-image: url("images/currentUserImage.png");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.jraf-global-header-user-avatar .jraf-global-header-user-button-icon {
+  border: 1px solid #8a8a8a;
+  border-radius: 5px;
+  height: 24px;
+  width: 24px;
+  background-size: 24px 24px;
+}
+
+.jraf-global-header-help-button-icon {
+  background-image: url("images/func_helptopics_16_ena@2x.png");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.jraf-menu-pin-wrapper {
+  float: left;
+  position: relative;
+  width: 64px;
+  height: 39px;
+  transition: all 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+.jraf-menu-pin-wrapper.active {
+  width: 314px;
+}
+
+.jraf-menu-pin-header {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s;
+  transition-delay: 0.1s;
+  font-size: 18px;
+  color: #454545;
+  padding: 5px 15px 5px 16px;
+}
+
+.jraf-menu-pin-header-link:link,
+.jraf-menu-pin-header-link:visited {
+  color: #454545;
+  text-decoration: none;
+}
+
+.jraf-menu-pin-header-link:hover,
+.jraf-menu-pin-header-link:active,
+.jraf-menu-pin-header-link:focus {
+  color: #454545;
+  text-decoration: underline;
+}
+
+.jraf-menu-pin-wrapper.active .jraf-menu-pin-header {
+  visibility: visible;
+  opacity: 1;
+}
+
+.jraf-menu-pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 32px;
+  padding: 6px 15px 5px 16px;
+  border-right: 1px solid #d6dfe6;
+}
+
+.jraf-menu-pin-wrapper.active .jraf-menu-pin {
+  left: auto;
+  right: 0;
+  padding-right: 10px;
+}
+
+.jraf-menu-pin-link, .jraf-nav-menu-icon {
+  display: block;
+  width: 24px;
+  height: 19px;
+  padding: 4px 4px 5px 4px;
+  background-image: url(images/raf-icon-hamburger_ena.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 24px 19px;
+  transition: background 0.5s;
+}
+
+.jraf-menu-pin-link:hover, .jraf-nav-menu-icon:hover {
+  background-image: url(images/raf-icon-hamburger_hov.svg);
+}
+
+.jraf-menu-pin-wrapper.active .jraf-menu-pin-link, .jraf-menu-pin-wrapper.active .jraf-nav-menu-icon {
+  background-image: url(images/raf-icon-hamburger-reverse_ena.svg);
+}
+
+.jraf-menu-pin-wrapper.active .jraf-menu-pin-link:hover, .jraf-menu-pin-wrapper.active .jraf-nav-menu-icon:hover {
+  background-image: url(images/raf-icon-hamburger-reverse_hov.svg);
+}
+
+.jraf-nav-menu-icon {
+  margin-left: 8px;
+}
+
+.jraf-mobile-options-menu-icon {
+  display: block;
+}
+
+.jraf-mobile-options-menu-icon::before {
+  content: url(images/raf-icon-more-options_ena.svg);
+  display: block;
+  height: 16px;
+  width: 16px;
+  padding: 4px;
+}
+
+.jraf-mobile-options-menu-icon:hover::before {
+  content: url(images/raf-icon-more-options_hov.svg);
+}
+
+.jraf-global-header .oj-web-applayout-header, .jraf-mobile-header .oj-web-applayout-header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #c6c6c6;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.12);
+}
+
+.jraf-global-header .oj-web-applayout-header > div, .jraf-mobile-header .oj-web-applayout-header > div {
+  padding-left: 0px;
+  padding-right: 8px;
+}
+
+/* override default min-height of 3.143rem */
+.jraf-global-header .oj-web-applayout-header > div:first-child, .jraf-mobile-header .oj-web-applayout-header > div:first-child {
+  min-height: 39px;
+  /* need to set height for IE rendering */
+  height: 39px;
+}
+
+.jraf-global-header .oj-web-applayout-max-width, .jraf-mobile-header .oj-web-applayout-max-width {
+  max-width: 100%;
+}
+
+.jraf-global-header .oj-flex-bar-middle, .jraf-mobile-header .oj-flex-bar-middle {
+  padding-left: 10px;
+}
+
+.jraf-mobile-header .oj-flex-bar-middle {
+  padding: 0;
+}
+
+.jraf-mobile-header .oj-flex-bar-end > a {
+  margin: 0 4px;
+}
+
+.jraf-mobile-header .oj-flex-bar-end > a:last-child {
+  margin-right: 8px;
+}
+
+.oj-hicontrast .jraf-global-header-processing-indicator.active {
+  height: 4px;
+  overflow: hidden;
+}
+.oj-hicontrast .jraf-global-header-processing-indicator.active::after {
+  content: url("images/progress-bar-looping.gif");
+  display: block;
+  position: relative;
+  top: -200%;
+}
+.oj-hicontrast .jraf-application-icon::before {
+  content: url("images/oracle_clr_rgb.svg");
+  display: block;
+}
+.oj-hicontrast .jraf-global-header-user-button-icon::before {
+  content: url("images/currentUserImage.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -50%;
+}
+.oj-hicontrast .jraf-global-header-help-button-icon::before {
+  content: url("images/func_helptopics_16_ena@2x.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -50%;
+}
+.oj-hicontrast .jraf-menu-pin-link::before, .oj-hicontrast .jraf-nav-menu-icon::before {
+  content: url(images/menu.png);
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -50%;
+}
+.oj-hicontrast .jraf-menu-pin-link:hover::before, .oj-hicontrast .jraf-nav-menu-icon:hover::before {
+  content: url(images/menu-hover.png);
+}
+.oj-hicontrast .jraf-menu-pin-wrapper.active .jraf-menu-pin-link::before, .oj-hicontrast .jraf-menu-pin-wrapper.active .jraf-nav-menu-icon::before {
+  content: url(images/menu-flipped-gray.png);
+}
+.oj-hicontrast .jraf-menu-pin-wrapper.active .jraf-menu-pin-link:hover::before, .oj-hicontrast .jraf-menu-pin-wrapper.active .jraf-nav-menu-icon:hover::before {
+  content: url(images/menu-flipped-hover.png);
+}
+
+.jraf-global-header-search-result-list .oj-listbox-results .oj-listbox-result-label {
+  padding: 0;
+}
+
+.jraf-global-header-search-container, .jraf-mobile-search-container,
+.jraf-global-header-filter-container,
+.jraf-mobile-filter-container,
+.jraf-global-header-close-search-icon-container {
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+  transition: all 0.25s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0.1s;
+  height: 34px;
+}
+
+.jraf-global-header-search-container.active, .active.jraf-mobile-search-container {
+  width: 181px;
+  visibility: visible;
+  opacity: 1;
+}
+
+.jraf-global-header-filter-container.active, .active.jraf-mobile-filter-container {
+  width: 120px;
+  visibility: visible;
+  opacity: 1;
+}
+
+.jraf-global-header-close-search-icon-container.active {
+  width: 31px;
+  visibility: visible;
+  opacity: 1;
+}
+
+.jraf-global-header-search-container .oj-combobox-choice .oj-combobox-one-search-button, .jraf-mobile-search-container .oj-combobox-choice .oj-combobox-one-search-button {
+  display: none;
+}
+
+.jraf-global-header-search-container .oj-combobox-choice, .jraf-mobile-search-container .oj-combobox-choice,
+.jraf-global-header-filter-container .oj-select-choice,
+.jraf-mobile-filter-container .oj-select-choice {
+  border: none;
+}
+
+html:not([dir=rtl]) .jraf-global-header-search-container .oj-combobox-choice, html:not([dir=rtl]) .jraf-mobile-search-container .oj-combobox-choice {
+  padding-left: 0px;
+}
+
+html[dir=rtl] .jraf-global-header-search-container .oj-combobox-choice, html[dir=rtl] .jraf-mobile-search-container .oj-combobox-choice {
+  padding-right: 0px;
+}
+
+.jraf-global-header-filter-container .oj-select-choice, .jraf-mobile-filter-container .oj-select-choice,
+.jraf-global-header-filter-container .oj-select-choice .oj-disabled,
+.jraf-mobile-filter-container .oj-select-choice .oj-disabled {
+  background-color: #f5f5f5;
+  color: #101010;
+}
+
+.jraf-global-header-search-container input[type=text], .jraf-mobile-search-container input[type=text] {
+  font-size: 12px;
+  border: none;
+  background-color: #f5f5f5;
+  color: #101010;
+  width: 137px;
+  height: 16px;
+  padding: 10px 8px;
+}
+
+.jraf-global-header-search-icon-link, .jraf-mobile-header-search-icon {
+  display: block;
+  width: 29px;
+  height: 16px;
+  padding: 15px 2px 2px 2px;
+  background-image: url(images/search-gray.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+.jraf-mobile-header-search-icon {
+  width: 16px;
+  padding: 4px;
+}
+
+.jraf-global-header-close-search-icon-link, .jraf-mobile-search-close-icon {
+  display: block;
+  width: 29px;
+  height: 16px;
+  padding: 15px 2px 2px 2px;
+  background-image: url(images/raf-icon-delete_ena.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+}
+
+/*
+ * Reduce Alta line-height and use padding instead since we want to vertically
+ * center two rows of text
+ */
+.jraf-global-header-search-autosuggest-result, .jraf-mobile-search-result {
+  margin-left: 10px;
+  line-height: 1.25rem;
+  padding: 10px 0;
+}
+
+.oj-listbox-results-depth-1 .jraf-global-header-search-autosuggest-result, .oj-listbox-results-depth-1 .jraf-mobile-search-result {
+  /* Overriding an Alta style on the JET-generated parent element */
+  padding-left: 10px;
+  margin-left: -20px;
+}
+
+.jraf-global-header-autosuggest-label, .jraf-mobile-search-label,
+.jraf-global-header-autosuggest-path,
+.jraf-global-header-autosuggest-see-all {
+  display: block;
+}
+
+.jraf-global-header-autosuggest-label, .jraf-mobile-search-label {
+  font-size: 14px;
+}
+
+.jraf-global-header-autosuggest-see-all-wrapper {
+  border-top: 1px solid #c4ced7;
+  margin: 0;
+}
+
+.jraf-global-header-autosuggest-see-all {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.jraf-global-header-application-context-divider {
+  display: inline-block;
+  border-left: 1px solid #d6dfe6;
+  margin: 0 6px;
+  height: 50%;
+}
+
+.jraf-global-header-application-context {
+  size: 14px;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.jraf-global-header-user-menu-check-icon {
+  visibility: hidden;
+}
+
+.jraf-global-header-user-menu-check-icon.active {
+  visibility: visible;
+}
+
+/*
+ * Styles for the Main Content Area of the UI Shell.
+ */
+.jraf-global-main-area-wrapper {
+  position: relative;
+  height: 100%;
+  max-width: 100%;
+  transition: all 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+.jraf-sidebar-wrapper + .oj-flex-item {
+  width: calc(100% - 64px);
+}
+
+.jraf-global-main-area-wrapper.jraf-menu-pinned {
+  margin-left: 250px;
+}
+
+.jraf-global-main-area-wrapper .jraf-global-tabs-wrapper {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  transition: all 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+.jraf-global-main-area-wrapper .jraf-global-custom-content-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  transition: all 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+.jraf-login-page,
+.jraf-about-page {
+  background-color: #f5f5f5;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor-wrapper {
+  padding-left: 10px;
+  border-bottom: 1px solid #c3cbd1;
+  width: 100%;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor-wrapper .jraf-global-tabs-conveyor {
+  width: calc(100% - 10px);
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-start {
+  margin-right: 5px;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-end {
+  margin: 0px 5px;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item {
+  transition: all 0.2s;
+  border-width: 0 0 3px 0;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-hover:not(.oj-selected),
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-focus:not(.oj-selected) {
+  border-color: rgba(25, 93, 156, 0.12);
+  background-color: transparent;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-selected,
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-active {
+  border-color: #195d9c;
+  background-color: transparent;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item .oj-tabbar-item-label {
+  font-size: 0.928rem;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item a.oj-tabbar-item-content {
+  padding: 7px 7px 7px 30px;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item:not(.jraf-global-tabs-removable) a.oj-tabbar-item-content {
+  padding: 7px 30px;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item.oj-active a.oj-tabbar-item-content {
+  background-color: transparent;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item:first-child:not(.oj-selected) a.oj-tabbar-item-content {
+  padding-left: 0;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item .oj-tabbar-remove-icon {
+  padding: 0;
+  margin-right: 5px;
+  height: 16px;
+  width: 16px;
+  border-radius: 10px;
+  opacity: 1;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item.oj-removable:not(.jraf-global-tabs-removable) .oj-tabbar-remove-icon {
+  display: none;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item.oj-hover .oj-tabbar-remove-icon {
+  opacity: 1;
+  color: #195d9c;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabbar .oj-tabbar-item .oj-tabbar-remove-icon:hover {
+  opacity: 1;
+  background-color: #195d9c;
+  color: white;
+}
+
+.jraf-global-tabs-wrapper .jraf-global-tabs-tab-content {
+  border: none;
+  padding: 0;
+  height: calc(100% - 38px);
+  width: 100%;
+  position: absolute;
+  margin-top: 0;
+}
+
+.jraf-global-tabbar {
+  height: 38px;
+}
+
+.jraf-global-tabbar .oj-tabbar-listview-container .oj-tabbar-listview {
+  min-height: 38px !important;
+}
+
+.jraf-global-tabs-tab-content {
+  /* undo JRAF UI Shell margins if apps panel bar is not inline */
+  /* but not if the apps panel bar is within a compact content frame */
+}
+.jraf-global-tabs-tab-content > .jraf-global-tabs-tab-content-module {
+  height: 100%;
+}
+.jraf-global-tabs-tab-content > .jraf-global-tabs-tab-content-module > div {
+  overflow: auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.jraf-global-tabs-tab-content > .jraf-global-tabs-tab-content-module > oj-module {
+  overflow: auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.jraf-global-tabs-tab-content .oj-rgbu-jraf-apps-panel-bar-container:not(.oj-rgbu-jraf-apps-panel-bar-inline) {
+  margin: 0 -10px;
+}
+.jraf-global-tabs-tab-content .oj-rgbu-jraf-contentframe-content-scrolling:not(.oj-rgbu-jraf-contentframe-body-padding) .oj-rgbu-jraf-apps-panel-bar-container,
+.jraf-global-tabs-tab-content .oj-rgbu-jraf-contentframe-panel-body:not(.oj-rgbu-jraf-contentframe-body-padding) .oj-rgbu-jraf-apps-panel-bar-container {
+  margin: 0;
+}
+
+.oj-rgbu-jraf-modal-page-body .jraf-contentframe {
+  top: 40px;
+  height: calc(100% - 40px);
+}
+
+.oj-rgbu-jraf-modal-page-body .oj-rgbu-jraf-apps-panel-bar-container:not(.oj-rgbu-jraf-apps-panel-bar-inline) {
+  margin: 0 -10px;
+}
+.oj-rgbu-jraf-modal-page-body .oj-rgbu-jraf-contentframe-content-scrolling:not(.oj-rgbu-jraf-contentframe-body-padding) .oj-rgbu-jraf-apps-panel-bar-container,
+.oj-rgbu-jraf-modal-page-body .oj-rgbu-jraf-contentframe-panel-body:not(.oj-rgbu-jraf-contentframe-body-padding) .oj-rgbu-jraf-apps-panel-bar-container {
+  margin: 0;
+}
+
+.oj-rgbu-jraf-modal-page-body.jraf-modal-page-fill-content-area .oj-rgbu-jraf-apps-panel-bar-container {
+  margin: 0;
+}
+
+.jraf-global-tabs-tab-content.jraf-global-tabs-tab-content-fill-content-area > .jraf-global-tabs-tab-content-module > div {
+  padding: 0px;
+}
+.jraf-global-tabs-tab-content.jraf-global-tabs-tab-content-fill-content-area > .jraf-global-tabs-tab-content-module > oj-module {
+  padding: 0px;
+}
+.jraf-global-tabs-tab-content.jraf-global-tabs-tab-content-fill-content-area .oj-rgbu-jraf-apps-panel-bar-container {
+  margin: 0;
+}
+.jraf-global-tabs-tab-content.jraf-global-tabs-tab-content-fill-content-area .oj-rgbu-jraf-contentframe-content-scrolling {
+  padding: 0;
+}
+
+.jraf-tabs-uishell-tab .oj-tabbar-item-label {
+  overflow-x: visible;
+  position: relative;
+  display: flex;
+}
+
+.jraf-global-tabs-spinner {
+  position: relative;
+  left: 7px;
+}
+
+.jraf-tabs-uishell-tab .jraf-tabbar-icon {
+  position: absolute;
+  left: -30px;
+  width: 30px;
+  height: 16px;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+.jraf-tabs-uishell-tab .jraf-tabbar-icon .jraf-tabbar-status {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  box-sizing: content-box;
+}
+.jraf-tabs-uishell-tab .jraf-tabbar-icon .jraf-tabbar-status::before {
+  height: 14px;
+  width: 14px;
+  display: block;
+  padding: 1px;
+}
+
+.jraf-tabbar-info::before {
+  content: url(images/raf-icon-info-circle_blue.svg);
+}
+
+.jraf-tabbar-warning::before {
+  content: url(images/raf-icon-alert-circle_orange.svg);
+}
+
+.jraf-tabbar-error::before {
+  content: url(images/raf-icon-error-circle_red.svg);
+}
+
+.jraf-tabbar-success::before {
+  content: url(images/raf-icon-success-circle_green.svg);
+}
+
+.jraf-tabs-uishell-tab:first-child:not(.oj-selected) .jraf-tabbar-icon {
+  width: 0px;
+  position: relative;
+  left: 0;
+}
+.jraf-tabs-uishell-tab:first-child:not(.oj-selected) .jraf-tabbar-icon .jraf-spinner, .jraf-tabs-uishell-tab:first-child:not(.oj-selected) .jraf-tabbar-icon .jraf-global-tabs-spinner {
+  width: 16px;
+}
+
+.jraf-tabs-uishell-tab .jraf-tabbar-icon.jraf-tabbar-icon-active {
+  opacity: 1;
+}
+
+.jraf-tabs-uishell-tab:first-child:not(.oj-selected) .jraf-tabbar-icon.jraf-tabbar-icon-active {
+  width: 30px;
+}
+
+.jraf-global-toaster {
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  width: 350px;
+  height: calc(100% - 30px);
+  margin: 0px 15px;
+  z-index: 4;
+}
+
+@media screen and (max-width: 767px) {
+  .jraf-global-toaster {
+    width: calc(100% - 30px);
+  }
+}
+.oj-button.oj-button-half-chrome.jraf-toggle-button-active {
+  color: #fff;
+  background-color: #0572ce;
+  border-color: #0572ce;
+  box-shadow: none;
+}
+
+.jraf-refresh-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/refresh-gray.png");
+}
+
+.oj-hover .jraf-refresh-icon {
+  background-image: url("images/refresh-hover.png");
+}
+
+.oj-active .jraf-refresh-icon {
+  background-image: url("images/refresh-active.png");
+}
+
+.oj-disabled .jraf-refresh-icon {
+  background-image: url("images/refresh-disabled.png");
+}
+
+.jraf-export-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/excel-export-gray.png");
+}
+
+.oj-hover .jraf-export-icon {
+  background-image: url("images/excel-export-hover.png");
+}
+
+.oj-active .jraf-export-icon {
+  background-image: url("images/excel-export-active.png");
+}
+
+.oj-disabled .jraf-export-icon {
+  background-image: url("images/excel-export-disabled.png");
+}
+
+.jraf-edit-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/edit-gray.png");
+}
+
+.oj-hover .jraf-edit-icon {
+  background-image: url("images/edit-hover.png");
+}
+
+.oj-active .jraf-edit-icon {
+  background-image: url("images/edit-active.png");
+}
+
+.oj-disabled .jraf-edit-icon {
+  background-image: url("images/edit-disabled.png");
+}
+
+.jraf-create-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/func_paperasterisk_16_ena@2x.png");
+}
+
+.oj-hover .jraf-create-icon {
+  background-image: url("images/func_paperasterisk_16_hov@2x.png");
+}
+
+.oj-active .jraf-create-icon {
+  background-image: url("images/func_paperasterisk_16_act@2x.png");
+}
+
+.oj-disabled .jraf-create-icon {
+  background-image: url("images/func_paperasterisk_16_dis@2x.png");
+}
+
+.jraf-add-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/create-gray.png");
+}
+
+.oj-hover .jraf-add-icon {
+  background-image: url("images/create-hover.png");
+}
+
+.oj-active .jraf-add-icon {
+  background-image: url("images/create-active.png");
+}
+
+.oj-disabled .jraf-add-icon {
+  background-image: url("images/create-disabled.png");
+}
+
+.jraf-delete-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/delete-gray.png");
+}
+
+.oj-hover .jraf-delete-icon {
+  background-image: url("images/delete-hover.png");
+}
+
+.oj-active .jraf-delete-icon {
+  background-image: url("images/delete-active.png");
+}
+
+.oj-disabled .jraf-delete-icon {
+  background-image: url("images/delete-disabled.png");
+}
+
+.jraf-duplicate-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/func_twopagesarrow_16_ena@2x.png");
+}
+
+.oj-hover .jraf-duplicate-icon {
+  background-image: url("images/func_twopagesarrow_16_hov@2x.png");
+}
+
+.oj-active .jraf-duplicate-icon {
+  background-image: url("images/func_twopagesarrow_16_onb@2x.png");
+}
+
+.oj-disabled .jraf-duplicate-icon {
+  background-image: url("images/func_twopagesarrow_16_dis@2x.png");
+}
+
+.jraf-view-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/func_spectacles_16_ena@2x.png");
+}
+
+.oj-hover .jraf-view-icon {
+  background-image: url("images/func_spectacles_16_hov@2x.png");
+}
+
+.oj-active .jraf-view-icon {
+  background-image: url("images/func_spectacles_16_onb@2x.png");
+}
+
+.oj-disabled .jraf-view-icon {
+  background-image: url("images/func_spectacles_16_dis@2x.png");
+}
+
+.jraf-page-header,
+.jraf-global-tabs-tab-content > div > h1:first-child,
+.jraf-global-tabs-tab-content > div > h2:first-child,
+.jraf-global-tabs-tab-content > div > h3:first-child,
+.jraf-global-tabs-tab-content > div > h4:first-child,
+.jraf-global-tabs-tab-content > div > h5:first-child,
+.jraf-global-custom-content-wrapper > h1:first-child,
+.jraf-global-custom-content-wrapper > h2:first-child,
+.jraf-global-custom-content-wrapper > h3:first-child,
+.jraf-global-custom-content-wrapper > h4:first-child,
+.jraf-global-custom-content-wrapper > h5:first-child,
+.oj-rgbu-jraf-modal-page-content-module > h1:first-child,
+.oj-rgbu-jraf-modal-page-content-module > h2:first-child,
+.oj-rgbu-jraf-modal-page-content-module > h3:first-child,
+.oj-rgbu-jraf-modal-page-content-module > h4:first-child,
+.oj-rgbu-jraf-modal-page-content-module > h5:first-child {
+  margin-top: 0px;
+}
+
+.oj-hicontrast .jraf-refresh-icon::before,
+.oj-hicontrast .jraf-export-icon::before,
+.oj-hicontrast .jraf-edit-icon::before,
+.oj-hicontrast .jraf-create-icon::before,
+.oj-hicontrast .jraf-add-icon::before,
+.oj-hicontrast .jraf-delete-icon::before,
+.oj-hicontrast .jraf-duplicate-icon::before,
+.oj-hicontrast .jraf-view-icon::before {
+  transform: scale(0.5);
+  display: inline-block;
+  position: relative;
+  top: -50%;
+  left: -50%;
+}
+.oj-hicontrast .jraf-refresh-icon::before {
+  content: url("images/refresh-gray.png");
+}
+.oj-hicontrast .oj-hover .jraf-refresh-icon::before {
+  content: url("images/refresh-hover.png");
+}
+.oj-hicontrast .oj-active .jraf-refresh-icon::before {
+  content: url("images/refresh-active.png");
+}
+.oj-hicontrast .oj-disabled .jraf-refresh-icon::before {
+  content: url("images/refresh-disabled.png");
+}
+.oj-hicontrast .jraf-export-icon::before {
+  content: url("images/excel-export-gray.png");
+}
+.oj-hicontrast .oj-hover .jraf-export-icon::before {
+  content: url("images/excel-export-hover.png");
+}
+.oj-hicontrast .oj-active .jraf-export-icon::before {
+  content: url("images/excel-export-active.png");
+}
+.oj-hicontrast .oj-disabled .jraf-export-icon::before {
+  content: url("images/excel-export-disabled.png");
+}
+.oj-hicontrast .jraf-edit-icon::before {
+  content: url("images/edit-gray.png");
+}
+.oj-hicontrast .oj-hover .jraf-edit-icon::before {
+  content: url("images/edit-hover.png");
+}
+.oj-hicontrast .oj-active .jraf-edit-icon::before {
+  content: url("images/edit-active.png");
+}
+.oj-hicontrast .oj-disabled .jraf-edit-icon::before {
+  content: url("images/edit-disabled.png");
+}
+.oj-hicontrast .jraf-create-icon::before {
+  content: url("images/func_paperasterisk_16_ena@2x.png");
+}
+.oj-hicontrast .oj-hover .jraf-create-icon::before {
+  content: url("images/func_paperasterisk_16_hov@2x.png");
+}
+.oj-hicontrast .oj-active .jraf-create-icon::before {
+  content: url("images/func_paperasterisk_16_act@2x.png");
+}
+.oj-hicontrast .oj-disabled .jraf-create-icon::before {
+  content: url("images/func_paperasterisk_16_dis@2x.png");
+}
+.oj-hicontrast .jraf-add-icon::before {
+  content: url("images/create-gray.png");
+}
+.oj-hicontrast .oj-hover .jraf-add-icon::before {
+  content: url("images/create-hover.png");
+}
+.oj-hicontrast .oj-active .jraf-add-icon::before {
+  content: url("images/create-active.png");
+}
+.oj-hicontrast .oj-disabled .jraf-add-icon::before {
+  content: url("images/create-disabled.png");
+}
+.oj-hicontrast .jraf-delete-icon::before {
+  content: url("images/delete-gray.png");
+}
+.oj-hicontrast .oj-hover .jraf-delete-icon::before {
+  content: url("images/delete-hover.png");
+}
+.oj-hicontrast .oj-active .jraf-delete-icon::before {
+  content: url("images/delete-active.png");
+}
+.oj-hicontrast .oj-disabled .jraf-delete-icon::before {
+  content: url("images/delete-disabled.png");
+}
+.oj-hicontrast .jraf-duplicate-icon::before {
+  content: url("images/func_twopagesarrow_16_ena@2x.png");
+}
+.oj-hicontrast .oj-hover .jraf-duplicate-icon::before {
+  content: url("images/func_twopagesarrow_16_hov@2x.png");
+}
+.oj-hicontrast .oj-active .jraf-duplicate-icon::before {
+  content: url("images/func_twopagesarrow_16_onb@2x.png");
+}
+.oj-hicontrast .oj-disabled .jraf-duplicate-icon::before {
+  content: url("images/func_twopagesarrow_16_dis@2x.png");
+}
+.oj-hicontrast .jraf-view-icon::before {
+  content: url("images/func_spectacles_16_ena@2x.png");
+}
+.oj-hicontrast .oj-hover .jraf-view-icon::before {
+  content: url("images/func_spectacles_16_hov@2x.png");
+}
+.oj-hicontrast .oj-active .jraf-view-icon::before {
+  content: url("images/func_spectacles_16_onb@2x.png");
+}
+.oj-hicontrast .oj-disabled .jraf-view-icon::before {
+  content: url("images/func_spectacles_16_dis@2x.png");
+}
+
+.jraf-help-tile {
+  max-height: 250px;
+  border: 1px solid #c6c6c6;
+  margin: 10px 10px 0;
+}
+
+.jraf-help-tile:last-child {
+  margin-bottom: 10px;
+}
+
+.jraf-help-tile-image {
+  height: 90px;
+  width: 100%;
+  border-bottom: 1px solid #c6c6c6;
+  cursor: pointer;
+}
+
+.jraf-help-tile-image-icon {
+  text-align: center;
+}
+
+.jraf-help-tile-image-icon::before {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.jraf-help-tile-body {
+  width: 100%;
+  max-height: 159px;
+  padding: 5px;
+}
+
+.jraf-help-tile-body-description {
+  overflow-y: auto;
+}
+
+.jraf-help-tile-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.jraf-help-tile-body > h4 {
+  margin: 0;
+}
+
+.jraf-help-tile-button {
+  text-align: right;
+}
+
+.jraf-help-tile-button .oj-button {
+  margin: 0;
+}
+
+.jraf-help-tile-button .oj-button-label {
+  width: auto;
+}
+
+.jraf-help-tile-video-icon::before {
+  content: url("images/raf-icon-video-tutorial_onb.svg");
+}
+
+.jraf-help-tile-document-icon::before {
+  content: url(images/raf-icon-details_onb.svg);
+}
+
+.jraf-flex-min.oj-flex-item {
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
+
+oj-rgbu-jraf-content-frame .jraf-help-tile {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.jraf-global-bottom-content > .oj-flex,
+.jraf-global-bottom-content > .oj-flex .jraf-sidebar-wrapper + .oj-flex-item {
+  height: 100%;
+}
+
+.jraf-sidebar-search .oj-listbox-result-unselectable .oj-listbox-result-label {
+  cursor: default;
+}
+
+.jraf-sidebar-menu-loading, .jraf-contentframe-panel-loading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.jraf-sidebar-menu-loading-icon, .jraf-contentframe-loading-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.jraf-sidebar-menu-loading-icon .jraf-sidebar-loading, .jraf-sidebar-menu-loading-icon .jraf-contentframe-loading, .jraf-contentframe-loading-icon .jraf-sidebar-loading, .jraf-contentframe-loading-icon .jraf-contentframe-loading {
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  margin: 0;
+}
+
+/*
+ * Styles for the sidebar navigation list.
+ *
+ * The nav list is a list of menu items that when selected open up menu content
+ * in a sliding menu item pane.
+ *
+ */
+.jraf-sidebar-wrapper {
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+  background-color: #ececec;
+  height: 100%;
+}
+
+.jraf-sidebar-menu-wrapper {
+  height: 100%;
+}
+
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu, .jraf-sidebar-menu-wrapper .jraf-mobile-menu {
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+  width: 250px;
+  background-color: rgba(242, 242, 242, 0.95);
+  font-size: 14px;
+  min-height: 200px;
+  z-index: 3;
+}
+
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-no-data-message, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-navigationlist-no-data-message {
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+  background-color: transparent;
+}
+
+.jraf-sidebar-navblock {
+  height: 100%;
+}
+
+.jraf-sidebar-navblock-flexbar {
+  height: 100%;
+}
+
+.jraf-sidebar-nav-list {
+  flex: none;
+}
+
+.jraf-sidebar-nav-list .oj-navigationlist-vertical .oj-navigationlist-item::before,
+.jraf-sidebar-pins-wrapper .oj-navigationlist-vertical .oj-navigationlist-item::before,
+.jraf-sidebar-settings-wrapper .oj-navigationlist-vertical .oj-navigationlist-item::before {
+  display: none;
+}
+
+.jraf-sidebar-pins-wrapper {
+  border-top: 1px solid #252E34;
+  width: 64px;
+}
+
+.jraf-sidebar-pins-wrapper .oj-navigationlist-no-data-message {
+  display: none;
+}
+
+.jraf-sidebar-settings-wrapper {
+  border-top: 1px solid #252E34;
+  height: 39px;
+  min-height: 39px;
+  width: 64px;
+}
+
+.oj-navigationlist-icon-only.oj-navigationlist-vertical .oj-navigationlist-item.jraf-sidebar-menu-list-item {
+  height: 38px;
+  position: relative;
+  width: 64px;
+  margin-top: 0;
+}
+
+.jraf-sidebar-menu-icon {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 38px;
+  margin: 0px;
+  transition: background 0.2s ease 0s;
+  width: 63px;
+}
+
+.jraf-sidebar-menu-icon:hover {
+  background-color: #f5f5f5;
+}
+
+.jraf-sidebar-menu-icon::before {
+  width: 18px;
+  display: block;
+  position: relative;
+  top: 10px;
+  left: 22px;
+  right: 22px;
+}
+
+/* override some alta styles -- TODO is this the best way? */
+.oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item-icon.jraf-sidebar-menu-icon {
+  border: 0px;
+  border-radius: 0;
+  padding: 0;
+}
+
+.jraf-global-bottom-content .oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item.jraf-selected .oj-navigationlist-item-icon {
+  background-color: #7a7e82;
+}
+
+.oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item.oj-selected .oj-navigationlist-item-icon {
+  background-color: transparent;
+}
+
+.jraf-sidebar-menu-list-item.jraf-selected .jraf-sidebar-menu-icon,
+.jraf-global-bottom-content .oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item.oj-hover.jraf-selected:not(.oj-selected) .oj-navigationlist-item-icon {
+  background-color: #7a7e82;
+}
+
+.jraf-global-bottom-content .oj-navigationlist-item.oj-hover:not(.oj-selected) {
+  border-color: #c6c6c6;
+}
+
+.jraf-global-bottom-content .oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item.oj-hover:not(.jraf-selected) .oj-navigationlist-item-icon {
+  background-color: #f5f5f5;
+}
+
+.jraf-global-bottom-content .oj-navigationlist-icon-only .oj-navigationlist-element {
+  margin: 0;
+}
+
+.jraf-sidebar-badge-value {
+  background-color: white;
+  border: 1px solid #ab1b21;
+  border-radius: 18px;
+  color: #ab1b21;
+  position: absolute;
+  top: 6px;
+  left: 32px;
+  font-size: 10px;
+  font-weight: bold;
+  height: 12px;
+  line-height: 10px;
+  padding: 2px 4px 0;
+  transition: all 0.2s cubic-bezier(0.12, -0.15, 0.25, 1) 0s;
+}
+
+.jraf-app-navigator-icon::before {
+  content: url("images/raf-icon-app-switcher_ena.svg");
+}
+
+.jraf-app-navigator-icon:hover::before {
+  content: url("images/raf-icon-app-switcher_hov.svg");
+}
+
+.jraf-app-navigator-selected-icon::before {
+  content: url("images/raf-icon-app-switcher_onb.svg");
+}
+
+.jraf-favorites-icon::before {
+  content: url("images/raf-icon-star_ena.svg");
+}
+
+.jraf-favorites-icon:hover::before {
+  content: url("images/raf-icon-star_hov.svg");
+}
+
+.jraf-favorites-selected-icon::before {
+  content: url("images/raf-icon-star_onb.svg");
+}
+
+.jraf-tasks-icon::before {
+  content: url("images/raf-icon-task_ena.svg");
+}
+
+.jraf-tasks-icon:hover::before {
+  content: url("images/raf-icon-task_hov.svg");
+}
+
+.jraf-tasks-selected-icon::before {
+  content: url("images/raf-icon-task_onb.svg");
+}
+
+.jraf-notifications-icon::before {
+  content: url("images/raf-icon-notifications_ena.svg");
+}
+
+.jraf-notifications-icon:hover::before {
+  content: url("images/raf-icon-notifications_hov.svg");
+}
+
+.jraf-notifications-selected-icon::before {
+  content: url("images/raf-icon-notifications_onb.svg");
+}
+
+.jraf-quick-create-icon::before {
+  content: url("images/raf-icon-quick-create_ena.svg");
+}
+
+.jraf-quick-create-icon:hover::before {
+  content: url("images/raf-icon-quick-create_hov.svg");
+}
+
+.jraf-quick-create-selected-icon::before {
+  content: url("images/raf-icon-quick-create_onb.svg");
+}
+
+.jraf-quick-lookup-icon::before {
+  content: url("images/raf-icon-quick-search_ena.svg");
+}
+
+.jraf-quick-lookup-icon:hover::before {
+  content: url("images/raf-icon-quick-search_hov.svg");
+}
+
+.jraf-quick-lookup-selected-icon::before {
+  content: url("images/raf-icon-quick-search_onb.svg");
+}
+
+.jraf-reports-icon::before {
+  content: url("images/raf-icon-reports_ena.svg");
+}
+
+.jraf-reports-icon:hover::before {
+  content: url("images/raf-icon-reports_hov.svg");
+}
+
+.jraf-reports-selected-icon::before {
+  content: url("images/raf-icon-reports_onb.svg");
+}
+
+.jraf-settings-icon::before {
+  content: url("images/raf-icon-settings-solid_ena.svg");
+}
+
+.jraf-settings-icon:hover::before {
+  content: url("images/raf-icon-settings-solid_hov.svg");
+}
+
+.jraf-settings-selected-icon::before {
+  content: url("images/raf-icon-settings-solid_onb.svg");
+}
+
+.jraf-history-icon::before {
+  content: url("images/raf-icon-history_ena.svg");
+}
+
+.jraf-history-icon:hover::before {
+  content: url("images/raf-icon-history_hov.svg");
+}
+
+.jraf-favorite-task-icon::before {
+  content: url("images/raf-icon-favorite-task_ena.svg");
+}
+
+.jraf-favorite-task-icon:hover::before {
+  content: url("images/raf-icon-favorite-task_hov.svg");
+}
+
+.jraf-favorite-report-icon::before {
+  content: url("images/raf-icon-favorite-report_ena.svg");
+}
+
+.jraf-favorite-report-icon:hover::before {
+  content: url("images/raf-icon-favorite-report_hov.svg");
+}
+
+.jraf-favorite-document-icon::before {
+  content: url("images/raf-icon-favorite-document_ena.svg");
+}
+
+.jraf-favorite-document-icon:hover::before {
+  content: url("images/raf-icon-favorite-document_hov.svg");
+}
+
+.jraf-favorite-user-icon::before {
+  content: url("images/raf-icon-primary-account_ena.svg");
+}
+
+.jraf-favorite-user-icon:hover::before {
+  content: url("images/raf-icon-primary-account_hov.svg");
+}
+
+.jraf-favorite-default-icon::before {
+  content: url("images/raf-icon-favorite-default_ena.svg");
+}
+
+.jraf-favorite-default-icon:hover::before {
+  content: url("images/raf-icon-favorite-default_hov.svg");
+}
+
+.jraf-application-context-icon::before {
+  content: url("images/raf-icon-store_ena.svg");
+}
+
+.jraf-application-context-icon:hover::before {
+  content: url("images/raf-icon-store_hov.svg");
+}
+
+.oj-hicontrast .jraf-sidebar-menu-icon::before {
+  transform: scale(0.5);
+  display: block;
+}
+.oj-hicontrast .jraf-app-navigator-icon::before {
+  content: url("images/app-switcher-gray.png");
+}
+.oj-hicontrast .jraf-app-navigator-selected-icon::before {
+  content: url("images/app-switcher.png");
+}
+.oj-hicontrast .jraf-favorites-icon::before {
+  content: url("images/favorites-gray.png");
+}
+.oj-hicontrast .jraf-favorites-selected-icon::before {
+  content: url("images/favorites.png");
+}
+.oj-hicontrast .jraf-tasks-icon::before {
+  content: url("images/tasks-gray.png");
+}
+.oj-hicontrast .jraf-tasks-selected-icon::before {
+  content: url("images/tasks.png");
+}
+.oj-hicontrast .jraf-notifications-icon::before {
+  content: url("images/notifications-gray.png");
+}
+.oj-hicontrast .jraf-notifications-selected-icon::before {
+  content: url("images/notifications.png");
+}
+.oj-hicontrast .jraf-quick-create-icon::before {
+  content: url("images/quick-create-gray.png");
+}
+.oj-hicontrast .jraf-quick-create-selected-icon::before {
+  content: url("images/quick-create.png");
+}
+.oj-hicontrast .jraf-quick-lookup-icon::before {
+  content: url("images/quick-lookup-gray.png");
+}
+.oj-hicontrast .jraf-quick-lookup-selected-icon::before {
+  content: url("images/quick-lookup.png");
+}
+.oj-hicontrast .jraf-reports-icon::before {
+  content: url("images/reports-gray.png");
+}
+.oj-hicontrast .jraf-reports-selected-icon::before {
+  content: url("images/reports-white.png");
+}
+
+/*
+ * Styles for the sidebar navigation menu/sidebar sliding menu pane where
+ * sidebar menu content is rendered.
+ */
+.jraf-menu-content-area {
+  border-bottom: 1px solid #252E34;
+}
+
+.jraf-menu-header {
+  min-height: 64px;
+}
+
+.jraf-menu-header .oj-listview {
+  border: none;
+}
+
+.jraf-menu-header-text, .jraf-horizontal-tasks-header, .jraf-mobile-nav-header > .jraf-mobile-nav-menu-title, .jraf-favorites-list-header {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: normal;
+  height: 22px;
+  overflow: hidden;
+  padding: 22px 10px 20px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.jraf-menu-header-button {
+  margin: 3px 10px 0;
+}
+
+.jraf-task-menu {
+  position: relative;
+  height: calc(100vh - 42px);
+  overflow: hidden;
+}
+
+.jraf-task-menu-header,
+.jraf-task-menu-search-container {
+  flex: 0 0 auto;
+}
+
+.jraf-menu-search-container,
+.jraf-task-menu-search-container,
+.jraf-notifications-menu-search-container {
+  height: 65px;
+  padding: 13px 10px 0 10px;
+}
+
+.jraf-menu-search-container input[type=text],
+.jraf-task-menu-search-container input[type=text],
+.jraf-notifications-menu-search-container input[type=text] {
+  font-size: 12px;
+  border: 1px solid #878c90;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: #101010;
+  width: 137px;
+  height: 16px;
+  padding: 10px 8px 10px 32px;
+  background-image: url("images/search-gray.png");
+  background-position: left 8px center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+.jraf-menu-search-container .oj-combobox-input::-webkit-input-placeholder {
+  color: #505050;
+}
+
+.jraf-menu-search-container .oj-combobox-input::-moz-placeholder {
+  color: #505050;
+}
+
+.jraf-menu-search-container .oj-combobox-input:-ms-input-placeholder {
+  color: #505050;
+}
+
+.jraf-menu-search-container .oj-combobox-choice,
+.jraf-task-menu-search-container .oj-combobox-choice,
+.jraf-notifications-menu-search-container .oj-combobox-choice {
+  height: 42px;
+  background: none;
+  border: none;
+}
+
+.jraf-menu-search-container .oj-text-field-container,
+.jraf-task-menu-search-container .oj-text-field-container,
+.jraf-notifications-menu-search-container .oj-text-field-container {
+  background: none;
+  border: none;
+  height: auto;
+}
+
+.jraf-tasks-list-body {
+  position: relative;
+  overflow: auto;
+}
+
+.jraf-sidebar-menu, .jraf-mobile-menu {
+  overflow-y: hidden;
+}
+
+.jraf-sidebar-menu .oj-listview-item.oj-hover, .jraf-mobile-menu .oj-listview-item.oj-hover,
+.jraf-sidebar-menu .oj-listview-item.oj-hover.oj-focus,
+.jraf-sidebar-menu .oj-listview-item.oj-hover.oj-selected,
+.jraf-sidebar-menu .oj-navigationlist-item.oj-hover,
+.jraf-mobile-menu .oj-navigationlist-item.oj-hover,
+.jraf-sidebar-menu .oj-navigationlist-item.oj-hover.oj-selected,
+.jraf-sidebar-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:hover,
+.jraf-mobile-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:hover,
+.jraf-sidebar-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:focus,
+.jraf-mobile-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:focus {
+  background-color: rgba(135, 140, 144, 0.15);
+}
+
+.jraf-menu-body .oj-navigationlist-item:not(.jraf-section-header-wrapper):not(.jraf-group-wrapper),
+.jraf-menu-body .oj-navigationlist-item.jraf-group-wrapper li {
+  cursor: pointer;
+}
+
+.jraf-sidebar-menu .jraf-not-launchable, .jraf-mobile-menu .jraf-not-launchable,
+.jraf-sidebar-menu .jraf-not-launchable.oj-hover,
+.jraf-sidebar-menu .jraf-not-launchable.oj-hover.oj-selected,
+.jraf-sidebar-menu .oj-hover.jraf-group-wrapper li.jraf-not-launchable:hover,
+.jraf-sidebar-menu .oj-hover.jraf-group-wrapper li.jraf-not-launchable:focus {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.jraf-menu-body .jraf-not-launchable:not(.jraf-section-header-wrapper):not(.jraf-group-wrapper),
+.jraf-menu-body .jraf-not-launchable.jraf-group-wrapper li {
+  cursor: default;
+}
+
+.jraf-menu-body .oj-navigationlist-item.oj-disabled:not(.jraf-section-header-wrapper):not(.jraf-group-wrapper) {
+  cursor: auto;
+}
+
+.jraf-sidebar-menu .oj-listview-item.oj-hover.oj-focus, .jraf-mobile-menu .oj-listview-item.oj-hover.oj-focus {
+  border: 0px solid transparent;
+}
+
+.jraf-menu-body .oj-navigationlist-item.oj-hover.jraf-group-wrapper,
+.jraf-menu-body .oj-navigationlist-item.oj-selected {
+  background-color: transparent;
+}
+
+.jraf-menu-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.jraf-sidebar-link-button,
+.jraf-sidebar-link-button:hover,
+.jraf-sidebar-link-button:active,
+.jraf-sidebar-link-button:focus,
+.jraf-sidebar-link-button:visited {
+  font-size: 12px;
+  color: #333;
+}
+
+.jraf-menu-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 230px;
+  text-align: center;
+  z-index: 2;
+  padding: 3px 10px 2px;
+  border-top: 1px solid #252E34;
+  background-color: #f2f2f2;
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+  height: calc(38px - 5px);
+}
+
+.jraf-menu-footer a,
+.jraf-menu-footer a:visited {
+  display: block;
+  text-align: center;
+  border-radius: 3px;
+  padding: 7px 15px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  color: #333333;
+}
+
+.jraf-menu-footer a:hover {
+  text-decoration: none;
+  border-color: #abaeb1;
+}
+
+.jraf-menu-footer a:active,
+.jraf-menu-footer a:focus {
+  text-decoration: none;
+  border-color: #abaeb1;
+  background-color: #abaeb1;
+  color: #fff;
+}
+
+.jraf-menu-footer a.jraf-disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.jraf-menu-footer .oj-button {
+  transition: all 0.2s;
+  margin: 0;
+}
+
+.jraf-menu-footer .oj-button.oj-default,
+.jraf-menu-footer .oj-button.oj-focus-only {
+  border-radius: 3px;
+}
+
+.jraf-menu-footer .oj-button.oj-hover {
+  border-color: #abaeb1;
+  background-color: transparent;
+}
+
+.jraf-menu-footer .oj-button.oj-active {
+  border-color: #abaeb1;
+  background-color: #abaeb1;
+}
+
+.jraf-menu-footer .oj-button .oj-button-text {
+  color: #333333;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.jraf-menu-footer .oj-button.oj-active .oj-button-text {
+  color: #fff;
+}
+
+/* TODO made the list scroll */
+.jraf-sidebar-list-items {
+  position: relative;
+}
+
+.jraf-sidebar-list-items ul {
+  overflow-y: auto;
+}
+
+.jraf-sidebar-list-item-group .oj-navigationlist-item-label {
+  padding: 10px 0 0;
+}
+
+.jraf-sidebar-list-item-content {
+  display: inline-block;
+  width: 204px;
+  padding-bottom: 10px;
+}
+
+.jraf-sidebar-list-item-content > div {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.jraf-read-indicator {
+  height: 12px;
+  width: 22px;
+  padding-top: 2px;
+  display: inline-block;
+  background-image: url("images/unread.png");
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  vertical-align: top;
+}
+
+.jraf-read-indicator-read {
+  background-image: url("images/read.png");
+}
+
+li:not(.jraf-group-wrapper):hover .jraf-sidebar-list-item-group .jraf-read-indicator:not(.jraf-read-indicator-read),
+li:not(.jraf-group-wrapper):focus .jraf-sidebar-list-item-group .jraf-read-indicator:not(.jraf-read-indicator-read),
+a:focus > .jraf-read-indicator:not(.jraf-read-indicator-read) {
+  background-image: url("images/read-remove.png");
+}
+
+.jraf-sidebar-list-item-header {
+  font-weight: bold;
+}
+
+.jraf-sidebar-loading, .jraf-contentframe-loading {
+  background-image: url("images/spinner_gray_24@2x.gif");
+  display: block;
+  background-size: 24px 24px;
+  height: 24px;
+  width: 24px;
+  margin: 20px auto;
+}
+
+.jraf-menu-icon-link:hover,
+.jraf-menu-icon-link:active,
+.jraf-menu-icon-link:focus {
+  text-decoration: none;
+}
+
+.jraf-menu-body .oj-navigationlist-item-content {
+  width: calc(100% - 15px);
+}
+
+.jraf-selected-app-icon::before {
+  content: url("images/raf-icon-checkmark_ena.svg");
+}
+
+.oj-hicontrast .jraf-read-indicator::before {
+  content: url("images/unread.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -25%;
+}
+.oj-hicontrast .jraf-read-indicator-read::before {
+  content: url("images/read.png");
+}
+.oj-hicontrast li:not(.jraf-group-wrapper):hover .jraf-sidebar-list-item-group .jraf-read-indicator:not(.jraf-read-indicator-read)::before,
+.oj-hicontrast li:not(.jraf-group-wrapper):focus .jraf-sidebar-list-item-group .jraf-read-indicator:not(.jraf-read-indicator-read)::before,
+.oj-hicontrast a:focus > .jraf-read-indicator:not(.jraf-read-indicator-read)::before {
+  content: url("images/read-remove.png");
+}
+.oj-hicontrast .jraf-sidebar-loading::before, .oj-hicontrast .jraf-contentframe-loading::before {
+  content: url("images/spinner_gray_24@2x.gif");
+}
+
+.jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-selected.oj-button-half-chrome,
+.jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-selected.oj-button-half-chrome.oj-hover,
+.jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-selected.oj-button-half-chrome.oj-focus {
+  background: none;
+  background-color: #abaeb1;
+  border-color: #abaeb1;
+  border-radius: 5px;
+}
+
+.jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-button-half-chrome.oj-hover,
+.jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-button-half-chrome.oj-focus {
+  border-color: #abaeb1;
+  background: none;
+  border-radius: 5px;
+}
+
+.oj-navigationlist-item:hover .jraf-mark-favorite-icon,
+.oj-navigationlist-item:focus .jraf-mark-favorite-icon,
+.oj-navigationlist-item a:focus .jraf-mark-favorite-icon {
+  background-image: url("images/func_fave_empty_24_hov@2x.png");
+  height: 16px;
+  width: 16px;
+}
+
+.jraf-unmark-favorite-icon {
+  background-image: url("images/favorites-active.png");
+  height: 16px;
+  width: 16px;
+}
+
+.oj-navigationlist-item:hover .jraf-pin-favorite-icon,
+.oj-navigationlist-item:focus .jraf-pin-favorite-icon,
+.oj-navigationlist-item a:focus .jraf-pin-favorite-icon {
+  background-image: url("images/raf-icon-pin-outline_hov.svg");
+  height: 16px;
+  width: 16px;
+}
+
+.jraf-unpin-favorite-icon {
+  background-image: url("images/raf-icon-pin_act.svg");
+  height: 16px;
+  width: 16px;
+}
+
+.jraf-favorites-menu {
+  position: relative;
+  height: calc(100vh - 42px);
+  overflow: hidden;
+}
+
+.jraf-favorites-menu .jraf-menu-body {
+  height: calc(100% - 3px - 64px - 64px - 38px);
+}
+
+.jraf-favorites-menu .jraf-menu-body ul {
+  overflow: hidden;
+}
+
+.jraf-favorites-menu .oj-navigationlist-item {
+  cursor: pointer;
+}
+
+.jraf-favorites-list-header {
+  padding: 10px;
+  border-bottom: 1px solid #c3cbd1;
+  height: 24px;
+}
+
+.jraf-favorites-list-back {
+  margin-right: 3px;
+}
+
+.jraf-favorites-list-header a {
+  color: #ffffff;
+  height: 100%;
+}
+
+.jraf-favorites-list-back::before {
+  content: url(images/raf-icon-chevron-left_ena.svg);
+}
+
+.jraf-favorites-list-item-content {
+  width: 100%;
+}
+
+.oj-hicontrast .jraf-mark-favorite-icon {
+  vertical-align: bottom;
+}
+.oj-hicontrast .oj-navigationlist-item:hover .jraf-mark-favorite-icon::before,
+.oj-hicontrast .oj-navigationlist-item:focus .jraf-mark-favorite-icon::before,
+.oj-hicontrast .oj-navigationlist-item a:focus .jraf-mark-favorite-icon::before {
+  content: url("images/func_fave_empty_24_hov@2x.png");
+  transform: scale(0.33);
+  display: block;
+  position: relative;
+  top: -33%;
+  left: -33%;
+}
+.oj-hicontrast .jraf-unmark-favorite-icon {
+  vertical-align: bottom;
+}
+.oj-hicontrast .jraf-unmark-favorite-icon::before {
+  content: url("images/favorites-active.png");
+  transform: scale(0.33);
+  display: block;
+  position: relative;
+  top: -33%;
+  left: -33%;
+}
+
+.jraf-favorites-autosuggest-label,
+.jraf-favorites-autosuggest-path {
+  display: block;
+}
+
+.jraf-favorites-autosuggest-label {
+  font-size: 14px;
+}
+
+.jraf-favorites-view-toggle-icon {
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+  padding: 11px;
+  background-image: url("images/raf-icon-list_ena.svg");
+}
+
+.oj-selected .jraf-favorites-view-toggle-icon {
+  background-image: url("images/raf-icon-list_onb.svg");
+}
+
+html:not([dir=rtl]) .oj-navigationlist-expanded:not(.oj-navigationlist-icon-only).oj-navigationlist-vertical ul:not(.oj-navigationlist-has-icons) > .oj-navigationlist-item-element > ul.jraf-favorites-sidebar-sublist {
+  padding-left: 0;
+}
+
+html[dir=rtl] .oj-navigationlist-expanded:not(.oj-navigationlist-icon-only).oj-navigationlist-vertical ul:not(.oj-navigationlist-has-icons) > .oj-navigationlist-item-element > ul.jraf-favorites-sidebar-sublist {
+  padding-right: 0;
+}
+
+ul.jraf-favorites-sidebar-sublist > li:last-child > div.oj-navigationlist-item-content {
+  border-bottom: 1px solid #252E34;
+}
+
+.jraf-favorites-menu li.jraf-section-header-wrapper + li.jraf-section-header-wrapper div.jraf-section-header {
+  border-top: none;
+}
+
+.jraf-notifications-grouping-toggle-icon {
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+  padding: 11px;
+  background-image: url("images/sidebar-grouped-list.png");
+}
+
+.oj-selected .jraf-notifications-grouping-toggle-icon {
+  background-image: url("images/sidebar-grouped-list-active.png");
+}
+
+.jraf-sidebar-grouped-list-toggle {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+}
+
+.jraf-sidebar-grouped-list-toggle .oj-button {
+  margin: 0px 0 0 10px;
+  height: 38px;
+}
+
+/* override an Alta style */
+.jraf-sidebar-grouped-list-toggle .oj-button-icon-only .oj-button-icon {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.jraf-sidebar-grouped-list-toggle .oj-button.oj-default {
+  border-color: transparent;
+  background: none;
+}
+
+.jraf-sidebar-grouped-list-toggle .oj-button.oj-hover,
+.jraf-sidebar-grouped-list-toggle .oj-button.oj-focus {
+  border-color: #abaeb1;
+  background: none;
+  border-radius: 5px;
+}
+
+.jraf-sidebar-grouped-list-toggle .oj-button.oj-selected,
+.jraf-sidebar-grouped-list-toggle .oj-button.oj-selected.oj-hover,
+.jraf-sidebar-grouped-list-toggle .oj-button.oj-selected.oj-focus {
+  background: none;
+  background-color: #abaeb1;
+  border-color: #abaeb1;
+  border-radius: 5px;
+}
+
+.jraf-menu-filter-container .oj-button {
+  margin: 0;
+}
+
+.jraf-menu-filter-container oj-form-layout.open {
+  padding: 10px;
+  border: 1px solid #252E34;
+  border-width: 0 0 1px 0;
+  background-color: #ececec;
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+.jraf-global-navigation-bar-menu .jraf-menu-filter-container oj-form-layout.open {
+  box-shadow: none;
+  border-bottom: 0;
+}
+
+.jraf-sidebar-list-items ul {
+  overflow-x: hidden;
+}
+
+.jraf-sidebar-list-items ul ul {
+  padding-left: 0;
+}
+
+.jraf-menu-filter-container.jraf-menu-content-area {
+  border-bottom-width: 0;
+}
+
+.jraf-menu-filter-container .jraf-inline-badge, .jraf-menu-filter-container .jraf-mobile-sidebar-badge-value {
+  padding: 3px 4px;
+}
+
+.jraf-sidebar-list-item-group .jraf-inline-badge, .jraf-sidebar-list-item-group .jraf-mobile-sidebar-badge-value {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 3px 4px;
+  vertical-align: top;
+}
+
+.jraf-sidebar-list-item-group .jraf-severity-badge-group {
+  display: inline-flex;
+  max-width: 235px;
+}
+
+.jraf-sidebar-list-item-group h4 {
+  font-size: 14px;
+}
+
+.jraf-menu-filter-container .jraf-notification-tab .oj-button {
+  width: 100%;
+  border-color: #252E34;
+  border-width: 0 1px 1px 0;
+  border-radius: 0;
+}
+
+.jraf-global-navigation-bar-menu .jraf-menu-filter-container .jraf-notification-tab .oj-button {
+  border-width: 0 0 1px;
+}
+
+.jraf-horizontal-notifications-filter {
+  min-height: 32px;
+}
+
+/* override Alta style that centers text */
+.jraf-notification-tab .oj-button-label {
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+.jraf-notification-tab .oj-button-text {
+  overflow: visible;
+  /* Required so inline badge isn't cut off */
+  padding-left: 10px;
+  /* small reduction from Alta's padding */
+}
+
+.jraf-notification-tab .jraf-inline-badge, .jraf-notification-tab .jraf-mobile-sidebar-badge-value {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 15px;
+}
+
+.jraf-notification-tab .jraf-inline-badge.jraf-hidden, .jraf-notification-tab .jraf-hidden.jraf-mobile-sidebar-badge-value {
+  display: none;
+}
+
+.jraf-notification-tab .jraf-tab-label {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 64px;
+  overflow: hidden;
+}
+
+.jraf-menu-filter-container .jraf-notification-tab label {
+  width: 100%;
+  text-align: left;
+  background-image: url("images/tab-open.png");
+  background-size: 0.75em;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.jraf-menu-filter-container .jraf-notification-tab .oj-selected label {
+  background-image: url("images/tab-close.png");
+}
+
+.jraf-menu-filter-container .jraf-notification-tab .oj-button.oj-selected {
+  background-color: #ececec;
+  color: #000;
+  border-bottom-width: 0;
+}
+
+.jraf-menu-filter-container .jraf-notification-tab .oj-button.oj-hover {
+  color: #000;
+}
+
+.jraf-sidebar-menu .jraf-notifications-list .oj-navigationlist-item.oj-hover:not(.oj-selected), .jraf-mobile-menu .jraf-notifications-list .oj-navigationlist-item.oj-hover:not(.oj-selected) {
+  box-shadow: none;
+}
+
+.jraf-notifications-list .oj-navigationlist-item-label {
+  text-overflow: clip;
+}
+
+.jraf-notifications-list .jraf-sidebar-list-item-group {
+  border-bottom: 1px solid #c4c4c4;
+  padding: 0 !important;
+}
+
+.jraf-notifications-list .jraf-group-wrapper:last-child > .jraf-sidebar-list-item-group,
+.jraf-notifications-list .jraf-sidebar-list-item-group .jraf-sidebar-list-item:last-child .jraf-sidebar-list-item-group,
+.jraf-notifications-list .jraf-sidebar-list-item:last-child .jraf-sidebar-list-item-group {
+  border-bottom: none;
+}
+
+.jraf-notifications-list .jraf-no-padding h4 {
+  padding: 0 0 10px 0;
+  margin: 0 0 0 10px;
+  border-bottom: 1px solid #c4c4c4;
+  font-weight: bold;
+}
+
+.jraf-notifications-list .jraf-no-padding ul > li {
+  padding: 0 10px;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.jraf-no-padding ul > li.jraf-sidebar-list-item {
+  border-bottom: 0;
+}
+
+.jraf-notifications-list .jraf-no-padding ul > li .jraf-sidebar-list-item-group {
+  padding-top: 10px !important;
+}
+
+.jraf-notifications-list .jraf-no-padding ul > li.jraf-sidebar-see-more-wrapper {
+  padding: 10px;
+}
+
+.jraf-notifications-list .jraf-sidebar-list-item-content {
+  width: calc(100% - 26px);
+}
+
+.jraf-notifications-list .jraf-no-padding ul > li .jraf-sidebar-list-item-content:first-child {
+  width: calc(100% + 5px);
+}
+
+.jraf-notifications-list .jraf-no-padding ul > li .jraf-sidebar-list-item-header {
+  overflow: hidden;
+}
+
+.jraf-notifications-list .jraf-no-padding ul > li .jraf-sidebar-list-item-header .oj-flex-item:first-child {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  width: 204px;
+}
+
+.jraf-notifications-list .jraf-no-padding ul > .jraf-sidebar-see-more-wrapper {
+  border-bottom: none;
+  text-align: center;
+}
+
+.jraf-notifications-list .jraf-no-padding ul > .jraf-sidebar-see-more-wrapper a,
+.jraf-notifications-list .jraf-no-padding ul > .jraf-sidebar-see-more-wrapper a:visited {
+  font-weight: bold;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  color: #333333;
+  font-size: 12px;
+}
+
+.jraf-notifications-list .oj-listview-no-data-message {
+  background-color: inherit;
+}
+
+.jraf-create-notifications-dialog .oj-flex-item:first-child {
+  padding-right: 0.5em;
+}
+
+.jraf-create-notifications-dialog .oj-flex-item:last-child {
+  padding-left: 0.5em;
+}
+
+.jraf-create-notifications-dialog .oj-inputsearch,
+.jraf-create-notifications-dialog .oj-select,
+.jraf-create-notifications-dialog .oj-textarea {
+  max-width: 100%;
+}
+
+.jraf-create-notifications-options .oj-select .oj-select-select {
+  border-color: #d6dfe6;
+  border-width: 1px;
+  border-style: solid;
+  height: 7em;
+}
+
+.jraf-create-notifications-options .oj-text-field.oj-select:not(.oj-select-multi) .oj-text-field-container {
+  height: auto;
+}
+
+.jraf-create-notifications-selectedList {
+  border-color: #d6dfe6;
+  border-width: 1px;
+  border-style: solid;
+  background-color: white;
+  height: calc(34px + 7em);
+  /* px dimension is from alta, less borders */
+  overflow-y: auto;
+}
+
+.jraf-create-notifications-selectedListGroupPadding {
+  display: inline-block;
+  height: 21px;
+  width: 33px;
+  vertical-align: middle;
+}
+
+.jraf-create-notifications-clearButton {
+  height: 1.5em;
+  margin: 0px;
+  margin-right: 5px;
+}
+
+.jraf-create-notifications-clearButton .oj-button-icon {
+  margin-bottom: 4.5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  vertical-align: baseline;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.jraf-sidebar-list-item-group .oj-navigationlist-item-label h4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.oj-hicontrast .jraf-notifications-grouping-toggle-icon {
+  background: none;
+}
+.oj-hicontrast .jraf-notifications-grouping-toggle-icon::before {
+  content: url("images/sidebar-grouped-list.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -25%;
+}
+.oj-hicontrast .oj-selected .jraf-notifications-grouping-toggle-icon::before {
+  content: url("images/sidebar-grouped-list-active.png");
+}
+.oj-hicontrast .jraf-menu-filter-container .jraf-notification-tab label {
+  background: none;
+}
+.oj-hicontrast .jraf-menu-filter-container .jraf-notification-tab label::after {
+  content: url("images/tab-open.png");
+  transform: scale(0.25);
+  position: absolute;
+  right: 0;
+  top: -15%;
+}
+.oj-hicontrast .jraf-menu-filter-container .jraf-notification-tab .oj-selected label::after {
+  content: url("images/tab-close.png");
+}
+
+.jraf-create-notifications-assignee-search {
+  padding: 0 5px;
+  background-image: url(images/search-gray.png);
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-position: right 8px center;
+}
+
+.jraf-dnd-item {
+  position: relative;
+  /* Needed to align dropzones */
+  display: block;
+}
+
+/*
+The following rules require algebraic calculation to keep consistent appearance
+for varying settings for the dropzone overlay and divider. They are documented
+using the following:
+
+h1: Height of a list item
+y: Height of the divider
+h2: Height of a list item with the move indicator showing
+a: Ratio of h1 that is the height of a dropzone.
+
+h2 = h1 + y
+*/
+/*
+height: a h1
+top: h1 - a h1 /2
+*/
+.jraf-dnd-dropzone {
+  height: 75%;
+  position: absolute;
+  top: calc(100% - 75% / 2);
+  width: 100%;
+  z-index: 2;
+  display: none;
+  transition-property: height, top;
+  transition-duration: 200ms;
+}
+
+/*
+top: -a h1/2
+*/
+.jraf-dnd-item .jraf-dnd-dropzone.jraf-dnd-prepend-dropzone {
+  display: none;
+  top: calc(-1 * (75% / 2));
+}
+
+.jraf-dnd-divider {
+  background-color: #e4f0fa;
+  border: 0 solid #c6c6c6;
+  height: 0em;
+  position: relative;
+  width: calc(100% + 1.072rem - 1px);
+  /* Offsets 1.072rem padding from Alta on parent */
+  transition-property: height;
+  transition-duration: 200ms;
+}
+
+.jraf-dnd-dropzone.jraf-dnd-drag-active,
+.jraf-dnd-item:first-child .jraf-dnd-dropzone.jraf-dnd-prepend-dropzone.jraf-dnd-drag-active {
+  display: block;
+}
+
+/*
+height: a h2 - a y
+top: (1-a/2) (h2 - y) + y
+*/
+.jraf-dnd-expanded .jraf-dnd-dropzone {
+  height: calc(75% - 0.75 * 3.142rem);
+  top: calc((1 - 0.75 / 2) * (100% - 3.142rem) + 3.142rem);
+}
+
+/*
+top: -a/2 (h2 - y)
+*/
+.jraf-dnd-expanded .jraf-dnd-dropzone.jraf-dnd-prepend-dropzone {
+  top: calc(-1 * 0.75 / 2 * (100% - 3.142rem));
+}
+
+/*
+height: a h2 + (1-a)y
+top: (1-a/2) (h2 - y)
+*/
+.jraf-dnd-expanded .jraf-dnd-dropzone.jraf-dnd-drag-over {
+  height: calc(75% + (1 - 0.75) * 3.142rem);
+  top: calc((1 - 0.75 / 2) * (100% - 3.142rem));
+}
+
+/*
+top: -(a h2 + a y) / 2
+*/
+.jraf-dnd-dropzone.jraf-dnd-prepend-dropzone.jraf-dnd-drag-over {
+  top: calc((-1 * 75% + 0.75 * 3.142rem) / 2);
+}
+
+.jraf-dnd-item-image {
+  border: 3px solid red;
+  background-color: blueviolet;
+}
+
+/* Border is added around the height so we need to account for that */
+.jraf-dnd-dropzone.jraf-dnd-drag-active.jraf-dnd-drag-over + .jraf-dnd-divider {
+  height: calc(3.142rem - 2px);
+  border-width: 1px 1px 1px 0;
+}
+
+/* Alta overrides */
+.oj-navigationlist-item.jraf-dnd-item::before {
+  display: none;
+}
+
+.jraf-global-bottom-content .jraf-menu-body .oj-navigationlist-page-level.oj-navigationlist-expanded.oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item.jraf-dnd-item,
+.jraf-global-bottom-content .jraf-menu-body .oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item.jraf-dnd-item {
+  padding: 0;
+  border-width: 0;
+}
+
+li.jraf-dnd-item .oj-navigationlist-item-label {
+  padding: 0;
+  overflow-x: visible;
+  width: 100%;
+}
+
+li.jraf-dnd-item .jraf-dnd-content::before {
+  min-height: 3.142rem;
+  content: "";
+  display: inline-block;
+  visibility: hidden;
+}
+
+.jraf-dnd-content {
+  /* Taking values from alta li rules */
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 0 0 0 10px;
+  overflow-x: hidden;
+  width: calc(100% - 10px);
+}
+
+.jraf-global-navigation-bar-root {
+  background-color: #44525C;
+  border-bottom: 1px solid #c3cbd1;
+  width: 100%;
+}
+
+.jraf-global-navigation-bar-root .oj-conveyorbelt {
+  width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+.jraf-global-navigation-bar-root .oj-conveyorbelt .oj-toolbar-row {
+  flex-wrap: nowrap;
+}
+
+.jraf-global-navigation-bar-menu .jraf-menu-footer {
+  box-shadow: none;
+  position: relative;
+}
+
+.jraf-global-navigation-bar-wrapper ~ .jraf-global-main-area-wrapper {
+  height: calc(100% - 1px - 2.286rem);
+}
+
+.jraf-global-navigation-bar > button {
+  position: relative;
+}
+
+.jraf-global-navigation-bar .oj-button {
+  border-radius: 0;
+}
+
+/* Menu button hover state */
+.jraf-global-navigation-bar .oj-button.oj-hover {
+  background-color: #252E34;
+  border: 1px solid transparent;
+  color: #ffffff;
+  height: 32px;
+}
+
+/* Menu button active and selected state */
+.jraf-global-navigation-bar .oj-button.oj-button-jqui.oj-active,
+.jraf-global-navigation-bar .oj-button.oj-button-jqui.oj-selected,
+.jraf-global-navigation-bar .oj-button.oj-button-jqui.oj-selected.oj-hover {
+  background-color: #f2f2f2;
+}
+
+/* Menu down-arrow - hover state */
+.jraf-global-navigation-bar .oj-button.oj-hover.oj-button-half-chrome .oj-button-icon {
+  color: #878c90;
+}
+
+/* Menu down-arrow - active and selected state */
+.jraf-global-navigation-bar .oj-button.oj-active.oj-hover.oj-button-half-chrome .oj-button-icon,
+.jraf-global-navigation-bar .oj-button.oj-active.oj-hover.oj-button-half-chrome,
+.jraf-global-navigation-bar .oj-button.oj-selected.oj-hover.oj-button-half-chrome .oj-button-icon,
+.jraf-global-navigation-bar .oj-button.oj-selected.oj-hover.oj-button-half-chrome {
+  color: #ffffff;
+}
+
+.jraf-navbar-label.oj-button-text,
+.jraf-navbar-label > .oj-button-text {
+  cursor: inherit;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.jraf-navbar-icon, .jraf-global-navigation-bar .jraf-navbar-loading, .jraf-navbar-loading {
+  background-position: left 0 center;
+  margin-right: 0.43rem;
+  margin-left: 0.157rem;
+}
+
+.jraf-navbar-badge-value {
+  background-color: #ffffff;
+  border: 1px solid #ab1b21;
+  border-radius: 18px;
+  color: #ab1b21;
+  position: absolute;
+  top: 2px;
+  left: 20px;
+  font-size: 8px;
+  font-weight: bold;
+  height: 8px;
+  line-height: 6px;
+  padding: 2px 4px 0;
+}
+
+.jraf-navbar-loading {
+  background-image: url("images/spinner_gray_24@2x.gif");
+}
+
+.jraf-global-navigation-bar {
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding: 0;
+  white-space: nowrap;
+}
+.jraf-global-navigation-bar .jraf-app-navigator-icon:hover::before {
+  content: url("images/raf-icon-app-switcher_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-favorites-icon:hover::before {
+  content: url("images/raf-icon-star_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-tasks-icon:hover::before {
+  content: url("images/raf-icon-task_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-notifications-icon:hover::before {
+  content: url("images/raf-icon-notifications_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-quick-create-icon:hover::before {
+  content: url("images/raf-icon-quick-create_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-quick-lookup-icon:hover::before {
+  content: url("images/raf-icon-quick-search_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-reports-icon:hover::before {
+  content: url("images/raf-icon-reports_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-settings-icon:hover::before {
+  content: url("images/raf-icon-settings-solid_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-history-icon:hover::before {
+  content: url("images/raf-icon-history_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-task-icon:hover::before {
+  content: url("images/raf-icon-favorite-task_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-report-icon:hover::before {
+  content: url("images/raf-icon-favorite-report_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-document-icon:hover::before {
+  content: url("images/raf-icon-favorite-document_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-user-icon:hover::before {
+  content: url("images/raf-icon-primary-account_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-default-icon:hover::before {
+  content: url("images/raf-icon-favorite-default_ena.svg");
+}
+.jraf-global-navigation-bar .oj-selected .jraf-history-icon::before,
+.jraf-global-navigation-bar .jraf-selected .jraf-history-icon::before {
+  content: url("images/raf-icon-history_onb.svg");
+}
+
+.oj-hicontrast {
+  /* Scale PNGs to 1/3 their size */
+}
+.oj-hicontrast .jraf-navbar-icon:not(.jraf-history-icon), .oj-hicontrast .jraf-navbar-loading:not(.jraf-history-icon) {
+  transform: scale(0.3333);
+  display: block;
+  margin-bottom: 8px;
+  margin-right: 16px;
+}
+.oj-hicontrast .jraf-navbar-badge-value {
+  left: 28px;
+}
+.oj-hicontrast .oj-hover .jraf-history-icon::before {
+  content: url("images/raf-icon-history_hov.svg");
+}
+.oj-hicontrast .oj-hover .jraf-app-navigator-icon::before {
+  content: url("images/app-switcher-hover.png");
+}
+.oj-hicontrast .oj-hover .jraf-favorites-icon::before {
+  content: url("images/favorites-hover.png");
+}
+.oj-hicontrast .oj-hover .jraf-tasks-icon::before {
+  content: url("images/tasks-hover.png");
+}
+.oj-hicontrast .oj-hover .jraf-notifications-icon::before {
+  content: url("images/notifications-hover.png");
+}
+.oj-hicontrast .oj-hover .jraf-quick-create-icon::before {
+  content: url("images/quick-create-hover.png");
+}
+.oj-hicontrast .oj-hover .jraf-quick-lookup-icon::before {
+  content: url("images/quick-lookup-hover.png");
+}
+.oj-hicontrast .oj-hover .jraf-reports-icon::before {
+  content: url("images/reports-blue.png");
+}
+.oj-hicontrast .jraf-navbar-loading {
+  content: url("images/spinner_gray_24@2x.gif");
+}
+
+.jraf-global-navigation-popup .oj-popup-content {
+  padding: 0;
+}
+
+.jraf-global-navigation-bar-menu {
+  top: 74px !important;
+  display: block;
+  width: 250px;
+  max-height: 350px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f2f2f2;
+}
+
+.jraf-global-navigation-bar-menu .oj-navigationlist-no-data-message {
+  background-color: transparent;
+}
+
+.jraf-global-navigation-bar-menu .jraf-favorites-menu,
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .jraf-menu-body {
+  height: auto;
+}
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item,
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .oj-navigationlist-page-level.oj-navigationlist-expanded.oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item,
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .jraf-menu-body .oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item,
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .jraf-menu-body .oj-navigationlist-page-level.oj-navigationlist-expanded.oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item {
+  padding: 0 10px;
+}
+
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .jraf-sliding-navigation {
+  max-height: 293px;
+  overflow-y: auto;
+}
+
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .jraf-menu-footer {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 36px;
+}
+.jraf-global-navigation-bar-menu .jraf-favorites-menu .jraf-menu-footer .oj-flex {
+  flex-wrap: nowrap;
+}
+
+.jraf-contentframe {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+}
+
+.jraf-contentframe-header {
+  height: 40px;
+  border-bottom: 1px solid #c6c6c6;
+  padding: 0 10px 0;
+}
+
+.jraf-contentframe-header-title {
+  line-height: 21px;
+  white-space: nowrap;
+}
+
+.jraf-contentframe-header-module {
+  height: 100%;
+  overflow: hidden;
+}
+
+.jraf-contentframe-body {
+  height: calc(100% - 40px);
+}
+
+.jraf-contentframe-panel-wrapper {
+  height: 100%;
+  width: 250px;
+  background-color: #fff;
+}
+
+.jraf-contentframe-panel-inner-wrapper,
+.jraf-contentframe-panel-inner-wrapper > div {
+  height: 100%;
+}
+
+.jraf-contentframe-panel-header {
+  height: 40px;
+  border-bottom: 1px solid #c6c6c6;
+  background-color: #ececec;
+  padding: 0 10px 0;
+}
+
+.jraf-contentframe-panel-header .oj-button {
+  margin-bottom: 0;
+}
+
+.jraf-contentframe-panel-body {
+  height: calc(100% - 40px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.jraf-contentframe-panel-header,
+.jraf-contentframe-panel-body {
+  border-left: 1px solid #c6c6c6;
+}
+
+.jraf-contentframe-content-wrapper {
+  transition: all 0.4s ease-in-out;
+  height: 100%;
+  position: relative;
+}
+
+.jraf-contentframe-content-scrolling {
+  padding: 10px;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.jraf-contentframe-content-wrapper.jraf-panel-open {
+  margin-right: 250px;
+}
+
+.jraf-help-icon::before {
+  content: url("images/raf-icon-help_ena.svg");
+}
+
+.jraf-contentframe-close-icon {
+  background-image: url("images/delete-gray.png");
+}
+
+.oj-hover .jraf-help-icon::before {
+  content: url("images/raf-icon-help_hov.svg");
+}
+.oj-hover .jraf-contentframe-close-icon {
+  background-image: url("images/delete-hover.png");
+}
+
+.oj-selected .jraf-help-icon::before,
+.oj-active .jraf-help-icon::before {
+  content: url("images/raf-icon-help_onb.svg");
+}
+.oj-selected .jraf-contentframe-close-icon,
+.oj-active .jraf-contentframe-close-icon {
+  background-image: url("images/delete-active.png");
+}
+
+/* TODO: These cause awkward extensions with rules mixing the two... */
+.oj-hicontrast .jraf-contentframe-close-icon::before {
+  content: url("images/delete-gray.png");
+}
+.oj-hicontrast .oj-hover .jraf-contentframe-close-icon::before {
+  content: url("images/delete-hover.png");
+}
+.oj-hicontrast .oj-selected .jraf-contentframe-close-icon,
+.oj-hicontrast .oj-active .jraf-contentframe-close-icon {
+  content: url("images/delete-active.png");
+}
+
+.jraf-mobile-menu .oj-offcanvas-outer-wrapper {
+  height: 100%;
+}
+
+.jraf-mobile-menu .jraf-hierarchy-drilled-node-container .oj-button {
+  display: none;
+}
+
+.jraf-sidebar-menu-wrapper .jraf-mobile-menu {
+  z-index: 4;
+}
+
+.jraf-mobile-layout.jraf-global-bottom-content {
+  height: 100%;
+}
+
+.jraf-mobile-layout .jraf-global-main-area-wrapper {
+  height: calc(100% - 42px);
+  position: relative;
+}
+
+.jraf-mobile-layout .jraf-global-main-area-wrapper ~ .oj-offcanvas-glasspane {
+  z-index: 1;
+}
+
+.jraf-mobile-menu .jraf-menu-footer {
+  position: static;
+}
+
+.jraf-mobile-menu-user-avatar {
+  border: 1px solid #8a8a8a;
+  border-radius: 5px;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+.jraf-mobile-search {
+  height: calc(100vh - 2px);
+  width: 100vw;
+  background-color: #FFF;
+}
+
+.jraf-mobile-search-body {
+  height: calc(100% - 40px);
+  overflow-y: auto;
+}
+
+.jraf-mobile-search-body > ul {
+  margin: 0;
+  padding: 0;
+}
+
+.jraf-mobile-search-result {
+  margin: 0;
+  padding-left: 10px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.jraf-mobile-search-label.jraf-sub-text {
+  font-size: 10px;
+}
+
+.jraf-mobile-search-result:hover {
+  background-color: #ececec;
+}
+
+.jraf-mobile-search-container {
+  width: 100%;
+}
+
+.jraf-mobile-filter-container {
+  width: auto;
+  padding-left: 5px;
+}
+
+.jraf-mobile-search-container,
+.jraf-mobile-filter-container {
+  visibility: visible;
+  opacity: 1;
+  transition: none;
+  height: auto;
+}
+
+.jraf-mobile-search-container .oj-inputtext {
+  margin: 0;
+  max-width: 100%;
+}
+
+.jraf-mobile-search-container input[type=text] {
+  width: 100%;
+  box-sizing: content-box;
+}
+
+.jraf-mobile-filter-container oj-select-single,
+.jraf-mobile-filter-container oj-input-text {
+  margin: 0;
+}
+
+.jraf-mobile-search-close-icon {
+  height: auto;
+}
+
+.jraf-mobile-nav-header {
+  height: 41px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+  background-color: #60788C;
+}
+
+.jraf-mobile-application-icon {
+  background-position: left center;
+  background-image: url("images/oracle-redwood-logo-square.svg");
+  background-repeat: no-repeat;
+  background-size: 41px 41px;
+  width: 41px;
+  height: 41px;
+  min-width: 41px;
+  min-height: 41px;
+}
+
+.jraf-mobile-nav-header > .jraf-mobile-application-icon-custom {
+  width: 41px;
+  height: 41px;
+  max-height: 41px;
+  max-width: 41px;
+  padding: 0;
+  display: inline-block;
+}
+
+.jraf-mobile-nav-header > .jraf-mobile-nav-menu-title {
+  height: auto;
+  font-size: 14px;
+}
+
+.jraf-mobile-header-application-context {
+  border-right: 1px solid #d6dfe6;
+}
+
+.jraf-mobile-nav-header > .jraf-mobile-header-application-context {
+  padding-right: 6px;
+  font-size: 12px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jraf-mobile-nav-header > .jraf-mobile-header-application-context + h3 {
+  padding-left: 6px;
+}
+
+.jraf-mobile-nav-content {
+  height: calc(100% - 2px - 39px);
+}
+
+.jraf-mobile-nav-wrapper {
+  overflow-y: auto;
+}
+.jraf-mobile-nav-wrapper.jraf-mobile-nav-wrapper-settings {
+  height: calc(100vh - 2px - 39px - 45px);
+}
+
+.jraf-mobile-nav-body .jraf-mobile-nav-content .oj-flex-bar-end {
+  margin: 0px;
+}
+
+.jraf-mobile-nav-body .jraf-mobile-nav-content-menus {
+  flex: none;
+}
+
+.jraf-mobile-nav-body .jraf-mobile-nav-content-pins {
+  border-top: 1px solid #252E34;
+}
+.jraf-mobile-nav-body .jraf-mobile-nav-content-pins .jraf-menu-body {
+  width: 250px;
+}
+.jraf-mobile-nav-body .jraf-mobile-nav-content-pins .oj-navigationlist-no-data-message {
+  display: none;
+}
+
+.jraf-mobile-nav-body .jraf-mobile-nav-content-settings {
+  border-top: 1px solid #252E34;
+}
+
+a.jraf-mobile-nav-home {
+  color: #ffffff;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  -webkit-align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.jraf-mobile-nav-home > * {
+  font-size: 14px;
+  font-weight: normal;
+  padding: 0;
+  height: auto;
+}
+
+.jraf-mobile-nav-home::before {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  padding-bottom: 1px;
+  padding-right: 5px;
+  padding-left: 10px;
+  content: url("images/raf-icon-home_onb.svg");
+}
+
+.jraf-mobile-nav-body {
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.jraf-mobile-nav-body.jraf-menu-open {
+  transform: translate(-250px);
+}
+
+.jraf-mobile-nav-body > div {
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.jraf-mobile-login-button {
+  width: 100%;
+}
+
+.jraf-mobile-login-inputext {
+  max-width: 100%;
+}
+
+.jraf-mobile-nav-content-menus .oj-navigationlist-item-element {
+  position: relative;
+}
+
+.jraf-mobile-sidebar-badge-value {
+  position: absolute;
+  left: 180px;
+  font-size: 10px;
+  font-weight: bold;
+  height: 12px;
+}
+
+.jraf-edit-favorites-page {
+  /* 43px for apps panel bar. Adding back content frame padding for margin/padding adjustment */
+  height: calc(100% - 43px + 2 * 10px);
+  margin: -10px;
+  padding: 10px;
+  overflow-y: auto;
+}
+.jraf-edit-favorites-page .oj-toolbar-separator {
+  border-left: 1px solid #252E34;
+}
+.jraf-edit-favorites-page .oj-toolbar-bottom-border {
+  border-bottom: 1px solid #252E34;
+}
+.jraf-edit-favorites-page .jraf-favorites-toolbar-icon::before, .jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .oj-disabled .jraf-pinned-favorites-toolbar-delete-pin-button-icon::before, .jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-pinned-favorites-toolbar-delete-pin-button-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .oj-disabled .jraf-favorites-toolbar-pin-button-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-pin-button-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-create-folder-button-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .oj-disabled .jraf-favorites-toolbar-delete-button-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-delete-button-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .oj-disabled .jraf-favorites-toolbar-edit-button-icon::before, .jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-edit-button-icon::before {
+  height: 16px;
+  width: 16px;
+}
+@media screen and (min-width: 768px) {
+  .jraf-edit-favorites-page .jraf-edit-favorites-panel {
+    margin-right: 15px;
+  }
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-edit-favorites-body {
+  border-top: 1px solid #252E34;
+  padding: 3px 0px;
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-treeview-icon::before {
+  vertical-align: middle;
+  margin: 2px 4px;
+  display: inline-block;
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorite-pinned-icon::before {
+  content: url("images/raf-icon-pin_act.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-edit-button-icon::before {
+  content: url("images/raf-icon-edit_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .oj-disabled .jraf-favorites-toolbar-edit-button-icon::before {
+  content: url("images/raf-icon-edit_dis.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-delete-button-icon::before {
+  content: url("images/raf-icon-delete_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .oj-disabled .jraf-favorites-toolbar-delete-button-icon::before {
+  content: url("images/raf-icon-delete_dis.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-create-folder-button-icon::before {
+  content: url("images/raf-icon-folder-new_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorites-toolbar-pin-button-icon::before {
+  content: url("images/raf-icon-pin_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .oj-disabled .jraf-favorites-toolbar-pin-button-icon::before {
+  content: url("images/raf-icon-pin_dis.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorite-task-icon::before {
+  content: url("images/raf-icon-task_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorite-report-icon::before {
+  content: url("images/raf-icon-reports_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorite-document-icon::before {
+  content: url("images/raf-icon-document_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorite-user-icon::before {
+  content: url("images/raf-icon-user_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-favorites-panel .jraf-favorite-default-icon::before {
+  content: url("images/raf-icon-favorite-default-bookmark_ena.svg");
+}
+@media screen and (min-width: 768px) {
+  .jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel {
+    margin-left: 15px;
+  }
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body {
+  border-top: 1px solid #252E34;
+  padding: 3px 0px;
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .pin-icon {
+  background-size: 40px 40px;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .pin-container {
+  display: inline-block;
+  margin: 0 10px;
+  vertical-align: top;
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .pin-container .pin-title {
+  font-weight: bold;
+  margin: 1px 0px 3px;
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-pinned-favorites-toolbar-delete-pin-button-icon::before {
+  content: url("images/raf-icon-delete_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .oj-disabled .jraf-pinned-favorites-toolbar-delete-pin-button-icon::before {
+  content: url("images/raf-icon-delete_dis.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .oj-listview-item {
+  overflow: hidden;
+  white-space: nowrap;
+  padding-left: 2px;
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-pinned-favorites-list-drag-pin-button-icon, .jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .oj-hover .jraf-pinned-favorites-list-drag-pin-button-icon {
+  background-image: url("images/raf-icon-gripper-vertical_ena.svg");
+  background-size: 20px 20px;
+  background-repeat: repeat-y;
+  background-position: left top;
+  opacity: 0;
+  width: 20px;
+  height: 40px;
+  display: inline-block;
+  cursor: move;
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .oj-hover .jraf-pinned-favorites-list-drag-pin-button-icon {
+  opacity: 1;
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-favorite-task-icon::before {
+  content: url("images/raf-icon-task_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-favorite-report-icon::before {
+  content: url("images/raf-icon-reports_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-favorite-document-icon::before {
+  content: url("images/raf-icon-document_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-favorite-user-icon::before {
+  content: url("images/raf-icon-user_ena.svg");
+}
+.jraf-edit-favorites-page .jraf-edit-pinned-favorites-panel .jraf-edit-pinned-favorites-body .jraf-favorite-default-icon::before {
+  content: url("images/raf-icon-favorite-default-bookmark_ena.svg");
+}
+
+/*
+Styles for the AppTable component
+*/
+.jraf-app-table-wrapper,
+.jraf-appTable-detach-wrapper,
+.jraf-appTable-detach-wrapper .oj-dialog-content,
+.jraf-appTable-detach-wrapper .oj-dialog-body {
+  height: 100%;
+  width: 100%;
+}
+
+.jraf-app-table {
+  height: calc(100% - 2.286rem - .5em);
+  /* Values from alta skin */
+  width: 100%;
+}
+
+.jraf-app-table.jraf-paginated {
+  height: calc(100% - 2.286rem - .5em - 45px);
+}
+
+.jraf-app-table .oj-helper-justify-content-flex-start.oj-datagrid-cell {
+  text-align: left;
+}
+
+.jraf-app-table .oj-helper-justify-content-flex-end.oj-datagrid-cell {
+  text-align: right;
+}
+
+.jraf-app-table .oj-helper-justify-content-center.oj-datagrid-cell {
+  text-align: center;
+}
+
+.oj-datagrid-header-cell.jraf-appTable-alignStart .oj-datagrid-header-cell-content {
+  text-align: left;
+}
+
+.oj-datagrid-header-cell.jraf-appTable-alignEnd .oj-datagrid-header-cell-content {
+  text-align: right;
+}
+
+.jraf-app-table .oj-datagrid-cell {
+  white-space: nowrap;
+}
+
+.jraf-app-table .oj-toolbar {
+  flex-wrap: nowrap;
+}
+
+.jraf-menu-icon-checked {
+  background-image: url("images/checkmark-gray.png");
+}
+
+.jraf-sort-selection {
+  margin: 1em 2em 0 2em;
+}
+
+.jraf-sort-selection:first-child {
+  margin-top: 2em;
+}
+
+.jraf-sort-selection .oj-radioset {
+  margin-left: 1.5em;
+  vertical-align: middle;
+}
+
+.jraf-appTable-cell-icon {
+  height: 12px;
+  width: 22px;
+  padding-top: 2px;
+  display: inline-block;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: top;
+}
+
+.jraf-appTable-default-row-header {
+  width: 32px;
+  color: transparent;
+}
+
+.oj-hicontrast .jraf-menu-icon-checked::before {
+  content: url("images/checkmark-gray.png");
+  transform: scale(0.5);
+  display: inline-block;
+  position: relative;
+  top: -125%;
+  left: -50%;
+}
+
+/* Metric Tiles Wrapped in Conveyor Belt */
+/*
+ * Within scrollable info tiles, override conveyor belt flex box items
+ * so that they align to the top of the container
+ */
+.jraf-infotile-conveyorbelt {
+  margin-bottom: 10px;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+/* Center the conveyor belt arrow icon.
+   The !important is necessary since it's height is set inline by the conveyor belt. */
+.jraf-infotile-conveyorbelt .oj-conveyorbelt-overflow-indicator {
+  height: 145px !important;
+}
+
+/* These add vertical lines when the buttons appear */
+.jraf-infotile-conveyorbelt .oj-enabled.oj-conveyorbelt-overflow-indicator.oj-start::after,
+.jraf-infotile-conveyorbelt .oj-enabled.oj-conveyorbelt-overflow-indicator.oj-end::before {
+  width: 1px;
+  height: 145px;
+  border-left: 1px solid #d9dfe3;
+  position: absolute;
+  content: "";
+}
+
+.jraf-infotile-conveyorbelt .oj-enabled.oj-conveyorbelt-overflow-indicator.oj-start::after {
+  right: -2px;
+}
+
+.jraf-infotile-conveyorbelt .oj-enabled.oj-conveyorbelt-overflow-indicator.oj-end::before {
+  left: -1px;
+}
+
+.jraf-infotile-conveyorbelt .jraf-tile-container {
+  margin-right: 10px;
+}
+
+/* Metric Comparison Tile */
+.jraf-metric-comparison-container {
+  width: 100%;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.jraf-metric-comparison-metric-container {
+  padding: 8px;
+  border-right: 1px solid #ccc;
+  overflow: hidden;
+  flex-basis: 0;
+}
+
+.jraf-metric-comparison-metric-container:last-child {
+  border-right: 0px solid #ccc;
+}
+
+.jraf-metric-comparison-metric-name {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.jraf-metric-comparison-metric-value {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.jraf-metric-comparison-arrow, .jraf-disabled-arrow-up, .jraf-noseverity-arrow-up, .jraf-normal-arrow-up, .jraf-important-arrow-up, .jraf-critical-arrow-up, .jraf-admin-arrow-up, .jraf-disabled-arrow-down, .jraf-noseverity-arrow-down, .jraf-normal-arrow-down, .jraf-important-arrow-down, .jraf-critical-arrow-down, .jraf-admin-arrow-down {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  margin-top: 2px;
+  padding-right: 5px;
+}
+
+.jraf-admin-arrow-down {
+  background-image: url("images/qual_arrowdown_admin_16_full@2x.png");
+}
+
+.jraf-critical-arrow-down {
+  background-image: url("images/qual_arrowdown_critical_16_full@2x.png");
+}
+
+.jraf-important-arrow-down {
+  background-image: url("images/qual_arrowdown_important_16_full@2x.png");
+}
+
+.jraf-normal-arrow-down {
+  background-image: url("images/qual_arrowdown_normal_16_full@2x.png");
+}
+
+.jraf-noseverity-arrow-down {
+  background-image: url("images/qual_arrowdown_noseverity_16_full@2x.png");
+}
+
+.jraf-disabled-arrow-down {
+  background-image: url("images/qual_arrowdown_nostatus_16_full@2x.png");
+}
+
+.jraf-admin-arrow-up {
+  background-image: url("images/qual_arrowup_admin_16_full@2x.png");
+}
+
+.jraf-critical-arrow-up {
+  background-image: url("images/qual_arrowup_critical_16_full@2x.png");
+}
+
+.jraf-important-arrow-up {
+  background-image: url("images/qual_arrowup_important_16_full@2x.png");
+}
+
+.jraf-normal-arrow-up {
+  background-image: url("images/qual_arrowup_normal_16_full@2x.png");
+}
+
+.jraf-noseverity-arrow-up {
+  background-image: url("images/qual_arrowup_noseverity_16_full@2x.png");
+}
+
+.jraf-disabled-arrow-up {
+  background-image: url("images/qual_arrowup_nostatus_16_full@2x.png");
+}
+
+.jraf-value-list-container {
+  height: 100%;
+  line-height: 16px;
+  font-size: 14px;
+}
+
+.jraf-value-list-label,
+.jraf-value-list-value {
+  width: 100%;
+}
+
+.jraf-value-list-label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.jraf-value-list-value {
+  text-align: left;
+}
+
+.jraf-value-list-message {
+  text-align: left;
+}
+
+.jraf-tile-header-block .oj-flex-bar-start {
+  -webkit-flex-basis: 22px;
+  -webkit-flex-shrink: 0;
+  flex-basis: 22px;
+  flex-shrink: 0;
+}
+
+.jraf-metric-comparison-metric-container .oj-flex-bar-start {
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
+
+.jraf-metric-comparison-metric-container .oj-flex-bar-end,
+.jraf-tile-header-block .oj-flex-bar-end {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  overflow: hidden;
+}
+
+.jraf-metric-comparison-metric-container .oj-flex-bar-end > *,
+.jraf-tile-header-block .oj-flex-bar-end > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jraf-header-text,
+.jraf-metric-comparison-metric-name,
+.jraf-metric-comparison-metric-value {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.oj-hicontrast .jraf-metric-comparison-arrow::before, .oj-hicontrast .jraf-admin-arrow-down::before, .oj-hicontrast .jraf-critical-arrow-down::before, .oj-hicontrast .jraf-important-arrow-down::before, .oj-hicontrast .jraf-normal-arrow-down::before, .oj-hicontrast .jraf-noseverity-arrow-down::before, .oj-hicontrast .jraf-disabled-arrow-down::before, .oj-hicontrast .jraf-admin-arrow-up::before, .oj-hicontrast .jraf-critical-arrow-up::before, .oj-hicontrast .jraf-important-arrow-up::before, .oj-hicontrast .jraf-normal-arrow-up::before, .oj-hicontrast .jraf-noseverity-arrow-up::before, .oj-hicontrast .jraf-disabled-arrow-up::before {
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -60%;
+  left: -25%;
+}
+.oj-hicontrast .jraf-admin-arrow-down::before {
+  content: url("images/qual_arrowdown_admin_16_full@2x.png");
+}
+.oj-hicontrast .jraf-critical-arrow-down::before {
+  content: url("images/qual_arrowdown_critical_16_full@2x.png");
+}
+.oj-hicontrast .jraf-important-arrow-down::before {
+  content: url("images/qual_arrowdown_important_16_full@2x.png");
+}
+.oj-hicontrast .jraf-normal-arrow-down::before {
+  content: url("images/qual_arrowdown_normal_16_full@2x.png");
+}
+.oj-hicontrast .jraf-noseverity-arrow-down::before {
+  content: url("images/qual_arrowdown_noseverity_16_full@2x.png");
+}
+.oj-hicontrast .jraf-disabled-arrow-down::before {
+  content: url("images/qual_arrowdown_nostatus_16_full@2x.png");
+}
+.oj-hicontrast .jraf-admin-arrow-up::before {
+  content: url("images/qual_arrowup_admin_16_full@2x.png");
+}
+.oj-hicontrast .jraf-critical-arrow-up::before {
+  content: url("images/qual_arrowup_critical_16_full@2x.png");
+}
+.oj-hicontrast .jraf-important-arrow-up::before {
+  content: url("images/qual_arrowup_important_16_full@2x.png");
+}
+.oj-hicontrast .jraf-normal-arrow-up::before {
+  content: url("images/qual_arrowup_normal_16_full@2x.png");
+}
+.oj-hicontrast .jraf-noseverity-arrow-up::before {
+  content: url("images/qual_arrowup_noseverity_16_full@2x.png");
+}
+.oj-hicontrast .jraf-disabled-arrow-up::before {
+  content: url("images/qual_arrowup_nostatus_16_full@2x.png");
+}
+.oj-hicontrast .jraf-tile-root {
+  overflow-y: hidden;
+}
+
+/* Custom CSS for oj-train */
+.oj-rgbu-jraf-train.oj-train {
+  text-align: inherit;
+}
+.oj-rgbu-jraf-train .oj-train-step-list-item,
+.oj-rgbu-jraf-train .oj-train-step-list-item:last-child {
+  width: inherit;
+  max-width: 250px;
+  height: 32px;
+  vertical-align: inherit;
+  position: relative;
+  margin-left: -1px;
+}
+.oj-rgbu-jraf-train .oj-train-label-wrapper {
+  display: inline-block;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+.oj-rgbu-jraf-train .oj-train-step-list-item:last-child .oj-train-label {
+  border-right: 0;
+}
+.oj-rgbu-jraf-train .oj-train-label {
+  display: inline-block;
+  padding: 7px 20px 8px 41px;
+  border-right: 1px solid #d6dfe6;
+}
+.oj-rgbu-jraf-train .oj-train-label:not(.oj-disabled),
+.oj-rgbu-jraf-train .oj-train-label.oj-visited {
+  color: #02629f;
+}
+.oj-rgbu-jraf-train .oj-train-label.oj-active {
+  font-weight: normal;
+}
+.oj-rgbu-jraf-train .oj-train-label.oj-selected,
+.oj-rgbu-jraf-train .oj-train-label.oj-selected.oj-hover {
+  font-weight: bold;
+}
+.oj-rgbu-jraf-train .oj-train-label.oj-selected {
+  background-color: #e4f0fa;
+  border-radius: 2px;
+  border: 0;
+  border-left: 1px solid #e4f0fa;
+}
+.oj-rgbu-jraf-train .oj-train-button.oj-default {
+  border-color: #02629f;
+  border-width: 1px;
+}
+.oj-rgbu-jraf-train .oj-train-button-text {
+  color: #02629f;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.oj-rgbu-jraf-train .oj-train-step-individual-connector {
+  display: none;
+}
+.oj-rgbu-jraf-train .oj-train-step-list-item:last-child > .oj-train-label-wrapper {
+  top: 0;
+}
+.oj-rgbu-jraf-train .oj-train-button-connector {
+  background-color: transparent;
+}
+.oj-rgbu-jraf-train .oj-train-button-connector,
+.oj-rgbu-jraf-train .oj-train-button-connector.oj-train-fill {
+  position: absolute;
+  top: 7px;
+  z-index: 1;
+  left: 15px;
+}
+.oj-rgbu-jraf-train .oj-train-button-connector .oj-train-button.oj-default,
+.oj-rgbu-jraf-train .oj-train-button-connector.oj-train-fill .oj-train-button.oj-selected,
+.oj-rgbu-jraf-train .oj-train-button-connector .oj-train-button.oj-default .oj-train-icon,
+.oj-rgbu-jraf-train .oj-train-button-connector .oj-train-button.oj-visited .oj-train-icon {
+  top: -1px;
+}
+.oj-rgbu-jraf-train .oj-train-button-connector,
+.oj-rgbu-jraf-train .oj-train-button,
+.oj-rgbu-jraf-train .oj-train-icon,
+.oj-rgbu-jraf-train .oj-train-icon.oj-confirmation,
+.oj-rgbu-jraf-train .oj-train-icon.oj-error,
+.oj-rgbu-jraf-train .oj-train-icon.oj-info,
+.oj-rgbu-jraf-train .oj-train-icon.oj-warning {
+  width: 18px;
+  height: 18px;
+}
+.oj-rgbu-jraf-train .oj-train-step-list-item.oj-confirmation .oj-train-button,
+.oj-rgbu-jraf-train .oj-train-step-list-item.oj-info .oj-train-button,
+.oj-rgbu-jraf-train .oj-train-step-list-item.oj-invalid .oj-train-button,
+.oj-rgbu-jraf-train .oj-train-step-list-item.oj-warning .oj-train-button {
+  position: relative;
+  top: -1px;
+}
+.oj-rgbu-jraf-train .oj-rgbu-jraf-train .oj-train-button-connector .oj-train-button.oj-default,
+.oj-rgbu-jraf-train .oj-rgbu-jraf-train .oj-train-button-connector.oj-train-fill .oj-train-button.oj-selected,
+.oj-rgbu-jraf-train .oj-rgbu-jraf-train .oj-train-button-connector .oj-train-button.oj-default .oj-train-icon,
+.oj-rgbu-jraf-train .oj-rgbu-jraf-train .oj-train-button-connector .oj-train-button.oj-visited .oj-train-icon {
+  top: 0;
+}
+.oj-rgbu-jraf-train .oj-train-step-list-item:last-child > .oj-train-button-connector {
+  top: 7px;
+}
+.oj-rgbu-jraf-train .oj-train-button.oj-selected .oj-train-icon.oj-component-icon {
+  top: 0;
+}
+.oj-rgbu-jraf-train .oj-train-button {
+  border-width: 1px;
+  position: relative;
+}
+
+.jraf-hierarchy-drill-path .oj-listview-item,
+.jraf-hierarchy-drill-path .oj-listview-item.oj-hover,
+.jraf-hierarchy-drill-path .oj-listview-item.oj-hover + li.oj-listview-item {
+  padding-left: 0.65rem;
+  background-image: none;
+}
+
+.jraf-hierarchy-drill-path .oj-listview-item.oj-hover {
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.jraf-hierarchy-icon {
+  display: inline-block;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.jraf-hierarchy-home-icon {
+  background-image: url("images/func_home_16_gray_onb@2x.png");
+  vertical-align: -15%;
+}
+
+.jraf-hierarchy-drilled-node-container .jraf-menu-header-text, .jraf-hierarchy-drilled-node-container .jraf-horizontal-tasks-header, .jraf-hierarchy-drilled-node-container .jraf-favorites-list-header, .jraf-hierarchy-drilled-node-container .jraf-mobile-nav-header > .jraf-mobile-nav-menu-title {
+  height: 64px;
+}
+
+.jraf-hierarchy-drilled-node-container .oj-button {
+  margin: 0 10px 0 5px !important;
+}
+
+.jraf-hierarchy-drilled-node-container .oj-button.oj-default {
+  border-color: transparent;
+  background: none;
+}
+
+.jraf-hierarchy-drilled-node-container .oj-button.oj-hover,
+.jraf-hierarchy-drilled-node-container .oj-button.oj-focus {
+  border-color: #abaeb1;
+  background: none;
+  border-radius: 5px;
+}
+
+.jraf-hierarchy-drilled-node-container .oj-button.oj-selected,
+.jraf-hierarchy-drilled-node-container .oj-button.oj-selected.oj-hover,
+.jraf-hierarchy-drilled-node-container .oj-button.oj-selected.oj-focus {
+  background: none;
+  background-color: #abaeb1;
+  border-color: #abaeb1;
+  border-radius: 5px;
+}
+
+a.jraf-hierarchy-back-link {
+  background-image: url("images/nav-arrow-gray.png");
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 14px 24px;
+  display: inline-block;
+  padding: 4px 0 4px 20px;
+  width: 162px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  top: -4px;
+  color: #ffffff;
+}
+
+a.jraf-hierarchy-back-link:active {
+  font-weight: normal;
+}
+
+.jraf-sliding-navigation a.oj-navigationlist-item-content .oj-navigationlist-item-label,
+.jraf-sliding-navigation .oj-navigationlist-item-content .oj-navigationlist-item-label {
+  color: #ffffff;
+}
+
+.jraf-sliding-navigation .oj-navigationlist-element .oj-navigationlist-group .oj-navigationlist-group-item.oj-navigationlist-item,
+.jraf-global-bottom-content .jraf-menu-body .oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item,
+.jraf-global-bottom-content .jraf-menu-body .oj-navigationlist-page-level.oj-navigationlist-expanded.oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item,
+.jraf-global-navigation-popup .jraf-menu-body .oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item,
+.jraf-global-navigation-popup .jraf-menu-body .oj-navigationlist-page-level.oj-navigationlist-expanded.oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item {
+  padding: 0 10px;
+  border-width: 0;
+}
+
+.jraf-sliding-navigation .oj-navigationlist-element .oj-navigationlist-group .oj-navigationlist-group-item.oj-navigationlist-item.jraf-no-padding,
+.jraf-global-bottom-content .jraf-menu-body .oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item.jraf-no-padding,
+.jraf-global-bottom-content .jraf-menu-body .oj-navigationlist-page-level.oj-navigationlist-expanded.oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item.jraf-no-padding,
+.jraf-global-navigation-popup .jraf-menu-body .oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item.jraf-no-padding,
+.jraf-global-navigation-popup .jraf-menu-body .oj-navigationlist-page-level.oj-navigationlist-expanded.oj-navigationlist-vertical:not(.oj-navigationlist-icon-only) .oj-navigationlist-item.jraf-no-padding {
+  padding: 0;
+}
+
+.jraf-sidebar-menu .oj-navigationlist-item.oj-hover:not(.oj-selected), .jraf-mobile-menu .oj-navigationlist-item.oj-hover:not(.oj-selected) {
+  border-color: transparent;
+  box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+.jraf-menu-body .jraf-section-header-wrapper .jraf-section-header {
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+  font-weight: bold;
+}
+
+.jraf-menu-body .jraf-section-header-wrapper:first-child .jraf-section-header {
+  border-top: 1px solid transparent;
+}
+
+/* We hide the oj-navigationlist-toolbar since we provide our own UI to navigate the hierarchy. */
+.jraf-sliding-navigation .oj-navigationlist-toolbar {
+  display: none;
+}
+
+.jraf-horizontal-tasks-header {
+  padding: 10px;
+  border-bottom: 1px solid #c3cbd1;
+  height: 24px;
+}
+
+.jraf-horizontal-tasks-back {
+  margin-right: 3px;
+}
+
+.jraf-horizontal-tasks-header a {
+  color: #ffffff;
+  height: 100%;
+}
+
+.jraf-horizontal-tasks-back::before {
+  content: url(images/raf-icon-chevron-left_ena.svg);
+}
+
+.jraf-sliding-navigation .oj-listview-no-data-message {
+  background-color: transparent;
+}
+
+.jraf-background-icon {
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.jraf-hierarchy-selection-expand-icon {
+  background-image: url("images/func_caret_16_gray_onb@2x.png");
+}
+
+.jraf-hierarchy-selection-collapse-icon {
+  background-image: url("images/func_caret_reverse_white_16_act@2x.png");
+}
+
+.oj-buttonset .oj-button-icon-only .jraf-hierarchy-selection-expand-icon,
+.oj-buttonset .oj-button-icon-only .jraf-hierarchy-selection-collapse-icon,
+.oj-buttonset .oj-button-icon-only .oj-button-icon.jraf-hierarchy-selection-expand-icon,
+.oj-buttonset .oj-button-icon-only .oj-button-icon.jraf-hierarchy-selection-collapse-icon,
+.oj-button-icon-only .oj-button-icon.jraf-hierarchy-selection-expand-icon,
+.oj-button-icon-only .oj-button-icon.jraf-hierarchy-selection-collapse-icon {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.jraf-tasks-autosuggest-label,
+.jraf-tasks-autosuggest-path {
+  display: block;
+}
+
+.jraf-tasks-autosuggest-label {
+  font-size: 14px;
+}
+
+.jraf-tasks-autosuggest-group-name {
+  background-color: rgba(242, 242, 242, 0.95);
+  border-bottom: 1px solid #bbb;
+  border-top: 1px solid #bbb;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 2.5rem;
+  /* Overriding an Alta style on the JET-generated parent element */
+  padding-left: 10px;
+  margin-left: -5px;
+}
+
+/*
+ * Reduce Alta line-height and use padding instead since we want to vertically
+ * center two rows of text
+ */
+.jraf-tasks-autosuggest-result {
+  margin-left: 5px;
+  line-height: 1.25rem;
+  padding: 10px 0;
+}
+
+.oj-listbox-results-depth-1 .jraf-tasks-autosuggest-result {
+  /* Overriding an Alta style on the JET-generated parent element */
+  padding-left: 10px;
+  margin-left: -20px;
+}
+
+.oj-hicontrast .jraf-sliding-navigation .jraf-favorites-compatible .oj-navigationlist-item-label {
+  overflow-y: hidden;
+}
+.oj-hicontrast .jraf-hierarchy-home-icon::before {
+  content: url("images/func_home_16_gray_onb@2x.png");
+  transform: scale(0.5);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.oj-hicontrast a.jraf-hierarchy-back-link::before {
+  content: url("images/nav-arrow-gray.png");
+  transform: scale(0.5);
+  display: inline-block;
+  position: absolute;
+  top: -50%;
+  left: -5px;
+}
+.oj-hicontrast .jraf-hierarchy-selection-expand-icon::before {
+  content: url("images/func_caret_16_gray_onb@2x.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -75%;
+  left: -25%;
+}
+.oj-hicontrast .jraf-hierarchy-selection-collapse-icon::before {
+  content: url("images/func_caret_reverse_white_16_act@2x.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -75%;
+  left: -25%;
+}
+.oj-hicontrast .jraf-hierarchy-drilled-node-container .jraf-menu-header-text, .oj-hicontrast .jraf-hierarchy-drilled-node-container .jraf-favorites-list-header, .oj-hicontrast .jraf-hierarchy-drilled-node-container .jraf-mobile-nav-header > .jraf-mobile-nav-menu-title, .oj-hicontrast .jraf-hierarchy-drilled-node-container .jraf-horizontal-tasks-header {
+  padding-right: 0;
+}
+
+.jraf-tiles-container {
+  white-space: nowrap;
+}
+
+.jraf-tile-container {
+  height: 160px;
+  /* 145px + 15px indicator */
+  width: 170px;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  color: #505050;
+}
+
+.jraf-tile-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.jraf-tile-box-container {
+  /* relative positioning since jraf-tile stretches with absolute positioning */
+  position: relative;
+  height: calc(100% - 15px);
+  /* subtract height of selected icon */
+  white-space: normal;
+}
+
+.jraf-tile-selection-indicator-container {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 15px;
+}
+
+.jraf-tile {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9dfe3;
+  border-left-width: 5px;
+  border-left-color: #0572ce;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 5px 5px 10px;
+}
+
+/* NOTE: pointer does not show when hovering over DVTs in tiles */
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container:not(.jraf-tile-administration-container) .jraf-tile-root:not(.jraf-disabled) .jraf-tile:hover,
+.jraf-infotile-conveyorbelt .jraf-tile-container .jraf-tile-root:not(.jraf-disabled) .jraf-tile:hover {
+  cursor: pointer;
+}
+
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container .jraf-tile-root:not(.jraf-disabled) .jraf-tile:hover,
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container:focus .jraf-tile-root:not(.jraf-disabled) .jraf-tile,
+.jraf-selected .jraf-tile-root:not(.jraf-disabled) .jraf-tile {
+  border-color: #0572ce;
+}
+
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container .jraf-normal:not(.jraf-disabled) .jraf-tile:hover,
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container:focus .jraf-normal:not(.jraf-disabled) .jraf-tile,
+.jraf-selected .jraf-normal:not(.jraf-disabled) .jraf-tile {
+  border-color: #72c17f;
+}
+
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container .jraf-important:not(.jraf-disabled) .jraf-tile:hover,
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container:focus .jraf-important:not(.jraf-disabled) .jraf-tile,
+.jraf-selected .jraf-important:not(.jraf-disabled) .jraf-tile {
+  border-color: #eda620;
+}
+
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container .jraf-critical:not(.jraf-disabled) .jraf-tile:hover,
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container:focus .jraf-critical:not(.jraf-disabled) .jraf-tile,
+.jraf-selected .jraf-critical:not(.jraf-disabled) .jraf-tile {
+  border-color: #cd2027;
+}
+
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container .jraf-admin-tile:not(.jraf-disabled) .jraf-tile:hover,
+.jraf-tiles-container:not(.jraf-tile-edit-mode) .jraf-tile-container:focus .jraf-admin-tile:not(.jraf-disabled) .jraf-tile,
+.jraf-selected .jraf-admin-tile:not(.jraf-disabled) .jraf-tile {
+  border-color: #666666;
+}
+
+.jraf-normal .jraf-tile {
+  border-left-color: #72c17f;
+}
+
+.jraf-important .jraf-tile {
+  border-left-color: #eda620;
+}
+
+.jraf-critical .jraf-tile {
+  border-left-color: #cd2027;
+}
+
+.jraf-admin-tile .jraf-tile {
+  border-left-color: #666666;
+}
+
+.jraf-disabled .jraf-tile {
+  background-color: #f8f8f8;
+  border-left-width: 1px;
+  /* override severity styles */
+  border-left-color: #d9dfe3;
+}
+
+.jraf-selected .jraf-tile-box-container {
+  background-color: #eaf4fc;
+}
+
+.jraf-selected .jraf-normal .jraf-tile-box-container {
+  background-color: #effbee;
+}
+
+.jraf-selected .jraf-important .jraf-tile-box-container {
+  background-color: #fdf5e7;
+}
+
+.jraf-selected .jraf-critical .jraf-tile-box-container {
+  background-color: #f9e7e6;
+}
+
+.jraf-selected .jraf-admin-tile .jraf-tile-box-container {
+  background-color: #ececec;
+}
+
+.jraf-selected .jraf-tile-selected-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-size: 8px 8px;
+  margin: 5px auto;
+}
+
+.jraf-tile .jraf-header-text {
+  color: #252525;
+}
+
+.jraf-tile .jraf-tile-header {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+  text-align: right;
+}
+
+.jraf-tile .jraf-tile-metric-value {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.jraf-tile .jraf-tile-metric-label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.jraf-tile-indicator {
+  height: 16px;
+  width: 16px;
+  background-size: 16px 16px;
+  display: block;
+}
+
+.jraf-tile .jraf-tile-indicator {
+  background-image: url("images/func_circledot_16_act@2x.png");
+}
+
+.jraf-normal .jraf-tile-indicator {
+  background-image: url("images/func_statusgood_16_ena@2x.png");
+}
+
+.jraf-important .jraf-tile-indicator {
+  background-image: url("images/func_statusalert_16_ena@2x.png");
+}
+
+.jraf-critical .jraf-tile-indicator {
+  background-image: url("images/func_statuserror_16_ena@2x.png");
+}
+
+.jraf-admin-tile .jraf-tile-indicator {
+  background-image: url("images/navi_wrenchdriver_16_ena@2x.png");
+}
+
+.jraf-tile-selection-indicator {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  position: relative;
+  left: calc(50% - 7px);
+}
+
+.jraf-selected .jraf-tile-selection-indicator {
+  background-image: url("images/qual_sel_arrowdown_noseverity_16_full@2x.png");
+}
+
+.jraf-selected .jraf-normal .jraf-tile-selection-indicator {
+  background-image: url("images/qual_sel_arrowdown_normal_16_full@2x.png");
+}
+
+.jraf-selected .jraf-important .jraf-tile-selection-indicator {
+  background-image: url("images/qual_sel_arrowdown_important_16_full@2x.png");
+}
+
+.jraf-selected .jraf-critical .jraf-tile-selection-indicator {
+  background-image: url("images/qual_sel_arrowdown_critical_16_full@2x.png");
+}
+
+.jraf-selected .jraf-admin-tile .jraf-tile-selection-indicator {
+  background-image: url("images/qual_sel_arrowdown_admin_16_full@2x.png");
+}
+
+.jraf-no-tile-data-msg-container {
+  font-size: 1.25em;
+}
+
+.jraf-no-tile-data-msg-container a {
+  font-weight: bold;
+}
+
+.oj-hicontrast .jraf-tile-indicator::before,
+.oj-hicontrast .jraf-tile-selection-indicator::before {
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -25%;
+}
+.oj-hicontrast .jraf-tile .jraf-tile-indicator::before {
+  content: url("images/func_circledot_16_act@2x.png");
+}
+.oj-hicontrast .jraf-normal .jraf-tile-indicator::before {
+  content: url("images/func_statusgood_16_ena@2x.png");
+}
+.oj-hicontrast .jraf-important .jraf-tile-indicator::before {
+  content: url("images/func_statusalert_16_ena@2x.png");
+}
+.oj-hicontrast .jraf-critical .jraf-tile-indicator::before {
+  content: url("images/func_statuserror_16_ena@2x.png");
+}
+.oj-hicontrast .jraf-admin-tile .jraf-tile-indicator::before {
+  content: url("images/navi_wrenchdriver_16_ena@2x.png");
+}
+.oj-hicontrast .jraf-selected .jraf-tile-selection-indicator::before {
+  content: url("images/qual_sel_arrowdown_noseverity_16_full@2x.png");
+}
+.oj-hicontrast .jraf-selected .jraf-normal .jraf-tile-selection-indicator::before {
+  content: url("images/qual_sel_arrowdown_normal_16_full@2x.png");
+}
+.oj-hicontrast .jraf-selected .jraf-important .jraf-tile-selection-indicator::before {
+  content: url("images/qual_sel_arrowdown_important_16_full@2x.png");
+}
+.oj-hicontrast .jraf-selected .jraf-critical .jraf-tile-selection-indicator::before {
+  content: url("images/qual_sel_arrowdown_critical_16_full@2x.png");
+}
+.oj-hicontrast .jraf-selected .jraf-admin-tile .jraf-tile-selection-indicator::before {
+  content: url("images/qual_sel_arrowdown_admin_16_full@2x.png");
+}
+.oj-hicontrast .jraf-add-tile-plus-icon::before {
+  content: url("images/func_plus_16_ena@2x.png");
+}
+
+.jraf-login-page {
+  height: 100%;
+  width: 100%;
+}
+
+.jraf-login-form-area {
+  height: calc(100% - 42px - 52px);
+}
+
+.jraf-login-form-vertical-container {
+  height: 100%;
+}
+
+.jraf-login-form-container {
+  width: 400px;
+  margin: 0px auto;
+  padding: 10px;
+  border: 1px solid #d6dfe6;
+  background-color: #eff2f5;
+  box-sizing: border-box;
+}
+
+.jraf-login-form-container h1 {
+  font-size: 16px;
+}
+
+.jraf-login-form-container label {
+  color: #252525;
+}
+
+.jraf-login-footer-area {
+  background-color: #f5f5f5;
+  padding: 10px;
+  width: 100%;
+  border-top: 1px solid #d6dfe6;
+}
+
+.jraf-about-page {
+  padding: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  overflow-y: auto;
+}
+
+.jraf-notificationDetail-readIcon {
+  background-image: url("images/read.png");
+}
+
+.jraf-notificationDetail-unreadIcon {
+  background-image: url("images/unread.png");
+}
+
+.jraf-notificationsDetail-conveyorbelt .oj-rgbu-jraf-info-tile-tile-container {
+  margin-right: 10px;
+}
+
+.jraf-notificationsDetail-indent {
+  padding-left: 1.5em;
+}
+
+.jraf-notificationsDetail-table-footer {
+  width: 20em;
+  border-color: #d6dfe6;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  padding: 0.5em;
+}
+
+.jraf-notificationsDetail-conveyorbelt-wrapper {
+  width: 100%;
+}
+
+.jraf-notificationsDetail-footer-wrapper {
+  width: 100%;
+}
+
+.jraf-notificationsDetail-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.jraf-createNotification-icon {
+  background-size: 100%;
+  background-position: 0 center;
+  background-image: url("images/create-notification-gray.png");
+}
+
+.oj-hover .jraf-createNotification-icon {
+  background-image: url("images/create-notification-hover.png");
+}
+
+.oj-active .jraf-createNotification-icon {
+  background-image: url("images/create-notification-active.png");
+}
+
+.oj-disabled .jraf-createNotification-icon {
+  background-image: url("images/create-notification-disabled.png");
+}
+
+.jraf-alerts-dialog {
+  width: 70vw;
+  height: 80vh;
+}
+.jraf-alerts-dialog .oj-dialog-content {
+  overflow: hidden;
+}
+
+.jraf-alerts-dialog-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.jraf-alerts-dialog-body-contents {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* Firefox */
+  min-height: 0;
+}
+.jraf-alerts-dialog-body-contents oj-conveyor-belt {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.jraf-alerts-details {
+  flex-grow: 1;
+  overflow: auto;
+  /* Firefox */
+  min-height: 0;
+}
+
+.jraf-alerts-subject-line {
+  width: 100%;
+  border-bottom: 2px solid #d6dfe6;
+  margin-bottom: 8px;
+}
+
+.jraf-alerts-body-text {
+  white-space: pre-line;
+  margin-bottom: 8px;
+}
+
+.jraf-alerts-body-html {
+  display: inline;
+  margin-bottom: 8px;
+}
+.jraf-alerts-body-html iframe {
+  width: 100%;
+  border: none;
+}
+
+.jraf-alerts-attachments {
+  margin-top: 8px;
+}
+.jraf-alerts-attachments .oj-toolbar .oj-button {
+  margin-right: 10px;
+}
+
+.jraf-alerts-download-attachment-icon {
+  background-image: url("images/raf-icon-document-download_ena.svg");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.oj-hicontrast .jraf-notificationDetail-readIcon::before {
+  content: url("images/read.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+}
+.oj-hicontrast .jraf-notificationDetail-unreadIcon::before {
+  content: url("images/unread.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+}
+.oj-hicontrast .jraf-createNotification-icon::before {
+  content: url("images/create-notification-gray.png");
+  transform: scale(0.5);
+  display: block;
+  position: relative;
+  top: -50%;
+  left: -25%;
+}
+.oj-hicontrast .oj-hover .jraf-createNotification-icon::before {
+  content: url("images/create-notification-hover.png");
+}
+.oj-hicontrast .oj-active .jraf-createNotification-icon::before {
+  content: url("images/create-notification-active.png");
+}
+.oj-hicontrast .oj-disabled .jraf-createNotification-icon::before {
+  content: url("images/create-notification-disabled.png");
+}
+.oj-hicontrast .jraf-alerts-download-attachment-icon::before {
+  content: url("images/raf-icon-document-download_ena.svg");
+  display: block;
+  position: relative;
+}
+
+.jraf-config-form-wrapper {
+  overflow-y: auto;
+  padding: 10px;
+  margin: -10px;
+  height: calc(100% - 2.28571rem - 16px);
+}
+
+.jraf-color-swatch {
+  display: inline-block;
+  /* Dimensions from JET input text */
+  height: 2.286rem;
+  width: 2.286rem;
+  border: 1px solid #c6c6c6;
+  margin-left: 5px;
+}
+
+.jraf-config-form {
+  max-width: 400px;
+}
+
+/* Override margin until we have a JET file input */
+.jraf-config-form > oj-form-layout > .oj-flex:last-child > .oj-flex-item {
+  margin-bottom: 0;
+}
+
+.jraf-config-footer {
+  position: absolute;
+  bottom: 0px;
+  left: -10px;
+  width: 100%;
+  padding: 8px 10px;
+  background-color: #f5f5f5;
+}
+
+.jraf-config-logo {
+  max-height: 150px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.jraf-config-footer .oj-toolbar {
+  padding: 0;
+}
+
+.jraf-config-palette-picker {
+  height: 105px;
+}
+
+/* This hides the horizontal slider that controls opacity */
+.jraf-config-spectrum .oj-colorspectrum-container > .oj-slider-horizontal {
+  display: none;
+}
+
+.jraf-config-spectrum .oj-colorspectrum-container > .oj-colorspectrum-spectrum {
+  margin-left: 0;
+}
+
+/*
+ * Overrides for the dark theme. Used for places where the light theme is using base Alta
+ *
+ */
+/* Menu bar */
+.jraf-global-navigation-bar.oj-toolbar {
+  border-radius: 0;
+}
+.jraf-global-navigation-bar .oj-button.oj-default.oj-button-half-chrome,
+.jraf-global-navigation-bar .oj-button.oj-focus-only.oj-button-half-chrome,
+.jraf-global-navigation-bar .oj-button.oj-default.oj-button-half-chrome .oj-button-icon,
+.jraf-global-navigation-bar .oj-button.oj-focus-only.oj-button-half-chrome .oj-button-icon,
+.jraf-global-navigation-bar .oj-button.oj-hover.oj-button-half-chrome .oj-button-icon {
+  color: #ffffff;
+}
+.jraf-global-navigation-bar .oj-button.oj-active.oj-button-half-chrome,
+.jraf-global-navigation-bar .oj-button.oj-selected.oj-button-half-chrome,
+.jraf-global-navigation-bar .oj-button.oj-active.oj-hover.oj-button-half-chrome .oj-button-icon,
+.jraf-global-navigation-bar .oj-button.oj-active.oj-hover.oj-button-half-chrome,
+.jraf-global-navigation-bar .oj-button.oj-selected.oj-hover.oj-button-half-chrome .oj-button-icon,
+.jraf-global-navigation-bar .oj-button.oj-selected.oj-hover.oj-button-half-chrome {
+  border-color: #f2f2f2;
+  color: #000;
+}
+.jraf-global-navigation-bar .oj-button.oj-selected.oj-button-half-chrome .oj-button-icon {
+  color: #878c90;
+}
+.jraf-global-navigation-bar .oj-buttonset-multi.oj-button-half-chrome .oj-button {
+  margin: 0;
+}
+.jraf-global-navigation-bar .jraf-navbar-loading {
+  background-image: url("images/spinner_white_24@2x.gif");
+}
+.jraf-global-navigation-bar .jraf-app-navigator-icon:hover::before {
+  content: url("images/raf-icon-app-switcher_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-favorites-icon:hover::before {
+  content: url("images/raf-icon-star_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-tasks-icon:hover::before {
+  content: url("images/raf-icon-task_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-notifications-icon:hover::before {
+  content: url("images/raf-icon-notifications_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-quick-create-icon:hover::before {
+  content: url("images/raf-icon-quick-create_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-quick-lookup-icon:hover::before {
+  content: url("images/raf-icon-quick-search_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-reports-icon:hover::before {
+  content: url("images/raf-icon-reports_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-settings-icon:hover::before {
+  content: url("images/raf-icon-settings-solid_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-history-icon:hover::before {
+  content: url("images/raf-icon-history_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-task-icon:hover::before {
+  content: url("images/raf-icon-favorite-task_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-report-icon:hover::before {
+  content: url("images/raf-icon-favorite-report_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-document-icon:hover::before {
+  content: url("images/raf-icon-favorite-document_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-user-icon:hover::before {
+  content: url("images/raf-icon-favorite-user_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-favorite-default-icon:hover::before {
+  content: url("images/raf-icon-favorite-default_onb.svg");
+}
+.jraf-global-navigation-bar .jraf-app-navigator-selected-icon::before {
+  content: url("images/raf-icon-app-switcher_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-favorites-selected-icon::before {
+  content: url("images/raf-icon-star_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-tasks-selected-icon::before {
+  content: url("images/raf-icon-task_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-notifications-selected-icon::before {
+  content: url("images/raf-icon-notifications_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-reports-selected-icon::before {
+  content: url("images/raf-icon-reports_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-settings-selected-icon::before {
+  content: url("images/raf-icon-settings-solid_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-quick-create-selected-icon::before {
+  content: url("images/raf-icon-quick-create_ena.svg");
+}
+.jraf-global-navigation-bar .jraf-quick-lookup-selected-icon::before {
+  content: url("images/raf-icon-quick-search_ena.svg");
+}
+.jraf-global-navigation-bar .oj-selected .jraf-history-icon::before,
+.jraf-global-navigation-bar .oj-active .jraf-history-icon::before {
+  content: url("images/raf-icon-history_ena.svg");
+}
+
+/* Submenus */
+.jraf-global-navigation-popup .jraf-sliding-navigation .oj-navigationlist-item-content .oj-navigationlist-item-label {
+  color: #101010;
+}
+.jraf-global-navigation-popup .jraf-horizontal-tasks-header a {
+  color: #101010;
+}
+.jraf-global-navigation-popup .jraf-menu-footer,
+.jraf-global-navigation-popup .jraf-menu-filter-container .jraf-notification-tab .oj-button,
+.jraf-global-navigation-popup .jraf-menu-content-area {
+  border-color: #c6c6c6;
+}
+
+/* Conveyorbelt belt buttons */
+.jraf-global-navigation-bar-wrapper .jraf-global-navigation-bar-root {
+  border-color: #44525C;
+}
+.jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator {
+  border-color: #44525C;
+  background-color: #44525C;
+  border-radius: 0;
+  height: calc(32px + 1px);
+}
+.jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator.oj-hover {
+  border-color: #252E34;
+  background-color: #252E34;
+}
+.jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator.oj-active.oj-hover, .jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator.oj-active {
+  border-color: #f2f2f2;
+  background-color: #f2f2f2;
+}
+.jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon, .jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator.oj-hover .oj-conveyorbelt-overflow-icon {
+  color: #ffffff;
+}
+.jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator.oj-selected.oj-hover .oj-conveyorbelt-overflow-icon, .jraf-global-navigation-bar-wrapper .oj-conveyorbelt-overflow-indicator.oj-active .oj-conveyorbelt-overflow-icon {
+  color: #878c90;
+}
+
+/* Tabs */
+.jraf-global-tabs-wrapper {
+  /* Conveyorbelt belt buttons in the tabs */
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor-wrapper {
+  background-color: #60788C;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-hover:not(.oj-selected),
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-focus:not(.oj-selected) {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-selected,
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-active {
+  border-color: #ffffff;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item .oj-tabbar-item-content .oj-tabbar-item-label {
+  color: #ffffff;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item .oj-tabbar-remove-icon {
+  color: #D4D6D7;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item .oj-tabbar-remove-icon.oj-active,
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item.oj-hover .oj-tabbar-remove-icon {
+  color: #ffffff;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabbar.oj-tabbar-horizontal:not(.oj-tabbar-icon-only) .oj-tabbar-item .oj-tabbar-remove-icon:hover {
+  background-color: #ffffff;
+  color: #44525C;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator {
+  border-color: #60788C;
+  background-color: #60788C;
+  border-radius: 0;
+  height: calc(32px + 2px);
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-hover {
+  border-color: #44525C;
+  background-color: #44525C;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-active.oj-hover, .jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-active {
+  border-color: #f2f2f2;
+  background-color: #f2f2f2;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon, .jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-hover .oj-conveyorbelt-overflow-icon {
+  color: #ffffff;
+}
+.jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-selected.oj-hover .oj-conveyorbelt-overflow-icon, .jraf-global-tabs-wrapper .jraf-global-tabs-conveyor .oj-conveyorbelt-overflow-indicator.oj-active .oj-conveyorbelt-overflow-icon {
+  color: #878c90;
+}
+
+/* Tabs Icons */
+.jraf-tabbar-info::before {
+  content: url(images/raf-icon-info-circle_onb.svg);
+}
+
+.jraf-tabbar-warning::before {
+  content: url(images/raf-icon-alert-circle_onb.svg);
+}
+
+.jraf-tabbar-error::before {
+  content: url(images/raf-icon-error-circle_onb.svg);
+}
+
+.jraf-tabbar-success::before {
+  content: url(images/raf-icon-success-circle_onb.svg);
+}
+
+.jraf-spinner::before, .jraf-global-tabs-spinner::before,
+.jraf-spinner-blue::before,
+.jraf-tabs-uishell-tab.oj-selected .jraf-global-tabs-spinner::before {
+  content: url(images/raf-icon-spinner_onb.svg);
+  opacity: 1;
+}
+
+.jraf-spinner-gray::before, .jraf-global-tabs-spinner::before {
+  content: url(images/raf-icon-spinner_onb.svg);
+  opacity: 0.65;
+}
+
+/* Sidebar */
+.jraf-sidebar-wrapper {
+  background-color: #44525C;
+}
+
+.jraf-global-bottom-content .oj-navigationlist-item.oj-hover:not(.oj-selected) {
+  border-color: #252E34;
+}
+.jraf-global-bottom-content .oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item.jraf-selected .oj-navigationlist-item-icon,
+.jraf-global-bottom-content .oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item.oj-hover:not(.jraf-selected) .oj-navigationlist-item-icon {
+  background-color: rgba(37, 46, 52, 0.5);
+}
+
+.jraf-sidebar-menu-list-item.jraf-selected .jraf-sidebar-menu-icon,
+.jraf-global-bottom-content .oj-navigationlist-vertical.oj-navigationlist-icon-only .oj-navigationlist-item.oj-hover.jraf-selected:not(.oj-selected) .oj-navigationlist-item-icon {
+  background-color: #252E34;
+}
+
+.jraf-sidebar-menu-wrapper {
+  /* Notifications */
+  /* Footer menu */
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu, .jraf-sidebar-menu-wrapper .jraf-mobile-menu {
+  background-color: rgba(68, 82, 92, 0.95);
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-no-data-message, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-navigationlist-no-data-message {
+  background-color: transparent;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu *, .jraf-sidebar-menu-wrapper .jraf-mobile-menu * {
+  color: #ffffff;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-select-chosen, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-select-chosen,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-select-selected-choice-label,
+.jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-select-selected-choice-label,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu input,
+.jraf-sidebar-menu-wrapper .jraf-mobile-menu input {
+  color: #000;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-component-icon, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-component-icon {
+  color: #878c90;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-hover, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-hover,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-focus,
+.jraf-sidebar-menu-wrapper .jraf-mobile-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-focus {
+  border-color: #D4D6D7;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-selected, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-selected,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-selected.oj-hover,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-hierarchy-drilled-node-container .oj-button.oj-selected.oj-focus {
+  background-color: #252E34;
+  border-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-listview-item.oj-hover, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-listview-item.oj-hover,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-listview-item.oj-hover.oj-focus,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-listview-item.oj-hover.oj-selected,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-item.oj-hover:not(.jraf-group-wrapper),
+.jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-navigationlist-item.oj-hover:not(.jraf-group-wrapper),
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-item.oj-hover.oj-selected:not(.jraf-group-wrapper),
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:hover,
+.jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:hover,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:focus,
+.jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-navigationlist-item.oj-hover.jraf-group-wrapper li:focus {
+  background-color: rgba(37, 46, 52, 0.5);
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-element .jraf-not-launchable, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-navigationlist-element .jraf-not-launchable,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-element .jraf-not-launchable.oj-hover,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-element .jraf-not-launchable.oj-hover.oj-selected,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-element .oj-hover.jraf-group-wrapper li.jraf-not-launchable:hover,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-element .oj-hover.jraf-group-wrapper li.jraf-not-launchable:focus {
+  background-color: transparent;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .oj-navigationlist-item a.oj-navigationlist-collapse-icon, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .oj-navigationlist-item a.oj-navigationlist-collapse-icon {
+  color: #D4D6D7;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu ul.oj-listview-element:not(.oj-listview-card-layout) .oj-listview-item.oj-hover + li.oj-listview-item, .jraf-sidebar-menu-wrapper .jraf-mobile-menu ul.oj-listview-element:not(.oj-listview-card-layout) .oj-listview-item.oj-hover + li.oj-listview-item {
+  border-top: 0;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-hierarchy-selection-expand-icon, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .jraf-hierarchy-selection-expand-icon {
+  background-image: url("images/func_caret_16_onb@2x.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-hierarchy-home-icon, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .jraf-hierarchy-home-icon {
+  background-image: url("images/func_home_16_onb@2x.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu a.jraf-hierarchy-back-link, .jraf-sidebar-menu-wrapper .jraf-mobile-menu a.jraf-hierarchy-back-link {
+  background-image: url("images/nav-arrow.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-menu .jraf-severity-medium, .jraf-sidebar-menu-wrapper .jraf-mobile-menu .jraf-severity-medium {
+  color: #000;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-loading, .jraf-sidebar-menu-wrapper .jraf-contentframe-loading {
+  background-image: url("images/spinner_white_24@2x.gif");
+}
+.jraf-sidebar-menu-wrapper .jraf-edit-favorites-icon {
+  background-image: url("images/func_gear_24_onb@2x.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-search-container .oj-inputsearch-input::-webkit-input-placeholder {
+  color: #878c90;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-search-container .oj-inputsearch-input::-moz-placeholder {
+  color: #878c90;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-search-container .oj-inputsearch-input:-ms-input-placeholder {
+  color: #878c90;
+}
+.jraf-sidebar-menu-wrapper .jraf-inline-badge, .jraf-sidebar-menu-wrapper .jraf-mobile-sidebar-badge-value {
+  background-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .oj-navigationlist-item:hover .jraf-mark-favorite-icon, .jraf-sidebar-menu-wrapper .oj-navigationlist-item:focus .jraf-mark-favorite-icon,
+.jraf-sidebar-menu-wrapper .oj-navigationlist-item a:focus .jraf-mark-favorite-icon {
+  background-image: url("images/func_fave_empty_24_onb@2x.png");
+}
+.jraf-sidebar-menu-wrapper .oj-navigationlist-item:hover .jraf-pin-favorite-icon, .jraf-sidebar-menu-wrapper .oj-navigationlist-item:focus .jraf-pin-favorite-icon,
+.jraf-sidebar-menu-wrapper .oj-navigationlist-item a:focus .jraf-pin-favorite-icon {
+  background-image: url("images/raf-icon-pin-outline_onb.svg");
+}
+.jraf-sidebar-menu-wrapper .jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-selected.oj-button-half-chrome, .jraf-sidebar-menu-wrapper .jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-selected.oj-button-half-chrome.oj-hover, .jraf-sidebar-menu-wrapper .jraf-favorites-menu .jraf-menu-header-button .oj-button.oj-selected.oj-button-half-chrome.oj-focus {
+  background-color: #252E34;
+  border-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .jraf-sidebar-grouped-list-toggle .oj-button.oj-selected,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-grouped-list-toggle .oj-button.oj-selected.oj-hover,
+.jraf-sidebar-menu-wrapper .jraf-sidebar-grouped-list-toggle .oj-button.oj-selected.oj-focus {
+  background-color: #252E34;
+  border-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .jraf-unmark-favorite-icon {
+  background-image: url("images/favorites.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-unpin-favorite-icon {
+  background-image: url("images/raf-icon-pin_onb.svg");
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-body .jraf-section-header-wrapper .jraf-section-header {
+  border-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-body .jraf-section-header-wrapper:first-child .jraf-section-header {
+  border-top-color: transparent;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-filter-container .jraf-notification-tab label {
+  background-image: url("images/tab-open-white.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-filter-container .jraf-notification-tab .oj-selected label {
+  background-image: url("images/tab-close-white.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-filter-container .jraf-notification-tab .oj-button.oj-selected {
+  background-color: #60788C;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-filter-container .jraf-notification-tab .oj-button.oj-hover {
+  background-color: rgba(37, 46, 52, 0.5);
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-filter-container oj-form-layout.open {
+  background-color: #60788C;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-filter-container .oj-button.oj-button-full-chrome {
+  background-color: #44525C;
+  background-image: none;
+  border-color: #44525C;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-filter-container .oj-button.oj-button-full-chrome.oj-hover, .jraf-sidebar-menu-wrapper .jraf-menu-filter-container .oj-button.oj-button-full-chrome.oj-focus, .jraf-sidebar-menu-wrapper .jraf-menu-filter-container .oj-button.oj-button-full-chrome.oj-selected {
+  background-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .jraf-read-indicator {
+  background-image: url("images/unread-white.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-read-indicator-read {
+  background-image: url("images/read-white.png");
+}
+.jraf-sidebar-menu-wrapper li:not(.jraf-group-wrapper):hover .jraf-sidebar-list-item-group .jraf-read-indicator:not(.jraf-read-indicator-read),
+.jraf-sidebar-menu-wrapper li:not(.jraf-group-wrapper):focus .jraf-sidebar-list-item-group .jraf-read-indicator:not(.jraf-read-indicator-read),
+.jraf-sidebar-menu-wrapper a:focus > .jraf-read-indicator:not(.jraf-read-indicator-read) {
+  background-image: url("images/read-remove-white.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-notifications-list .jraf-no-padding ul > .jraf-sidebar-see-more-wrapper a,
+.jraf-sidebar-menu-wrapper .jraf-notifications-list .jraf-no-padding ul > .jraf-sidebar-see-more-wrapper a:visited {
+  color: #ffffff;
+}
+.jraf-sidebar-menu-wrapper .jraf-notifications-list .jraf-sidebar-list-item-group,
+.jraf-sidebar-menu-wrapper .jraf-notifications-list .jraf-no-padding h4 {
+  border-bottom-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .jraf-notifications-grouping-toggle-icon {
+  background-image: url("images/sidebar-grouped-list-active.png");
+}
+.jraf-sidebar-menu-wrapper .jraf-dnd-divider {
+  background-color: rgba(37, 46, 52, 0.5);
+  border-color: #252E34;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-footer {
+  background-color: #44525C;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-footer a,
+.jraf-sidebar-menu-wrapper .jraf-menu-footer a:visited {
+  color: #fff;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-footer a:hover {
+  border-color: #ffffff;
+}
+.jraf-sidebar-menu-wrapper .jraf-menu-footer a:active,
+.jraf-sidebar-menu-wrapper .jraf-menu-footer a:focus {
+  border-color: #252E34;
+  background-color: #252E34;
+}
+
+.jraf-sidebar-menu-icon:hover {
+  background-color: rgba(37, 46, 52, 0.5);
+}
+
+/* Sidebar icons */
+.jraf-app-navigator-icon::before,
+.jraf-app-navigator-icon:hover::before,
+.jraf-app-navigator-selected-icon::before {
+  content: url("images/raf-icon-app-switcher_onb.svg");
+}
+
+.jraf-favorites-icon::before,
+.jraf-favorites-icon:hover::before,
+.jraf-favorites-selected-icon::before {
+  content: url("images/raf-icon-star_onb.svg");
+}
+
+.jraf-tasks-icon::before,
+.jraf-tasks-icon:hover::before,
+.jraf-tasks-selected-icon::before {
+  content: url("images/raf-icon-task_onb.svg");
+}
+
+.jraf-notifications-icon::before,
+.jraf-notifications-icon:hover::before,
+.jraf-notifications-selected-icon::before {
+  content: url("images/raf-icon-notifications_onb.svg");
+}
+
+.jraf-quick-create-icon::before,
+.jraf-quick-create-icon:hover::before,
+.jraf-quick-create-selected-icon::before {
+  content: url("images/raf-icon-quick-create_onb.svg");
+}
+
+.jraf-quick-lookup-icon::before,
+.jraf-quick-lookup-icon:hover::before,
+.jraf-quick-lookup-selected-icon::before {
+  content: url("images/raf-icon-quick-search_onb.svg");
+}
+
+.jraf-reports-icon::before,
+.jraf-reports-icon:hover::before,
+.jraf-reports-selected-icon::before {
+  content: url("images/raf-icon-reports_onb.svg");
+}
+
+.jraf-settings-icon::before,
+.jraf-settings-icon:hover::before,
+.jraf-settings-selected-icon::before {
+  content: url("images/raf-icon-settings-solid_onb.svg");
+}
+
+.jraf-history-icon::before,
+.jraf-history-icon:hover::before {
+  content: url("images/raf-icon-history_onb.svg");
+}
+
+.jraf-favorite-task-icon::before,
+.jraf-favorite-task-icon:hover::before {
+  content: url("images/raf-icon-favorite-task_onb.svg");
+}
+
+.jraf-favorite-report-icon::before,
+.jraf-favorite-report-icon:hover::before {
+  content: url("images/raf-icon-favorite-report_onb.svg");
+}
+
+.jraf-favorite-document-icon::before,
+.jraf-favorite-document-icon:hover::before {
+  content: url("images/raf-icon-favorite-document_onb.svg");
+}
+
+.jraf-favorite-user-icon::before,
+.jraf-favorite-user-icon:hover::before {
+  content: url("images/raf-icon-primary-account_onb.svg");
+}
+
+.jraf-favorite-default-icon::before,
+.jraf-favorite-default-icon:hover::before {
+  content: url("images/raf-icon-favorite-default_onb.svg");
+}
+
+.jraf-application-context-icon::before,
+.jraf-application-context-icon:hover::before {
+  content: url("images/raf-icon-store_onb.svg");
+}
+
+.jraf-sidebar-menu .jraf-selected-app-icon, .jraf-mobile-menu .jraf-selected-app-icon {
+  content: url("images/raf-icon-checkmark_onb.svg");
+}

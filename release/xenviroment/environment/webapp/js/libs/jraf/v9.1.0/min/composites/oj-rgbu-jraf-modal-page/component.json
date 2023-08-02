@@ -1,0 +1,75 @@
+{
+    "name": "oj-rgbu-jraf-modal-page",
+    "displayName": "Modal Page",
+    "description": "This is the standard modal page component used within RGBU applications. A modal page fills its container. It has a configurable header region, similar to a dialog, and a body where custom application content can be rendered.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "headerClass": {
+            "description": "Optional class(es) to apply to the header region of the modal page.",
+            "type": "string"
+        },
+        "headerStyle": {
+            "description": "Optional CSS style(s) to apply to the header region of the modal page.",
+            "type": "string"
+        },
+        "bodyClass": {
+            "description": "Optional class(es) to apply to the body region of the modal page.",
+            "type": "string"
+        },
+        "bodyStyle": {
+            "description": "Optional CSS style(s) to apply to the body region of the modal page.",
+            "type": "string"
+        },
+        "pageTitle": {
+            "description": "The page title to render in the header of the modal page.",
+            "type": "string"
+        },
+        "pageContentModule": {
+            "description": "(deprecated) An optional module configuration to load in the modal page body.  This will be ignored if the pageContent slot is populated.",
+            "type": "object"
+        },
+        "pageContentModuleOptions": {
+            "description": "An optional module configuration to load in the modal page body using oj-module.  This will be ignored if the pageContent slot is populated.",
+            "type": "object"
+        },
+        "beforeLoadModuleHandler": {
+            "description": "Function called before loading the module (when configured with pageContentModuleOptions).  The pageContentModuleOptions property is passed to the function.  The function should return a Promise resolving to the module config (see config attribute of oj-module) or resolving to null or undefined to continue with default module loading behavior (using ModuleElementUtils.createConfig).",
+            "type": "function"
+        },
+        "afterUnloadModuleHandler": {
+            "description": "Function called aftter the module has been removed from the DOM (when configured with pageContentModuleOptions).  The pageContentModuleOptions property is passed to the function along with the viewModel and view that were unloaded.",
+            "type": "function"
+        }
+    },
+    "methods": {
+        "open": {
+            "description": "Method to open the modal page."
+        },
+        "close": {
+            "description": "Method to close the modal page.",
+            "return": "Promise"
+        },
+        "invokeModuleEventHandler": {
+            "description": "Pass a method name, event and ui object to invoke (and return the result from) one of the standard UI Shell convention methods."
+        }
+    },
+    "slots": {
+        "pageContent": {
+            "displayName": "Page Content",
+            "description": "Optional slot that displays user-defined content within the body of the modal page."
+        }
+    },
+    "events": {
+        "ojRgbuJrafModalPageBeforeClose" : {
+            "description" : "The event that consuming views can use to be notified when the modal page is about to close.",
+            "bubbles" : true,
+            "cancelable" : true
+        },
+        "ojRgbuJrafModalPageClose" : {
+            "description" : "The event that consuming views can use to be notified when the modal page has been closed.",
+            "bubbles" : true,
+            "cancelable" : false
+        }
+    }
+}

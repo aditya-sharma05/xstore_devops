@@ -1,0 +1,70 @@
+<oj-conveyor-belt class="oj-rgbu-jraf-apps-panel-bar-container" :class="[[{'oj-rgbu-jraf-apps-panel-bar-inline': $properties.layout==='inline'}]]">
+    <div class="oj-rgbu-jraf-apps-panel-bar oj-flex oj-sm-flex-wrap-nowrap oj-sm-align-items-center
+         oj-sm-flex-items-initial oj-sm-justify-content-flex-end">
+        <div class="oj-flex-item">
+            <oj-bind-slot name="customContent"></oj-bind-slot>
+        </div>
+        <div class="oj-flex-item oj-flex oj-sm-flex-wrap-nowrap oj-sm-align-items-center oj-rgbu-jraf-apps-panel-bar-toolbar oj-rgbu-jraf-apps-panel-bar-flex-row-reverse">
+            <oj-bind-for-each data="[[panelBarItems]]">
+                <template data-oj-as="item">
+                    <oj-bind-if test="[[item.data.isMenu && !item.data.isSeparator && item.data.displayed]]">
+                        <oj-menu-button :id="[[item.data.id]]"
+                            display="[[item.data.display]]"
+                            disabled="[[item.data.disabled]]"
+                            chroming="[[item.data.chrome]]"
+                            :class="[[item.data.size + ' oj-flex-item']]">
+                            <span><oj-bind-text value="[[item.data.label]]"></oj-bind-text></span>
+                            <oj-bind-if test="[[!item.data.iconEnd && item.data.icon]]">
+                                <span slot='startIcon' :class="[[item.data.icon]]"></span>
+                            </oj-bind-if>
+                            <oj-menu :id="[[item.data.menuId]]" slot="menu" style="display: none"
+                                on-oj-action="[[handleMenuOptionSelect]]"
+                                :accesskey="[[item.data.shortcut]]">
+                                <oj-bind-for-each data="[[item.data.options]]">
+                                    <template data-oj-as="option">
+                                        <oj-bind-if test="[[option.data.displayed]]">
+                                            <oj-option
+                                                :id="[[option.data.optionId]]"
+                                                value="[[option.data.label]]"
+                                                disabled="[[option.data.disabled]]">
+                                                <span>
+                                                    <oj-bind-if test="[[option.data.icon]]">
+                                                        <span :class="[[option.data.icon + ' oj-menu-item-icon']]"></span>
+                                                    </oj-bind-if>
+                                                    <span><oj-bind-text value="[[option.data.label]]"></oj-bind-text></span>
+                                                </span>
+                                            </oj-option>
+                                        </oj-bind-if>
+                                    </template>
+                                </oj-bind-for-each>
+                            </oj-menu>
+                        </oj-menu-button>
+                    </oj-bind-if>
+
+                    <oj-bind-if test="[[!item.data.isMenu && !item.data.isSeparator && item.data.displayed]]">
+                        <oj-button
+                            :id="[[item.data.id]]"
+                            display="[[item.data.display]]"
+                            disabled="[[item.data.disabled]]"
+                            chroming="[[item.data.chrome]]"
+                            :accesskey="[[item.data.shortcut]]"
+                            :class="[[item.data.size + ' oj-flex-item']]"
+                            on-oj-action="[[handleButtonClick]]">
+                            <span><oj-bind-text value="[[item.data.label]]"></oj-bind-text></span>
+                            <oj-bind-if test="[[item.data.iconEnd]]">
+                                <span slot='endIcon' :class="[[item.data.icon]]"></span>
+                            </oj-bind-if>
+                            <oj-bind-if test="[[!item.data.iconEnd && item.data.icon]]">
+                                <span slot='startIcon' :class="[[item.data.icon]]"></span>
+                            </oj-bind-if>
+                        </oj-button>
+                    </oj-bind-if>
+
+                    <oj-bind-if test="[[item.data.isSeparator]]">
+                        <span role="separator" class="oj-toolbar-separator oj-flex-item"></span>
+                    </oj-bind-if>
+                </template>
+            </oj-bind-for-each>
+        </div>
+    </div>
+</oj-conveyor-belt>

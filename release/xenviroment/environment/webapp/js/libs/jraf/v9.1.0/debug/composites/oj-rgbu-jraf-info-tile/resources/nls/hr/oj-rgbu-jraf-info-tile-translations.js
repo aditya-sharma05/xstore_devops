@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Trenutačni odabir pločice",adminTileLabel:"Administrativna pločica",criticalSeverityLabel:"Ozbiljnost - Kritično",importantSeverityLabel:"Ozbiljnost - Važno",normalSeverityTile:"Ozbiljnost - Uobičajeno",noSeverityLabel:"Nema ozbiljnosti"});

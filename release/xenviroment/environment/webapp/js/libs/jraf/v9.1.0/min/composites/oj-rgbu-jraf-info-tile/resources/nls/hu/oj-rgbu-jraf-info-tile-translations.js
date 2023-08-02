@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Aktuális csempekijelölés",adminTileLabel:"Adminisztratív mozaik",criticalSeverityLabel:"Kritikus súlyosság",importantSeverityLabel:"Magas súlyosság",normalSeverityTile:"Normál súlyosság",noSeverityLabel:"Nem súlyos"});

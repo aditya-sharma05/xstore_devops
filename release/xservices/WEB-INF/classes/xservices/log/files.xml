@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LogDefinitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="LogConfig.xsd">
+
+<!-- NOTE that ${xservices.log.path} can be left blank, in which case this 
+     config generally routes all data loggingr to C:\xservices-log\  -->
+
+  <LogFiles>
+    <LogFile id="POSLOG">
+      <!-- base: one PosLog  per register -->
+      <Destination>
+          <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+          <Parameter name="file_path" value="${xservices.log.path}/PosLog.xml"/>
+          <Parameter name="file_per_object" value="false"/>
+          <Parameter name="file_per_register" value="true"/>
+          <Parameter name="file_per_businessday" value="false" />
+          <Parameter name="training_file_path" value="${xservices.log.path}/training/PosLog.xml"/>
+      </Destination>
+
+      <!-- enable the following for a trickle log -->     
+       <Destination>
+          <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+          <Parameter name="file_path" value="${xservices.log.path}/trickle/"/>
+          <Parameter name="file_per_object" value="true"/>
+          <Parameter name="file_per_register" value="false"/>
+          <Parameter name="training_file_path" value="${xservices.log.path}/training/trickle"/>
+        </Destination>
+
+       <!-- Needed for poslog / replication -->
+      <Destination class="dtv.logbuilder.writers.POSLogDTXWriter">
+        <Parameter name="PostInTrainingMode" value="false" />
+      </Destination> 
+       
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<POSLog xmlns="http://www.nrf-arts.org/IXRetail/namespace/"
+        xmlns:dtv="http://www.datavantagecorp.com/xstore/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.nrf-arts.org/IXRetail/namespace/ POSLog.xsd">]]></Header>
+      <Footer dtype="String"><![CDATA[</POSLog>]]></Footer>
+    </LogFile>
+    <LogFile id="TIMECARD">
+      <Destination>
+        <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+        <Parameter name="file_path" value="${xservices.log.path}/timecard.xml" />
+        <Parameter name="file_per_object" value="false" />
+        <Parameter name="training_file_path" value="${xservices.log.path}/training/timecard.xml" />
+      </Destination>
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Timecard xmlns:dtv="http://www.datavantagecorp.com/xstore/">]]></Header>
+      <Footer dtype="String"><![CDATA[</Timecard>]]></Footer>
+    </LogFile>
+    
+   <LogFile id="SECLOG">
+      <Destination>
+        <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+        <Parameter name="file_path" value="${xservices.log.path}/seclog.xml" />
+        <Parameter name="file_per_object" value="false" />
+        <Parameter name="training_file_path" value="${xservices.log.path}/training/seclog.xml" />
+      </Destination>
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<SecurityLog xmlns:dtv="http://www.datavantagecorp.com/xstore/">]]></Header>
+      <Footer dtype="String"><![CDATA[</SecurityLog>]]></Footer>
+    </LogFile>
+
+    <LogFile id="COMMON">
+      <Destination>
+        <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+        <Parameter name="file_path" value="${xservices.log.path}/commonlog.xml" />
+        <Parameter name="file_per_object" value="false" />
+        <Parameter name="training_file_path" value="${xservices.log.path}/training/commonlog.xml" />
+      </Destination>
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<CommonLog xmlns:dtv="http://www.datavantagecorp.com/xstore/">]]></Header>
+      <Footer dtype="String"><![CDATA[</CommonLog>]]></Footer>
+    </LogFile>
+
+    <LogFile id="CUSTOMER">
+      <Destination>
+        <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+        <Parameter name="file_path" value="${xservices.log.path}/customers.xml" />
+        <Parameter name="file_per_object" value="false" />
+        <Parameter name="training_file_path" value="${xservices.log.path}/training/customers.xml" />
+      </Destination>
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Customers xmlns="http://www.nrf-arts.org/IXRetail/namespace/"
+        xmlns:dtv="http://www.datavantagecorp.com/xstore/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.nrf-arts.org/IXRetail/namespace/Customers.xsd">]]></Header>
+      <Footer dtype="String"><![CDATA[</Customers>]]></Footer>
+    </LogFile>
+
+    <LogFile id="REMC">
+      <Destination>
+        <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+        <Parameter name="file_path" value="${xservices.log.path}/remc.xml" />
+        <Parameter name="file_per_object" value="false" />
+        <Parameter name="training_file_path" value="${xservices.log.path}/training/remc.xml" />
+      </Destination>
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<REMC xmlns="http://www.nrf-arts.org/IXRetail/namespace/"
+        xmlns:dtv="http://www.datavantagecorp.com/xstore/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.nrf-arts.org/IXRetail/namespace/REMC.xsd">]]></Header>
+      <Footer dtype="String"><![CDATA[</REMC>]]></Footer>
+    </LogFile>
+
+    <LogFile id="INVENTORY">
+      <Destination>
+        <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+        <Parameter name="file_path" value="${xservices.log.path}/inventory.xml" />
+        <Parameter name="file_per_object" value="false" />
+        <Parameter name="training_file_path" value="${xservices.log.path}/training/inventory.xml" />
+      </Destination>
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Inventory xmlns="http://www.nrf-arts.org/IXRetail/namespace/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.nrf-arts.org/IXRetail/namespace/Inventory.xsd">]]></Header>
+      <Footer dtype="String"><![CDATA[</Inventory>]]></Footer>
+    </LogFile>
+    <LogFile id="INVENTORY_COUNT">
+      <Destination>
+        <Class>dtv.logbuilder.writers.LogEntryFileWriter</Class>
+        <Parameter name="file_path" value="${xservices.log.path}/inventoryCount.xml" />
+        <Parameter name="file_per_object" value="false" />
+        <Parameter name="training_file_path" value="${xservices.log.path}/training/inventoryCount.xml" />
+      </Destination>
+      <Header dtype="String"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<InventoryCount xmlns:dtv="http://www.datavantagecorp.com/xstore/"
+    xsi:schemaLocation="http://www.nrf-arts.org/IXRetail/namespace/Inventory.xsd">]]></Header>
+      <Footer dtype="String"><![CDATA[</InventoryCount>]]></Footer>
+    </LogFile>  
+  </LogFiles>
+</LogDefinitions>

@@ -1,0 +1,1 @@
+define({ok:"عفواOK ئعفوا",cancel:"عفواCancel ئعفوا",yes:"عفواYes ئعفوا",no:"عفواNo ئعفوا",error:"عفواError ئعفوا",confirmation:"عفواConfirmation ئعفوا",information:"عفواInformation ئعفوا",warning:"عفواWarning ئعفوا"});

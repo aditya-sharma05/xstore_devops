@@ -1,0 +1,65 @@
+<script type="text/html" :id="[[favoritesListItemTemplateId]]">
+    <li :id="[[$module.getFavoriteGuid($data)]]"
+        :class="[[{'oj-disabled': ($data.isFolder && $data.children().length === 0), 
+        'jraf-section-header-wrapper': ($data['isFolder'] && $module.flatListEnabled())}]]">
+        <div :class="[[{'jraf-section-header': ($data['isFolder'] && $module.flatListEnabled())}]]">
+            <oj-bind-if test="[[!$module.hidePinnedFavorites()]]">
+                <oj-bind-if test="[[!$data.isFolder]]">
+                    <a href="#" class="jraf-menu-icon-link" on-click="[[$module.togglePin]]">
+                        <span role="img"
+                              :class="[[{'jraf-icon': true, 
+                              'jraf-pin-favorite-icon': !$data['isPinned'](),
+                              'jraf-unpin-favorite-icon': $data['isPinned']()}]]"
+                              :title="[[$data['isPinned']() ? $module.unpinFavoriteLabel : $module.pinFavoriteLabel]]"
+                              :aria-label="[[$data['isPinned']() ? $module.unpinFavoriteLabel : $module.pinFavoriteLabel]]"></span>
+                    </a>
+                </oj-bind-if>   
+                <oj-bind-if test="[[$data.isFolder]]">
+                    <span class="jraf-icon"></span>
+                </oj-bind-if>
+            </oj-bind-if>
+            <span class="oj-navigationlist-item-title" :title="[[$module.getLocalizedTitle($data)]]">
+                <oj-bind-text value="[[$module.getLocalizedTitle($data)]]"></oj-bind-text>
+            </span>
+        </div>
+        <oj-bind-if test="[[$data.isFolder]]">
+            <ul :class="[[{'jraf-favorites-sidebar-sublist': $module.flatListEnabled()}]]">
+                <!-- ko template: {name: $module.favoritesListItemTemplateId, foreach: $data.children} --><!-- /ko -->
+            </ul>
+        </oj-bind-if>
+    </li>
+</script>
+
+<oj-bind-if test="[[(menuDataLoaded && favoritesContentLoaded)]]">
+    <oj-bind-if test="[[!flatListEnabled()]]">
+        <oj-navigation-list
+            :id="[[favoritesNavListId]]"
+            :aria-label="[[favoritesListDescription]]"
+            class="jraf-sliding-navigation"
+            drill-mode="sliding"
+            on-oj-before-expand="[[beforeExpand]]"
+            on-oj-before-collapse="[[beforeCollapse]]"
+            on-oj-before-select='[[beforeSelect]]'
+            data-oj-context>
+            <ul>
+                <!-- ko template: {name: favoritesListItemTemplateId, foreach: favorites} --><!-- /ko -->
+            </ul>
+        </oj-navigation-list>
+    </oj-bind-if>
+    <oj-bind-if test="[[flatListEnabled()]]">
+        <oj-navigation-list
+            :id="[[favoritesFlatNavListId]]"
+            :aria-label="[[favoritesListDescription]]"
+            class="jraf-sliding-navigation"
+            drill-mode="none"
+            on-oj-before-select="[[beforeSelect]]"
+            data-oj-context>
+            <ul>
+                <!-- ko template: {name: favoritesListItemTemplateId, foreach: favorites} --><!-- /ko -->
+            </ul>
+        </oj-navigation-list>
+    </oj-bind-if>
+</oj-bind-if>
+<oj-bind-if test="[[!(menuDataLoaded && favoritesContentLoaded)]]">
+    <span class="jraf-loading" role="img" :title="[[loadingText]]" :aria-label="[[loadingText]]"></span>
+</oj-bind-if>

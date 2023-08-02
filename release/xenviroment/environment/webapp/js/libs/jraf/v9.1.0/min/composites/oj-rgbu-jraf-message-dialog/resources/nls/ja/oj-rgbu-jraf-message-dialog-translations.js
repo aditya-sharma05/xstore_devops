@@ -1,0 +1,1 @@
+define({ok:"OK",cancel:"取消",yes:"はい",no:"いいえ",error:"エラー",confirmation:"確認",information:"情報",warning:"警告"});

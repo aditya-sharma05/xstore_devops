@@ -1,0 +1,36 @@
+<div class="jraf-menu-filter-container jraf-menu-content-area jraf-horizontal-notifications-filter">
+    <div class="oj-flex oj-sm-flex-wrap-nowrap">
+        <oj-buttonset-many :id="[[notificationMenuButtonSetId]]"
+            chroming='borderless'
+            value="{{filterTabToggle}}" class="oj-flex-item jraf-notification-tab">
+            <oj-option value="[[filterTabId]]">
+                <div class="oj-button-label">
+                    <span class="jraf-tab-label"><oj-bind-text value="[[filterTabLabel]]"></oj-bind-text></span>
+                    <span data-bind="jrafBadgeValue: filtersCount" class="jraf-inline-badge"></span>
+                </div>
+                
+            </oj-option>
+            
+        </oj-buttonset-many>
+    </div>
+    <div :style.display="[[openFiltersTab() ? '' : 'none']]">
+        <oj-rgbu-jraf-apps-module module-options="[[filtersTabModuleOptions]]"></oj-rgbu-jraf-apps-module>
+    </div>
+</div>
+
+<!-- Important: ID binding must be before style so that style calculation can find this node -->
+<div :id="[[notificationsListId]]" :style.max-height="[[notificationListHeight]]" class="jraf-menu-body jraf-horizontal-notifications-menu">
+    <oj-bind-if test="[[menuDataLoaded]]">
+        <oj-rgbu-jraf-apps-module module-options="[[notificationsListModuleOptions]]"></oj-rgbu-jraf-apps-module>
+    </oj-bind-if>
+    
+    <oj-bind-if test="[[!menuDataLoaded]]">
+        <span class="jraf-sidebar-loading" role="img"><oj-bind-text value="[[loadingText]]"></oj-bind-text></span>
+    </oj-bind-if>
+</div>
+
+<div class="jraf-menu-footer">
+    <a href="#" on-click="[[launchDetailPage]]">
+        <span><oj-bind-text value="[[footerButtonLabel]]">&nbsp;</oj-bind-text></span>
+    </a>
+</div>

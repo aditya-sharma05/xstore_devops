@@ -1,0 +1,1 @@
+define({nextLabel:"다음",previousLabel:"이전"});

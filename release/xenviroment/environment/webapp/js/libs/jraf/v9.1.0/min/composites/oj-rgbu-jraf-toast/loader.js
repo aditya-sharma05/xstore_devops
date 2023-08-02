@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-toast.html","./oj-rgbu-jraf-toast","text!./component.json","css!./oj-rgbu-jraf-toast.min"],(function(t,e,o,a){"use strict";var s=JSON.parse(a),r=s.name;t.register(r,{view:e,viewModel:o,metadata:s})}));

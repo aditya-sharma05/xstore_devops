@@ -1,0 +1,89 @@
+<!-- NOTE: placing templates first so dynamic IDs are set before they are
+     referenced from other JET UI components. -->
+<script type="text/html" :id="[[autosuggestOptionTemplateId]]">
+    <oj-bind-if test="[[!$context.leaf]]">
+        <div class="jraf-tasks-autosuggest-group-name">
+            <oj-bind-text value="[[label]]"></oj-bind-text>
+        </div>
+    </oj-bind-if>
+    <oj-bind-if test="[[$context.leaf]]">
+        <div class="jraf-tasks-autosuggest-result oj-listbox-highlighter-section">
+            <span class="jraf-tasks-autosuggest-label">
+                <oj-bind-text value="[[label]]"></oj-bind-text>
+            </span>
+            <span class="jraf-tasks-autosuggest-path jraf-sub-text">
+                <oj-bind-text value="[[$data.path]]"></oj-bind-text>
+            </span>
+        </div>
+    </oj-bind-if>
+</script>
+
+<!-- Start Menu UI Content -->
+<div class="jraf-task-menu oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap">
+    <div class="jraf-task-menu-header jraf-menu-header jraf-menu-content-area oj-flex-item">
+        <!-- TODO make this into its own hierarchy UI component for reuse -->
+
+        <oj-bind-if test="[[isHierarchyRoot()]]">
+            <h3 class="jraf-menu-header-text">
+                <oj-bind-text value="[[rootNodeLabel]]"></oj-bind-text>
+            </h3>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[isHierarchyExpanded]]">
+            <oj-list-view class="jraf-hierarchy-drill-path"
+                data="[[hierarchyDrillPathDataProvider]]"
+                selection-mode="single"
+                selection="[[hierarchyNodeSelection]]"
+                on-selection-changed="[[handleHierarchyOptionChange]]">
+                <template slot="itemTemplate" data-oj-as="item">
+                    <li>
+                        <span :class="[[ { 'jraf-hierarchy-icon': true, 'jraf-hierarchy-home-icon': item.data.isHome} ]]"></span>
+                        <span>
+                            <oj-bind-text value="[[item.data.label]]"></oj-bind-text>
+                        </span>
+                    </li>
+                </template>
+            </oj-list-view>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[!isHierarchyRoot()]]">
+            <div class="jraf-hierarchy-drilled-node-container oj-flex">
+                <h3 class="jraf-menu-header-text oj-flex-item">
+                    <a href="#" class="jraf-hierarchy-back-link"
+                       on-click="[[navigateUpHierarchy]]">
+                        <oj-bind-text value="[[drilledNodeLabel]]"></oj-bind-text>
+                    </a>
+                </h3>
+                <oj-buttonset-many :id="[[expandCollapseButtonId]]"
+                        :aria-label="[[hierarchyExpansionLabel]]"
+                        class="oj-sm-flex-initial oj-sm-align-self-center oj-flex-item"
+                        value="{{hierarchyExpanded}}"
+                        chroming="borderless"
+                        display="icons">
+                    <oj-option value="hierarchyExpanded"
+                               :title="[[hierarchyExpansionLabel]]">
+                        <span slot='startIcon' :class="[[ hierarchyExpansionIcon() ]]"></span>
+                    </oj-option>
+                </oj-buttonset-many>
+            </div>
+        </oj-bind-if>
+    </div>
+    <div class="jraf-task-menu-search-container jraf-menu-content-area oj-flex-item oj-flex">
+        <div class="oj-flex-item">
+            <oj-combobox-one :id="[[searchInputId]]"
+                :aria-label="[[searchPlaceholderText]]"
+                :class="jraf-tasks-search-input"
+                placeholder="[[searchPlaceholderText]]"
+                min-length="1"
+                value="[[searchString]]"
+                options="[[getAutosuggestOptions]]"
+                options-keys.children="[[autosuggestOptionsKeys.children]]"
+                option-renderer="[[getAutosuggestOptionTemplate()]]"
+                on-oj-value-updated="[[handleSearchSubmission]]"
+                picker-attributes="[[searchInputPickerAttributes]]">
+                <span slot="end"></span>
+            </oj-combobox-one>
+        </div>
+    </div>
+    <div class="jraf-tasks-list-body oj-flex-item" data-bind="ojModule: tasksListBodyModule"></div>
+</div>

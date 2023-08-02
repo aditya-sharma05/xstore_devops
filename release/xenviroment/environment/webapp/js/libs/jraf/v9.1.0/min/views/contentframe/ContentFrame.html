@@ -1,0 +1,56 @@
+<div class="jraf-contentframe">
+    <div class="jraf-contentframe-header oj-flex oj-sm-align-items-center oj-sm-flex-wrap-nowrap">
+        <h3 class="oj-flex-item oj-sm-flex-initial jraf-contentframe-header-title" data-bind="text: headerTitle"></h3>
+        <div data-bind="if: headerModule" class="oj-flex-item jraf-contentframe-header-module">
+            <!-- ko ojModule: headerModule -->
+            <!-- /ko -->
+        </div>
+        <div class="oj-flex-item oj-sm-flex-initial jraf-contentframe-header-toolbar">
+            <div data-bind="ojComponent: {component: 'ojToolbar'}">
+                <!-- User buttons go here eventually. Add a pipe divider then. -->
+                <!-- Content frame defined buttons -->
+                <!-- ko if: hasPanels -->
+                <div data-bind="ojComponent: {
+                    component: 'ojButtonset',
+                    focusManagement: 'none',
+                    checked: selectedToolbarButtons
+                }">
+                    <!-- ko foreach: defaultPanels -->
+                    <label data-bind="attr: {for: id}"></label>
+                    <input type="checkbox" data-bind="value: id, attr: {id: id}, ojComponent: {
+                        component: 'ojButton',
+                        label: label,
+                        icons: {
+                            start: icon+' jraf-icon'
+                        },
+                        display: 'icons'
+                    }"/>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <div class="oj-offcanvas-outer-wrapper jraf-contentframe-body">
+        <div class="jraf-contentframe-content-wrapper" data-bind="css:{'jraf-panel-open': compactMainContent}">
+            <!-- Scrolling needs to be split from the resizing to allow absolute
+                positioning to work right inside the module -->
+            <div data-bind="attr:{id: mainContentId}, ojModule: mainContentModule" 
+                class="jraf-contentframe-content-scrolling"></div>
+        </div>
+        <div class="oj-offcanvas-glasspane oj-offcanvas-glasspane-dim" data-bind="visible: showModalOverlay"></div>
+        <div class="oj-offcanvas-end jraf-contentframe-panel-wrapper" 
+             data-bind="attr:{id: contentFrameDrawerId}, if: activePanelModuleBinding">
+            <div data-bind="css: {'jraf-contentframe-panel-loading': panelLoading}" 
+                class="jraf-contentframe-panel-inner-wrapper">
+                <div data-bind="ojModule: activePanelModuleBinding"></div>
+            </div>
+            <div data-bind="if: panelLoading">
+                <div class="jraf-contentframe-loading-icon">
+                    <div class="jraf-contentframe-loading"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer eventually goes here -->
+</div>

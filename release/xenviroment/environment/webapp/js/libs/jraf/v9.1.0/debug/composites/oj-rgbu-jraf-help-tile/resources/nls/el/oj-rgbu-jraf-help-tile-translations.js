@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Μάθετε περισσότερα",videoHelpLaunchLabel:"Παρακολούθηση εκπαιδευτικού προγράμματος"});

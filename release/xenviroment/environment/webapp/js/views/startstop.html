@@ -1,0 +1,74 @@
+<!--
+ Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <h2><span data-bind="text: headerLabel"></span></h2>
+
+  <oj-bind-for-each data="[[startStopFunctions]]">
+    <template>
+      <div class="oj-flex oj-sm-12 oj-sm-justify-content-center">
+        <div class="oj-flex oj-sm-12 oj-md-6 oj-lg-4">
+          <div class="oj-flex oj-flex-item oj-panel xenv-tile-margin">
+            <div class="oj-flex oj-flex-item oj-sm-12 oj-lg-9">
+              <h3 tabindex="0">
+                <oj-bind-text value="[[$current.data.appName]]"></oj-bind-text>
+              </h3>
+            </div>
+
+            <!-- Application Status -->
+            <div class="oj-flex-item oj-sm-12" :id="runningState-[[$current.data.appName]]-running"
+                 data-bind="visible: $current.data.running">
+
+              <div :id="runningIconIndicator" class="oj-fwk-icon text-circle"
+                   style="background: green">
+                <span class="oj-fwk-icon oj-fwk-icon-checkmark" style="color: white"
+                      aria-hidden="true"></span>
+              </div>
+              <span style="font-size: 8pt;" data-bind="text: runningLabel"></span>
+            </div>
+            <div class="oj-flex-item oj-sm-12" :id="runningState-[[$current.data.appName]]-stopped"
+                 data-bind="visible: !$current.data.running">
+              <div id="notRunningIconIndicator" class="oj-fwk-icon text-circle"
+                   style="background: red" aria-hidden="true">
+                <span class="oj-fwk-icon oj-fwk-icon-cross" style="color: white" aria-hidden="true"></span>
+              </div>
+              <span style="font-size: 8pt;" data-bind="text: stoppedLabel"></span>
+            </div>
+
+            <!-- Start and Stop Control -->
+            <div class="oj-flex oj-flex-item oj-sm-justify-content-space-around" style="padding-top: 4px;">
+              <oj-button class="xenv-left-justified xenv-two-button" on-oj-action="[[doStartStop]]"
+                         :id="[[$current.data.startActionId]]">
+                <div slot="startIcon" aria-hidden="true">
+                  <div class="oj-fwk-icon text-circle" style="background: black" aria-hidden="true">
+                    <span class="oj-fwk-icon oj-fwk-icon-checkmark" style="color: white"
+                          aria-hidden="true"></span>
+                  </div>
+                </div>
+                <span>
+              <oj-bind-text value="{{startLabel}}"></oj-bind-text>
+            </span>
+              </oj-button>
+              <oj-button class="xenv-left-justified xenv-two-button" on-oj-action="[[doStartStop]]"
+                         :id="[[$current.data.stopActionId]]">
+                <div slot="startIcon">
+                  <div class="oj-fwk-icon text-circle" style="background: black" aria-hidden="true">
+                    <span class="oj-fwk-icon oj-fwk-icon-cross" style="color: white" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <span>
+                <oj-bind-text value="{{stopLabel}}"></oj-bind-text>
+            </span>
+              </oj-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </oj-bind-for-each>
+
+
+  <oj-rgbu-jraf-snackbar :id="[[controlSnackbarId]]"></oj-rgbu-jraf-snackbar>
+
+</div>

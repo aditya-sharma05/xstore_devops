@@ -1,0 +1,81 @@
+<div class="jraf-global-navigation-bar-root" data-oj-context>
+    <oj-conveyor-belt content-parent="[[buttonSetSelector]]">
+        <div class="oj-toolbar-row">
+            <oj-toolbar class="jraf-global-navigation-bar" :aria-controls="[[menuContainerId]]">        
+                <oj-buttonset-one :id=[[buttonSetId]]
+                :aria-label="[[menuItemButtonSetLabel]]"
+                value="{{mainMenuSelectedItemId}}"
+                on-value-changed="[[handleButtonPress]]">   
+                    <oj-bind-for-each data="[[uiMenuItems]]">
+                        <template data-oj-as="menu">
+                            <oj-option value="[[menu.data.id]]" :id="[[menu.data.guid]]">
+                                <span class="jraf-navbar-label">
+                                    <span :class="[[menu.data.icon]]"></span>
+                                    <oj-bind-if test="[[menu.data.badgingEnabled]]">
+                                        <span class="jraf-navbar-badge-value">
+                                            <oj-bind-text value="[[menu.data.badgeValue]]"></oj-bind-text>
+                                        </span>
+                                    </oj-bind-if>
+                                    <span><oj-bind-text value="[[menu.data.iconLabel]]"></oj-bind-text></span>
+                                </span>
+                            </oj-option>
+                        </template>
+                    </oj-bind-for-each> 
+               </oj-buttonset-one> 
+            </oj-toolbar>
+            <oj-bind-if test="[[showPinnedFavorites()]]">
+            <oj-toolbar class="jraf-global-navigation-bar">        
+                <oj-buttonset-one :id=[[pinnedFavoritesButtonSetId]]
+                value="{{pinnedFavoritesSelectedItemId}}"
+                on-value-changed="[[handlePinnedFavoriteButtonPress]]">   
+                    <oj-bind-for-each data="[[pinnedFavorites]]">
+                        <template data-oj-as="pinnedfavorite">
+                            <oj-option value="[[pinnedfavorite.data.pinnedFavoriteId]]">
+                                <span slot="startIcon" :class="[[getPinnedFavoriteIcon(pinnedfavorite.data)]]"></span>
+                                <span class="jraf-navbar-label">
+                                    <span><oj-bind-text value="[[getPinnedFavoriteIconLabel(pinnedfavorite.data)]]"></oj-bind-text></span>
+                                </span>
+                            </oj-option>
+                        </template>
+                    </oj-bind-for-each>
+                </oj-buttonset-one>
+                <oj-menu slot="contextMenu" :id="[[pinnedFavoritesContextMenuId]]" :aria-label="[[pinnedFavoritesMenuAriaLabel]]"
+                    on-oj-before-open='[[pinnedFavoriteContextBeforeOpen]]' on-oj-action='[[pinnedFavoriteContextSelect]]'>
+                    <oj-option value="Unpin">
+                        <span><oj-bind-text value="[[pinnedFavoriteMenuUnpin]]"></oj-bind-text></span>
+                    </oj-option>
+                    <oj-option value="UnpinAndRemove">
+                        <span><oj-bind-text value="[[pinnedFavoriteMenuUnpinAndRemove]]"></oj-bind-text></span>
+                    </oj-option>
+                    <oj-option value="EditFavorites">
+                        <span><oj-bind-text value="[[pinnedFavoriteMenuEditFavorites]]"></oj-bind-text></span>
+                    </oj-option>
+                </oj-menu>
+            </oj-toolbar>
+            </oj-bind-if>
+            <oj-bind-if test="[[showSettingsMenu()]]">
+                <oj-toolbar class="jraf-global-navigation-bar">   
+                    <oj-buttonset-one :id=[[settingsButtonSetId]]
+                    value="{{settingsMenuSelectedItemId}}"
+                    on-value-changed="[[handleButtonPress]]">
+                        <oj-bind-for-each data="[[settingsMenuItems]]">
+                            <template data-oj-as="settings">
+                                <oj-option value="[[settings.data.id]]" :id="[[settings.data.guid]]">
+                                    <span class="jraf-navbar-label">
+                                        <span :class="[[settings.data.icon]]"></span>
+                                        <oj-bind-if test="[[settings.data.badgingEnabled]]">
+                                            <span class="jraf-navbar-badge-value">
+                                                <oj-bind-text value="[[settings.data.badgeValue]]"></oj-bind-text>
+                                            </span>
+                                        </oj-bind-if>
+                                        <span><oj-bind-text value="[[settings.data.iconLabel]]"></oj-bind-text></span>
+                                    </span>
+                                </oj-option>
+                            </template>
+                        </oj-bind-for-each>
+                    </oj-buttonset-one>
+                </oj-toolbar> 
+            </oj-bind-if>
+        </div>
+    </oj-conveyor-belt>
+</div>

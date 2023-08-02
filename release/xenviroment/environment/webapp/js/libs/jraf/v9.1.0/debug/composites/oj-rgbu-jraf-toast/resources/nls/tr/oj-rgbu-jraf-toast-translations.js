@@ -1,0 +1,1 @@
+define({dismiss:"At",standardInfoTitle:"Bilgi Mesajı",standardWarningTitle:"Uyarı Mesajı",standardErrorTitle:"Hata Mesajı",standardSuccessTitle:"Başarı Mesajı",announcementInfoTitle:"Bilgi Mesajı",announcementWarningTitle:"Uyarı Mesajı",announcementErrorTitle:"Hata Mesajı",announcementSuccessTitle:"Başarı Mesajı"});

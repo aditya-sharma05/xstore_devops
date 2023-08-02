@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Selección de mosaico actual",adminTileLabel:"Mosaico administrativo",criticalSeverityLabel:"Gravedad crítica",importantSeverityLabel:"Gravedad importante",normalSeverityTile:"Gravedad normal",noSeverityLabel:"Sin gravedad"});

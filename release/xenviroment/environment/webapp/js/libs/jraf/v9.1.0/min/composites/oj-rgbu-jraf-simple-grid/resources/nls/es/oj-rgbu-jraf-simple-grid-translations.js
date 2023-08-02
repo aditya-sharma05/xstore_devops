@@ -1,0 +1,1 @@
+define({filterPlaceholder:"Filtro",msgNoData:"No hay elementos para mostrar.",msgNoFilteredData:"Ningún elemento coincide con los filtros actuales."});

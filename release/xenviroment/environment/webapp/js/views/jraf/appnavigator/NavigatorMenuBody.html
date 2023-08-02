@@ -1,0 +1,26 @@
+<div class="jraf-menu-body" :style.max-height="[[getAppListHeight()]]">
+    <oj-bind-if test="[[menuDataLoaded]]">
+        <oj-navigation-list
+            class="jraf-sliding-navigation"
+            :id="[[navMenuId]]"
+            :aria-label="[[appListDescription]]"
+            on-oj-before-select="[[beforeSelect]]"
+            data="[[navDataSource]]">
+            <template slot="itemTemplate">
+                <li :id="[[$current.data.domId]]" :title="[[$current.data.label]]" :aria-label="[[$current.data.label]]">
+                    <div>
+                        <span class="jraf-icon oj-navigationlist-item-icon" :class="[[ {'jraf-selected-app-icon': $current.data.selected} ]]"
+                              :aria-label="[[ $current.data.selected ? $data.currentSelectionLabel : '' ]]"></span>
+                        <span class="oj-navigationlist-item-label">
+                            <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+                        </span>
+                    </div>
+                </li>
+            </template>
+        </oj-navigation-list>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[!menuDataLoaded()]]">
+        <span class="jraf-loading" role="img" :title="[[loadingText]]"></span>
+    </oj-bind-if>
+</div>

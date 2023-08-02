@@ -1,0 +1,1 @@
+define({dismiss:"取下げ",standardInfoTitle:"情報メッセージ",standardWarningTitle:"警告メッセージ",standardErrorTitle:"エラー・メッセージ",standardSuccessTitle:"成功メッセージ",announcementInfoTitle:"情報メッセージ",announcementWarningTitle:"警告メッセージ",announcementErrorTitle:"エラー・メッセージ",announcementSuccessTitle:"成功メッセージ"});

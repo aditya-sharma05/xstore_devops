@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"附加信息",toolbarLabel:"工具栏",contextualHelpLabel:"帮助",closeLabel:"关闭"});

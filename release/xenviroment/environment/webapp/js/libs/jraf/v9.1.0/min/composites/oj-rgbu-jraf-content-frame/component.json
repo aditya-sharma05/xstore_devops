@@ -1,0 +1,127 @@
+{
+    "name": "oj-rgbu-jraf-content-frame",
+    "displayName": "Content Frame",
+    "description": "The Content Frame component is largely a layout component that divides application content into three standards areas: a header area, a local area, and a contextual area. The header area displays a title for the content and can also be configured to render custom content through the header slot. The local area and contextual area render below the header area. The local area is the main UI within the component; whereas, contextual information can be rendered in the contextual area. The header area also renders a configurable sets of application-provided buttons and common-feature buttons that allow the user to open panels within the contextual area for additional information, contextual help, and more.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "header": {
+            "displayName": "Header",
+            "description": "Content header / title that renders in the header area of the component. If not provided, a header must be provided in the header slot.",
+            "type": "string",
+            "required": false
+        },
+        "customButtons": {
+            "displayName": "Custom Buttons",
+            "description": "Custom application buttons that may be added to the content frame header. Each button object must have a 'label' property for the button label and pane header and an iconClass that controls what icon to render. Optionally, the button object may have a disabled property that controls whether or not the button is disabled.",
+            "type": "array",
+            "required": false
+        },
+        "additionalInfo": {
+            "displayName": "Additional Information",
+            "description": "Specific Properties for the Additional Information panel",
+            "required": false,
+            "type": "object",
+            "properties": {
+                "displayed": {
+                    "displayName": "Displayed",
+                    "description": "Whether the Additional Information button is displayed or not. Default false.",
+                    "type": "boolean",
+                    "required": false,
+                    "value": false
+                },
+                "label": {
+                    "displayName": "Label",
+                    "description": "A custom label for the Additional Information panel. Default: Additional Information",
+                    "type": "string",
+                    "required": false,
+                    "value": ""
+                },
+                "disabled": {
+                    "displayName": "Disabled",
+                    "description": "Disables the Additional Information button. This property supports observables. Default false.",
+                    "type": "boolean",
+                    "required": false,
+                    "value": false
+                }
+            }
+        },
+        "contextualHelp": {
+            "displayName": "Contextual Help",
+            "description": "Specific Properties for the Contextual Help panel",
+            "required": false,
+            "type": "object",
+            "properties": {
+                "displayed": {
+                    "displayName": "Displayed",
+                    "description": "Whether the Contextual Help button is displayed or not. Default false.",
+                    "type": "boolean",
+                    "required": false,
+                    "value": false
+                },
+                "label": {
+                    "displayName": "Label",
+                    "description": "A custom label for the Contextual Help panel. Default: Help",
+                    "type": "string",
+                    "required": false,
+                    "value": ""
+                },
+                "disabled": {
+                    "displayName": "Disabled",
+                    "description": "Disables the Contextual Help button. This property supports observables. Default false.",
+                    "type": "boolean",
+                    "required": false,
+                    "value": false
+                }
+            }
+        },
+        "compact": {
+            "displayName": "Compact",
+            "description": "Removes the padding in both the local area and contextual area.",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "responsivePanelWidth": {
+            "displayName": "Responsive Panel Width",
+            "description": "Contextual area panel width is based on screen width.  (0 to 1279 => 250px, 1280 to 1439 => 350px, 1440 to 1679 => 370px, 1680+ => 400px) Default is false. (250px)",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        }
+    },
+    "methods": {
+        "openContextualArea": {
+            "description": "Opens the contextual area via an action in the content area.",
+            "params": [{
+                    "name": "panelIndex",
+                    "description": "Open the contextual area rendering the contextual area panel identified by this index.",
+                    "type": "number"
+            }],
+            "return": "undefined"
+        },
+        "closeContextualArea": {
+            "description": "Close the contextual area.",
+            "params": [],
+            "return": "undefined"
+        }
+    },
+    "slots": {
+        "header": {
+            "displayName": "Header",
+            "description": "The header area of the component where a custom title can be provided and additional controls and components can be optionally rendered."
+        },
+        "localArea": {
+            "displayName": "Local Area",
+            "description": "The local area of the component where the main page content is displayed."
+        },
+        "footer": {
+            "displayName": "Footer",
+            "description": "The footer area of the component displayed below the local area"
+        },
+        "contextualArea": {
+            "displayName": "Contextual Area",
+            "description": "The contextual area of the component where information contextual to the local area is rendered. The contextual information must be coded as contextual area panels, where each panel corresponds to the buttons that have been enabled in the component's header. Each contextual area panel must be an oj-defer wrapping the panel UI and assigned to the contextualArea slot. The order of the contextual area panels must match the order that the header buttons are rendered in so that each button opens the correct panel."
+        }
+    }
+}

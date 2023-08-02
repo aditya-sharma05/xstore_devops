@@ -1,0 +1,65 @@
+<oj-dialog :id="[[popupId]]" 
+    class="jraf-alerts-dialog"
+    initial-visibility="hide"
+    dialog-title="[[popupTitle]]"
+    on-oj-before-open='[[onBeforeOpen]]'>
+    <div slot="body" class='jraf-alerts-dialog-body'>
+        <div class="jraf-alerts-dialog-body-contents">
+            <oj-bind-if test="[[hasMultipleAlerts]]">
+                <oj-conveyor-belt>
+                    <oj-tab-bar :id="[[tabbarId]]"
+                        edge="top"
+                        selection="{{selectedAlertId}}"
+                        data="[[alertsDataProvider]]"
+                        class="oj-sm-condense"
+                        on-selection-changed="[[handleAlertSelection]]">
+                        <template slot="itemTemplate" data-oj-as="item">
+                          <li>
+                            <a href="#">
+                              <oj-bind-text value="[[item.data.alertContext.subject]]"></oj-bind-text>
+                            </a>
+                          </li>
+                        </template>
+                    </oj-tab-bar>
+                </oj-conveyor-belt>
+            </oj-bind-if>
+            <div :id="[[alertDetailsDivId]]" class="jraf-alerts-details">
+                <div class="oj-flex-bar oj-sm-flex-direction-column oj-sm-align-items-flex-start" 
+                     :style.width="100%">
+                    <div class="oj-flex-bar-start jraf-alerts-subject-line">
+                        <h3><oj-bind-text value="[[selectedAlertSubject]]"></oj-bind-text></h3>
+                    </div>
+                    <oj-bind-if test="[[!selectedAlertHasHtmlBody()]]">
+                        <span class="oj-flex-bar-middle jraf-alerts-body-text">
+                            <oj-bind-text value="[[selectedAlertBody]]"></oj-bind-text>
+                        </span>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[selectedAlertHasHtmlBody]]">
+                        <div class="oj-flex-bar-middle jraf-alerts-body-html" style="width: 100%;">
+                            <iframe :id="[[htmlFrameId]]" on-load="[[handleHtmlFrameLoaded]]"></iframe>
+                        </div>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[selectedAlertHasAttachments]]">
+                        <div class="jraf-alerts-attachments">
+                            <oj-toolbar chroming="solid">
+                                <oj-bind-for-each data="[[selectedAlertAttachments]]">
+                                    <template data-oj-as="item">
+                                        <oj-button on-oj-action="[[getAttachmentSelectHandler(item.data.fileName)]]">
+                                            <oj-bind-text value="[[item.data.fileName]]"></oj-bind-text>
+                                            <span slot="startIcon" class="oj-icon jraf-alerts-download-attachment-icon"></span>
+                                        </oj-button>
+                                    </template>
+                                </oj-bind-for-each>
+                            </oj-toolbar>
+                        </div>
+                    </oj-bind-if>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div slot="footer">
+        <oj-button id="okButton" on-oj-action="[[done]]">
+            <oj-bind-text value="[[doneButtonLabel]]"></oj-bind-text>
+        </oj-button>
+    </div>
+</oj-dialog>

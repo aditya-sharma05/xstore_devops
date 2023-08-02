@@ -1,0 +1,1 @@
+define(["jraf/utils/ValidationUtils"],(function(e){"use strict";function s(s){if(!e.isObjectStrict(s)||!e.isArray(s.values))throw new TypeError("ValueList: Missing required values list");this.ue(s.values)}return s.prototype.ue=function(e){this.values=[];for(var s=0;s<e.length;s++)this.values.push({label:e[s].label||"",value:e[s].value||"",message:e[s].message||""})},s}));

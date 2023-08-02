@@ -1,0 +1,17 @@
+{
+    "name": "oj-rgbu-jraf-help-tile",
+    "displayName": "Help Tile",
+    "description": "A component that displays tiles for help content and can be rendered in the contextual area of the oj-rgbu-jraf-content-frame.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "topics": {
+            "displayName": "Help Topics",
+            "description": "An array of help topics to display. Help Topics have the following properties: name - The title of the topic; description - The description of the topic (Maximum 500 characters); url - The URL of the topic's content; type - The type of the topic's content. Valid options are 'document' and 'video'; imageSrc - An optional URL for a preview image to display on the topic; color - An optional color for the background of the topic's icon. The icon will be displayed if no preview image is provided. Valid colors are: lightblue, red, lightgreen, purple, blue, grey, orange, turquoise, and green",
+            "type": "array",
+            "required": true
+        }
+    },
+    "methods": {},
+    "slots": {}
+}

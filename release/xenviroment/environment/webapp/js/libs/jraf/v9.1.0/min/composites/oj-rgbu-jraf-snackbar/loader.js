@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-snackbar.html","./oj-rgbu-jraf-snackbar","text!./component.json","css!./css/oj-rgbu-jraf-snackbar.min"],(function(a,e,r,s){"use strict";var t=JSON.parse(s),o=t.name;a.register(o,{view:e,viewModel:r,metadata:t})}));

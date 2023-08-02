@@ -1,0 +1,15 @@
+<div class="jraf-contentframe-panel-header oj-flex oj-sm-align-items-center">
+    <h3 class="oj-flex-item" data-bind="text:title"></h3>
+    <button class="oj-flex-item oj-sm-flex-initial" data-bind="ojComponent: {
+        component: 'ojButton',
+        label: closeLabel,
+        icons: {
+            start: 'jraf-contentframe-close-icon'
+        },
+        chroming: 'half',
+        display: 'icons'
+    }, click: closePanel"></button>
+</div>
+<div class="jraf-contentframe-panel-body">
+    <div data-bind="ojModule: contentModule"></div>
+</div>

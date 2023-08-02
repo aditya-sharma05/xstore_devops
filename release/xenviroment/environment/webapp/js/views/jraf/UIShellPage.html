@@ -1,0 +1,116 @@
+<oj-bind-if test="[[!isMobileLayout()]]">
+    <oj-rgbu-jraf-apps-module 
+        class="jraf-global-header-wrapper oj-sm-flex-initial oj-flex-item" 
+        module-options="[[globalHeaderModuleOptions]]"></oj-rgbu-jraf-apps-module>
+</oj-bind-if>
+
+<!-- Everything on the page below the .jraf-global-header-wrapper -->
+<div class="jraf-global-bottom-content oj-flex-item" :class="[[{'jraf-mobile-layout': isMobileLayout}]]">
+
+    <div class="oj-flex oj-sm-flex-wrap-nowrap">
+        <oj-bind-if test="[[renderSidebarArea() && !isMobileLayout()]]">
+            <oj-rgbu-jraf-apps-module 
+                class="jraf-sidebar-wrapper oj-sm-flex-initial oj-flex-item"
+                module-options="[[globalSidebarModuleOptions]]"></oj-rgbu-jraf-apps-module>
+        </oj-bind-if>
+        <div class="oj-flex-item oj-offcanvas-outer-wrapper jraf-sidebar-menu-wrapper">
+            <div class="oj-offcanvas-start jraf-sidebar-menu"
+                 :id="[[menuDrawerId]]">
+                <oj-bind-if test="[[activeMenuModuleBinding]]">
+                    <div :class="[[{'jraf-sidebar-menu-loading': menuLoading}]]">
+                        <div data-bind="ojModule: activeMenuModuleBinding"></div>
+                    </div>
+                    <div>
+                        <oj-bind-if test="[[menuLoading]]">
+                            <div class="jraf-sidebar-menu-loading-icon">
+                                <div class="jraf-sidebar-loading"></div>
+                            </div>
+                        </oj-bind-if>
+                    </div>
+                </oj-bind-if>
+            </div>
+            <div class="oj-offcanvas-start jraf-mobile-menu"
+                 :id="[[mobileNavigationDrawerId]]">
+                <oj-bind-if test="[[supportsNavigation]]">
+                    <oj-rgbu-jraf-apps-module 
+                        module-options="[[mobileNavigationModuleOptions]]"></oj-rgbu-jraf-apps-module>
+                </oj-bind-if>
+            </div>
+
+            <oj-bind-if test="[[isMobileLayout()]]">
+                <oj-rgbu-jraf-apps-module 
+                    module-options="[[mobileHeaderModuleOptions]]"></oj-rgbu-jraf-apps-module>
+            </oj-bind-if>
+
+            <oj-bind-if test="[[renderNavigationBar() && !isMobileLayout()]]">
+                <oj-rgbu-jraf-apps-module 
+                    class="jraf-global-navigation-bar-wrapper"
+                    module-options="[[globalNavigationBarModuleOptions]]"></oj-rgbu-jraf-apps-module>
+            </oj-bind-if>
+
+            <oj-bind-if test="[[hasHorizontalBarLayoutSupport]]">
+                <oj-popup style="display: none;"
+                          class="jraf-global-navigation-bar-menu jraf-global-navigation-popup"
+                          :id="[[popupMenuContainerId]]"
+                          initial-focus="popup"
+                          on-oj-animate-start="[[cancelAnimation]]">
+                    <oj-bind-if test="[[activePopupMenuModuleBinding]]">
+                        <div data-bind="ojModule: activePopupMenuModuleBinding"></div>
+                    </oj-bind-if>
+                </oj-popup>
+            </oj-bind-if>
+            
+            <oj-rgbu-jraf-apps-module 
+                :id="[[mainAreaId]]"
+                class="jraf-global-main-area-wrapper"
+                module-options="[[globalMainAreaModuleOptions]]"></oj-rgbu-jraf-apps-module>
+            <div class="oj-offcanvas-end jraf-mobile-menu" :id="[[additionalOptionsDrawerId]]">
+                <oj-bind-if test="[[additionalOptionsModuleOptions]]">
+                    <oj-rgbu-jraf-apps-module 
+                        module-options="[[additionalOptionsModuleOptions]]"></oj-rgbu-jraf-apps-module>
+                </oj-bind-if>
+            </div>
+        </div>
+    </div>
+</div>
+
+<oj-popup style="display: none;"
+          :id="[[mobileSearchPopupId]]"
+          chrome="none"
+          auto-dismiss="none"
+          position.at.vertical="bottom"
+          position.my.vertical="bottom"
+          on-oj-animate-start="[[mobileSearchAnimation]]">
+    <oj-bind-if test="[[mobileSearchModuleOptions]]">
+        <oj-rgbu-jraf-apps-module 
+            module-options="[[mobileSearchModuleOptions]]"></oj-rgbu-jraf-apps-module>
+    </oj-bind-if>
+</oj-popup>
+
+<!-- ojDialog for displaying "popup" content in UI Shell -->
+<div class="jraf-global-popup">
+    <oj-dialog style="display: none" :id="[[popupComponentId]]">
+        <div slot="body">
+            <oj-bind-if test="[[popupModuleBinding() || popupModuleOptions()]]">
+                <oj-rgbu-jraf-apps-module 
+                    :id="[[popupAppsModuleId]]"
+                    class="jraf-global-popup-apps-module"
+                    module-binding="[[popupModuleBinding]]"
+                    module-options="[[popupModuleOptions]]"
+                    before-load-module-handler="[[popupBeforeLoadModuleHandler]]"
+                    after-load-module-handler="[[popupAfterLoadModuleHandler]]"
+                    transition-end-handler="[[popupTransitionEndHandler]]"
+                    after-unload-module-handler="[[popupAfterUnloadModuleHandler]]"></oj-rgbu-jraf-apps-module>
+            </oj-bind-if>
+        </div>
+        <div class="jraf-global-popup-footer" slot="footer"></div>
+    </oj-dialog>
+</div>
+<oj-rgbu-jraf-message-dialog :id="[[errorDialogId]]" message-text="[[errorMessage]]"
+                     level="error" data-oj-context></oj-rgbu-jraf-message-dialog>
+<oj-rgbu-jraf-message-dialog :id="[[confirmLogoutId]]"
+                     level="warning" type="yesNo"
+                     message-text="[[confirmLogoutText]]"
+                     ok-action="[[logoutUser]]"></oj-rgbu-jraf-message-dialog>
+
+<div :id="[[globalModalPageContainerId]]" class="jraf-global-modal-page"></div>

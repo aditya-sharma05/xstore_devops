@@ -1,0 +1,1 @@
+define({close:"Kapat"});

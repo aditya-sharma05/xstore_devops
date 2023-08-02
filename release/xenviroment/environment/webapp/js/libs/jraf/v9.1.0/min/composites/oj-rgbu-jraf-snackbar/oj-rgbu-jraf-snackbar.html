@@ -1,0 +1,82 @@
+<div class="oj-rgbu-jraf-snackbar">
+    <div :id='[[snackbarAnchorId]]' class="oj-rgbu-jraf-snackbar-snack-wrapper">
+        <!-- ko with: activeSnack -->
+        <div class="oj-flex oj-sm-align-items-center oj-sm-flex-wrap-nowrap oj-rgbu-jraf-snackbar-snack">
+            <div class="oj-flex-item oj-sm-flex-initial jraf-flex-min">
+                <span :class="[[severityIcon]]" :aria-label="[[severityLabel]]" role="img"></span>
+            </div>
+            <div class="oj-flex-item oj-rgbu-jraf-snackbar-snack-message">
+                <div>
+                    <span :title="[[message]]">
+                        <oj-bind-text value="[[message]]"></oj-bind-text>
+                    </span>
+                </div>
+                <oj-bind-if test="[[hasMultipleMessages]]">
+                    <a href="#" on-click="[[$parent.showAllMessages]]">
+                        <span><oj-bind-text value="[[$parent.translations.seeAllLabel]]"></oj-bind-text></span>
+                    </a>
+                </oj-bind-if>
+            </div>
+            <div class="oj-flex-item oj-sm-flex-initial jraf-flex-min oj-flex">
+                <oj-bind-if test="[[$data.secondaryButton]]">
+                <oj-button chroming='borderless' on-oj-action='[[$parent.fireSecondary]]'>
+                        <span><oj-bind-text value="[[secondaryButton.label]]"></oj-bind-text></span>
+                </oj-button>
+                <span role="separator" class="oj-toolbar-separator"></span>
+                </oj-bind-if>
+                <oj-bind-if test="[[$data.primaryButton]]">
+                <oj-button chroming='borderless' on-oj-action='[[$parent.firePrimary]]'>
+                        <span><oj-bind-text value="[[primaryButton.label]]"></oj-bind-text></span>
+                </oj-button>
+                </oj-bind-if>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+
+<!-- ko with: activeSnack -->
+<oj-dialog
+    style="display: none; max-height: 250px;"
+    :id="[[$parent.dialogId]]"
+    dialog-title=""
+    initial-visibility="hide"
+    cancel-behavior="[[$data.dialogDismissBehavior]]"
+    on-oj-close="[[$parent.handleDialogClose]]">
+    <div slot="header" class="oj-rgbu-jraf-snackbar-snack-dialog-header">
+        <span role="presentation" :class="[[dialogHeaderSeverityIcon]]"></span>
+        <span class="oj-dialog-title">
+            <oj-bind-text value="[[severityLabel]]"></oj-bind-text>
+        </span>
+    </div>
+    <div slot="body">
+        <oj-bind-if test="[[$data.messageList]]">
+            <oj-bind-for-each data="[[messageList]]">
+                <template data-oj-as="ojRgbuJrafSnackbarMsg">
+                    <div>
+                        <span>
+                            <oj-bind-text value="[[ojRgbuJrafSnackbarMsg.data]]"></oj-bind-text>
+                        </span>
+                    </div>
+                </template>
+            </oj-bind-for-each>
+        </oj-bind-if>
+    </div>
+    <div slot="footer">
+        <oj-bind-if test="[[$data.secondaryButton]]">
+            <oj-button on-oj-action="[[$parent.fireSecondary]]">
+                <span>
+                    <oj-bind-text value="[[$data.secondaryButton.label]]"></oj-bind-text>
+                </span>
+            </oj-button>
+        </oj-bind-if>
+        <oj-bind-if test="[[$data.primaryButton]]">
+            <oj-button on-oj-action="[[$parent.firePrimary]]">
+                <span>
+                    <oj-bind-text value="[[$data.primaryButton.label]]"></oj-bind-text>
+                </span>
+            </oj-button>
+        </oj-bind-if>
+    </div>
+</oj-dialog>
+<!-- /ko -->

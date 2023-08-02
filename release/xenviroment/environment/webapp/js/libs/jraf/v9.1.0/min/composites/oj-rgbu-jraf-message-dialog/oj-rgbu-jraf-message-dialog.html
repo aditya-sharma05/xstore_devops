@@ -1,0 +1,33 @@
+<oj-dialog
+    :style="[[$properties.dialogStyle]]"
+    :id="[[dialogId]]"
+    dialog-title=""
+    initial-visibility="hide"
+    resize-behavior="resizable"
+    cancel-behavior="icon"
+    modality="[[modality]]"
+    on-oj-before-close="[[handleBeforeClose]]"
+    on-oj-close="[[handleClose]]">
+    <div slot="header" class="oj-rgbu-jraf-message-dialog-header">
+        <span role="presentation" :class="[[headerIcon]]"></span>
+        <span class="oj-dialog-title">
+            <oj-bind-text value="[[headerText]]"></oj-bind-text>
+        </span>
+    </div>
+    <div slot="body">
+        <!-- default content is the messageText -->
+        <span>
+            <oj-bind-text value="[[$properties.messageText]]"></oj-bind-text>
+        </span>
+        <oj-bind-slot name="customBody"></oj-bind-slot>
+    </div>
+    <div slot="footer" class="oj-rgbu-jraf-message-dialog-footer">
+        <oj-bind-for-each data="[[footerButtons]]">
+            <template data-oj-as="button">
+                <oj-button on-oj-action="[[button.data.buttonHandler]]">
+                    <span><oj-bind-text value="[[button.data.buttonLabel]]"></oj-bind-text></span>
+                </oj-button>
+            </template>
+        </oj-bind-for-each>
+    </div>
+</oj-dialog>

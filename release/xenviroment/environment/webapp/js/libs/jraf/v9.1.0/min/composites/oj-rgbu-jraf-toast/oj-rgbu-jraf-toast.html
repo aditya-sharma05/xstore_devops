@@ -1,0 +1,36 @@
+<div class="oj-flex oj-sm-flex-wrap-nowrap oj-rgbu-jraf-toast">
+    <div class="oj-flex-item oj-sm-flex-initial oj-rgbu-jraf-toast-icon-wrapper">
+        <span :class="[[toastIcon]]" role="img" :aria-label='[[toastIconLabel]]'></span>
+    </div>
+    <div class="oj-flex-item oj-rgbu-jraf-toast-body">
+        <div> <!-- to support vertical alignment of the body contents -->
+            <div class="oj-rgbu-jraf-toast-title" :title='[[toastTitle]]'>
+                <oj-bind-text value='[[toastTitle]]'></oj-bind-text>
+            </div>
+            <div class="oj-rgbu-jraf-toast-message" :title='[[message]]'>
+                <oj-bind-text value='[[message]]'></oj-bind-text>
+            </div>
+            <div class="oj-rgbu-jraf-toast-buttons-container">
+                <oj-bind-if test='[[$data.primaryButton]]'>
+                    <oj-button chroming='borderless' on-oj-action='[[firePrimary]]'>
+                        <oj-bind-text value='[[primaryButton.label]]'></oj-bind-text>
+                    </oj-button>
+                    <oj-bind-if test='[[$data.secondaryButton]]'>
+                        <span role="separator" class="oj-toolbar-separator"></span>
+                    </oj-bind-if>
+                </oj-bind-if>
+                <oj-bind-if test='[[$data.secondaryButton]]'>
+                    <oj-button chroming='borderless' on-oj-action='[[fireSecondary]]'>
+                        <oj-bind-text value='[[secondaryButton.label]]'></oj-bind-text>
+                    </oj-button>
+                </oj-bind-if>
+            </div>
+        </div>
+    </div>
+    <div class="oj-flex-item">
+        <oj-button :id='[[dismissButtonId]]' on-oj-action='[[dismissToast]]' display='icons' chroming='borderless' class='oj-rgbu-jraf-toast-dismiss-button oj-panel-remove-button'>
+            <span slot='startIcon' class='oj-panel-remove-icon oj-rgbu-jraf-toast-dismiss-icon'></span>
+            <oj-bind-text value='[[dismissLabel]]'></oj-bind-text>
+        </oj-button>
+    </div>
+</div>

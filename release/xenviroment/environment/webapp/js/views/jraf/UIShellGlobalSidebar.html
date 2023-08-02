@@ -1,0 +1,92 @@
+<!-- TEMPLATES -->
+<script type="text/html" :id="[[sidebarMenuListItemTemplateId]]">
+    <li :id="[[$data['guid']]]"
+        :data-jraf-test-id="[[ $data['jrafTestId'] ]]"
+        :class="[[ { 'jraf-sidebar-menu-list-item': true, 'jraf-selected': $data['selected'] } ]]">
+        <a href="#">
+            <span :class="[[$data['icon']]]"></span>
+            <span class="oj-navigationlist-item-title">
+                <oj-bind-text value="[[$data['iconLabel']]]"></oj-bind-text>
+            </span>
+        </a>
+
+        <oj-bind-if test="[[$data['badgingEnabled']]]">
+            <span class="jraf-sidebar-badge-value" data-bind="jrafBadgeValue: $data['badgeValue']"></span>
+        </oj-bind-if>
+    </li>
+</script>
+<!-- Sidebar UI - icon-only navigation list -->
+<nav class="jraf-sidebar-navblock">
+    <div class="oj-flex-bar oj-sm-flex-direction-column jraf-sidebar-navblock-flexbar">
+        <div class="oj-flex-bar-start jraf-sidebar-nav-list">
+            <oj-navigation-list :id="[[sidebarMenuNavListId]]"
+                data="[[navigationMenuItemsDataSource]]"
+                drill-mode="none"
+                display="icons"
+                item.renderer="[[getSidebarMenuListTemplate()]]"
+                on-click="[[beforeMenuItemSelect]]"
+                :aria-label="[[sidebarMenuAriaLabel]]">
+            </oj-navigation-list>
+        </div>
+        <oj-bind-if test="[[showPinnedFavorites]]">
+            <div class="oj-flex-bar-middle" :style="[[ {minHeight: conveyorBeltHeight} ]]" data-oj-context>
+                <oj-conveyor-belt class="jraf-sidebar-pins-wrapper" orientation="vertical">
+                    <oj-navigation-list
+                        :id="[[sidebarPinnedFavoritesNavListId]]"
+                        drill-mode="none"
+                        display="icons"
+                        on-oj-before-select="[[beforePinnedFavoriteSelect]]"
+                        :aria-label="[[sidebarMenuAriaLabel]]">
+                        <ul>
+                            <oj-bind-for-each data="[[pinnedFavorites]]">
+                                <template>
+                                    <li :id="[[$current.data['pinnedFavoriteId']]]"
+                                        :data-jraf-test-id="[[ $module.getPinnedFavoriteIconLabelForJrafTestId($current.data) ]]"
+                                        class="jraf-sidebar-menu-list-item">
+                                        <a href="#">
+                                            <span :class="[[ $module.getPinnedFavoriteIcon($current.data) ]]"></span>
+                                            <span style="display:none;" class="oj-navigationlist-item-title">
+                                                <oj-bind-text value="[[$module.getPinnedFavoriteIconLabel($current.data)]]"></oj-bind-text>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </template>
+                            </oj-bind-for-each>
+                        </ul>
+                        <oj-menu :id="[[pinnedFavoritesContextMenuId]]"
+                            :aria-label="[[pinnedFavoritesMenuAriaLabel]]"
+                            slot="contextMenu"
+                            style="display:none"
+                            on-oj-action="[[pinnedFavoriteContextSelect]]"
+                            on-oj-before-open="[[pinnedFavoriteContextBeforeOpen]]">
+                            <oj-option value="Unpin">
+                                <oj-bind-text value="[[pinnedFavoriteMenuUnpin]]"></oj-bind-text>
+                            </oj-option>
+                            <oj-option value="UnpinAndRemove">
+                                <oj-bind-text value="[[pinnedFavoriteMenuUnpinAndRemove]]"></oj-bind-text>
+                            </oj-option>
+                            <oj-option value="EditFavorites">
+                                <oj-bind-text value="[[pinnedFavoriteMenuEditFavorites]]"></oj-bind-text>
+                            </oj-option>
+                        </oj-menu>
+                    </oj-navigation-list>
+                </oj-conveyor-belt>
+            </div>
+        </oj-bind-if>
+        <oj-bind-if test="[[!showPinnedFavorites()]]">
+            <div class="oj-flex-bar-middle"></div>
+        </oj-bind-if>
+        <oj-bind-if test="[[showSettingsMenu()]]">
+            <div class="oj-flex-bar-end jraf-sidebar-settings-wrapper">
+                <oj-navigation-list :id="[[settingsMenuNavListId]]"
+                    data="[[settingsMenuItemsDataSource]]"
+                    drill-mode="none"
+                    display="icons"
+                    item.renderer="[[getSidebarMenuListTemplate()]]"
+                    on-click="[[beforeMenuItemSelect]]"
+                    :aria-label="[[sidebarMenuAriaLabel]]">
+                </oj-navigation-list>
+            </div>
+        </oj-bind-if>
+    </div>
+</nav>

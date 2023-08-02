@@ -1,0 +1,129 @@
+{
+    "name": "oj-rgbu-jraf-dashboard",
+    "displayName": "Dashboard",
+    "description": "The Dashboard component summarizes important business information in a single component and is meant to draw the user's attention, often through data visualization components, to actions he or she may need to take within the application. This component is comprised of three main regions: a tile region, a tile administration region, and a primary content region. The tile region renders oj-rgbu-jraf-info-tile components that server as a master to the details that are rendered in the primary content region. The tile administration region, if enabled, allows users to configure their dashboard by adding tiles, removing tiles, and reordering tiles.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "getDashboardDataCallback": {
+            "displayName": "Get Dashboard Data Callback",
+            "description": "A function that returns a Promise that resolves to the expected Dashboard data structure. When called without a dashboard content id, the Promise must resolve to the entire array of dashboard content that the user has access to. When called with a dashboard content id, the Promise must resolve to the dashboard content object identified by the id (e.g. reload the data to get the latest updates.)",
+            "type": "function",
+            "required": true
+        },
+        "renderTileAdministration": {
+            "displayName": "Render Tile Administration",
+            "description": "Whether the tile administration UI is rendered. This UI allows the user to remove tiles from the dashboard, rearrange tiles, and add new tiles to the dashboard. Default is true.",
+            "type": "boolean",
+            "required": false,
+            "value": true
+        },
+        "tileDisplayLimit": {
+            "displayName": "Tile Display Limit",
+            "description": "How many tiles to display in the dashboard at a time. Must be 0 or greater. If a user attempts to add more tiles than the limit, he or she will be notified that he or she must remove tile(s) before adding additional tiles. An unlimited number of tiles can be added by passing 0 for the tile display limit.",
+            "type": "number",
+            "required": false,
+            "value": 12
+        },
+        "defaultBehavior": {
+            "displayName": "Default Behavior",
+            "description": "Optional default dashboard behavior configurations",
+            "type": "object",
+            "required": false,
+            "properties": {
+                "tileInsertionRefresh": {
+                    "displayName": "Default Tile Refresh on Insertion",
+                    "description": "Default policy for whether data in a tile should be refreshed when the tile is inserted into the dashboard from the Add Tile dialog. If true, the tile will be refreshed. If false, it will not be. Can be overridden for individual dashboard content using the refreshOnInsertion property. Default is false.",
+                    "type": "boolean",
+                    "required": false,
+                    "value": false
+                },
+                "tileSelectionRefresh": {
+                    "displayName": "Default Tile Refresion on Selection",
+                    "description": "Default policy for whether data in a tile should be refreshed when the tile is selected. If true, the tile will be refreshed. If false, it will not be. Can be overridden for individual dashboard content using the refreshOnSelection property. Default is false.",
+                    "type": "boolean",
+                    "required": false,
+                    "value": false
+                }
+            }
+        },
+        "selection": {
+            "displayName": "Selection",
+            "description": "The tile.id to be selected by default. If this is unspecified or the id cannot be found, then the first tile is selected.",
+            "type": "string",
+            "required": false,
+            "writeback": true
+        },
+        "noTileSelectedModuleOptions": {
+            "displayName": "No Tile Selected Module Options",
+            "description": "Defines content to be displayed in the primary content region when no tile is selected.  (See 'options' parameter for ModuleElementUtils.createConfig)",
+            "type": "object",
+            "required": false
+        },
+        "beforeLoadModuleHandler": {
+            "displayName": "Before Load Module Handler",
+            "description": "Function called before loading a tile or content module (when DashboardContent is configured with tileModuleOptions or contentModuleOptions).  The tileModuleOptions or contentModuleOptions object is passed to the function.  The function should return a Promise resolving to the module config (see config attribute of oj-module) or resolving to null or undefined to continue with default module loading behavior (using ModuleElementUtils.createConfig).",
+            "type": "function",
+            "required": false
+        },
+        "afterUnloadModuleHandler": {
+            "displayName": "After Unload Module Handler",
+            "description": "Function called aftter the tile or content module has been removed from the DOM (when DashboardContent is configured with tileModuleOptions or contentModuleOptions).  The tileModuleOptions or contentModuleOptions property is passed to the function along with the viewModel and view that were unloaded.",
+            "type": "function",
+            "required": false
+        }
+    },
+    "methods": {
+        "refresh": {
+            "description": "Refresh the dashboard component. Causes the dashboard to reload all of the dashboard data and re-render the new data. If there is a value specified in the selection property, it will remain selected if it is still available in the dashboard content data. Otherwise, the first dashboard tile will be selected. If the dashboard was in edit mode, it will remain in edit mode after the refresh if there is still dashboard content."
+        }
+    },
+    "events": {
+        "ojRgbuJrafDashboardTileInsert" : {
+            "displayName": "ojRgbuJrafDashboardTileInsert",
+            "description" : "Triggers when a tile has been inserted into the dashboard. Event will contain the dashboard content id and position of the inserted tile.",
+            "detail": {
+                "id": {
+                    "description": "The id of the dashboard content that was inserted into the dashboard.",
+                    "type": "string"
+                },
+                "position": {
+                    "description": "Position the dashboard tile identified by the id was inserted at.",
+                    "type": "number"
+                }
+            },
+            "bubbles" : true,
+            "cancelable" : false
+        },
+
+        "ojRgbuJrafDashboardTileRemove" : {
+            "displayName": "ojRgbuJrafDashboardTileRemove",
+            "description" : "Triggers when a tile has been removed from the dashboard. Event will contain the dashboard content id.",
+            "detail": {
+                "id": {
+                    "description": "The id of the dashboard content that was removed from the dashboard.",
+                    "type": "string"
+                }
+            },
+            "bubbles" : true,
+            "cancelable" : false
+        },
+        "ojRgbuJrafDashboardTileReorder" : {
+            "displayName": "ojRgbuJrafDashboardTileReorder",
+            "description" : "Triggers when a tile has been moved in the dashboard. Event will contain the dashboard content id along with the new position of the inserted tile.",
+            "detail": {
+                "id": {
+                    "description": "The id of the dashboard content that was moved in the dashboard.",
+                    "type": "string"
+                },
+                "position": {
+                    "description": "Position the dashboard tile identified by the id was moved to.",
+                    "type": "number"
+                }
+            },
+            "bubbles" : true,
+            "cancelable" : false
+        }
+    },
+    "slots": {}
+}

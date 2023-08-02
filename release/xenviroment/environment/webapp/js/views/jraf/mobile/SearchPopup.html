@@ -1,0 +1,52 @@
+<div class="jraf-mobile-search">
+    <div class="jraf-mobile-header">
+        <header class="oj-web-applayout-header" role="banner">
+            <div class="oj-web-applayout-max-width oj-flex-bar">
+                <div class="oj-flex-bar-start oj-sm-align-items-center jraf-mobile-filter-container">
+                    <oj-select-single 
+                        :id="[[sectionFilterInputId]]" 
+                        :aria-label="[[searchFilterComponentLabel]]"
+                        value="{{sectionFilterSelection}}"
+                        style="max-width: 20em" 
+                        data="[[sectionFiltersDataProvider]]">
+                    </oj-select-single>
+                </div>
+                <div class="oj-flex-bar-middle oj-sm-align-items-center">
+                    <div class="jraf-mobile-header-search-icon"></div>
+                    <div class="jraf-mobile-search-container">
+                        <oj-input-text :id="[[searchInputId]]" value="{{searchString}}"
+                            placeholder="[[searchPlaceholderText]]" on-raw-value-changed="[[searchOptionChange]]"></oj-input-text>
+                    </div>
+                </div>
+                <div class="oj-flex-bar-end oj-sm-align-items-center"> 
+                    <a href="#" on-click="[[closeSearchCallback]]" :aria-label='[[closeSearchLabel]]' :title='[[closeSearchLabel]]'>
+                        <span class="jraf-mobile-search-close-icon" role="img"></span>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="jraf-mobile-search-body">
+        
+        <oj-bind-if test="[[hasSearchResults()]]">
+            <ul>
+                <oj-bind-for-each data="[[searchResults]]">
+                    <template data-oj-as="search">
+                        <li class="jraf-mobile-search-result oj-listbox-highlighter-section" on-click="[[$module.launchSearchResult]]">
+                            <span class="jraf-mobile-search-label">
+                                <oj-bind-text value="[[search.data.label]]"></oj-bind-text>
+                            </span>
+                            <span class="jraf-mobile-search-label jraf-sub-text">
+                                <oj-bind-text value="[[search.data.metadata]]"></oj-bind-text>
+                            </span>                                
+                        </li>
+                    </template>
+                </oj-bind-for-each>
+            </ul>
+        </oj-bind-if>    
+        
+        <oj-bind-if test="[[!hasSearchResults()]]">
+            <div><oj-bind-text value="[[noResultsLabel]]"></oj-bind-text></div>
+        </oj-bind-if>    
+    </div>
+</div>

@@ -1,0 +1,1 @@
+define({filterPlaceholder:"Filtar",msgNoData:"Nema artikala za prikaz.",msgNoFilteredData:"Nijedna stavka ne odgovara trenutačnim filtrima."});

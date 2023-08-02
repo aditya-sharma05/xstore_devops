@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"追加情報",toolbarLabel:"ツール・バー",contextualHelpLabel:"ヘルプ",closeLabel:"クローズ"});

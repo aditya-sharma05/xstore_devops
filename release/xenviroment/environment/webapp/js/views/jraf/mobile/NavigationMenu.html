@@ -1,0 +1,115 @@
+<script type="text/html" :id="[[menuRootTemplateId]]">
+    <li :id="[[id]]">
+        <a href="#">
+            <span :class="[['oj-navigationlist-item-icon jraf-icon ' + icon]]" role="presentation"></span>
+            <span class="oj-navigationlist-item-title">
+                <oj-bind-text value="[[label]]"></oj-bind-text>
+            </span>
+            <oj-bind-if test="[[badgingEnabled]]">
+                <span class="jraf-mobile-sidebar-badge-value" data-bind="jrafBadgeValue: badgeValue"></span>
+            </oj-bind-if>
+        </a>
+        <oj-bind-if test="[[!isContent]]">
+            <a class="oj-component-icon oj-clickable-icon-nocontext oj-navigationlist-collapse-icon" role="presentation"></a>
+        </oj-bind-if>
+    </li>
+</script>
+<script type="text/html" :id="[[pinnedFavoriteTemplateId]]">
+    <li :id="[[$parent.getPinnedFavoriteGuid($data)]]">
+        <a href="#">
+            <span :class="[['oj-navigationlist-item-icon jraf-icon ' + $parent.getPinnedFavoriteIcon($data)]]"
+                  role="presentation"></span>
+            <span class="oj-navigationlist-item-title">
+                <oj-bind-text value="[[$parent.getPinnedFavoriteIconLabel($data)]]"></oj-bind-text>
+            </span>
+        </a>
+    </li>
+</script>
+
+<div class="jraf-mobile-nav-body oj-offcanvas-transition" data-oj-context :class="[[{'jraf-menu-open': selectedMenuOpen}]]">
+    <div :id="[[rootContentId]]">
+        <div class="jraf-mobile-nav-header jraf-menu-content-area">
+            <oj-bind-if test="[[renderApplicationIcon]]">
+                <oj-bind-if test="[[headerState.configLoaded()]]"> 
+                    <oj-bind-if test="[[!headerState.applicationIcon()]]">
+                        <span role="presentation" class="oj-icon jraf-mobile-application-icon"></span>
+                    </oj-bind-if>
+                    <oj-bind-if test="[[headerState.applicationIcon()]]">
+                        <img class="jraf-mobile-application-icon-custom" role="presentation" :src="[[headerState.applicationIcon]]"/>
+                    </oj-bind-if>
+                </oj-bind-if>
+            </oj-bind-if>
+            <h3 class="jraf-mobile-nav-menu-title">
+                <oj-bind-text value="[[rootLabel]]"></oj-bind-text>
+            </h3>
+        </div>
+        <div class="oj-flex oj-sm-flex-direction-column jraf-mobile-nav-content">
+            <div class="oj-flex-item jraf-mobile-nav-wrapper" :class="[[{'jraf-mobile-nav-wrapper-settings': showSettingsMenu()}]]">
+                <div class="jraf-menu-body jraf-mobile-nav-content-menus">
+                    <oj-navigation-list
+                        :id="[[navListId]]"
+                        :aria-label="[[navMenuLabel]]"
+                        drill-mode="sliding"
+                        data="[[rootMenuDataSource]]"
+                        item.renderer="[[getMenuRootTemplate()]]"
+                        on-oj-before-select="[[beforeSelect]]"
+                        class="jraf-sliding-navigation">
+                    </oj-navigation-list>
+                </div>
+
+                <oj-bind-if test="[[showPinnedFavorites]]">
+                    <div class="jraf-mobile-nav-content-pins">
+                        <oj-conveyor-belt orientation="vertical">
+                            <div class="jraf-menu-body">
+                                <oj-navigation-list
+                                    :id="[[pinsNavListId]]"
+                                    :aria-label="[[pinnedFavoritesMenuLabel]]"
+                                    drill-mode="sliding"
+                                    on-oj-before-select="[[beforeSelectPinnedFavorite]]"
+                                    class="jraf-sliding-navigation">
+                                    <ul>
+                                        <!-- ko template: {name: pinnedFavoriteTemplateId, foreach: pinnedFavorites} --><!-- /ko -->
+                                    </ul>
+                                </oj-navigation-list>
+                            </div>
+                        </oj-conveyor-belt>
+                    </div>
+                </oj-bind-if>
+            </div>
+
+            <oj-bind-if test="[[showSettingsMenu()]]">
+                <div class="oj-sm-flex-initial oj-flex-item jraf-menu-body jraf-mobile-nav-content-settings">
+                    <oj-navigation-list
+                        :id="[[settingsNavListId]]"
+                        :aria-label="[[settingsMenuLabel]]"
+                        drill-mode="sliding"
+                        data="[[settingsMenuDataSource]]"
+                        item.renderer="[[getMenuRootTemplate()]]"
+                        on-oj-before-select="[[beforeSelect]]"
+                        class="jraf-sliding-navigation">
+                    </oj-navigation-list>
+                </div>
+            </oj-bind-if>
+
+        </div>
+    </div>
+    <div class="jraf-mobile-menu" :id="[[displayedMenuDrawerId]]">
+        <div class="jraf-mobile-nav-header jraf-menu-content-area">
+            <a href="#" class="jraf-mobile-nav-home" on-click="[[closeMenu]]">
+                <h3>
+                    <oj-bind-text value="[[homeLabel]]"></oj-bind-text>
+                </h3>
+            </a>
+        </div>
+        <!-- ko with: displayedMenu -->
+        <oj-bind-if test="[[constructHeader]]">
+            <div class="jraf-menu-header jraf-menu-content-area">
+                <h3 class="jraf-menu-header-text">
+                    <oj-bind-text value="[[label]]"></oj-bind-text>
+                </h3>
+            </div>
+        </oj-bind-if>
+        <div data-bind="ojModule: module"></div>
+        <!-- /ko -->
+    </div>
+</div>

@@ -1,0 +1,91 @@
+oj-rgbu-jraf-apps-panel-bar:not(.oj-complete) {
+    visibility: hidden;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-container {
+    background-color: #f5f5f5;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    box-sizing: border-box;
+    box-shadow: 0px -1px 2px 0px rgba(0,0,0,0.12);
+    border-top: 1px solid #c3cbd1;    
+}
+
+.oj-rgbu-jraf-apps-panel-bar-container.oj-rgbu-jraf-apps-panel-bar-inline {
+    position: relative;
+}
+
+.oj-rgbu-jraf-apps-panel-bar {
+    width: 100%;
+    padding: 0 10px;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-toolbar {
+    padding: 5px 0;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-toolbar>.oj-button,
+.oj-rgbu-jraf-apps-panel-bar-toolbar>.oj-toolbar-separator {
+    margin: 0 5px;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-toolbar>.oj-button:first-child {
+    margin-right: 0;
+}
+
+html[dir="rtl"] .oj-rgbu-jraf-apps-panel-bar-toolbar>.oj-button:first-child {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-toolbar .oj-button-label {
+    line-height: normal;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-icon {
+    display: block;
+    height: 16px;
+    width: 16px;
+    position: relative;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-menuicon {
+    display: block;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-menuicon::before {
+    display: block;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-icon::before {
+    display: block;
+}
+
+.oj-rgbu-jraf-apps-panel-bar-next-icon::before,
+html[dir="rtl"] .oj-rgbu-jraf-apps-panel-bar-prev-icon::before {
+    content: url("images/raf-icon-chevron-right_ena.svg");
+}
+
+.oj-rgbu-jraf-apps-panel-bar-prev-icon::before,
+html[dir="rtl"] .oj-rgbu-jraf-apps-panel-bar-next-icon::before {
+    content: url("images/raf-icon-chevron-left_ena.svg");
+}
+
+.oj-disabled .oj-rgbu-jraf-apps-panel-bar-next-icon::before,
+html[dir="rtl"] .oj-disabled .oj-rgbu-jraf-apps-panel-bar-prev-icon::before {
+    content: url("images/raf-icon-chevron-right_dis.svg");
+}
+
+.oj-disabled .oj-rgbu-jraf-apps-panel-bar-prev-icon::before,
+html[dir="rtl"] .oj-disabled .oj-rgbu-jraf-apps-panel-bar-next-icon::before {
+    content: url("images/raf-icon-chevron-left_dis.svg");
+}
+

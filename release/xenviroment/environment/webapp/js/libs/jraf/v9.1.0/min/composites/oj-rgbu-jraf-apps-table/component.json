@@ -1,0 +1,238 @@
+{
+    "name": "oj-rgbu-jraf-apps-table",
+    "displayName": "Apps Table",
+    "description": "The Apps Table component provides a common and consistent toolbar interface for application grids. The Apps Table toolbar is made up of an optional Actions Menu, a standard View Menu with operations such as Detach and Sort, and standard buttons. Consumers can configure their own custom actions menu items and toolbar buttons. The Apps Table provides a slot for applications to place their ojDataGrid, LUX Grid, or oj-rgbu-jraf-simple-grid component.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "gridName": {
+            "displayName": "Grid Name",
+            "description": "Unique name for the grid for accessibility purposes.",
+            "type": "string",
+            "required": true
+        },
+        "columns": {
+            "displayName": "Columns",
+            "description": "Column definition data including sortable configurations and the column header as rendered in the grid. Used in toolbar features such as hide/show columns and sort dialog.",
+            "type": "array",
+            "required": false
+        },
+        "lux": {
+            "displayName": "LUX",
+            "description": "LUX Grid-specific Properties",
+            "required": false,
+            "type": "object",
+            "properties": {
+                "columns": {
+                    "displayName": "LUX Columns",
+                    "description": "An array of strings specifying the columns that will be rendered in the LUX grid.",
+                    "type": "array",
+                    "required": false
+                },
+                "columnDefs": {
+                    "displayName": "LUX Column Definitions",
+                    "description": "An object of column definitions that will be passed to the LUX grid, including each columns sortable configuration.",
+                    "type": "object",
+                    "required": false
+                }
+            }
+        },
+        "detachDialogTitle": {
+            "displayName": "Detach Dialog Title",
+            "description": "Title of the detach dialog where the grid opens in the detached view.",
+            "type": "string",
+            "required": false
+        },
+        "createPatternType": {
+            "displayName": "Create Pattern Type",
+            "description": "Pattern used for the create button: 'new' or 'create'. Default 'create'.",
+            "type": "string",
+            "enumValues": ["create", "add"],
+            "required": false,
+            "value": "create"
+        },
+        "handleCreate": {
+            "displayName": "Handle Create",
+            "description": "Callback for the create button",
+            "type": "function",
+            "required": false
+        },
+        "handleDuplicate": {
+            "displayName": "Handle Duplicate",
+            "description": "Callback for the duplicate button",
+            "type": "function",
+            "required": false
+        },
+        "handleEdit": {
+            "displayName": "Handle Edit",
+            "description": "Callback for the edit button",
+            "type": "function",
+            "required": false
+        },
+        "handleView": {
+            "displayName": "Handle View",
+            "description": "Callback for the view button",
+            "type": "function",
+            "required": false
+        },
+        "handleDelete": {
+            "displayName": "Handle Delete",
+            "description": "Callback for the delete button",
+            "type": "function",
+            "required": false
+        },
+        "handleRefresh": {
+            "displayName": "Handle Refresh",
+            "description": "Callback that will update the collection with current data",
+            "type": "function",
+            "required": false
+        },
+        "handleExport": {
+            "displayName": "Handle Export",
+            "description": "Callback for exporting data to file",
+            "type": "function",
+            "required": false
+        },
+        "enableDefaultExport": {
+            "displayName": "Enable Default Export",
+            "description": "Enables default export functionality if supported by the grid. For example, the LUX data grid exports the data that has been rendered in the grid client-side. Both this default functionality and a custom export functionality can be provided by specifying a handleExport function.",
+            "type": "boolean",
+            "required": false,
+            "value": true
+        },
+        "filterShown": {
+            "displayName": "Show Filter Controls",
+            "description": "Shows the filter controls (show/hide, clear, filter method) in the toolbar if supported by the grid.",
+            "type": "boolean",
+            "required": false,
+            "value": true
+        },
+        "filterMatchOptionsShown": {
+            "displayName": "Show Filter Match Options",
+            "description": "Shows the filter match options in the filter menu when the filter is active.",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "disableCreate": {
+            "displayName": "Disable Create",
+            "description": "Whether to disable create button",
+            "type": "boolean",
+            "required": false
+        },
+        "disableDuplicate": {
+            "displayName": "Disable Duplicate",
+            "description": "Whether to disable duplicate button",
+            "type": "boolean",
+            "required": false
+        },
+        "disableEdit": {
+            "displayName": "Disable Edit",
+            "description": "Whether to disable edit button",
+            "type": "boolean",
+            "required": false
+        },
+        "disableView": {
+            "displayName": "Disable View",
+            "description": "Whether to disalbe view button",
+            "type": "boolean",
+            "required": false
+        },
+        "disableDelete": {
+            "displayName": "Disable Delete",
+            "description": "Whether to disable delete button",
+            "type": "boolean",
+            "required": false
+        },
+        "disableRefresh": {
+            "displayName": "Disable Refresh",
+            "description": "Whether to disable refresh button",
+            "type": "boolean",
+            "required": false
+        },
+        "disableExport": {
+            "displayName": "Disable Export",
+            "description": "Whether to disable export button",
+            "type": "boolean",
+            "required": false
+        },
+        "hideDetachButton": {
+            "displayName": "Hide Detach Button",
+            "description": "Whether or not the detach button should be hidden. False by default.",
+            "type": "boolean",
+            "required": false,
+            "value": false
+        },
+        "actionMenu": {
+            "displayName": "Actions Menu",
+            "description": "The Actions Menu is an optional menu displayed in the Apps Table toolbar. This property is used to add custom actions menu items to this menu.",
+            "type": "array",
+            "required": false
+        },
+        "extraButtons": {
+            "displayName": "Extra Buttons",
+            "description": "Additional buttons to add to the toolbar after the standard buttons.",
+            "type": "array",
+            "required": false
+        },
+        "translations": {
+            "displayName": "Translations",
+            "description": "Optional overrides to component strings",
+            "type": "object",
+            "required": false,
+            "properties": {
+                "createLabel": {
+                    "description": "Custom label for the create action.",
+                    "type": "string",
+                    "required": false
+                },
+                "duplicateLabel": {
+                    "description": "Custom label for the duplicate action.",
+                    "type": "string",
+                    "required": false
+                },
+                "editLabel": {
+                    "description": "Custom label for the edit action.",
+                    "type": "string",
+                    "required": false
+                },
+                "viewLabel": {
+                    "description": "Custom label for the view action.",
+                    "type": "string",
+                    "required": false
+                },
+                "deleteLabel": {
+                    "description": "Custom label for the delete action.",
+                    "type": "string",
+                    "required": false
+                },
+                "refreshLabel": {
+                    "description": "Custom label for the refresh action.",
+                    "type": "string",
+                    "required": false
+                },
+                "exportLabel": {
+                    "description": "Custom label for the export action.",
+                    "type": "string",
+                    "required": false
+                }
+            }
+        }
+    },
+    "methods": {},
+    "slots": {
+        "grid": {
+            "displayName": "Grid",
+            "description": "A required slot specifying the Apps Table grid. The grid may be an ojDataGrid, LUX grid, or an oj-rgbu-jraf-simple-grid component."
+        },
+        "pagingControl": {
+            "displayName": "Paging Control",
+            "description": "An ojPagingControl instance to page the grid provided in the grid slot."
+        },
+        "extraControls": {
+            "displayName": "Extra Controls",
+            "description": "Additional controls to add to the toolbar after the extra buttons."
+        }
+    },
+    "events": {}
+}

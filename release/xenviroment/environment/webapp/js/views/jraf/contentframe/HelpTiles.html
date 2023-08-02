@@ -1,0 +1,25 @@
+<div class="jraf-help-tiles-layout">
+    <!-- ko foreach: topics -->
+    <div class="jraf-help-tile oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap">
+        <!-- ko if: imageSrc -->
+        <img class="oj-flex-item jraf-help-tile-image" role="presentation" data-bind="attr: {src: imageSrc}, click: $parent.handleTileSelect">
+        <!-- /ko -->
+        <!-- ko ifnot: imageSrc -->
+        <div class="oj-flex-item jraf-help-tile-image jraf-help-tile-image-icon" role="presentation" data-bind="css: typeIconClass, style: {
+            backgroundColor: color
+        }, click: $parent.handleTileSelect"></div>
+        <!-- /ko -->
+        <div class="jraf-help-tile-body oj-flex oj-flex-item oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-flex-wrap-nowrap oj-sm-flex-direction-column">
+            <h4 data-bind="text: name, attr: {title: name}" class="oj-flex-item jraf-flex-min jraf-help-tile-title"></h4>
+            <span data-bind="text: description" class="oj-flex-item jraf-help-tile-body-description"></span>
+            <div class="jraf-help-tile-button oj-flex-item jraf-flex-min">
+                <button data-bind="ojComponent: {
+                    component: 'ojButton',
+                    label: typeLabel,
+                    chroming: 'outlined'
+                }, click: $parent.handleTileSelect"></button>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

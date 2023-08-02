@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Mer information",videoHelpLaunchLabel:"Titta på handledningen"});

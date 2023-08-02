@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"Informations supplémentaires",toolbarLabel:"Barre d'outils",contextualHelpLabel:"Aide",closeLabel:"Fermer"});

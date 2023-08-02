@@ -1,0 +1,88 @@
+oj-rgbu-jraf-message-dialog:not(.oj-complete) {
+    visibility: hidden;
+}
+
+.oj-rgbu-jraf-message-dialog-icon {
+    display: inline-block;
+    background-position: 2px 2px;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    height: 20px;
+    width: 20px;
+}
+
+.oj-rgbu-jraf-message-dialog-header .oj-rgbu-jraf-message-dialog-icon,
+.oj-rgbu-jraf-message-dialog-header .oj-dialog-title {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 2.28571rem;
+}
+
+.oj-rgbu-jraf-message-dialog-header .oj-dialog-header-close-wrapper {
+    margin: 0;
+}
+
+.oj-rgbu-jraf-message-dialog-info-icon {
+    background-image: url('images/qual_info_16_full@2x.png');
+}
+
+.oj-rgbu-jraf-message-dialog-confirmation-icon {
+    background-image: url('images/stat_checkmark_32.png');
+}
+
+.oj-rgbu-jraf-message-dialog-warning-icon {
+    background-image: url('images/stat_triangleexclamation_16_full@2x.png');
+}
+
+.oj-rgbu-jraf-message-dialog-error-icon {
+    background-image: url('images/stat_x_32.png');
+}
+
+.oj-hicontrast .oj-rgbu-jraf-message-dialog-info-icon::before {
+    content: url('images/qual_info_16_full@2x.png');
+    transform: scale(.5);
+    display: block;
+    position: relative;
+    top: -50%;
+    left: -25%;
+}
+
+.oj-hicontrast .oj-rgbu-jraf-message-dialog-confirmation-icon::before {
+    content: url('images/stat_checkmark_32.png');
+    transform: scale(.5);
+    display: block;
+    position: relative;
+    top: -50%;
+    left: -25%;
+}
+
+.oj-hicontrast .oj-rgbu-jraf-message-dialog-warning-icon::before {
+    content: url('images/stat_triangleexclamation_16_full@2x.png');
+    transform: scale(.5);
+    display: block;
+    position: relative;
+    top: -50%;
+    left: -25%;
+}
+
+.oj-hicontrast .oj-rgbu-jraf-message-dialog-error-icon::before {
+    content: url('images/stat_x_32.png');
+    transform: scale(.5);
+    display: block;
+    position: relative;
+    top: -50%;
+    left: -25%;
+}
+
+html[dir='rtl'] .oj-hicontrast .oj-rgbu-jraf-message-dialog-info-icon::before,
+html[dir='rtl'] .oj-hicontrast .oj-rgbu-jraf-message-dialog-confirmation-icon::before,
+html[dir='rtl'] .oj-hicontrast .oj-rgbu-jraf-message-dialog-warning-icon::before
+html[dir='rtl'] .oj-hicontrast .oj-rgbu-jraf-message-dialog-error-icon::before {
+    left: initial;
+    right: -25%;
+}
+
+.oj-rgbu-jraf-message-dialog-footer.oj-dialog-footer>.oj-button>.oj-button-button {
+    margin-left: 0px;
+    margin-right: 0px;
+}

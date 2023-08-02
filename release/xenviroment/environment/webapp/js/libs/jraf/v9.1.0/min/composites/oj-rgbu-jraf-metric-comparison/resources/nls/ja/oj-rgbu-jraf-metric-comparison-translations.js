@@ -1,0 +1,1 @@
+define({upArrow:{noseverity:"上矢印、重大度なし",normal:"上矢印、重大度「標準」",important:"上矢印、重大度「重要」",critical:"上矢印、重大度「クリティカル」",admin:"上矢印、管理",disabled:"上矢印、無効"},downArrow:{noseverity:"下矢印、重大度なし",normal:"下矢印、重大度「標準」",important:"下矢印、重大度「重要」",critical:"下矢印、重大度「クリティカル」",admin:"下矢印、管理",disabled:"下矢印、無効"}});

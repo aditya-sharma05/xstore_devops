@@ -1,0 +1,33 @@
+<div class="oj-flex oj-sm-flex-wrap-nowrap oj-rgbu-jraf-metric-comparison-container"
+     :class="[[{'oj-rgbu-jraf-metric-comparison-single-metric': singleMetric}]]">
+
+    <oj-bind-for-each data="[[metricData]]">
+        <template data-oj-as="metric">
+            <div class="oj-flex-item oj-rgbu-jraf-metric-comparison-metric-container">
+                <div class="oj-flex-bar">
+                    <div class="oj-flex-bar-end">
+                        <span class="oj-rgbu-jraf-metric-comparison-metric-name"
+                              :title="[[metric.data.name]]">
+                            <oj-bind-text value="[[metric.data.name]]"></oj-bind-text>
+                        </span>
+                    </div>
+                </div>
+                <div class="oj-flex-bar oj-sm-align-items-center">
+                    <div class="oj-flex-bar-end">
+                        <oj-bind-if test="[[metric.data.indicatorIcon]]">
+                            <span :class="[[metric.data.indicatorIcon]]"
+                                  :title="[[metric.data.indicatorLabel]]"
+                                  :aria-label="[[metric.data.indicatorLabel]]"
+                                  role="img"></span>
+                        </oj-bind-if>
+                        <span class="oj-rgbu-jraf-metric-comparison-metric-value"
+                              :title="[[metric.data.value]]">
+                            <oj-bind-text value="[[metric.data.value]]"></oj-bind-text>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </oj-bind-for-each>
+
+</div>

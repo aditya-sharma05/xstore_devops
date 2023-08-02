@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Meer informatie",videoHelpLaunchLabel:"Zelfstudie bekijken"});

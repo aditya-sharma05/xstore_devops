@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Daha Fazla Bilgi",videoHelpLaunchLabel:"Eğitim Programını İzle"});

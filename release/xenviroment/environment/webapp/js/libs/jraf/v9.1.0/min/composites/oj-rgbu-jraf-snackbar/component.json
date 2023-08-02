@@ -1,0 +1,34 @@
+{
+    "name": "oj-rgbu-jraf-snackbar",
+    "displayName": "Snackbar",
+    "description": "The snackbar component provides the ability to temporarily display alerts to the user for important events and actions in a workflow.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "methods": {
+        "openSnack": {
+            "description": "Opens a snack. Returns the ID of the snack.",
+            "params": [{
+                    "name": "snackParams",
+                    "description": "See JSDoc for Snack for details",
+                    "type": "Object"
+            }],
+            "return": "Number"
+        },
+        "closeSnack": {
+            "description": "Closes the currently open snack. Pass an ID to limit to the specified snack",
+            "params": [{
+                    "name": "snackID",
+                    "description": "Optional ID to limit the method to closing the specified snack",
+                    "type": "Number"
+            }],
+            "return": "undefined"
+        }
+    },
+    "events": {
+        "ojRgbuJrafSnackbarStatus": {
+            "description" : "An event that consuming views can consume to update status indicators",
+            "bubbles" : true,
+            "cancelable" : false
+        }
+    }
+}

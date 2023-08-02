@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-modal-page.html","./oj-rgbu-jraf-modal-page","text!./component.json","css!./oj-rgbu-jraf-modal-page.min"],(function(e,a,o,t){"use strict";var r=JSON.parse(t),j=r.name;e.register(j,{view:a,viewModel:o,metadata:r})}));

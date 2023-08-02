@@ -1,0 +1,1 @@
+define({ok:"ОК",cancel:"Отмена",yes:"Да",no:"Нет",error:"Ошибка",confirmation:"Подтверждение",information:"Информация",warning:"Предупреждение"});

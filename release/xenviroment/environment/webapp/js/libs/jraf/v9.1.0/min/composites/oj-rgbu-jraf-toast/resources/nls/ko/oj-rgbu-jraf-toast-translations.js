@@ -1,0 +1,1 @@
+define({dismiss:"닫기",standardInfoTitle:"정보 메시지",standardWarningTitle:"경고 메시지",standardErrorTitle:"오류 메시지",standardSuccessTitle:"성공 메시지",announcementInfoTitle:"정보 메시지",announcementWarningTitle:"경고 메시지",announcementErrorTitle:"오류 메시지",announcementSuccessTitle:"성공 메시지"});

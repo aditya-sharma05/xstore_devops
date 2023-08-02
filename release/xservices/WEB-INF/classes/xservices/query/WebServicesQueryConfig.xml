@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuerySet xmlns="http://micros.com/xstore/config/query" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QueryConfig.xsd">
+ <Queries>
+
+  <Query name="XSERVICES.LOCATE_STORES" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xservices.retaillocation.RetailLocationQueryResult</ResultClass>
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="Address1" type="String" />
+    <ResultField name="Address2" type="String" />
+    <ResultField name="City" type="String" />
+    <ResultField name="State" type="String" />
+    <ResultField name="PostalCode" type="String" />
+    <ResultField name="District" type="String" />
+    <ResultField name="Area" type="String" />
+    <ResultField name="Country" type="String" />
+    <ResultField name="Latitude" type="BigDecimal" />
+    <ResultField name="Longitude" type="BigDecimal" />
+    <ResultField name="Telephone1" type="String" />
+    <ResultField name="Telephone2" type="String" />
+    <ResultField name="Telephone3" type="String" />
+    <ResultField name="Telephone4" type="String" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="StoreNumber" type="String" />
+    <ResultField name="StoreManager" type="String" />
+    <ResultField name="EmailAddress" type="String" />
+    <ResultField name="DistanceFromStartingPoint" type="BigDecimal" />
+    <SQL>
+      <!-- Dividing by 180/acos(-1) is equivalent to a radians function - which Oracle does not have (but SQL Server does), so, using LCD -->
+      <Statement dtype="String"><![CDATA[
+    select * from  
+    (SELECT organization_id, rtl_loc_id, address1, address2, city, state, postal_code, district, area, country, latitude, longitude, telephone1, telephone2, telephone3, telephone4, description, store_nbr, store_manager, email_addr,  
+    3959 * acos( cos( ?/(180/acos(-1)) ) * cos( latitude/(180/acos(-1)) ) * 
+        cos( longitude/(180/acos(-1)) - ?/(180/acos(-1)) ) + sin( ?/(180/acos(-1)) ) * sin( latitude/(180/acos(-1)) ) ) AS distance FROM loc_rtl_loc) loc_rtl_loc 
+    where organization_id = ? AND distance <= ?
+    ORDER BY distance
+        ]]>
+      </Statement>
+      <Parameter name="argLatitude" />
+      <Parameter name="argLongitutde" />
+      <Parameter name="argLatitude" />
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argDistance" />
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String">25</Value>
+    </Property>
+  </Query>
+
+  <Query name="XSERVICES.AVAILABLE_TENDERS" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.tnd.TenderId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String">
+        <![CDATA[WHERE t.organization_id = ? and 
+        	t.tndr_id in (SELECT tndr_id FROM 
+        		tnd_tndr_availability WHERE tnd_tndr_availability.organization_id = t.organization_id
+        		AND availability_code = ?)
+        ]]>
+      </WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argAvailabilityCode" />
+      <Expression trigger="argTenderId">tndr_id = ?</Expression>
+      <Expression trigger="argCurrencyId">/*UPPER*/ currency_id = ?</Expression>
+    </SQL>
+    <Suffix dtype="String">ORDER BY display_order ASC</Suffix>
+  </Query>
+  <Query name="XSERVICES.INV_CARTON_LOOKUP" pmType="INVENTORY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.data2.access.DefaultQueryResult</ResultClass>
+    <ResultField name="StatusCode" type="String" />
+    <ResultField name="DocumentId" type="String" />
+    <ResultField name="DocType" type="String" />
+    <ResultField name="CartonId" type="String" />
+    <ResultField name="CreateDate" type="Date" />
+    <ResultField name="LastActivityDate" type="Date" />
+    <ResultField name="Count" type="Long" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT t.carton_statcode, t.invctl_document_id, t.document_typcode, t.carton_id, t.create_date, 
+        t.update_date, count (distinct  s.invctl_document_line_nbr)
+        FROM  inv_invctl_document_lineitm s, inv_carton t
+        INNER JOIN inv_invctl_document doc 
+        ON (doc.organization_id = t.organization_id
+        AND doc.rtl_loc_id = t.rtl_loc_id 
+        AND doc.invctl_document_id = t.invctl_document_id 
+        AND doc.document_typcode = t.document_typcode)
+          WHERE t.organization_id = ?
+          AND t.rtl_loc_id=?
+          AND t.carton_id=?
+          AND /*UPPER*/ s.carton_id = t.carton_id
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argCartonId" />
+      <Expression trigger="argDocumentTypeCode">doc.document_typcode = ?</Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[
+        GROUP BY t.carton_statcode, t.invctl_document_id, t.document_typcode, t.carton_id, t.create_date, t.update_date
+        ORDER BY t.carton_id
+      ]]>
+    </Suffix>
+  </Query>
+
+  <Query name="XSERVICES.ITEM_DEALS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xservices.item.ItemDealQueryResult</ResultClass>
+    <ResultField name="Description" type="String" />
+    <ResultField name="EffectiveDate" type="Date" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        select distinct pd.description, pd.effective_date
+          from prc_deal pd
+            join prc_deal_field_test pdft
+              on pd.organization_id = pdft.organization_id
+             and pd.deal_id = pdft.deal_id
+         where pd.organization_id = ?
+           and /*UPPER*/ pdft.item_field = 'SKU'
+           and /*UPPER*/ match_rule = 'EQUAL'
+           and /*UPPER*/ value1 = ?
+           and ((effective_date < ? and end_date > ?)
+                or (effective_date < ?))
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argItemId" />
+      <Parameter name="argToday" />
+      <Parameter name="argToday" />
+      <Parameter name="argFutureDay" />
+    </SQL>
+  </Query>
+  <Query name="XSERVICES.INVENTORY_DOC_LINEITEM_LOOKUP" pmType="INVENTORY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xservices.inventory.receiving.ReceivingCartonItemCountQueryResult</ResultClass>
+    <ResultField name="DocumentId" type="String" />
+    <ResultField name="DocumentLineNumber" type="Integer" />
+    <ResultField name="DocumentTypeCode" type="String" />
+    <ResultField name="CartonId" type="String" />
+    <ResultField name="InventoryItemId" type="String" />
+    <ResultField name="UnitCount" type="BigDecimal" />
+    <ResultField name="StatusCode" type="String" />
+    <ResultField name="ExpectedCount" type="BigDecimal" />
+    <ResultField name="PostedCount" type="BigDecimal" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        select invctl_document_id, invctl_document_line_nbr, document_typcode, carton_id, inventory_item_id,
+               unit_count, status_code, expected_count, posted_count
+          from inv_invctl_document_lineitm
+         where organization_id = ?
+           and invctl_document_id = ?
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argCartonId" />
+    </SQL>
+  </Query>
+  <Query name="XSERVICES.INVENTORY_CYCLECOUNT_SEARCH" pmType="INVENTORY_COUNT">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.inv.impl.InventoryCountModel</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="InventoryCountId" type="String" />
+    <ResultField name="TypeCode" type="String" />
+    <ResultField name="BeginDate" type="Date" />
+    <ResultField name="CountStatus" type="String" />
+    <ResultField name="StoreCreated" type="Boolean" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT rtl_loc_id,
+                 inv_count_id,
+                 inv_count_typcode,
+                 begin_date,
+                 count_status,
+                 store_created_flag
+            FROM inv_count
+           WHERE organization_id = ?
+             AND rtl_loc_id = ?
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRtLocId" />
+      <Expression trigger="argCountId">inv_count_id=?</Expression>
+    </SQL>
+  </Query>
+  <Query name="XSERVICES.APP_VERSION" pmType="APP_VERSION_SERVICE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xservices.configuration.AppVersion</ResultClass>
+    <ResultField name="AppId" type="String" />
+    <ResultField name="Sequence" type="Integer" />
+    <ResultField name="VersionNumber" type="String" />
+    <ResultField name="VersionPriority" type="String" />
+    <ResultField name="UpdateUrl" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        select app.app_id, app.seq, app.version_number,app.version_priority,app.update_url
+		from ctl_app_version app
+		where app.organization_id = ?
+		and app.rtl_loc_id = ?
+        and /*UPPER*/ app.app_id = ?  
+        and app.effective_date <= ?
+        order by app.version_number desc, app.seq desc
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argAppId" />
+      <Parameter name="argEffectiveDate" />
+    </SQL>
+  </Query>
+
+  <Query name="XSERVICES.STOCK_LEDGER_FOR_ITEM_BY_MIN" pmType="STOCK_LEDGER">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xservices.inventory.StockLedgerQueryResult</ResultClass>
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="BucketId" type="String" />
+    <ResultField name="InvLocationId" type="String" />
+    <ResultField name="ItemId" type="String" />
+    <ResultField name="Unitcount" type="BigDecimal" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+      SELECT t.organization_id, t.rtl_loc_id, t.bucket_id, t.inv_location_id, t.item_id, t.unitcount
+        FROM inv_stock_ledger_acct t, inv_location loc
+       WHERE t.organization_id = loc.organization_id 
+         AND t.rtl_loc_id = loc.rtl_loc_id 
+         AND t.inv_location_id = loc.inv_location_id 
+         AND t.organization_id = ? 
+         AND t.rtl_loc_id = ? 
+         AND loc.active_flag = 1
+         AND t.item_id = ? 
+         AND t.bucket_id = ? 
+         AND t.unitcount >= ?
+       ORDER BY t.item_id, t.inv_location_id, t.bucket_id ASC
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argItemId" />
+      <Parameter name="argBucketId" />
+      <Parameter name="argUnitcount" />
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String">25</Value>
+    </Property>
+  </Query>
+  <Query name="XSERVICES.SIMILAR_ITEMS" pmType="ITEM">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.ItemId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[
+          WHERE t.organization_id = ?
+            AND /*UPPER*/ t.parent_item_id = ?
+      ]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argItemId" />
+    </SQL>
+    <Suffix dtype="String"><![CDATA[ORDER BY t.item_id]]></Suffix>
+  </Query>
+
+  <Query name="XSERVICES.SUSPENDED_TRAN_ENGAGEMENT_SEARCH" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.SuspendedTransSearchResult</ResultClass>
+    <ResultField name="BusinessDate" type="Date" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="TransStartTime" type="Date" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="CashierId" type="String" />
+    <ResultField name="CustomerFirstName" type="String" />
+    <ResultField name="CustomerLastName" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+         select rt.business_date, rt.rtl_loc_id, rt.wkstn_id, rtran.begin_datetime,
+          rt.trans_seq, rt.organization_id,
+          (select employee_id from hrs_employee emp where emp.organization_id =
+          rtran.organization_id and rtran.operator_party_id = emp.party_id) AS employee_id,
+          (select first_name from crm_party p1 where p1.party_id = rt.cust_party_id and
+          rt.organization_id = p1.organization_id) AS first_name,
+          (select last_name from crm_party p2 where p2.party_id = rt.cust_party_id and
+          rt.organization_id = p2.organization_id) AS last_name
+          from trn_trans rtran, trl_rtrans rt
+          where /*UPPER*/ rtran.trans_statcode = 'SUSPEND' and
+          /*UPPER*/ rtran.trans_typcode = 'RETAIL_ENGAGEMENT' and
+          rtran.organization_id = rt.organization_id and
+          rtran.rtl_loc_id = rt.rtl_loc_id and
+          rtran.wkstn_id = rt.wkstn_id and rtran.business_date = rt.business_date and
+          rtran.trans_seq = rt.trans_seq and
+          not exists (select * from trn_trans_link link where link.link_trans_seq = rt.trans_seq and
+          link.link_rtl_loc_id = rt.rtl_loc_id and link.organization_id = rt.organization_id and
+          link.link_wkstn_id = rt.wkstn_id and link.link_business_date = rt.business_date and
+          /*UPPER*/ link.link_typcode = 'RESUME_TRANSACTION')
+          AND rt.organization_id = ?
+          AND rt.business_date = ?
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argBusinessDate" />
+      <Expression trigger="argRetailLocationId"><![CDATA[rt.rtl_loc_id = ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="XSERVICES.SUSPENDED_TRANSACTION_SALE_SEARCH" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.SuspendedTransSearchResult</ResultClass>
+    <ResultField name="BusinessDate" type="Date" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="TransStartTime" type="Date" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="CashierId" type="String" />
+    <ResultField name="CustomerFirstName" type="String" />
+    <ResultField name="CustomerLastName" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+         select rt.business_date, rt.rtl_loc_id, rt.wkstn_id, rtran.begin_datetime,
+          rt.trans_seq, rt.organization_id,
+          (select employee_id from hrs_employee emp where emp.organization_id =
+          rtran.organization_id and rtran.operator_party_id = emp.party_id) AS employee_id,
+          (select first_name from crm_party p1 where p1.party_id = rt.cust_party_id and
+          rt.organization_id = p1.organization_id) AS first_name,
+          (select last_name from crm_party p2 where p2.party_id = rt.cust_party_id and
+          rt.organization_id = p2.organization_id) AS last_name
+          from trn_trans rtran, trl_rtrans rt
+          where /*UPPER*/ rtran.trans_statcode = 'SUSPEND' and
+          /*UPPER*/ rtran.trans_typcode = 'RETAIL_SALE' and
+          rtran.organization_id = rt.organization_id and
+          rtran.rtl_loc_id = rt.rtl_loc_id and
+          rtran.wkstn_id = rt.wkstn_id and rtran.business_date = rt.business_date and
+          rtran.trans_seq = rt.trans_seq and
+          not exists (select * from trn_trans_link link where link.link_trans_seq = rt.trans_seq and
+          link.link_rtl_loc_id = rt.rtl_loc_id and link.organization_id = rt.organization_id and
+          link.link_wkstn_id = rt.wkstn_id and link.link_business_date = rt.business_date and
+          /*UPPER*/ link.link_typcode = 'RESUME_TRANSACTION')
+          AND rt.organization_id = ?
+          AND rt.business_date = ?
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argBusinessDate" />
+      <Expression trigger="argRetailLocationId"><![CDATA[rt.rtl_loc_id = ?]]></Expression>
+    </SQL>
+  </Query>
+
+  <Query name="XSERVICES.CONFIG_ELEMENT" pmType="APP_VERSION_SERVICE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xservices.configuration.ConfigElement</ResultClass>
+    <ResultField name="ConfigData" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        select config_data from com_config_element where organization_id = ? and rtl_loc_id = ? and config_id = ?  
+        ]]>
+      </Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argConfigId" />
+    </SQL>
+  </Query>
+
+  <Query name="XSERVICES.ACCOUNTS_RECEIVABLE_LOOKUP_CUST" pmType="HOUSE_ACCOUNT">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.HouseAccountSearchResult</ResultClass>
+    <ResultField name="CustAcctId" type="String" />
+    <ResultField name="CustAcctCode" type="String" />
+    <ResultField name="CreditLimit" type="BigDecimal" />
+    <ResultField name="AcctBalance" type="BigDecimal" />
+    <ResultField name="AccountPartyId" type="Long" />
+    <ResultField name="OrganizationName" type="String" />
+    <ResultField name="CustId" type="String" />
+    <ResultField name="CustAcctStatus" type="String" />
+    <ResultField name="AccountSetupDate" type="Date" />
+    <ResultField name="CustFirstName" type="String" />
+    <ResultField name="CustLastName" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          ar.cust_acct_id, 
+          ar.cust_acct_code, 
+          ar.credit_limit,
+          cat.acct_balance, 
+          cat.party_id, 
+          p.organization_name, 
+          p.cust_id,
+          cat.cust_acct_statcode, 
+          cat.acct_setup_date,
+          p.first_name,
+          p.last_name
+        FROM cat_cust_consumer_charge_acct ar
+          INNER JOIN cat_cust_acct cat
+            ON ar.organization_id = cat.organization_id
+            AND ar.cust_acct_code = cat.cust_acct_code
+            AND ar.cust_acct_id = cat.cust_acct_id
+          INNER JOIN crm_party p
+            ON cat.organization_id = p.organization_id
+            AND cat.party_id = p.party_id
+        WHERE ar.organization_id = ?
+        AND ar.cust_acct_code = 'HOUSE_ACCOUNT'
+            ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression parameters="argAccountName%" trigger="argAccountName"><![CDATA[/*UPPER*/ p.organization_name like ?]]></Expression>
+      <Expression parameters="argCustomerFirstName%" trigger="argCustomerFirstName"><![CDATA[/*UPPER*/ p.first_name like ?]]></Expression>
+      <Expression parameters="argCustomerMiddleName%" trigger="argCustomerMiddleName"><![CDATA[/*UPPER*/ p.middle_name like ?]]></Expression>
+      <Expression parameters="argCustomerLastName%" trigger="argCustomerLastName"><![CDATA[/*UPPER*/ p.last_name like ?]]></Expression>
+      <Expression parameters="argPhoneNumber%, argPhoneNumber%" trigger="argPhoneNumber"><![CDATA[EXISTS (
+            SELECT 1
+            FROM crm_party_telephone phone
+            WHERE phone.organization_id = cat.organization_id
+              AND phone.party_id = cat.party_id
+              AND /*UPPER*/ phone.telephone_number LIKE ?
+          )
+          OR EXISTS (
+            SELECT 1
+            FROM cat_charge_acct_users users
+            INNER JOIN crm_party_telephone phone
+              ON users.organization_id = phone.organization_id
+              AND users.party_id = phone.party_id
+              AND /*UPPER*/ phone.telephone_number LIKE ?
+            WHERE users.organization_id = cat.organization_id
+              AND users.cust_acct_code = cat.cust_acct_code
+              AND users.cust_acct_id = cat.cust_acct_id
+          )]]></Expression>
+    </SQL>
+    <Property>
+      <Key dtype="String">MaxRows</Key>
+      <Value dtype="String"><![CDATA[50]]></Value>
+    </Property>
+  </Query>
+  <!-- This is a modified version of SUSPENDED_TRANSACTION_SEARCH to help xstore display the correct name for suspended 
+    transactions. It was moved here so we can display the correct name for a resume. Note: This has a different result 
+    class than the original query, because the result class was patched too. To make up for this the patched version 
+    of the class was moved to xservices under the below name. -->
+  <Query name="XSERVICES.SUSPENDED_TRANSACTION_SEARCH" pmType="TRANSACTION">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">com.micros_retail.xservices.trans.SuspendedTransactionSearchResult</ResultClass>
+    <ResultField name="BusinessDate" type="Date" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="WorkstationId" type="Long" />
+    <ResultField name="TransStartTime" type="Date" />
+    <ResultField name="TransactionSequence" type="Long" />
+    <ResultField name="OrganizationId" type="Long" />
+    <ResultField name="CashierId" type="String" />
+    <ResultField name="CustomerFirstName" type="String" />
+    <ResultField name="CustomerLastName" type="String" />
+    <ResultField name="CustomerOtherName" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+         select rt.business_date, rt.rtl_loc_id, rt.wkstn_id, rtran.begin_datetime,
+          rt.trans_seq, rt.organization_id,
+          (select employee_id from hrs_employee emp where emp.organization_id =
+          rtran.organization_id and rtran.operator_party_id = emp.party_id) AS employee_id,
+          (select first_name from crm_party p1 where p1.party_id = rt.cust_party_id and
+          rt.organization_id = p1.organization_id) AS first_name,
+          (select last_name from crm_party p2 where p2.party_id = rt.cust_party_id and
+          rt.organization_id = p2.organization_id) AS last_name,
+          (coalesce((select organization_name from crm_party p1 where p1.party_id = rt.cust_party_id and
+            rt.organization_id = p1.organization_id), 
+      (select string_value from trn_trans_p tp where 
+      tp.trans_seq = rt.trans_seq and
+      tp.rtl_loc_id = rt.rtl_loc_id and tp.organization_id = rt.organization_id and
+      tp.wkstn_id = rt.wkstn_id and tp.business_date = rt.business_date and
+      tp.property_code = 'CUSTOMER_NAME'))) AS cust_name
+          from trn_trans rtran, trl_rtrans rt
+          where /*UPPER*/ rtran.trans_statcode = 'SUSPEND' and
+          rtran.organization_id = rt.organization_id and
+          rtran.rtl_loc_id = rt.rtl_loc_id and
+          rtran.wkstn_id = rt.wkstn_id and rtran.business_date = rt.business_date and
+          rtran.trans_seq = rt.trans_seq and
+          not exists (select * from trn_trans_link link where link.link_trans_seq = rt.trans_seq and
+          link.link_rtl_loc_id = rt.rtl_loc_id and link.organization_id = rt.organization_id and
+          link.link_wkstn_id = rt.wkstn_id and link.link_business_date = rt.business_date and
+          /*UPPER*/ link.link_typcode = 'RESUME_TRANSACTION')
+          AND rt.organization_id = ?
+          AND rt.business_date = ?
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argBusinessDate" />
+      <Expression trigger="argRetailLocationId">rt.rtl_loc_id = ?</Expression>
+    </SQL>
+  </Query>
+  <Query name="XSERVICES.LIST_OF_LOCATIONS" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultField name="LocationId" type="String" />
+    <ResultField name="LocationName" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+          SELECT inv_location_id,
+          		 name
+          FROM inv_location
+          WHERE organization_id = ? 
+          AND rtl_loc_id = ?
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocId" />
+    </SQL>
+  </Query>
+  <Query name="XSERVICES.CURRENT_COUNT_CYCLE_QUERY" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultField name="CurrenctCountCycle" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+          SELECT count_cycle
+          FROM inv_count_bucket
+          WHERE organization_id = ? 
+          AND rtl_loc_id = ?
+          AND inv_count_id = ?
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocId" />
+      <Parameter name="argInvCountId" />
+    </SQL>
+  </Query>
+  <Query name="STYLES_TO_COUNT_FOR_CYCLE" pmType="REGISTER_CORE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultField name="StyleId" type="String" />
+    <ResultField name="StyleDescription" type="String" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+            SELECT DISTINCT alternate_id, b.DESCRIPTION
+            FROM inv_count_sheet_lineitm a
+            INNER JOIN itm_item b
+            ON /*UPPER*/ a.ITEM_ID = b.ITEM_ID 
+            WHERE a.organization_id = ?
+            AND a.rtl_loc_id = ?
+            AND inv_count_id = ?
+            AND a.count_cycle = ?
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argCountId" />
+      <Parameter name="argCountCycle" />
+    </SQL>
+  </Query>
+  <Query name="XSERVICES.INVENTORY_COUNT_SEARCH" pmType="INVENTORY_COUNT">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.inv.impl.InventoryCountModel</ResultClass>
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="InventoryCountId" type="String" />
+    <ResultField name="TypeCode" type="String" />
+    <ResultField name="BeginDate" type="Date" />
+    <ResultField name="CountStatus" type="String" />
+    <ResultField name="StoreCreated" type="Boolean" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+          SELECT rtl_loc_id,
+                 inv_count_id,
+                 inv_count_typcode,
+                 begin_date,
+                 count_status,
+                 store_created_flag
+            FROM inv_count
+           WHERE organization_id = ?
+             AND rtl_loc_id = ?
+             AND void_flag = ?
+      ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Parameter name="argRetailLocationId" />
+      <Parameter name="argVoidFlag" />
+      <Expression trigger="argCountId"><![CDATA[inv_count_id = ?]]></Expression>
+      <Expression trigger="argBeginDate"><![CDATA[begin_date = ?]]></Expression>
+      <Expression trigger="argCountType"><![CDATA[/*UPPER*/ inv_count_typcode = ?]]></Expression>
+      <Expression trigger="@argCountStatus"><![CDATA[/*UPPER*/ count_status IN ?]]></Expression>
+    </SQL>
+  </Query>
+  <Query name="XSERVICES.ITEM_LOOKUP_SERVICE">
+    <QueryHandler dtype="Class">dtv.data2.access.query.DtxQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.dao.itm.ItemId</ResultClass>
+    <SQL>
+      <WhereClause dtype="String"><![CDATA[WHERE t.organization_id = ?]]></WhereClause>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argDescription"><![CDATA[/*UPPER*/ t.description LIKE ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String">ORDER BY 1 ASC</Suffix>
+  </Query>
+  <Query name="XSERVICES.INVENTORY_DOC_LOOKUP" pmType="INVENTORY">
+    <QueryHandler dtype="Class">dtv.data2.access.query.SqlQueryHandler</QueryHandler>
+    <ResultClass dtype="String">dtv.xst.query.results.InvDocSearchResult</ResultClass>
+    <ResultField name="StatusCode" type="String" />
+    <ResultField name="DocumentId" type="String" />
+    <ResultField name="DocType" type="String" />
+    <ResultField name="DocSubType" type="String" />
+    <ResultField name="RecordCreationType" type="String" />
+    <ResultField name="LastActivityDate" type="Date" />
+    <ResultField name="RetailLocationId" type="Long" />
+    <ResultField name="Description" type="String" />
+    <ResultField name="Count" type="Long" />
+    <SQL>
+      <Statement dtype="String"><![CDATA[
+        SELECT 
+          t.status_code, t.invctl_document_id, t.document_typcode, document_subtypcode, t.record_creation_type, 
+        last_activity_date,  t.rtl_loc_id, description, count (distinct  s.invctl_document_line_nbr)
+        FROM 
+          inv_invctl_document t, inv_invctl_document_lineitm s
+        WHERE 
+          t.organization_id = ? AND /*UPPER*/ t.status_code <> 'VOID' AND t.invctl_document_id = s.invctl_document_id
+        ]]></Statement>
+      <Parameter name="argOrganizationId" />
+      <Expression trigger="argRetailLocationId">t.rtl_loc_id = ?</Expression>
+      <Expression trigger="argDocumentId">t.invctl_document_id = ?</Expression>
+      <Expression trigger="argDocumentTypeCode">t.document_typcode = ?</Expression>
+      <Expression trigger="argDocumentSubtypeCode"><![CDATA[/*UPPER*/ t.document_subtypcode = ?]]></Expression>
+      <Expression trigger="argDocumentStatusCode"><![CDATA[/*UPPER*/ t.status_code = ?]]></Expression>
+      <Expression trigger="argRestrictStatus"><![CDATA[/*UPPER*/ t.status_code != ?]]></Expression>
+      <Expression trigger="argRestrictStatus2"><![CDATA[/*UPPER*/ t.status_code != ?]]></Expression>
+    </SQL>
+    <Suffix dtype="String"><![CDATA[group by t.status_code, t.organization_id, t.rtl_loc_id, t.document_typcode, t.invctl_document_id, t.document_subtypcode, t.record_creation_type, t.last_activity_date, t.description]]></Suffix>
+  </Query>
+
+ </Queries>
+</QuerySet>

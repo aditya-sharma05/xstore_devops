@@ -1,0 +1,45 @@
+<div class="jraf-mobile-header">
+    <div class="jraf-global-header-processing-indicator" :class="[[{ active: headerState.processingIndicatorManager.active() }]]"
+         :style.background-color="[[headerState.processingIndicatorColor]]"></div>
+
+    <header role="banner" class="oj-web-applayout-header">
+        <div class="oj-web-applayout-max-width oj-flex-bar">
+            <oj-bind-if test="[[openNavigationCallback]]">
+                <div class="oj-flex-bar-start  oj-sm-align-items-center jraf-nav-menu-wrapper">
+                    <a href="#" on-click="[[openNavigationCallback]]" :title="[[navMenuLabel]]" :aria-label="[[navMenuLabel]]">
+                        <span class="jraf-nav-menu-icon" role="img"></span>
+                    </a>
+                </div>
+            </oj-bind-if>
+
+            <div class="oj-flex-bar-middle oj-sm-align-items-center">
+                <oj-bind-if test="[[renderContentTitle]]">
+                    <span><oj-bind-text value="[[contentTitle]]"></oj-bind-text></span>
+                </oj-bind-if>
+                <oj-bind-if test="[[!renderContentTitle]]">
+                    <oj-bind-if test="[[headerState.configLoaded()]]"> 
+                        <oj-bind-if test="[[!headerState.applicationIcon()]]">
+                            <span role="presentation" class="oj-icon jraf-application-icon"></span>
+                        </oj-bind-if>
+                        <oj-bind-if test="[[headerState.applicationIcon()]]">
+                            <img class="jraf-application-icon-custom" role="presentation" :src="[[headerState.applicationIcon]]"/>
+                        </oj-bind-if>
+                    </oj-bind-if>
+                </oj-bind-if>
+            </div>
+
+            <div class="oj-flex-bar-end oj-sm-align-items-center">
+                <oj-bind-if test="[[openSearchCallback]]">
+                    <a href="#" on-click="[[openSearchCallback]]" :title="[[searchLabel]]" :aria-label="[[searchLabel]]">
+                        <span class="jraf-mobile-header-search-icon" role="img"></span>
+                    </a>
+                </oj-bind-if>
+                <oj-bind-if test="[[openOptionsMenuCallback]]">
+                    <a href="#" on-click="[[openOptionsMenuCallback]]" :title="[[optionsMenuLabel]]" :aria-label="[[optionsMenuLabel]]">
+                        <span class="jraf-mobile-options-menu-icon" role="img"></span>
+                    </a>
+                </oj-bind-if>
+            </div>
+        </div>
+    </header>
+</div>

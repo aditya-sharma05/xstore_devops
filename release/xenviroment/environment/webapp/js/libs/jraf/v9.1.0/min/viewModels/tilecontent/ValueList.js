@@ -1,0 +1,1 @@
+define(["jraf/utils/ValidationUtils","jraf/composites/oj-rgbu-jraf-value-list/loader"],(function(i){"use strict";return function(s){if(!i.isObjectStrict(s)||!i.isArray(s.values))throw new TypeError("ValueList: Missing required values list");this.values=s.values}}));

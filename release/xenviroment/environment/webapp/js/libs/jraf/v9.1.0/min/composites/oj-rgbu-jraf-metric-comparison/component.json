@@ -1,0 +1,17 @@
+{
+    "name": "oj-rgbu-jraf-metric-comparison",
+    "displayName": "Metric Comparison",
+    "description": "A component that shows between 1 and 2 metrics for comparison and can be rendered in an Info tile component.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "metricData": {
+            "displayName": "Metric Data",
+            "description": "Array of metric data objects. This array can have one or two metric data object(s). Metric Data objects have the following properties: name, value, indicatorType, indicatorDirection, indicatorIcon, and indicatorLabel. The name and value are required properties and are the name and value of the metric that is being displayed. The indicatorType indicates the type of arrow to display and is based on the supported severities. Valid options are: 'none', 'low', 'medium', 'high', 'admin', and 'disabled'. The indicatorDirection is the direction the arrow icon points to: 'up' or 'down'. The indicatorIcon is a class string referring to a custom indicator icon that should be displayed next to the metric value. The indicatorLabel is a label to display with the indicatorIcon for accessibility purposes.",
+            "type": "array",
+            "required": true
+        }
+    },
+    "methods": {},
+    "slots": {}
+}

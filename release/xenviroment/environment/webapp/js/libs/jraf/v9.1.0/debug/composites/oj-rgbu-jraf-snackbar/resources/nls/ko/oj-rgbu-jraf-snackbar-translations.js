@@ -1,0 +1,1 @@
+define({dismiss:"닫기",success:"성공",info:"정보",warning:"경고",error:"오류",seeAllLabel:"모두 보기",bulkMessage:{success:"{0}번의 성공이 발생했습니다.",info:"{0}번의 이벤트가 발생했습니다.",warning:"{0}번의 경고가 발생했습니다.",error:"{0}번의 오류가 발생했습니다."}});

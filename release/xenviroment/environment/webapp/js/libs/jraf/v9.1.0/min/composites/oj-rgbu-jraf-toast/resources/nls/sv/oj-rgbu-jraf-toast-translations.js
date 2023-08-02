@@ -1,0 +1,1 @@
+define({dismiss:"Avvisa",standardInfoTitle:"Informationsmeddelande",standardWarningTitle:"Varningsmeddelande",standardErrorTitle:"Felmeddelande",standardSuccessTitle:"Meddelande om utförande",announcementInfoTitle:"Informationsmeddelande",announcementWarningTitle:"Varningsmeddelande",announcementErrorTitle:"Felmeddelande",announcementSuccessTitle:"Meddelande om utförande"});

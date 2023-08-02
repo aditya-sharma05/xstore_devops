@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Aktuelle Kachelauswahl",adminTileLabel:"Administrative Kachel",criticalSeverityLabel:"Kritischer Schweregrad",importantSeverityLabel:"Wichtiger Schweregrad",normalSeverityTile:"Normaler Schweregrad",noSeverityLabel:"Kein Schweregrad"});

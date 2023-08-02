@@ -1,0 +1,75 @@
+{
+    "name": "oj-rgbu-jraf-message-dialog",
+    "displayName": "Message Dialog",
+    "description": "The Message Dialog component provides a standardized way to present messages to users",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "level": {
+            "description": "The level of message dialog to display. Valid options are: info, confirmation, warning, and error",
+            "type": "string",
+            "value": "info"
+        },
+        "type": {
+            "description": "The type of dialog to display. Valid options are: ok, okCancel, yesNo, and custom",
+            "type": "string",
+            "value": "ok"
+        },
+        "messageText": {
+            "description": "The message text to display within the dialog.",
+            "type": "string"
+        },
+        "dialogStyle": {
+            "description": "An object of CSS style settings that can set the following properties: width, height, min-width, max-width, min-height and max-height.",
+            "type": "object",
+            "value": {
+                "display": "none",
+                "width": "auto",
+                "height": "auto"
+            }
+        },
+        "modeless": {
+            "description": "Whether the dialog should render as modeless. By default, it renders as modal.",
+            "type": "boolean",
+            "value": false
+        },
+        "customCancelButtonLabel": {
+            "description": "Optional localized label for the cancel/negative action button. Used when type is custom.",
+            "type": "string"
+        },
+        "customOkButtonLabel": {
+            "description": "Optional localized label for the ok/positive action button. Used when type is custom.",
+            "type": "string"
+        },
+        "cancelAction": {
+            "description": "Callback function to call when the cancel/no/negative button is selected.",
+            "type": "function"
+        },
+        "okAction": {
+            "description": "Callback function to call when the ok/yes/positive button is selected.",
+            "type": "function"
+        },
+        "beforeCloseHandler": {
+            "description": "Optional callback function to call before closing the dialog. Return false to cancel the dialog close.",
+            "type": "function"
+        },
+        "closeHandler": {
+            "description": "Optional callback function to call after the dialog has closed.",
+            "type": "function"
+        }
+    },
+    "methods": {
+        "open": {
+            "description": "Method to open the message dialog."
+        },
+        "close": {
+            "description": "Method to close the message dialog."
+        }
+    },
+    "slots": {
+        "customBody": {
+            "displayName": "Custom Body",
+            "description": "Displays user-defined content instead of the normal message format"
+        }
+    }
+}

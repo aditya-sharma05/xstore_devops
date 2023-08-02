@@ -1,0 +1,1 @@
+define({filterPlaceholder:"Filtre",msgNoData:"Görüntülenecek kalem yok.",msgNoFilteredData:"Geçerli filtrelerle eşleşen kalem yok."});

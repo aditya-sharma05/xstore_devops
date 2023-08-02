@@ -1,0 +1,75 @@
+<!-- Tabbed layout -->
+<oj-bind-if test="[[!useCustomContentArea]]">
+    <div class="jraf-global-tabs-wrapper oj-flex oj-sm-flex-direction-column">
+        <div class="jraf-global-tabs-conveyor-wrapper" data-oj-context>
+            <oj-conveyor-belt :id="[[conveyorComponentId]]" class="jraf-global-tabs-conveyor">
+                <oj-tab-bar :id="[[tabBarComponentId]]" 
+                            :aria-label="[[globalTabBarAriaLabel]]"
+                            data="[[tabsDatasource]]"
+                            selection="{{activeTab}}" 
+                            edge="top" 
+                            class="oj-sm-condense jraf-global-tabbar"
+                            translations.msg-no-data="">
+                    <template slot="itemTemplate" data-oj-as="item">
+                        <li :id="[[item.data.tabId]]" 
+                            :class="[[{ 'jraf-tabs-uishell-tab': true, 'oj-removable': true, 'jraf-global-tabs-removable': item.data.removable}]]">
+                            <a href="#">
+                                <span class="jraf-spinner-container jraf-tabbar-icon"
+                                      :class="[[{'jraf-tabbar-icon-active' : item.data.displayProcessing()}]]">
+                                    <oj-bind-if test="[[item.data.processing() && !item.data.statusClass()]]">
+                                        <span class="jraf-global-tabs-spinner jraf-spinner-xsmall"></span>
+                                    </oj-bind-if>
+                                </span>
+                                <span class="jraf-tabbar-icon"
+                                      :class="[[{'jraf-tabbar-icon-active' : item.data.displayStatus()}]]">
+                                        <span :class="[[item.data.statusClass]]"></span>
+                                </span>
+                                <oj-bind-text value="[[item.data.content.getTargetTitle()]]"></oj-bind-text>
+                            </a>
+                        </li>
+                    </template>
+                    <oj-menu :id="[[tabContextMenuId]]" slot="contextMenu" style="display:none" on-oj-before-open="[[handleTabContextBeforeOpen]]">
+                        <oj-option data-oj-command="oj-tabbar-remove"></oj-option>
+                    </oj-menu>
+                </oj-tab-bar>
+            </oj-conveyor-belt>
+        </div>
+        <oj-switcher :id="[[switcherComponentId]]" value="[[activeTab]]">
+            <oj-bind-for-each data="[[tabsData]]">
+                <template data-oj-as="tab">
+                    <div :id="[[tab.data.contentId]]" :slot="[[tab.data.tabId]]"
+                         :class="[[{ 'jraf-global-tabs-tab-content': true, 'jraf-global-tabs-tab-content-fill-content-area': tab.data.content.isFillContentArea()}]]"
+                         on-oj-rgbu-jraf-snackbar-status="[[handleSnackbarStatus]]">
+                        <oj-rgbu-jraf-apps-module 
+                            class="jraf-global-tabs-tab-content-module"
+                            module-binding="[[tab.data.viewModel.moduleBinding]]"
+                            module-options="[[tab.data.viewModel.moduleOptions]]"
+                            before-load-module-handler="[[beforeLoadModuleHandler]]"
+                            after-unload-module-handler="[[afterUnloadModuleHandler]]"></oj-rgbu-jraf-apps-module>
+                        <div :id="[[tab.data.modalPageContainerId]]"></div>
+                    </div>
+                </template>
+            </oj-bind-for-each>
+        </oj-switcher>
+    </div>
+
+    <oj-rgbu-jraf-message-dialog :id="[[maxTabsDialogId]]" level="warning"
+        type="ok" message-text="[[maximumTabsMessage]]"></oj-rgbu-jraf-message-dialog>
+
+</oj-bind-if>
+
+<!-- Custom Content Layout -->
+<oj-bind-if test="[[useCustomContentArea]]">
+    <oj-bind-if test="[[customContentAreaModuleBinding() || customContentAreaModuleOptions()]]">
+        <oj-rgbu-jraf-apps-module 
+            class="jraf-global-custom-content-wrapper"
+            module-binding="[[customContentAreaModuleBinding]]"
+            module-options="[[customContentAreaModuleOptions]]"
+            before-load-module-handler="[[beforeLoadModuleHandler]]"
+            after-unload-module-handler="[[afterUnloadModuleHandler]]"></oj-rgbu-jraf-apps-module>
+    </oj-bind-if>
+    <div :id="[[customContentAreaModalPageContainerId]]"></div>
+</oj-bind-if>
+
+<!-- Global Toaster -->
+<oj-rgbu-jraf-toaster :id="[[toasterId]]" class="jraf-global-toaster"></oj-rgbu-jraf-toaster>

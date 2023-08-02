@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InputTypeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="InputConfig.xsd">
+  <InputRules dtype="ClassMap">
+    <ClassKeyPair key="PinPadExistsRule">
+      <Value dtype="Class">dtv.hardware.inputrules.MsrSourceRule</Value>
+    </ClassKeyPair>
+  </InputRules>
+</InputTypeList>

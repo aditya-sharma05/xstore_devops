@@ -1,0 +1,1 @@
+define(["knockout"],(function(t){"use strict";function s(){this.startCount=t.observable(0),this.active=t.pureComputed((function(){return this.startCount()>0}),this)}return s.prototype.startProcessing=function(){this.startCount(this.startCount()+1)},s.prototype.stopProcessing=function(){this.active()&&this.startCount(this.startCount()-1)},s}));

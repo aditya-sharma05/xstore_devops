@@ -1,0 +1,65 @@
+<!--
+ Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding" id="main">
+  <h2><span data-bind="text: headerLabel"></span></h2>
+  <div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12 oj-md-12 oj-lg-6">
+      <div class="oj-flex-item oj-sm-12" style="padding-right: 8px;">
+        <div id="form-container">
+          <oj-form-layout id="runActionForm" label-edge="top" max-columns="1" direction="column">
+            <oj-input-text :id="[[actionNameId]]"
+                           label-hint="{{actionNameLabel}}"
+                           placeholder="{{actionNameLabel}}"
+                           autofocus="true"
+                           value="{{actionName}}"
+                           raw-value="{{actionNameRaw}}"
+                           style="max-width: 100%"
+                           clear-icon="conditional"
+                           spellcheck="false"
+                           on-keyup="[[keyUpListener]]"
+                           list="typeAheadActions"></oj-input-text>
+
+            <datalist id="typeAheadActions" data-bind="foreach: typeAheadActions">
+              <option data-bind="value: actionName"></option>
+            </datalist>
+
+            <div id="submitAndStatusArea" class="oj-sm-align-items-center">
+              <oj-button :id="[[submitButtonId]]" on-oj-action="[[submitButtonClick]]" disabled="true">Submit
+              </oj-button>
+            </div>
+          </oj-form-layout>
+
+        </div>
+      </div>
+
+      <div class="oj-flex-item oj-sm-12">
+        <oj-list-view id="availableActions"
+                      data="[[listDataProvider]]"
+                      selection-mode="none"
+                      on-current-item-changed="[[handleSelectionChanged]]"
+                      scroll-policy="loadAll"
+                      style="height: 100%; min-height: 100%; overflow-x: hidden">
+          <template slot="itemTemplate" data-oj-as="item">
+            <div class="oj-flex" style="flex-wrap: nowrap">
+              <div class="oj-flex-item">
+                <div>
+                  <strong>
+                    <oj-bind-text value="[[item.data.actionName]]"></oj-bind-text>
+                  </strong>
+                </div>
+                <div>
+                <span class="oj-text-xs oj-text-secondary-color" style="word-wrap: break-word"><oj-bind-text
+                        value="[[item.data.actionDescription]]"></oj-bind-text></span>
+                </div>
+              </div>
+            </div>
+          </template>
+        </oj-list-view>
+      </div>
+    </div>
+  </div>
+  <oj-rgbu-jraf-snackbar :id="[[snackBarId]]"></oj-rgbu-jraf-snackbar>
+
+</div>

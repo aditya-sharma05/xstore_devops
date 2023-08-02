@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"Dodatne informacije",toolbarLabel:"Alatna traka",contextualHelpLabel:"Pomoć",closeLabel:"Zatvori"});

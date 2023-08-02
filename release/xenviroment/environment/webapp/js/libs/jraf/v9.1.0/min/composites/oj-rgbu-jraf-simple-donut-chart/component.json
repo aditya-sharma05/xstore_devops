@@ -1,0 +1,35 @@
+{
+    "name": "oj-rgbu-jraf-simple-donut-chart",
+    "displayName": "Simple Donut Chart",
+    "description": "A Simple Donut Chart variation of the JET pie chart displaying a label in the center.",
+    "version": "9.1.0",
+    "jetVersion": "^9.0.0",
+    "properties": {
+        "series": {
+            "displayName": "Series",
+            "description": "An array of series objects for the JET oj-chart pie graph.",
+            "type": "array<object>",
+            "required": true
+        },
+        "groups": {
+            "displayName": "Groups",
+            "description": "An array of groups objects for the JET oj-chart pie graph.",
+            "type": "array<object>",
+            "required": false
+        },
+        "valueFormats": {
+            "displayName": "Value Format",
+            "description": "An object specifying value formatting and tooltip behavior, whose keys generally correspond to the attribute names on the data items.",
+            "type": "(array|object)",
+            "required": false
+        },
+        "centerLabel": {
+            "displayName": "Center Label",
+            "description": "Label to display in the center of the donut chart.",
+            "type": "string",
+            "required": true
+        }
+    },
+    "methods": {},
+    "slots": {}
+}

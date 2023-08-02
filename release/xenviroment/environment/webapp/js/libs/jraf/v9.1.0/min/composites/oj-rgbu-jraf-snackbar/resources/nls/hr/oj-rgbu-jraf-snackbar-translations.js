@@ -1,0 +1,1 @@
+define({dismiss:"Odbaci",success:"Uspjeh",info:"Informacije",warning:"Upozorenje ",error:"Greška",seeAllLabel:"Prikaži sve",bulkMessage:{success:"Broj uspjeha: {0}.",info:"Došlo je do sljedećeg broja događaja: {0}.",warning:"Došlo je do sljedećeg broja upozorenja: {0}.",error:"Došlo je do sljedećeg broja pogrešaka: {0}."}});

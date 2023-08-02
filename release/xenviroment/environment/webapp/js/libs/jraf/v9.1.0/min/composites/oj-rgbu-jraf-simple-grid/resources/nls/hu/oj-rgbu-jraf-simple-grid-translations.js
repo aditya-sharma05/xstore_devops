@@ -1,0 +1,1 @@
+define({filterPlaceholder:"Szűrő",msgNoData:"Nincs megjeleníthető elem.",msgNoFilteredData:"Az aktuális szűrő(k)nek egyetlen elem sem felel meg."});

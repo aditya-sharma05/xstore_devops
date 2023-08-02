@@ -1,0 +1,1 @@
+define(["knockout"],(function(t){"use strict";return{formatObservable:function(n,r){return t.pureComputed((function(){return r.format(n())}))}}}));

@@ -1,0 +1,20 @@
+<!--
+ Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <oj-navigation-list class="xenv-navigation-list" drill-mode="none">
+    <ul>
+      <oj-bind-for-each data="[[menuItems]]">
+        <template>
+
+          <li :id="[[$current.data.id]]">
+            <a :id="[[$current.data.module]]" href="#" on-click="[[openPage]]">
+              <span data-bind="text: [[$current.data.label]]"></span>
+            </a>
+          </li>
+        </template>
+      </oj-bind-for-each>
+    </ul>
+  </oj-navigation-list>
+</div>

@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Τρέχουσα επιλογή πλακιδίου",adminTileLabel:"Πλακίδιο διαχείρισης",criticalSeverityLabel:"Κρίσιμη σοβαρότητα",importantSeverityLabel:"Σημαντική σοβαρότητα",normalSeverityTile:"Κανονική σοβαρότητα",noSeverityLabel:"Χωρίς σοβαρότητα"});

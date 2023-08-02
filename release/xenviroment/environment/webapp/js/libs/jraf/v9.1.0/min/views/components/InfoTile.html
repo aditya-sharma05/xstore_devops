@@ -1,0 +1,68 @@
+<div tabindex="0"
+     data-bind="attr: {id: tileId,
+                       'aria-label': label},
+                css: {'jraf-tile-container': true,
+                      'jraf-selected': selected},
+                click: handleTileSelection,
+                event: { keydown: handleTileKeydown }">
+<div data-bind="css: {'jraf-disabled': disabled,
+                      'jraf-tile-root': true,
+                      'jraf-admin-tile': type === 'admin',
+                      'jraf-normal': severity() === 'low',
+                      'jraf-important': severity() === 'medium',
+                      'jraf-critical': severity() === 'high'}">
+    <div class="jraf-tile-box-container">
+        <div data-bind="css: {
+            'oj-flex': true,
+            'oj-sm-flex-direction-column': true,
+            'oj-sm-flex-items-initial': true,
+            'oj-sm-flex-wrap-nowrap': true,
+            'oj-sm-justify-content-space-between': true,
+            'jraf-tile': true
+        }">
+            <div class="oj-flex-item jraf-tile-header-block">
+                <div class="oj-flex-bar">
+                    <div class="oj-flex-bar-start">
+                        <span class="jraf-tile-indicator" role="img"
+                              data-bind="attr: {title: tileIndicatorLabel, 'aria-label': tileIndicatorLabel}"></span>
+                    </div>
+
+                    <div class="oj-flex-bar-end">
+
+                        <h3 class="jraf-tile-header jraf-header-text">
+                            <span data-bind="text: title, attr: {title: title}"></span>
+                        </h3>
+
+                    </div>
+                </div>
+
+                <div class="oj-flex-bar">
+                    <div class="oj-flex-bar-end">
+                        <span class="jraf-tile-metric-value jraf-header-text"
+                              data-bind="text: metric, attr: {title: metric}"></span>
+                    </div>
+                </div>
+
+                <!-- ko if: metricLabel -->
+                    <div class="oj-flex-bar">
+                        <div class="oj-flex-bar-end">
+                            <span class="jraf-tile-metric-label jraf-header-text"
+                                  data-bind="text: metricLabel, attr: {title: metricLabel}"></span>
+                        </div>
+                    </div>
+                <!-- /ko -->
+            </div>
+
+            <!-- ko if: moduleBinding -->
+                <div class="oj-flex-item">
+                    <div data-bind="ojModule: moduleBinding"></div>
+                </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="jraf-tile-selection-indicator-container">
+        <span class="jraf-tile-selection-indicator" role="img" data-bind="attr: {'aria-label': tileSelectionIndicatorAriaLabel}"></span>
+    </div>
+</div>
+
+</div>

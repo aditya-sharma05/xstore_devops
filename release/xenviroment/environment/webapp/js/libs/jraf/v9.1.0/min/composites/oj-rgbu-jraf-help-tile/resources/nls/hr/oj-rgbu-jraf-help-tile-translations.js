@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Saznajte više",videoHelpLaunchLabel:"Pogledajte vodič"});

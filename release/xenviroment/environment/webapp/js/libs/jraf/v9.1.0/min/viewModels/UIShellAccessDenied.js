@@ -1,0 +1,1 @@
+define(["ojs/ojcore","knockout"],(function(e){"use strict";return function(){this.doNotHavePrivilegesMsg=e.Translations.getTranslatedString("jraf.messages.doNotHavePrivileges")}}));

@@ -1,0 +1,51 @@
+<!--
+Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
+-->
+<div class="oj-hybrid-padding" id="deviceDetailPage">
+<div id="container">
+<div class="oj-flex">
+<div class="oj-flex-item">
+  <h3 class="oj-sm-only-hide"><oj-bind-text value="[[deviceNumberText]]"></oj-bind-text></h3>
+  </div>
+  <div class="oj-flex-item" data-bind="if: isXenvMachine && !runningInContainer">
+  <oj-button class="xenv-left-justified" on-oj-action="[[toggleView]]" :id="[[viewToggleButtonId]]">
+    <span>
+       <oj-bind-text value="[[toggleButtonLabel]]"></oj-bind-text>
+    </span>
+  </oj-button>
+  </div>
+    </div>
+ </div>
+	<div id="gridContainer">
+		<div class="oj-flex">
+		 <div class="oj-flex-item oj-sm-8 oj-md-6 oj-lg-4 oj-margin">
+			<div data-bind="with: collection">
+				<oj-rgbu-jraf-simple-grid label="Register Information."
+					disable-sorting="true" columns="[[$parent.columnSettings]]"
+					scroll-policy="auto"
+					collection="[[$parent.collection]]"></oj-rgbu-jraf-simple-grid>
+			</div>
+			<div style=display:none :id="[[errContainerId]]"></div>
+		</div>
+
+     <oj-bind-if test='[[isXenvMachine]]'>
+			<div data-bind="visible: isXenvMachine" style="display: block"
+				class="oj-flex-item oj-sm-12 oj-md-8 oj-lg-6 oj-margin oj-sm-only-hide"
+				:id="[[statusAreaId]]">
+				<oj-module class="oj-panel"
+					config="[[statusConfig]]"></oj-module>
+			</div>
+			</oj-bind-if>
+
+      <oj-bind-if test='[[isXenvMachine]]'>
+			<div style="display: none"
+				class="oj-flex-item oj-sm-12 oj-md-8 oj-lg-6 oj-margin oj-sm-only-hide"
+				:id="[[appControlAreaId]]">
+				<oj-module class="oj-panel"
+					config="[[appControlConfig]]"></oj-module>
+			</div>
+			</oj-bind-if>
+		</div>
+	</div>
+	<oj-rgbu-jraf-snackbar :id="[[detailSnackbarId]]"></oj-rgbu-jraf-snackbar>
+</div>

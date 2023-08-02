@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Note: Add application name here so title is available as soon as page loads -->
+  <title>Oracle Retail Xenvironment</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Styles -->
+  <!-- This is the main css file for the default Alta theme -->
+<!-- injector:theme -->
+<link rel="stylesheet" href="css/alta/9.1.0/web/alta.min.css" id="css" />
+<!-- endinjector -->
+
+  <link rel="stylesheet" href="css/libs/jraf/v9.1.0/alta/jraf-alta-dark-ltr.css" type="text/css" class="jraf-update-url-direction"/>
+
+  <link rel="stylesheet" href="css/override.css" type="text/css"/>
+
+  <!-- JavaScript -->
+  <script data-main="js/main" src="js/libs/require/require.js"></script>
+</head>
+<body>
+<oj-bind-if test="[[applicationRouter.currentValue]]">
+  <div class="jraf-global-content oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap"
+       data-bind="ojModule: applicationRouter.currentValue"></div>
+</oj-bind-if>
+</body>
+</html>

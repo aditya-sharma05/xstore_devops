@@ -1,0 +1,1 @@
+define({dismiss:"Απόρριψη",standardInfoTitle:"Ενημερωτικό μήνυμα",standardWarningTitle:"Προειδοποιητικό μήνυμα",standardErrorTitle:"Μήνυμα σφάλματος",standardSuccessTitle:"Μήνυμα επιτυχίας",announcementInfoTitle:"Ενημερωτικό μήνυμα",announcementWarningTitle:"Προειδοποιητικό μήνυμα",announcementErrorTitle:"Μήνυμα σφάλματος",announcementSuccessTitle:"Μήνυμα επιτυχίας"});

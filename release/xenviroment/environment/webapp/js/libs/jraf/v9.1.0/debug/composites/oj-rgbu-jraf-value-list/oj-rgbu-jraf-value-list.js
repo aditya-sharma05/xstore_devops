@@ -1,0 +1,1 @@
+define([],(function(){"use strict";function e(e){this._parseValues(e.properties.values)}return e.prototype._parseValues=function(e){this.values=[];for(var s=0;s<e.length;s++)this.values.push({label:e[s].label||"",value:e[s].value||"",message:e[s].message||""})},e}));

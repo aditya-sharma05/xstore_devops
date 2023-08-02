@@ -1,0 +1,25 @@
+<div class="oj-flex oj-sm-flex-wrap-nowrap jraf-metric-comparison-container"
+     data-bind="css: {'jraf-metric-comparison-single-metric': singleMetric}">
+
+    <!-- ko foreach: metricData -->
+    <div class="oj-flex-item jraf-metric-comparison-metric-container">
+        <div class="oj-flex-bar">
+            <div class="oj-flex-bar-end">
+                <span class="jraf-metric-comparison-metric-name" data-bind="text: name, attr:{title: name}"></span>
+            </div>
+        </div>
+        <div class="oj-flex-bar oj-sm-align-items-center">
+            <div class="oj-flex-bar-start">
+            </div>
+            <div class="oj-flex-bar-end">
+                <!-- ko if: indicatorIcon -->
+                <span data-bind="attr: {class: indicatorIcon, title: indicatorLabel}"
+                      role="img"></span>
+                <!-- /ko -->
+                <span class="jraf-metric-comparison-metric-value"
+                      data-bind="text: value, attr:{title: value}"></span>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

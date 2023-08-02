@@ -1,0 +1,1 @@
+define({additionalInfoLabel:"Ek Bilgiler",toolbarLabel:"Araç Çubuğu",contextualHelpLabel:"Yardım",closeLabel:"Kapat"});

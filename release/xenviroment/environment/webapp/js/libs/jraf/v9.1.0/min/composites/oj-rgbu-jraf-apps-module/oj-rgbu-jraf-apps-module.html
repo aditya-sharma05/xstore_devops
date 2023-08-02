@@ -1,0 +1,13 @@
+<oj-bind-if test="[[!showModuleElement()]]">
+    <div :id="[[moduleBindingId]]" 
+        data-bind="ojModule: moduleBinding"
+        class="oj-rgbu-jraf-apps-module-binding"></div>
+</oj-bind-if>
+<oj-bind-if test="[[renderModuleElement]]">
+    <oj-module 
+        config="[[moduleConfig]]"
+        class="oj-rgbu-jraf-apps-module-element"
+        :style.display="[[showModuleElement() ? '' : 'none']]"
+        on-oj-view-disconnected="[[handleViewDisconnected]]"
+        on-oj-transition-end="[[$properties.transitionEndHandler]]"></oj-module>    
+</oj-bind-if>

@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-metric-comparison.html","./oj-rgbu-jraf-metric-comparison","text!./component.json","css!./css/oj-rgbu-jraf-metric-comparison.min"],(function(e,o,r,t){"use strict";var i=JSON.parse(t),s=i.name;e.register(s,{view:o,viewModel:r,metadata:i})}));

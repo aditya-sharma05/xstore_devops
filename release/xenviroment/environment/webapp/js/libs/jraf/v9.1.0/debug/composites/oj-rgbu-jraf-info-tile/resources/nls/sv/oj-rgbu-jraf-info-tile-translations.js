@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Aktuellt panelurval",adminTileLabel:"Administrativ panel",criticalSeverityLabel:"Kritisk allvarlighetsgrad",importantSeverityLabel:"Viktig allvarlighetsgrad",normalSeverityTile:"Normal allvarlighetsgrad",noSeverityLabel:"Ingen allvarlighetsgrad"});

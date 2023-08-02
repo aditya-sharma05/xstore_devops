@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Dowiedz się więcej",videoHelpLaunchLabel:"Obejrzyj samouczek"});

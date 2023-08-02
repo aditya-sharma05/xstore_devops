@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-init-method="init">
+
+	<!-- Spring beans that are singletons or framework beans can be defined 
+		in this file. Any realm-specific beans (validations, services, workers, etc) 
+		should be defined in their relevant Spring file that should be in the same 
+		directory as this file. -->
+
+	<!-- This serves as a tag to signify to a certain bean post-processor that 
+		it should not attempt to override the scope of the bean (see sessionScopePostProcessor 
+		and dtv.util.spring.DesktopSessionScopePostProcessor)-->
+    <bean id="xservicesSpecialBean" abstract="true" />
+    		
+<bean id="persistenceDefaults" class="com.micros_retail.xservices.ServicesObjectIdFactory" />
+<bean id="replicationServiceFactory" class="dtv.data2.replication.dtximpl.DtxReplicationServiceFactory" />
+<bean id="mrRetailTransMgrImpl" class="com.micros_retail.xservices.pricing.MrRetailTransMgrImpl"
+  scope="session" parent="xservicesSpecialBean">
+  <property name="calculators" ref="calculators" />
+  <aop:scoped-proxy />
+</bean>
+
+  <bean id="transactionScope" class="dtv.pos.framework.scope.XstoreTransactionScope" scope="session"
+    primary="true" parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+
+  <bean id="returnManager" class="dtv.pos.register.returns.ReturnManager" scope="session"
+    parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="warrantyManager" class="dtv.pos.warranty.WarrantyManager" scope="session"
+    parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="exchangeManager" class="dtv.pos.inventory.serialexchange.ExchangeSerialNumberManager"
+    scope="session" parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="warrantyHistoricalAddHelper" class="dtv.pos.warranty.WarrantyHistoricalAddHelper"
+    scope="session" parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="airportManager" class="dtv.pos.flight.AirportHelper" scope="session"
+    parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="rtlTransactionMgr" class="dtv.pos.register.RetailTransactionMgrImpl" scope="session"
+    parent="xservicesSpecialBean">
+    <property name="calculators" ref="calculators" />
+    <aop:scoped-proxy />
+  </bean>
+
+  <bean id="defaultScope" class="com.micros_retail.xservices.XservicesDefaultScope" scope="request"
+    parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+
+  <bean id="orderMgr" class="dtv.pos.order.OrderMgr" scope="session" primary="true"
+    parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+
+  <bean id="loyaltyMgr" class="dtv.pos.customer.loyalty.LoyaltyMgr" scope="session" primary="true"
+    parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+
+  <bean id="accountManager" class="dtv.pos.customer.account.AccountManager" scope="session"
+    primary="true" parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+  
+  <bean id="rcptBuilder" class="dtv.hardware.rcptbuilding.ConfigurableRcptBuilder" scope="session"
+  primary="true" parent="xservicesSpecialBean">
+  <aop:scoped-proxy />
+</bean>
+	
+  <bean id="stationState" class="dtv.pos.iframework.security.StationState" scope="session" primary="true" parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="textTranslator" class="dtv.i18n.formatter.Translator" >
+    <property name="translationPaths" ref="translationPaths" />
+  </bean>
+  <bean id="translationPaths" class="dtv.i18n.TranslationPaths" />
+  <bean id="transDateProvider" class="dtv.pos.framework.systemcycle.TransDateProvider" scope="session" parent="xservicesSpecialBean">
+    <aop:scoped-proxy />
+    <property name="useSystemDate" value="#{T(dtv.pos.common.ConfigurationMgr).useSystemDate()}" />
+  </bean>
+  <bean id="sessionManager" class="com.micros_retail.xservices.till.ServicesSessionManager" init-method="initialize" lazy-init="true" scope="session" parent="xservicesSpecialBean" >
+    <aop:scoped-proxy />
+  </bean>
+  <bean id="commandKeyEventDispatcher" class="com.micros_retail.xservices.appmanagement.keycommands.ServicesCommandKeyEventDispatcher" />
+  <bean id="hotKeyEventDispatcher" class="com.micros_retail.xservices.appmanagement.keycommands.ServicesHotKeyEventDispatcher" />
+  <bean id="availableAwardBalanceCalculator" class="com.micros_retail.xservices.customer.ServicesAvailableAwardBalanceCalculator" scope="prototype" />
+
+	<!-- Fix for xservices regarding the session-scoped problems related to Mobile -->
+	<!-- If the ConfigurationManager is ever fixed for real, maybe some of these could be backed out, -->
+	<!--	but since Xservices does not use these tasks, it does not matter -->
+	<bean id="unlockUserTask"
+		class="com.micros_retail.xservices.spring.NothingTask" />
+	<bean id="xenvPasswordFileCreationTask"
+		class="com.micros_retail.xservices.spring.NothingTask" />
+	<bean id="autoClockOutTask"
+		class="com.micros_retail.xservices.spring.NothingTask" />
+	<bean id="autoPostPayrollTask"
+		class="com.micros_retail.xservices.spring.NothingTask" />
+	<bean id="updateLayawayAccountStatusTask"
+		class="com.micros_retail.xservices.spring.NothingTask" />
+	<bean id="sensitiveDataLoggingCheck"
+		class="com.micros_retail.xservices.spring.NothingTask" />
+
+	<!-- Took away aop:scoped-proxy so that the bean can still be used by xservices singletons -->
+    <bean id="sysConfigManager" class="com.micros.xstore.config.impl.SysConfigMgr" parent="abstractWorkstationConfigManager" init-method="loadConfigs">
+      <constructor-arg ref="configTypeSysConfig" />
+    </bean>
+      
+    <!-- Took away scope="session" so that the bean can still be used by xservices singletons -->
+    <bean abstract="true" id="abstractWorkstationConfigManager" init-method="loadConfigs">
+      <!-- <constructor-arg name="argWorkstationId" value="#{stationState.getWorkstationId()}" /> -->
+      <!-- <constructor-arg name="argFormFactor" value="#{stationState.getFormFactor()}" /> -->
+      <constructor-arg name="argWorkstationId" value="#{T(com.micros_retail.xcenter.bootstrap.XcenterProperties).getInteger('xservices.base.terminalNumber')}" />
+      <constructor-arg name="argFormFactor">
+        <value type="dtv.util.common.CommonConstants.FormFactor">desktop</value>
+      </constructor-arg>
+      <property name="globalConfigHolder" ref="globalConfigurationsHolder" />
+      <property name="overridesConfigHolder" ref="overrideConfigurationsHolder" />
+    </bean>
+    
+    <!-- added -->
+    <bean id="overrideConfigurationsHolder" class="com.micros.xstore.config.impl.NoConfigHolder" />
+  
+</beans>

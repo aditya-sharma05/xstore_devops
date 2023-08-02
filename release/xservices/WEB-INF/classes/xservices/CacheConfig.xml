@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CacheConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CacheConfig.xsd">
+  <Cache id="employee-context-cache" clearable="true">
+      <Impl>dtv.data2.cache.impl.GuavaCache</Impl>
+  </Cache>
+  <Cache id="SECURITY_PRIVILEGE_CACHE" clearable="true">
+      <Impl>dtv.data2.cache.impl.GuavaCache</Impl>
+  </Cache>
+  
+  <Cache id="XSERVICES.AVAILABLE_TENDERS_CACHE" clearable="true">
+      <Impl>dtv.data2.cache.impl.GuavaCache</Impl>
+  </Cache>
+  
+
+  <GlobalProperties>
+    <!-- (Tom) We need to be more aggressive here for the services.  Changing value to every 2 hours.  We're 
+    seeing problems where the business date isn't being refreshed in miStore.  -->
+    <Property key="guavacache.dtx-cache.TimeToLiveSeconds" value="7200" />
+    
+    <!--cache employees loaded from Service context for 10 minutes. -->
+    <Property key="guavacache.employee-context-cache.TimeToLiveSeconds" value="600" />
+    
+    <Property key="guavacache.XSERVICES.AVAILABLE_TENDERS_CACHE.MaxEntries" value="100" />
+    <Property key="guavacache.XSERVICES.AVAILABLE_TENDERS_CACHE.TimeToLiveSeconds" value="300" />
+  </GlobalProperties>
+  
+  <CacheFilter id="dtx-cache-trans-filter">
+    <Object id="ACCOUNTS_RECEIVABLE_LOOKUP_BY_CUSTOMER" cacheable="true" />
+    <Object id="ACCOUNTS_RECEIVABLE_LOOKUP_BY_CUSTOMER_SIMPLE" cacheable="true" />
+    <Object id="SIMILAR_ITEMS" cacheable="true" />
+  </CacheFilter>
+</CacheConfig>

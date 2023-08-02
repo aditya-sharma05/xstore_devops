@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"Más información",videoHelpLaunchLabel:"Ver tutorial"});

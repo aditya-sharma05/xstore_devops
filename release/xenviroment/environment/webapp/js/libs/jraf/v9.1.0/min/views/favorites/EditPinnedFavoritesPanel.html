@@ -1,0 +1,75 @@
+<script type="text/html" :id="[[pinnedFavoriteItemTemplateId]]">
+    <li :id="[[$parent.getPinnedFavoriteGuid($data)]]">
+        <span class="oj-flex-item oj-listview-drag-handle jraf-pinned-favorites-list-drag-pin-button-icon"></span>
+        <span :class="[[$parent.getPinnedFavoriteIconClass($data)]]"></span>
+        <div class="pin-container">
+            <div class="pin-title">
+                <span :title="[[$parent.getPinnedFavoriteTitle($data)]]">
+                    <oj-bind-text value="[[$parent.getPinnedFavoriteTitle($data)]]"></oj-bind-text>
+                </span>
+            </div>
+            <div>
+                <span>
+                    <oj-bind-text value="[[$parent.getPinnedFavoritePath($data)]]"></oj-bind-text>
+                </span>
+            </div>
+        </div>
+    </li>
+</script>
+
+<h2><oj-bind-text value="[[pinnedFavoritesHeader]]"></oj-bind-text></h2>
+<div class="jraf-edit-pinned-favorites-body" data-oj-context>
+    <oj-bind-if test="[[favoritesContentLoaded]]">
+        <oj-bind-if test="[[!hasPinnedFavorites()]]">
+            <span>
+                <oj-bind-text value="[[noFavoritesToDisplayMessage]]"></oj-bind-text>
+            </span>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[hasPinnedFavorites()]]">
+            <oj-toolbar :id='[[pinnedFavoritesToolbarId]]' :aria-label=[[pinnedFavoritesToolbarAriaLabel]] :aria-controls='[[pinnedFavoritesListId]]'
+                chroming='borderless' class='oj-toolbar-bottom-border'>
+                <oj-button :id='[[toolbarDeletePinButtonId]]' display='icons' disabled='[[!pinnedFavoriteIsSelected()]]' on-oj-action='[[handleDeleteButton]]'>
+                    <span slot='startIcon' class='oj-icon jraf-pinned-favorites-toolbar-delete-pin-button-icon'></span>
+                    <oj-bind-text value="[[toolbarDeletePinButtonName]]"></oj-bind-text>
+                </oj-button>
+            </oj-toolbar>
+            <oj-list-view :id=[[pinnedFavoritesListId]] :aria-label=[[pinnedFavoritesListAriaLabel]] selection-mode="single"
+                selection='{{pinnedFavoritesSelection}}'
+                dnd.reorder.items="enabled"
+                dnd.drag.items.drag-start="[[handleDragStart]]"
+                on-oj-reorder="[[handleReorder]]">
+                <ul>
+                    <!-- ko template: {name: pinnedFavoriteItemTemplateId, foreach: pinnedFavorites} --><!-- /ko -->
+                </ul>
+                <oj-menu id="pinnedFavoritesContextMenuId"
+                         slot="contextMenu"
+                         style="display:none"
+                         on-oj-action="[[contextMenuAction]]"
+                         on-oj-before-open="[[contextMenuBeforeOpen]]"
+                         :aria-label="[[pinnedFavoritesContextMenuAriaLabel]]">
+                    <oj-option value="cut">
+                        <span>
+                            <oj-bind-text value="[[pinnedFavoritesContextCutOption]]"></oj-bind-text>
+                        </span>
+                    </oj-option>
+                    <oj-option value="paste" disabled="[[preventPasteToTarget]]">
+                        <span>
+                            <oj-bind-text value="[[pinnedFavoritesContextPasteOption]]"></oj-bind-text>
+                        </span>
+                    </oj-option>
+                    <oj-option value="pasteAfter" disabled="[[preventPasteToTarget]]">
+                        <span>
+                            <oj-bind-text value="[[pinnedFavoritesContextPasteAfterOption]]"></oj-bind-text>
+                        </span>
+                    </oj-option>
+                    <oj-option value="unpin">
+                        <span>
+                            <oj-bind-text value="[[pinnedFavoritesContextUnpinOption]]"></oj-bind-text>
+                        </span>
+                    </oj-option>
+                </oj-menu>
+            </oj-list-view>
+        </oj-bind-if>
+    </oj-bind-if>
+</div>

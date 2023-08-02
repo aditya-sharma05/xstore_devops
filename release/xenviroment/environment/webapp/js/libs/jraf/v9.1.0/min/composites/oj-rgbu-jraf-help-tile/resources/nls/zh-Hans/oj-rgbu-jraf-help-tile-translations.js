@@ -1,0 +1,1 @@
+define({documentHelpLaunchLabel:"了解更多",videoHelpLaunchLabel:"观看教程"});

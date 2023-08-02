@@ -1,0 +1,1 @@
+define({nextLabel:"Nästa",previousLabel:"Föregående"});

@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"当前磁贴选择",adminTileLabel:"管理磁贴",criticalSeverityLabel:"“紧急”严重性",importantSeverityLabel:"“重要”严重性",normalSeverityTile:"“一般”严重性",noSeverityLabel:"“无”严重性"});

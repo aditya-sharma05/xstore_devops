@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="raf-icon-duplicate" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+</style>
+<polygon class="st0" points="24,17 19,17 19,12 17,12 17,17 12,17 12,19 17,19 17,24 19,24 19,19 24,19 "/>
+<path class="st0" d="M26,8v20H10V8H26 M26,6H10C8.9,6,8,6.9,8,8v20c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V8C28,6.9,27.1,6,26,6L26,6z"
+	/>
+<path class="st0" d="M6,23V4h14h2h2c0-1.1-0.9-2-2-2H6C4.9,2,4,2.9,4,4v20c0,1.1,0.9,2,2,2v-2V23z"/>
+</svg>

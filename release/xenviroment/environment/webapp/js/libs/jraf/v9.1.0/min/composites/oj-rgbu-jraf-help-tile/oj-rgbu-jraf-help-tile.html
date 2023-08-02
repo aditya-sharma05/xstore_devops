@@ -1,0 +1,37 @@
+<div>
+    <oj-bind-for-each data="[[topics]]">
+        <template data-oj-as="topic">
+            <div class="oj-rgbu-jraf-help-tile oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap">
+                <oj-bind-if test="[[topic.data.imageSrc]]">
+                    <img class="oj-flex-item oj-rgbu-jraf-help-tile-image"
+                         role="presentation"
+                         :src="[[topic.data.imageSrc]]"
+                         on-click="[[handleTileSelect]]">
+                </oj-bind-if>
+
+                <oj-bind-if test="[[!topic.data.imageSrc]]">
+                    <div role="presentation"
+                         :class="[[topic.data.typeIconClass + ' oj-flex-item oj-rgbu-jraf-help-tile-image oj-rgbu-jraf-help-tile-image-icon']]"
+                         :style.background-color="[[topic.data.color]]"
+                         on-click="[[handleTileSelect]]"></div>
+                </oj-bind-if>
+
+                <div class="oj-rgbu-jraf-help-tile-body oj-flex oj-flex-item oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-flex-wrap-nowrap oj-sm-flex-direction-column">
+                    <h4 class="oj-flex-item oj-rgbu-jraf-help-tile-flex-min oj-rgbu-jraf-help-tile-title"
+                        :title="[[topic.data.name]]">
+                        <oj-bind-text value="[[topic.data.name]]"></oj-bind-text>
+                    </h4>
+                    <span class="oj-flex-item oj-rgbu-jraf-help-tile-body-description">
+                        <oj-bind-text value="[[topic.data.description]]"></oj-bind-text>
+                    </span>
+                    <div class="oj-rgbu-jraf-help-tile-button oj-flex-item oj-rgbu-jraf-help-tile-flex-min">
+                        <oj-button on-oj-action="[[handleTileSelect]]"
+                                   chroming="outlined">
+                            <span><oj-bind-text value="[[topic.data.typeLabel]]"></oj-bind-text></span>
+                        </oj-button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </oj-bind-for-each>
+</div>

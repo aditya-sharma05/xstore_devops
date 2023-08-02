@@ -1,0 +1,31 @@
+<div class="oj-rgbu-jraf-modal-page-root" :id='[[modalPageId]]' :style.display="[[pageDisplay]]">
+    <div class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-flex-direction-column">
+        <div class="oj-flex-item oj-sm-flex-initial">
+            <div :class="[[headerClassString]]" :style="[[$properties.headerStyle]]">
+                <h3 class="oj-rgbu-jraf-modal-page-title-text">
+                    <oj-bind-text value="[[$properties.pageTitle]]"></oj-bind-text>
+                </h3>
+                <div class="oj-flex-bar-end">
+                    <oj-button :id='[[closeButtonId]]' class='oj-panel-remove-button' display='icons' chroming='borderless' on-oj-action='[[closeModalPage]]'>
+                        <span><oj-bind-text value="[[closeLabel]]"></oj-bind-text></span>
+                        <span slot='startIcon' class='oj-panel-remove-icon'></span>
+                    </oj-button>
+                </div>
+            </div>
+        </div>
+        <div :class="[[bodyClassString]]" :style="[[$properties.bodyStyle]]">
+            <oj-bind-slot name="pageContent">
+                <!-- default pageContent supports a single oj-module -->
+                <oj-bind-if test="[[renderPageContentModule]]">
+                    <oj-rgbu-jraf-apps-module 
+                        :id="[[appsModuleId]]"
+                        class="oj-rgbu-jraf-modal-page-content-module"
+                        module-binding="[[pageContentModule]]"
+                        module-options="[[pageContentModuleOptions]]"
+                        before-load-module-handler="[[$properties.beforeLoadModuleHandler]]"
+                        after-unload-module-handler="[[$properties.afterUnloadModuleHandler]]"></oj-rgbu-jraf-apps-module>
+                </oj-bind-if>
+            </oj-slot>
+        </div>
+    </div>
+</div>

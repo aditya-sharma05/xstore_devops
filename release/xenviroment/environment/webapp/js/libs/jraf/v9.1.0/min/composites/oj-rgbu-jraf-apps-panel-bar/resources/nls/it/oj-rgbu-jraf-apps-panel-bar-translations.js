@@ -1,0 +1,1 @@
+define({nextLabel:"Avanti",previousLabel:"Indietro"});

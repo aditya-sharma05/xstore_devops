@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-simple-donut-chart.html","./oj-rgbu-jraf-simple-donut-chart","text!./component.json","css!./oj-rgbu-jraf-simple-donut-chart.min"],(function(t,e,o,r){"use strict";var a=JSON.parse(r),s=a.name;t.register(s,{view:e,viewModel:o,metadata:a})}));

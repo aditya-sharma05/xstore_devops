@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-value-list.html","./oj-rgbu-jraf-value-list","text!./component.json","css!./css/oj-rgbu-jraf-value-list.min"],(function(e,t,s,a){"use strict";var o=JSON.parse(a),i=o.name;e.register(i,{view:t,viewModel:s,metadata:o})}));

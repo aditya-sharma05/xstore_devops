@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"目前動態磚選項",adminTileLabel:"管理動態磚",criticalSeverityLabel:"非常嚴重",importantSeverityLabel:"很嚴重",normalSeverityTile:"普通嚴重",noSeverityLabel:"不嚴重"});

@@ -1,0 +1,29 @@
+<!-- Start Menu UI Content -->
+<div class="jraf-favorites-menu">
+    <oj-bind-if test="[[!isHierarchyRoot()]]">
+        <h3 class="jraf-horizontal-tasks-header">
+            <a href="#" on-click="[[navigateUpHierarchy]]"  class="oj-flex oj-sm-align-items-center oj-sm-flex-items-initial">
+                <span class="jraf-horizontal-tasks-back jraf-icon oj-flex-item"></span>
+                <span class="oj-flex-item"><oj-bind-text value="[[drilledNodeLabel]]"></oj-bind-text></span>
+            </a>
+        </h3>
+    </oj-bind-if>
+
+    <div class="jraf-menu-body">
+        <oj-module config="[[favoritesBodyModuleConfig]]"></oj-module>
+    </div>
+
+    <oj-bind-if test="[[!hideEditFavorites]]">
+        <div class="jraf-menu-footer">
+            <div class="oj-flex">
+                <oj-button class="oj-flex-item" chroming='borderless' on-oj-action='[[editFavorites]]'>
+                    <span><oj-bind-text value="[[editFavoritesButtonLabel]]"></oj-bind-text></span>
+                </oj-button>
+            </div>
+        </div>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[!menuDataLoaded]]">
+        <span class="jraf-sidebar-loading" role="img"><oj-bind-text value="[[loadingText]]"></oj-bind-text></span>
+    </oj-bind-if>
+</div>

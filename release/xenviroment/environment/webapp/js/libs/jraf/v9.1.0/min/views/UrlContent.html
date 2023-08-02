@@ -1,0 +1,6 @@
+<!-- UI for UrlContent Module. Displays a URL in an iframe. -->
+<div>
+    <oj-bind-if test="[[url]]">
+        <iframe :src="[[url]]" :height="[[height]]" :width="[[width]]"></iframe>
+    </oj-bind-if>
+</div>

@@ -1,0 +1,1 @@
+define({filterPlaceholder:"Filtre",msgNoData:"Aucun élément à afficher.",msgNoFilteredData:"Aucun élément ne correspond au(x) filtre(s) actuel(s)."});

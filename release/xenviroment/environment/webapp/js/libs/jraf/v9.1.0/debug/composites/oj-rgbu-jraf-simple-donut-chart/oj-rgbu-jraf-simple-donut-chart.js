@@ -1,0 +1,1 @@
+define(["knockout","ojs/ojchart"],(function(t){"use strict";return function(o){this.innerRadius=.8,this.labelStyle=t.observable({fontWeight:"bold",fontSize:"15px",color:"#000"}),this.pieGroupsValue=t.toJS(o.properties.groups),this.valueFormats=t.toJS(o.properties.valueFormats)}}));

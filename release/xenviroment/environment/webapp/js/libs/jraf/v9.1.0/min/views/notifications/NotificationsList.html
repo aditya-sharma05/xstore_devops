@@ -1,0 +1,26 @@
+<oj-navigation-list
+    data="[[notificationsList]]"
+    drill-mode="none"
+    display="icons"
+    :aria-label="[[notificationsListDesc]]"
+    class="jraf-sidebar-list-items jraf-notifications-list">
+    <template slot="itemTemplate" data-oj-as="item">
+        <li class="jraf-sidebar-list-item"
+        :id="[[item.data.id]]"
+        :class="[[{ 'jraf-not-launchable': !item.data.launchable }]]"
+        on-click="[[$module.handleNotificationClick]]">
+            <div class="jraf-sidebar-list-item-group">
+                <a href="#" class="jraf-menu-icon-link" on-click="[[$module.markNotificationAsRead]]">
+                    <span class="jraf-read-indicator" :title="[[$module.dismissLabel]]" :class="[[{ 'jraf-read-indicator-read' : item.data.readState }]]"></span>
+                </a>
+                <div class="jraf-sidebar-list-item-content">
+                    <div><span :title="[[item.data.type]]" class="oj-navigationlist-item-title jraf-sidebar-list-item-header"><oj-bind-text value="[[item.data.type]]"></oj-bind-text></span></div>
+                    <div><span :class="[['jraf-severity-badge ' + $data['severityClass']]]" class="oj-navigationlist-item-title jraf-sidebar-list-item-header"><oj-bind-text value="[[item.data.severity]]"></oj-bind-text></span></div>
+                    <div><span :title="[[item.data.message]]" class="oj-navigationlist-item-title"><oj-bind-text value="[[item.data.message]]"></oj-bind-text></span></div>
+                    <div><span class="oj-navigationlist-item-title jraf-sub-text"><oj-bind-text value="[[item.data.timestamp]]"></oj-bind-text></span></div>
+                    <div><span class="oj-navigationlist-item-title jraf-sub-text"><oj-bind-text value="[[item.data.author]]"></oj-bind-text></span></div>
+                </div>
+            </div>
+        </li>
+    </template>
+</oj-navigation-list>

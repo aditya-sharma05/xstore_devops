@@ -1,0 +1,1 @@
+define([],(function(){"use strict";return{getTruncatedString:function(n,t){return n.length<=t?n:n.slice(0,t-3)+"…"}}}));

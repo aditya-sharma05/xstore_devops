@@ -1,0 +1,70 @@
+<div class="oj-rgbu-jraf-simple-grid-wrapper oj-flex oj-sm-flex-direction-column" 
+     :style="[[gridStyle]]">
+    <oj-bind-if test="[[$properties.filteringEnabled]]">
+        <div class="oj-rgbu-jraf-simple-grid-filter-bar oj-flex-item" style="width: 100%;">
+            <div class="oj-flex-bar">
+                <oj-bind-if test="[[rowHeaderConfigured && showFilterBarRowHeader()]]">
+                    <div class="oj-rgbu-jraf-simple-grid-filter-bar-row-header oj-flex-bar-start"
+                         :style="[[filterBarRowHeaderStyle]]"></div>
+                </oj-bind-if>
+                <div :id="[[filterBarId]]" 
+                    class="oj-rgbu-jraf-simple-grid-filter-table-wrapper oj-flex-bar-middle"
+                    on-scroll="[[handleFilterBarScroll]]">
+                    <div class="oj-rgbu-jraf-simple-grid-filter-table">
+                        <div class="oj-rgbu-jraf-simple-grid-filter-row">
+                            <oj-bind-for-each data="[[columns]]">
+                                <template data-oj-as="column">
+                                    <div class="oj-rgbu-jraf-simple-grid-filter-cell"
+                                        :style.width="[[column.data.filterWidth]]">
+                                        <oj-bind-if test="[[column.data.filterEnabled && !column.data.filterOptions]]">
+                                            <oj-input-text class="oj-rgbu-jraf-simple-grid-filter-input"
+                                                :aria-label="[[filterPlaceholder]]"
+                                                value="{{column.data.filterValue}}"
+                                                on-value-changed="[[handleFilterChanged]]"
+                                                placeholder="[[filterPlaceholder() || '']]"></oj-input-text>
+                                        </oj-bind-if>
+                                        <oj-bind-if test="[[column.data.filterEnabled && column.data.filterOptions]]">
+                                            <oj-select-single class="oj-rgbu-jraf-simple-grid-filter-input"
+                                                :aria-label="[[filterPlaceholder]]"
+                                                data="{{column.data.filterOptions}}" 
+                                                value="{{column.data.filterValue}}"
+                                                placeholder="[[filterPlaceholder() || '']]"
+                                                on-value-changed="[[handleFilterChanged]]"></oj-select-single>
+                                        </oj-bind-if>
+                                    </div>
+                                </template>
+                            </oj-bind-for-each>
+                            <div class="oj-rgbu-jraf-simple-grid-filter-spacer-cell"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </oj-bind-if>
+    <div class="oj-flex-item oj-rgbu-jraf-simple-grid-data-grid-wrapper">
+        <oj-data-grid 
+            :id="[[dataGridId]]"
+            :aria-label="[[gridLabel]]" 
+            :class="[[gridClassNames]]" 
+            data="[[dataSource]]"
+            selection="{{selection}}"
+            selection-mode.row="[[selectMode]]"
+            scroll-policy="[[$properties.scrollPolicy]]"
+            scroll-policy-options="[[$properties.scrollPolicyOptions]]"
+            on-oj-scroll="[[handleGridScroll]]"
+            on-oj-resize="[[handleColumnResize]]"
+            header.column.resizable.width="enable"
+            header.column.renderer="[[prepareColumn]]"
+            header.column.sortable="[[getSortableValue]]"
+            header.column.class-name="[[getColumnHeaderClass]]"
+            header.column.style="[[getColumnHeaderStyle]]"
+            header.row.class-name="[[getRowHeaderClass]]"
+            header.row.style="[[getRowHeaderStyle]]"
+            cell.renderer="[[prepareCell]]"
+            cell.class-name="[[getCellClass]]"
+            cell.style="[[getCellStyle]]"
+            translations.msg-no-data="[[messageNoData]]">
+            <oj-bind-slot slot="contextMenu" name="contextMenu"></oj-bind-slot>
+        </oj-data-grid>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-flex-direction-column oj-sm-justify-content-space-around oj-rgbu-jraf-value-list-container">
+    <oj-bind-for-each data="[[values]]">
+        <template data-oj-as="item">
+            <div class="oj-flex oj-sm-flex-items-initial">
+                <div class="oj-rgbu-jraf-value-list-label">
+                    <oj-bind-text value="[[item.data.label]]"></oj-bind-text>
+                </div>
+                <div class="oj-rgbu-jraf-value-list-value">
+                    <oj-bind-text value="[[item.data.value]]"></oj-bind-text>
+                </div>
+                <div class="oj-rgbu-jraf-value-list-message oj-rgbu-jraf-value-list-sub-text">
+                    <oj-bind-text value="[[item.data.message]]"></oj-bind-text>
+                </div>
+            </div>
+        </template>
+    </oj-bind-for-each>
+</div>

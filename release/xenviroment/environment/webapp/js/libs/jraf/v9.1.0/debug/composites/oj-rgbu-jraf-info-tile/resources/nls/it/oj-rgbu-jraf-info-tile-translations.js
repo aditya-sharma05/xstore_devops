@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Selezione casella corrente",adminTileLabel:"Casella amministrativa",criticalSeverityLabel:"Severità critica",importantSeverityLabel:"Severità importante",normalSeverityTile:"Severità normale",noSeverityLabel:"Nessuna severità"});

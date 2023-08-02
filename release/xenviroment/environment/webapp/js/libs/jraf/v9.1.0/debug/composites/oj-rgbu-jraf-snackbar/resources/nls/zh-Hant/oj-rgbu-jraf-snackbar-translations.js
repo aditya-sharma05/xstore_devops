@@ -1,0 +1,1 @@
+define({dismiss:"關閉",success:"成功",info:"資訊",warning:"警告",error:"錯誤",seeAllLabel:"查看全部",bulkMessage:{success:"成功完成 {0} 項。",info:"產生 {0} 個事件。",warning:"產生 {0} 個警告。",error:"產生 {0} 個錯誤。"}});

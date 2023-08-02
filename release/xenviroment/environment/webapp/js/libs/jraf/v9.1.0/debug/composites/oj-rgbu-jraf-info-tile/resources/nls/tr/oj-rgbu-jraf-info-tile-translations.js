@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Geçerli Bilgi Sayfası Seçimi",adminTileLabel:"Yönetim Bilgi Sayfası",criticalSeverityLabel:"Kritik Önem Derecesi",importantSeverityLabel:"Önemli Önem Derecesi",normalSeverityTile:"Normal Önem Derecesi",noSeverityLabel:"Önem Derecesi Yok"});

@@ -1,0 +1,1 @@
+define({tileSelectionIndicatorAriaLabel:"Wybór bieżącego pola",adminTileLabel:"Pole administracyjne",criticalSeverityLabel:"Krytyczne",importantSeverityLabel:"Ważne",normalSeverityTile:"Zwykłe",noSeverityLabel:"Brak ważności"});

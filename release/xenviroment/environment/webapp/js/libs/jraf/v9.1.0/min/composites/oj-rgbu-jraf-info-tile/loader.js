@@ -1,0 +1,1 @@
+define(["ojs/ojcomposite","text!./oj-rgbu-jraf-info-tile.html","./oj-rgbu-jraf-info-tile","text!./component.json","css!./css/oj-rgbu-jraf-info-tile.min"],(function(e,t,o,i){"use strict";var n=JSON.parse(i),r=n.name;e.register(r,{view:t,viewModel:o,metadata:n})}));

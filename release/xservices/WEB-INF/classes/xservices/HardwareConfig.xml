@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Hardware>
+  <PlaySounds dtype="Boolean">false</PlaySounds>
+  <ForceDrawerClose dtype="Boolean">false</ForceDrawerClose>
+  <ShowPrinterDialog dtype="Boolean">false</ShowPrinterDialog>
+  <PrintTargetFromRemote dtype="String">RECEIPT</PrintTargetFromRemote>
+
+  <Device type="POSPrinter" use="RECEIPT">
+    <name dtype="String">${xservices.receipt.printer.name}</name>
+    <PortName dtype="String">${xservices.receipt.printer.portname}</PortName>
+    <host dtype="String">${xservices.receipt.printer.portname}</host>
+    <dtvRcptPaperCutFeedAfter dtype="Integer">0</dtvRcptPaperCutFeedAfter>
+    <dtvRcptPaperCutFeedBefore dtype="Integer">4</dtvRcptPaperCutFeedBefore>
+    <dtvClaimOnDemand dtype="Boolean">true</dtvClaimOnDemand>
+  </Device>
+  
+  <Device type="POSPrinter" use="RECEIPT_BACKUP">
+    <name dtype="String">Generic-Printer-Laser</name>
+  </Device>  
+  <Device type="Scanner" use="BARCODE_SCANNER">
+    <name dtype="String">Symbol-Scanner-Wedge</name>
+  </Device>
+  
+  <Device type="MSR" use="MAIN_MSR"> </Device>
+  <Device type="CashDrawer" use="CASHDRAWER"> </Device>
+  <Device type="MSR" use="CUST_MSR"> </Device>
+  <Device type="SignatureCapture" use="SIG_CAP"> </Device>
+  <Device type="CustomerDisplay" use="CUST_DISPLAY2"> </Device>
+  <Device type="QUESTION" use="QUESTION"> </Device>
+  <Device type="PinPad" use="MAIN_PINPAD"> </Device>
+  
+  <!--  multiple printer example: -->
+  
+  <!-- 
+  <Device type="POSPrinter" use="RECEIPT1">
+    <name dtype="String">${xservices.receipt.printer.name}</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT2">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT3">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+  <Device type="POSPrinter" use="RECEIPT4">
+    <name dtype="String">Generic-Printer-Log4j</name>
+  </Device>
+
+  <DeviceList type="POSPrinter" use="RECEIPT">
+    <DeviceRef use="RECEIPT1" translationkey="_RcptPrinter1"/>
+    <DeviceRef use="RECEIPT2" translationkey="_RcptPrinter2"/>
+    <DeviceRef use="RECEIPT3" translationkey="_RcptPrinter3"/>
+    <DeviceRef use="RECEIPT4" translationkey="_RcptPrinter4"/>
+  </DeviceList>  
+ -->  
+
+</Hardware>
