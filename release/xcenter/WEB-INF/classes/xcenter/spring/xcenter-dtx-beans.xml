@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans profile="xcenter"
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:int="http://www.springframework.org/schema/integration"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="trainingModeHelper" class="dtv.data2.training.NotTrainingModeHelper" />
+
+  <bean id="showStatusReporters" class="com.micros_retail.xcenter.servlet.filter.StatusReporterHolder">
+    <property name="map">
+      <map value-type="com.micros_retail.xcenter.servlet.filter.IStatusReporter">
+        <entry key="dtx" value-ref="dtxStatusReporter"/>
+        <entry key="cluster" value-ref="clusterStatusReporter"/>
+        <entry key="replication" value-ref="replicationStatusReporter"/>
+        <entry key="broadcaster" value-ref="broadcasterStatusReporter"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="authorizationService" class="com.micros_retail.xcenter.service.rest.v1.filter.NoOpAuthorizationService" />
+
+  <bean id="softDataFactory" class="com.micros_retail.xcenter.data.SoftDataFactory" init-method="init">
+   <property name="persistenceProvider" ref="XcenterAdmin-PersistenceProvider"/>
+  </bean>
+  <bean id="pmTypeMappingConfigMgr" class="com.micros_retail.xcenter.customization.CustomizationPmTypeMappingConfigMgr" init-method="loadConfigs">
+    <constructor-arg ref="configTypePmTypeMappingConfig" />
+    <property name="configHolder" ref="globalConfigurationsHolder" />
+  </bean>
+
+
+  <bean id="updateResponseBuilder" class="com.micros_retail.xcenter.update.UpdateResponseBuilder">
+    <property name="deploymentConfigBuilder">
+      <bean class="com.micros_retail.xcenter.update.DeploymentConfigBuilder" />
+    </property>
+    <property name="manifestBuilder">
+      <bean class="com.micros_retail.xcenter.update.DeploymentManifestsBuilder" />
+    </property>
+  </bean>
+
+  <bean id="broadcasterStatusReporter" class="com.micros_retail.xcenter.servlet.filter.BroadcasterStatus" scope="prototype" />
+  <bean id="dtxStatusReporter" class="com.micros_retail.xcenter.servlet.filter.DtxStatus" scope="prototype" />
+  <bean id="replicationStatusReporter" class="com.micros_retail.xcenter.servlet.filter.ReplicationStatus" scope="prototype" />
+  <bean id="clusterStatusReporter" class="com.micros_retail.xcenter.servlet.filter.ClusterStatus" scope="prototype" />
+  
+  <!-- The default scope is exactly what we need : singleton -->
+  <bean id="replicationCentralStore" class="com.micros_retail.xcenter.replication.ReplicationCentralStore" />
+
+  <bean id="replicationResequencingPublisher" class="com.micros_retail.xcenter.replication.ReplicationResequencingPublisher"
+    init-method="init" />
+
+  <bean id="eventManager" class="dtv.event.EventManager" />
+  <bean id="xcenterJdbcPersistenceStrategy" class="com.micros_retail.xcenter.persistence.XcenterJDBCPersistenceStrategy" scope="prototype" />
+  <bean id="queryHandlerHolder" class="dtv.data2.access.query.QueryHandlerHolder" scope="request" primary="true" />
+  <bean id="uploadedFileFinalizer" class="com.micros_retail.xcenter.service.rest.v1.file.UploadedFileFinalizer" />
+</beans>

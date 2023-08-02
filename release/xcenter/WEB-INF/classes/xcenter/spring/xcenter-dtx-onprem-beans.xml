@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans profile="xcenter"
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:int="http://www.springframework.org/schema/integration"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="xcenterFilter" class="com.micros_retail.xcenter.servlet.filter.StatusFilter">
+    <property name="statusReporters" ref="showStatusReporters"/>
+  </bean>
+
+<!-- 
+  <bean id="authorizationService" class="com.micros_retail.xcenter.service.rest.v1.filter.NoOpAuthorizationService" />
+ -->
+
+</beans>

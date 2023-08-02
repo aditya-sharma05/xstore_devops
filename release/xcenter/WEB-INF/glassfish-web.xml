@@ -1,0 +1,7 @@
+﻿<glassfish-web-app>
+    <context-root>xcenter</context-root>
+    <security-role-mapping>
+        <role-name>XcenterUsers</role-name>
+        <group-name>XcenterUsers</group-name>
+    </security-role-mapping>
+</glassfish-web-app>

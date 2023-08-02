@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+        version="3.0">
+
+  <display-name>Oracle Retail Xstore Office DTX</display-name>
+
+  <context-param>
+    <param-name>xcenter.bootstrap.steps</param-name>
+    <param-value>
+        com.micros_retail.xcenter.bootstrap.BootstrapIdpConfiguration;
+        com.micros_retail.xcenter.bootstrap.BootstrapExternalConfigPath;
+        com.micros_retail.xcenter.bootstrap.BootstrapApplicationScopeProperties;
+        com.micros_retail.xcenter.bootstrap.BootstrapXstoreSystemProperties;
+        com.micros_retail.xcenter.bootstrap.BootstrapCiphers;
+        com.micros_retail.xcenter.bootstrap.BootstrapConfigurationMgr;
+        com.micros_retail.xcenter.bootstrap.BootstrapTruststore;
+        com.micros_retail.xcenter.bootstrap.BootstrapVersions;
+    </param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>spring.profiles.active</param-name>
+    <param-value>xcenter</param-value>
+  </context-param>
+
+  <!-- Work-around param to keep jersey-spring3 from initializing a second WebApplicationContext -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value></param-value>
+  </context-param> 
+
+  <filter>
+    <filter-name>requiredSecurityHeadersFilter</filter-name>
+    <filter-class>com.micros_retail.xcenter.servlet.filter.RequiredSecurityHeadersFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>requiredSecurityHeadersFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>xcenterFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>xcenterFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>SpringSessionFilter</filter-name>
+    <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    <init-param>
+      <param-name>threadContextInheritable</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SpringSessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>com.micros_retail.xcenter.bootstrap.servlet.XcenterContextListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>com.micros_retail.xcenter.spring.XcenterSpringLoaderListener</listener-class>
+  </listener>
+   
+  <listener>
+   <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  
+  <servlet>
+    <servlet-name>xcenterRESTServices</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>io.swagger.v3.jaxrs2.integration.resources;com.micros_retail.xcenter.service.rest.v1;com.micros_retail.xcenter.service.rest.v1.filter;com.oracle.retail.datapriv;com.micros_retail.xcenter.service.rest.adyen;com.fasterxml.jackson.jaxrs.json</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.provider.classnames</param-name>
+      <param-value>com.micros_retail.xcenter.service.rest.v1.filter.GzipReaderInterceptor;com.micros_retail.xcenter.service.rest.v1.filter.GzipWriterInterceptor;dtv.servicex.impl.Log4j2LoggingFilter</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>xcenterRESTServices</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RestOpenApiServlet</servlet-name>
+    <servlet-class>com.micros_retail.xcenter.servlet.filter.XcenterOpenApiServlet</servlet-class>
+    <init-param>
+      <param-name>ApiAuthType</param-name>
+      <param-value>BASIC</param-value>
+    </init-param>
+    <init-param>
+      <param-name>packages</param-name>
+      <param-value>com.micros_retail.xcenter.service.rest.v1;com.oracle.retail.datapriv</param-value>
+    </init-param>
+    <init-param>
+      <param-name>server</param-name>
+      <param-value>/xcenter/rest</param-value>
+    </init-param>
+    <init-param>
+      <param-name>title</param-name>
+      <param-value>Xcenter Open API Documentation</param-value>
+    </init-param>
+    <init-param>
+      <param-name>description</param-name>
+      <param-value>Defines API of secured REST resources</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestOpenApiServlet</servlet-name>
+    <url-pattern>/openapi</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>HealthOpenApiServlet</servlet-name>
+    <servlet-class>com.micros_retail.xcenter.servlet.filter.XcenterOpenApiServlet</servlet-class>
+    <init-param>
+      <param-name>ApiAuthType</param-name>
+      <param-value>NONE</param-value>
+    </init-param>
+    <init-param>
+      <param-name>packages</param-name>
+      <param-value>com.micros_retail.xcenter.service.health</param-value>
+    </init-param>
+    <init-param>
+      <param-name>server</param-name>
+      <param-value>/xcenter/health_check</param-value>
+    </init-param>
+    <init-param>
+      <param-name>title</param-name>
+      <param-value>Xcenter health API</param-value>
+    </init-param>
+    <init-param>
+      <param-name>description</param-name>
+      <param-value>Defines the Xcenter health API</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HealthOpenApiServlet</servlet-name>
+    <url-pattern>/openapi/health_check</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>healthServices</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>com.micros_retail.xcenter.service.health</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.provider.classnames</param-name>
+      <param-value>io.swagger.v3.jaxrs2.integration.resources;dtv.servicex.impl.Log4j2LoggingFilter</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>healthServices</servlet-name>
+    <url-pattern>/health_check</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+    <cookie-config>
+      <http-only>true</http-only>
+      <secure>true</secure>
+    </cookie-config>
+  </session-config>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>XcenterDtx</web-resource-name>
+      <description>Security Config for Xcenter Dtx
+      </description>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>XcenterUsers</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Public</web-resource-name>
+      <description>Xcenter health check.</description>
+      <url-pattern>/health_check</url-pattern>
+      <url-pattern>/openapi/*</url-pattern>
+    </web-resource-collection>
+    <!-- No auth-constraint means everybody has access! -->
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Adyen</web-resource-name>
+      <description>Adyen notification service</description>
+      <url-pattern>/rest/adyen/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>AdyenUsers</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Xcenter Dtx</realm-name>
+  </login-config>
+  <security-role>
+    <role-name>XcenterUsers</role-name>
+  </security-role>
+  <security-role>
+    <role-name>AdyenUsers</role-name>
+  </security-role>
+</web-app>

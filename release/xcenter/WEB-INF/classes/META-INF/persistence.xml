@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+  version="1.0"
+>
+
+  <persistence-unit name="XcenterAdmin" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <non-jta-data-source>jdbc/XcenterAdmin</non-jta-data-source><!-- used on Java EE containers -->
+    <class>com.micros_retail.gwt.shared.entity.BroadcasterConfig</class>
+    <class>com.micros_retail.gwt.shared.entity.ConfigCodeValue</class>
+    <class>com.micros_retail.gwt.shared.entity.Customization</class>
+    <class>com.micros_retail.gwt.shared.entity.Deployment</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentEmail</class> 
+    <class>com.micros_retail.gwt.shared.entity.DeploymentFile</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentFileStatus</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentTarget</class>   
+    <class>com.micros_retail.gwt.shared.entity.DeploymentWave</class>
+    <class>com.micros_retail.gwt.shared.entity.DeploymentWaveApprovalLog</class>
+    <class>com.micros_retail.gwt.shared.entity.IntegrationConfig</class>
+    <class>com.micros_retail.gwt.shared.entity.IntegrationConfigProperty</class> 
+    <class>com.micros_retail.gwt.shared.entity.Landscape</class>
+    <class>com.micros_retail.gwt.shared.entity.LandscapeGroup</class>
+    <class>com.micros_retail.gwt.shared.entity.LandscapeRange</class>
+    <class>com.micros_retail.gwt.shared.entity.OcdsJobHistory</class>
+    <class>com.micros_retail.gwt.shared.entity.OcdsOnDemand</class>
+    <class>com.micros_retail.gwt.shared.entity.OcdsSubtaskDetails</class>
+    <class>com.micros_retail.gwt.shared.entity.RetailLocationCollection</class>
+    <class>com.micros_retail.gwt.shared.entity.RetailLocationCollectionElement</class>
+    <class>com.micros_retail.gwt.shared.entity.Personality</class>
+    <class>com.micros_retail.gwt.shared.entity.PersonalityBaseFeature</class>
+    <class>com.micros_retail.gwt.shared.entity.PersonalityElement</class>
+    <class>com.micros_retail.gwt.shared.entity.StorePersonality</class>
+    <class>com.micros_retail.gwt.shared.entity.XadminConfigSetting</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxDefinition</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxField</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxRelationship</class>
+    <class>com.micros_retail.gwt.shared.dtx.DtxRelationshipField</class>
+  </persistence-unit>
+     
+  <persistence-unit name="XcenterReplication" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <non-jta-data-source>jdbc/XcenterReplication</non-jta-data-source><!-- used on Java EE containers -->
+    
+    <class>com.micros_retail.gwt.shared.replentity.ReplObject</class>
+    <class>com.micros_retail.gwt.shared.replentity.PosLogWorkItem</class><!-- used by broadcaster -->
+    <class>com.micros_retail.gwt.shared.entity.PollFileStatus</class>
+    <class>com.micros_retail.gwt.shared.replentity.BSQItem</class><!-- used by broadcaster service -->
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CacheConfig>
+
+  <GlobalProperties>
+    <Property key="guavacache.global.MaxEntries" value="2000" />
+    <Property key="guavacache.global.TimeToLiveSeconds" value="300" />
+  </GlobalProperties>
+  
+</CacheConfig>
