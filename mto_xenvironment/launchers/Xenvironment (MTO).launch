@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+    <stringAttribute key="bad_container_name" value="/mto_xenvironment/launchers/Xenvironment (mto).launch"/>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/mto_xenvironment"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+        <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+        <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="oracle.retail.xenvironment.Xenvironment"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="mto_xenvironment"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="mto_xenvironment"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dlog4j.configurationFile=${workspace_loc:release}/xenvironment/environment/config/log4j2.xml&#13;&#10;-Ddtv.system.properties.location=${workspace_loc:mto_xenvironment}/system.properties &#13;&#10;-Ddtv.pos.screenNumber=1 &#13;&#10;-Ddtv.util.crypto.SecretKeyCipherManager.keyStoreDirectory=${workspace_loc:mto_xenvironment}/res/keys &#13;&#10;-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager&#13;&#10;-Djavax.net.ssl.trustStore=${workspace_loc:mto_xenvironment}/res/ssl/.truststore&#13;&#10;-Djavax.net.ssl.keyStore=${workspace_loc:mto_xenvironment}/res/ssl/.keystore&#13;&#10;-Ddtv.base.config.path=:xenvironment"/>
+</launchConfiguration>
