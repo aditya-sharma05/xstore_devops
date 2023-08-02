@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Xstore
+Comment=Xstore POS
+Exec=@@XSTORE_ELECTRON_EXECUTABLE@@ install-dir=@@INSTALL_DIR@@ %U
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Network;Application;
+StartupWMClass=Xstore
+MimeType=x-scheme-handler/xstorepos;
+Name[en_US]=Xstore
