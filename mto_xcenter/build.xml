@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="customer-xcenter" basedir="." default="build-overlay">
+  <!-- import the core script -->
+  <property name="core.project" location="${basedir}/../mto" />
+  <import file="${core.project}/core.xml"/>
+
+  <!-- source paths -->
+  <property name="src.dir" location="${basedir}/src" />
+  <property name="resource.dir" location="${basedir}/resources" />
+
+  <!-- output paths -->
+  <property name="output.dir" location="${basedir}/target" />
+  <property name="classes.dir" location="${output.dir}/classes" />
+  <property name="staging.dir" location="${output.dir}/overlay" />
+  <property name="lib.staging.dir" location="${staging.dir}/WEB-INF/lib" />
+  <property name="classes.staging.dir" location="${staging.dir}/WEB-INF/classes" />
+  <property name="war.file" location="${output.dir}/${build.customerId.lc}-xcenter.war" />
+
+  <!-- dependency properties -->
+  <property name="cust.xstore.overlay.lib.folder" location="${xstore.overlay.dir}/lib" />
+  <property name="cust.xcenter.overlay.lib.folder" location="${basedir}/lib" />
+  <property name="cust.xcenter.overlay.lib.ext.folder" location="${cust.xcenter.overlay.lib.folder}/ext" />
+  <condition property="cust.xstore.overlay.bin.folder" value="${xstore.overlay.dir}/classes" else="${xstore.overlay.dir}/bin">
+    <isset property="running.on.build.server" />
+  </condition>
+  <property name="cust.xstore.overlay.config.folder" location="${xstore.overlay.dir}/cust_config" />
+  <property name="cust.xcenter-shared.overlay.folder" location="${basedir}/../${project.name.prefix}xcenter-shared" />
+
+  <!-- other input paths -->
+  <property name="xcenter.war.classes" location="${xcenter.artifact.dir}/WEB-INF/classes" />
+  <property name="xcenter.war.lib" location="${xcenter.artifact.dir}/WEB-INF/lib" />
+  <property name="xstore.lib.ext.dir" location="${xstore.artifact.dir}/xstore/lib/ext" />
+
+  <!-- sanity check to confirm that the war file was provided -->
+  <fail message="Expected to find the contents of a base xcenter war file at ${xcenter.artifact.dir} but could not find them in that location.">
+    <condition>
+      <not>
+        <and>
+          <available file="${xcenter.war.classes}" />
+          <available file="${xcenter.war.lib}" />
+        </and>
+      </not>
+    </condition>
+  </fail>
+  
+  <!-- support injecting additional targets by extension if a build-custom.xml file is provided -->
+  <import optional="true" file="build-custom.xml" />
+
+  <!-- classpaths -->
+  <path id="project.base.classpath" description="Set up a classpath that includes the base deps that are included in the application">
+    <pathelement location="${xcenter.war.classes}" />
+    <fileset dir="${xcenter.war.lib}" includes="*.jar" />
+  </path>
+  <path id="project.overlay.classpath" description="Set up a classpath that includes the overlay deps that will be included in the application">
+    <fileset dir="${cust.xcenter-shared.overlay.folder}/target" includes="*xcenter-shared.jar" erroronmissingdir="false" />
+    <pathelement location="${cust.xstore.overlay.bin.folder}" />
+    <fileset dir="${cust.xstore.overlay.lib.folder}">
+      <include name="${customer.id.lc}-*.jar" />
+      <include name="ops-*.jar" />
+    </fileset>
+    <fileset dir="${cust.xcenter.overlay.lib.folder}" includes="*.jar" erroronmissingdir="false" />
+    <fileset dir="${cust.xcenter.overlay.lib.ext.folder}" includes="*.jar" erroronmissingdir="false" />
+  </path>
+  <path id="build.classpath" description="The classpath that is used for java compilation.">
+    <path refid="project.overlay.classpath" />
+    <path refid="project.base.classpath" />
+  	<fileset dir="${xstore.lib.ext.dir}" includes="servlet-api*.jar" />
+  </path>
+
+  <!-- build targets -->
+  <target name="clean-all" description="Removes the output directory.">
+    <delete dir="${output.dir}" />
+  </target>
+
+  <target name="clean-classes" description="Cleans the classes directory">
+    <delete dir="${classes.dir}" />
+  </target>
+
+  <target name="clean-overlay" description="Cleans the overlay staging directory">
+    <delete dir="${staging.dir}" />
+  </target>
+
+  <target name="clean-war" description="Removes the war file.">
+    <delete file="${war.file}" />
+  </target>
+
+  <target name="compile" depends="clean-classes" description="Compile main java code">
+    <mkdir dir="${classes.dir}" />
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true" deprecation="true" classpathref="build.classpath" />
+  </target>
+
+  <target name="build-overlay" depends="compile,clean-overlay" description="Builds and stages the overlay - used on build server">
+    <copy todir="${lib.staging.dir}">
+      <fileset dir="${cust.xcenter-shared.overlay.folder}/target" includes="*xcenter-shared.jar" erroronmissingdir="false" />
+      <fileset dir="${cust.xcenter.overlay.lib.folder}" includes="*.jar" erroronmissingdir="false" />
+      <fileset dir="${cust.xcenter.overlay.lib.ext.folder}" includes="*.jar" erroronmissingdir="false" />
+    </copy>
+    <copy todir="${classes.staging.dir}">
+      <fileset dir="${src.dir}" />
+      <fileset dir="${resource.dir}" />
+    </copy>
+  </target>
+
+  <target name="build-war" depends="build-overlay,clean-war" description="Creates a war file which should be representative of a production war file.">
+    <war destfile="${war.file}" duplicate="preserve">
+      <fileset dir="${staging.dir}" />
+      <classes dir="${cust.xstore.overlay.bin.folder}" />
+      <classes dir="${cust.xstore.overlay.config.folder}" />
+      <lib dir="${cust.xstore.overlay.lib.folder}">
+        <include name="${customer.id.lc}-*.jar" />
+        <include name="ops-*.jar" />
+        <exclude name="${custconfigjarname}" />
+        <exclude name="${custposjarname}" />
+      </lib>
+      <fileset dir="${xcenter.artifact.dir}" excludes="META-INF/MANIFEST.MF" />
+    </war>
+  </target>
+</project>
