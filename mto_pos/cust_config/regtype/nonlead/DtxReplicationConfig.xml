@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DtxReplicationConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/DtxReplicationConfig.xsd">
+  
+  <service name="Local->StorePrimary" expireAfter="never">
+    <condition class="dtv.data2.replication.dtximpl.condition.CurrentDataSourceCondition">
+      <conditionParam key="currentDataSource"  value="Local"/>
+    </condition>
+    <destination type="DataSource" dataSourceName="StorePrimary"/>
+    <subscriber name="dtv.xst.dao"/>
+    <subscriber name="SP_FLASH_SALES"/>
+    <subscriber exclude="true" name="dtv.xst.dao.ctl.impl.EventLogEntryDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.ctl.impl.DeviceRegistrationDAO"/>
+    <subscriber exclude="true" name="dtv.xst.dao.inv.impl.InventoryCount" />
+    <subscriber exclude="true" name="dtv.xst.dao.com.impl.SequenceDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.trn.impl.TemporaryTransactionStorageDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.sec.impl.TokenSigningDataDAO" />
+  </service>
+  
+</DtxReplicationConfig>

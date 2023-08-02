@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DtxReplicationConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/DtxReplicationConfig.xsd">
+
+  <service name="StorePrimary->Xcenter" expireAfter="never">
+    <condition class="dtv.data2.replication.dtximpl.condition.CurrentDataSourceCondition">
+      <conditionParam key="currentDataSource" value="StorePrimary" />
+    </condition>
+    <destination type="DataSource" dataSourceName="Xcenter" />
+    <subscriber name="dtv.xst.dao" />
+    <subscriber name="|REPL|" />
+    <subscriber exclude="true" name="dtv.xst.dao.ctl.impl.EventLogEntryDAO"/>
+    <subscriber exclude="true" name="dtv.xst.dao.ctl.impl.DeviceRegistrationDAO"/>
+    <subscriber exclude="true" name="dtv.xst.dao.inv.impl.InventoryCount" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.SessionDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.SessionTenderDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.SessionWorkstationDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.TenderRepositoryDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.itm.impl.ItemLabelBatchDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.com.impl.SequenceDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.trn.impl.TemporaryTransactionStorageDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.sec.impl.TokenSigningDataDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.itm.impl.MerchHierarchyLevelDAO" />
+    <subscriber exclude="true" name="DELETE_MERCH_TRANSLATION" />
+  </service>
+
+  <service name="Local->Xcenter" expireAfter="never">
+    <condition class="dtv.data2.replication.dtximpl.condition.CurrentDataSourceCondition">
+      <conditionParam key="currentDataSource" value="Local" />
+    </condition>
+    <destination type="DataSource" dataSourceName="Xcenter" />
+    <subscriber name="dtv.xst.dao" />
+    <subscriber name="|REPL|" />
+    <subscriber exclude="true" name="dtv.xst.dao.ctl.impl.EventLogEntryDAO"/>
+    <subscriber exclude="true" name="dtv.xst.dao.ctl.impl.DeviceRegistrationDAO"/>
+    <subscriber exclude="true" name="dtv.xst.dao.inv.impl.InventoryCount" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.SessionDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.SessionTenderDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.SessionWorkstationDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.tsn.impl.TenderRepositoryDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.itm.impl.ItemLabelBatchDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.com.impl.SequenceDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.trn.impl.TemporaryTransactionStorageDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.sec.impl.TokenSigningDataDAO" />
+    <subscriber exclude="true" name="dtv.xst.dao.itm.impl.MerchHierarchyLevelDAO" />
+    <subscriber exclude="true" name="DELETE_MERCH_TRANSLATION" />
+  </service>
+  
+  <!-- Only non-critical event log entries are pushed through replication. Any event log entry that is considered
+       to be critical to deliver should be pushed directly to Xcenter and skip replication entirely.
+       Repeat: only non-critical event log entries should go through replication. -->
+  <service name="EventLogReplication" expireAfter="immediately">
+    <condition class="dtv.data2.replication.dtximpl.condition.MethodCallResultCondition">
+      <conditionParam key="methodName" value="getCriticalToDeliver" />
+      <conditionParam key="result" value="false" />
+    </condition>
+    <destination type="DataSource" dataSourceName="Xcenter" />
+    <subscriber name="dtv.xst.dao.ctl.impl.EventLogEntryDAO" />
+  </service>
+  
+  <service name="HomeStore->ExtensionStore" expireAfter="never">
+    <condition class="dtv.data2.replication.dtximpl.condition.DataSourceEnabledCondition"/>
+    <condition class="dtv.data2.replication.dtximpl.condition.CurrentDataSourceCondition">
+      <conditionParam key="currentDataSource" value="StorePrimary" />
+    </condition>
+    <destination type="DataSource" dataSourceName="ExtensionStore" />
+    <subscriber name="dtv.xst.dao.loc" />
+    <subscriber name="dtv.xst.dao.inv.impl.StockLedgerDAO" />
+    <subscriber name="dtv.xst.dao.crm.impl.Party" />
+    <subscriber name="dtv.xst.dao.hrs.impl.Employee" />
+  </service>
+  
+</DtxReplicationConfig>

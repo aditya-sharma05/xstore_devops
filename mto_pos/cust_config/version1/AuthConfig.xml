@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><AuthConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/AuthConfig.xsd">
+  <!-- ******************************************************************* -->
+  <!-- ***** AuthProcess XPAY_HOST *************************************** -->
+  <!-- ******************************************************************* -->
+  <AuthProcess Abstract="true" name="XPAY_HOST">
+    <Parameter name="communicatorHosts">
+      <param_value dtype="List">
+        <!-- the timeout value in the host string is the connect timeout -->               
+        <Host1 dtype="String">${dtv.auth.xpay.Host1}</Host1>
+        <Host2 dtype="String">${dtv.auth.xpay.Host2}</Host2>
+      </param_value>
+    </Parameter>
+    <!-- following setting can be used to indicate the -->
+    <!-- processor is offline permenantly (or for a long time anyway)-->
+    <Parameter name="connectionEnabled" value="true"/>
+    <Parameter name="communicatorReceiveTimeoutMillis" value="${dtv.auth.xpay.ReceiveTimeout}"/>
+    <Parameter name="partialApprovals" value="Y"/>
+    <!-- Set "trackBalance" to "true" if remaining balances reported by Xpay should be captured. -->
+    <Parameter name="trackBalance" value="false"/>
+    <Parameter name="manualAuthValidation.length.maximum" value="30"/>
+    
+    <!-- this credential enables HTTP basic authentication. -->
+    <Parameter name="connectionUserName" value="${dtv.auth.xpay.ConnectionUserName}"/>
+    <Parameter name="connectionPassword" value="${dtv.auth.xpay.ConnectionPassword}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_CREDIT_FDMS_STORE_SETTINGS *********** -->
+  <AuthProcess Abstract="true" extends="XPAY_CREDIT_REQUESTS" name="XPAY_CREDIT_FDMS_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="${dtv.xpay.fdms.credit.merchant}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.fdms.credit.terminal}"/>
+    <Parameter name="DatawireID" value="${dtv.xpay.fdms.credit.datawire}"/>
+    <Parameter name="disallowFloorLimit" value="true"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_DEBIT_FDMS_STORE_SETTINGS ************ -->
+  <AuthProcess Abstract="true" extends="XPAY_DEBIT" name="XPAY_DEBIT_FDMS_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="${dtv.xpay.fdms.debit.merchant}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.fdms.debit.terminal}"/>
+    <Parameter name="DatawireID" value="${dtv.xpay.fdms.debit.datawire}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_CREDIT_MERCHANTLINK_STORE_SETTINGS ********* -->
+  <AuthProcess Abstract="true" extends="XPAY_CREDIT_REQUESTS" name="XPAY_CREDIT_MERCHANTLINK_STORE_SETTINGS">
+    <Parameter name="TokenizationEnabled" value="true"/>
+    <Parameter name="manualAuthValidation.length.maximum" value="6"/>
+    <Parameter name="manualAuthValidation.length.minimum" value="2"/>
+    <Parameter name="organizationName" value="${dtv.xpay.mlink.credit.orgname}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.mlink.credit.terminal}"/>
+    <Parameter name="SiteID" value="${dtv.xpay.mlink.credit.site}"/>
+    
+  </AuthProcess>
+    
+  <AuthProcess Abstract="true" extends="XPAY_DEBIT" name="XPAY_DEBIT_MERCHANTLINK_STORE_SETTINGS">
+    <Parameter name="TokenizationEnabled" value="true"/>
+    <Parameter name="manualAuthValidation.length.maximum" value="6"/>
+    <Parameter name="manualAuthValidation.length.minimum" value="2"/>     
+    <Parameter name="organizationName" value="${dtv.xpay.mlink.debit.orgname}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.mlink.debit.terminal}"/>
+    <Parameter name="SiteID" value="${dtv.xpay.mlink.debit.site}"/>
+    
+  </AuthProcess>  
+  <!-- ***** AuthProcess XPAY_CREDIT_MWHSE_STORE_SETTINGS **************** -->
+  <AuthProcess Abstract="true" extends="XPAY_CREDIT_REQUESTS" name="XPAY_CREDIT_MWHSE_STORE_SETTINGS">
+    <Parameter name="TokenizationEnabled" value="true"/>
+    <Parameter name="merchantNumber" value="${dtv.xpay.mwhse.credit.merchant}"/> 
+    <Parameter name="organizationName" value="${dtv.xpay.mwhse.credit.orgname}"/> 
+    <Parameter name="SiteID" value="${dtv.xpay.mwhse.credit.site}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_DEBIT_MWHSE_STORE_SETTINGS ***************** -->
+  <AuthProcess Abstract="true" extends="XPAY_DEBIT" name="XPAY_DEBIT_MWHSE_STORE_SETTINGS">
+    <Parameter name="TokenizationEnabled" value="true"/>
+    <Parameter name="merchantNumber" value="${dtv.xpay.mwhse.debit.merchant}"/> 
+    <Parameter name="organizationName" value="${dtv.xpay.mwhse.debit.orgname}"/> 
+    <Parameter name="SiteID" value="${dtv.xpay.mwhse.debit.site}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_CREDIT_PAYMENTECH_STORE_SETTINGS *********** -->
+  <AuthProcess Abstract="true" extends="XPAY_CREDIT_REQUESTS" name="XPAY_CREDIT_PAYMENTECH_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="${dtv.xpay.ptech.credit.merchant}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.ptech.credit.terminal}"/>
+    <Parameter name="ClientID" value="${dtv.xpay.ptech.credit.client}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_DEBIT_PAYMENTECH_STORE_SETTINGS ****************** -->
+  <AuthProcess Abstract="true" extends="XPAY_DEBIT" name="XPAY_DEBIT_PAYMENTECH_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="${dtv.xpay.ptech.debit.merchant}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.ptech.debit.terminal}"/>
+    <Parameter name="ClientID" value="${dtv.xpay.ptech.debit.client}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_GIFT_CARD_PAYMENTECH_STORE_SETTINGS ******************* -->
+  <AuthProcess Abstract="true" extends="XPAY" name="XPAY_GIFT_CARD_PAYMENTECH_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="${dtv.xpay.ptech.giftcard.merchant}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.ptech.giftcard.terminal}"/>
+    <Parameter name="ClientID" value="${dtv.xpay.ptech.giftcard.client}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_CHECK_CERTEGY_STORE_SETTINGS *************** -->
+  <AuthProcess Abstract="true" extends="XPAY_CHECK" name="XPAY_CHECK_CERTEGY_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="-DEFAULT-merchantNumber-IN-XPAY_CHECK_CERTEGY_STORE_SETTINGS"/>
+    <Parameter name="TerminalID" value="-DEFAULT-TerminalID-IN-XPAY_CHECK_CERTEGY_STORE_SETTINGS"/>
+    <Parameter name="StationNumber" value="-DEFAULT-StationNumber-IN-XPAY_CHECK_CERTEGY_STORE_SETTINGS"/>
+    <Parameter name="RequestFormat" value="FM2"/>
+    <!-- valid values TAC and RAW -->
+    <Parameter name="MICRFormat" value="TAC"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess XPAY_GIFT_CARD_RELATE_STORE_SETTINGS ******************* -->
+  <AuthProcess Abstract="true" extends="XPAY" name="XPAY_GIFT_CARD_RELATE_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="-DEFAULT-merchantNumber-IN-XPAY_GIFT_CARD_RELATE_STORE_SETTINGS"/>
+    <Parameter name="TerminalID" value="-DEFAULT-TerminalID-IN-XPAY_GIFT_CARD_RELATE_STORE_SETTINGS"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess GIFT_CARD_RELATE_STORE_SETTINGS ******************* -->
+  <AuthProcess Abstract="true" extends="RELATE" name="GIFT_CARD_RELATE_STORE_SETTINGS">    
+    <Parameter name="merchantNumber" value="-DEFAULT-merchantNumber-IN-GIFT_CARD_RELATE_STORE_SETTINGS"/>
+    <Parameter name="TerminalID" value="-DEFAULT-TerminalID-IN-GIFT_CARD_RELATE_STORE_SETTINGS"/>
+  </AuthProcess>
+  <!--  **** AuthProcess XPAY_GIFT_CARD_FDMS_STORE_SETTINGS  ********************* -->
+  <AuthProcess Abstract="true" extends="XPAY" name="XPAY_GIFT_CARD_FDMS_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="${dtv.xpay.fdms.credit.merchant}"/>
+    <Parameter name="TerminalID" value="${dtv.xpay.fdms.credit.terminal}"/>
+    <Parameter name="alternateMerchantId" value="${dtv.xpay.fdms.giftcard.merchant}"/>
+    <Parameter name="DatawireID" value="${dtv.xpay.fdms.credit.datawire}"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess AJB_HOST **************************************** -->
+  <AuthProcess Abstract="true" name="AJB_HOST">
+    <Parameter name="nodeId" value="FEPZALE1"/>
+    <Parameter name="merchantNumber" value="-DEFAULT-merchantNumber-IN-AJB_HOST"/>
+    <Parameter name="storeNumber" value="999"/>
+    <Parameter name="terminalId" value="1"/>
+    <Parameter name="maximumCIDRetries" value="3"/>
+    <Parameter name="useNodeId" value="false"/>
+    <Parameter name="useSTXETX" value="true"/>
+    <!-- valid values TAC and RAW -->
+    <Parameter name="MICRFormat" value="RAW"/>
+    <Parameter name="communicatorHosts">
+      <param_value dtype="List">
+        <!-- the timeout value in the host string is the connect timeout -->
+        <VpnHost dtype="String">socket://localhost:24900;timeout=60000;auth=false</VpnHost>
+      </param_value>
+    </Parameter>
+    <!-- following setting can be used to indicate the -->
+    <!-- processor is offline permenantly (or for a long time anyway) -->
+    <Parameter name="connectionEnabled" value="true"/>
+    <Parameter name="communicatorReceiveTimeoutMillis" value="45000"/>
+    <Parameter name="manualAuthValidation.length.maximum" value="30"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess AJB_CREDIT_STORE_SETTINGS************************ -->
+  <AuthProcess Abstract="true" extends="AJB_CREDIT" name="AJB_CREDIT_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="-DEFAULT-merchantNumber-IN-AJB_STORE_SETTINGS"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess AJB_CHECK_STORE_SETTINGS************************* -->
+  <AuthProcess Abstract="true" extends="AJB" name="AJB_CHECK_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="-DEFAULT-merchantNumber-IN-AJB_STORE_SETTINGS"/>
+    <Parameter name="disableAuthNumberValidation" value="false"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess TENDER_RETAIL_HOST ****************************** -->
+  <AuthProcess Abstract="true" name="TENDER_RETAIL_HOST">
+    <Parameter name="communicatorHosts">
+      <param_value dtype="List">
+        <!-- the timeout value in the host string is the connect timeout -->
+        <Host dtype="String">${dtv.auth.tender-retail.host}</Host>
+      </param_value>
+    </Parameter>
+    <!-- following setting can be used to indicate the -->
+    <!-- processor is offline permenantly (or for a long time anyway) -->
+    <Parameter name="connectionEnabled" value="true"/>
+    <Parameter name="manualAuthValidation.length.maximum" value="30"/>
+  </AuthProcess>
+  <!-- ***** AuthProcess TENDER_RETAIL_STORE_SETTINGS ******************** -->
+  <AuthProcess Abstract="true" extends="TENDER_RETAIL" name="TENDER_RETAIL_STORE_SETTINGS">
+    <Parameter name="merchantNumber" value="${dtv.auth.tender-retail.merchant}"/>
+    <Parameter name="TerminalID" value="${dtv.auth.tender-retail.terminal}"/>
+  </AuthProcess> 
+  <AuthProcess Abstract="true" name="OPERA">
+    <Parameter name="communicatorHosts">
+      <param_value dtype="List">
+        <IPHost dtype="String">http://localhost:4400/Operajserv/Ifc8ws/Ifcws</IPHost>
+      </param_value>
+    </Parameter>
+    <!-- +++++ OPERA communication parameters +++++ -->
+    <Parameter name="communicator" value="dtv.tenderauth.impl.opera.OperaCommunicator"/>
+    <Parameter name="DataSource" value="Opera"/>
+    <!-- the following (communicatorProgress...) control the progress bar -->
+    <!-- progress timing that work well with an IP connection -->
+    <Parameter name="communicatorProgressConnectMillis" value="500"/>
+    <Parameter name="communicatorProgressSendingMillis" value="500"/>
+    <Parameter name="communicatorProgressWaitMillis" value="6000"/>
+    <Parameter name="communicatorProgressReceiveMillis" value="500"/>
+    <!-- +++++ OPERA java-xml marshalling parameters +++++ -->
+    <Parameter name="requestConverter" value="dtv.tenderauth.impl.opera.OperaRequestConverter"/>
+    <Parameter name="responseConverter" value="dtv.tenderauth.impl.opera.OperaResponseConverter"/>
+  </AuthProcess>
+  
+  <!-- ************************************************************** -->
+  <!-- ***** AuthProcess EFT_LINK_HOST ****************************** -->
+  <!-- ************************************************************** -->
+  <AuthProcess Abstract="true" name="EFT_LINK_HOST">
+    <Parameter name="communicatorHosts">
+      <param_value dtype="List">
+        <!-- the timeout value in the host string is the connect timeout -->
+        <Host dtype="String">${dtv.auth.eft-link.channel0}</Host>
+      </param_value>
+    </Parameter>
+    <!-- Channel used by eft link to send notification/user input/print requests to Xstore -->
+    <!-- for Xstore, server is always going to be 'localhost' since this port is opened on the pc where the Xstore is installed. -->
+    <Parameter name="deviceCommChannel" value="${dtv.auth.eft-link.channel1}"/>
+    <!-- following setting can be used to indicate the -->
+    <!-- processor is offline permenantly (or for a long time anyway) -->
+    <Parameter name="connectionEnabled" value="true"/>
+    <Parameter name="manualAuthValidation.length.maximum" value="30"/>
+    <!-- Defines how many milliseconds EFTLink information messages should stay on the screen -->
+    <Parameter name="displayTimeout" value="1000"/>
+    
+    <!-- Defines a additional mapping between a Xstore workstation and EFTLink client (mapping key = workstation id). -->
+    <!-- If there is a mapping exists for the given workstation, it will be used instead of communicatorHosts and deviceCommChannel values. -->
+    <Parameter name="additionalWorkstationHostsMap">
+      <param_value dtype="Map">
+        <MapEntry>
+          <key dtype="Integer">1</key> workstation id
+          <value dtype="EFTLinkCommunicationChannels">
+            <Channel0 dtype="String">socket://localhost:10100</Channel0>
+            <Channel1 dtype="String">socket://localhost:10101</Channel1>
+          </value>
+        </MapEntry>
+      </param_value>
+    </Parameter>
+  </AuthProcess>
+</AuthConfig>

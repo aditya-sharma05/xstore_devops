@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+<DataSourceSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/DataSourceConfig.xsd">
+  
+  <DataSource name="Xcenter" networkScope="LAN">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+    <Property key="ConnectionUserName" value="${xcenter.db.username}" />
+    <Property key="ConnectionPassword" value="${xcenter.db.password}" />
+    <Property key="ConnectionURL" value="${xcenter.db.connectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${xcenter.db.ping.host}" />
+      <Property key="Port" value="${xcenter.db.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="StoreBackup" networkScope="LAN" enabled="false">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+    <Property key="ConnectionUserName" value="${storebackup.db.username}" />
+    <Property key="ConnectionPassword" value="${storebackup.db.password}" />
+    <Property key="ConnectionURL" value="${storebackup.db.connectionURL}" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${storebackup.db.ping.host}" />
+      <Property key="Port" value="${storebackup.db.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="StorePrimary" networkScope="LAN">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+    <Property key="ConnectionUserName" value="dtv" />
+    <Property key="ConnectionPassword" value="dtv" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost" />
+      <Property key="Port" value="1521" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="Local" networkScope="LAN">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+    <Property key="ConnectionUserName" value="pos" />
+    <Property key="ConnectionPassword" value="pos" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost" />
+      <Property key="Port" value="1521" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="Replication" networkScope="LAN" highAvailability="true">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+    <Property key="ConnectionUserName" value="repqueue" />
+    <Property key="ConnectionPassword" value="repqueue" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="localhost" />
+      <Property key="Port" value="localhost" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+  
+  <DataSource name="Training" networkScope="LAN" enabled="false">
+    <Strategy dtype="String">jdbcPersistenceStrategy</Strategy>
+    <Property key="ConnectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+    <Property key="ConnectionUserName" value="${training.db.username}" />
+    <Property key="ConnectionPassword" value="${training.db.password}" />
+    <Property key="ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xstore" />
+    <Ping>
+      <ClassName dtype="Class">dtv.data2.access.impl.SocketPing</ClassName>
+      <Property key="Host" value="${training.db.ping.host}" />
+      <Property key="Port" value="${training.db.ping.port}" />
+      <Property key="Timeout" value="1000" />
+    </Ping>
+  </DataSource>
+</DataSourceSet>

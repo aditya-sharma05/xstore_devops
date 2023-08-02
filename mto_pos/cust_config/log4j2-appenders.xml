@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Appenders>
+  <Console name="Console" target="SYSTEM_OUT">
+    <PatternLayout
+      pattern="%highlight{%X{wkstn_id} %-5level [%-6X{trans}] %date %msg :: %logger [%thread]%n}{FATAL=bright magenta, ERROR=bright red, WARN=yellow, INFO=default, DEBUG=cyan, TRACE=white}"
+      header="loading ${log4j:configLocation}%n" />
+  </Console>
+  <XstRollingRandomAccessFile name="XSTORE.file" fileName="${sys:user.dir}/${sys:log.dir.name}/xstore.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/xstore.%d{yyyy-MM-dd}-%i.log">
+    <PatternLayout pattern="%X{wkstn_id} %-5level [%-6X{trans}] %date %msg :: %logger [%thread]%n"
+      header="**LOG BEGUN     %date%nloading ${log4j:configLocation}%n" footer="**LOG STOPPED   %date%n" />
+    <Policies>
+      <TimeBasedTriggeringPolicy />
+      <OnStartupTriggeringPolicy />
+    </Policies>
+  </XstRollingRandomAccessFile>
+  <XstRollingRandomAccessFile name="XUNIT.file" fileName="${sys:user.dir}/${sys:log.dir.name}/xunit.out"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/xunit.%d{yyyy-MM-dd}.out">
+    <PatternLayout pattern="%d  %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+  <DtxAppender name="EVENT.dtx.critical" guaranteedDelivery="true" />
+  <!-- ********************************************** -->
+  <!-- Authorization communication (Xstore<->Xpay) appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="AUTH.file.raw" fileName="${sys:user.dir}/${sys:log.dir.name}/auth.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/auth.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%X{wkstn_id} %d %c %-5p %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <Rewrite name="AUTH.file">
+    <AppenderRef ref="AUTH.file.raw" />
+    <SensitiveDataRewritePolicy tags="AccountNumber,4;Track1,0;Track2,0" />
+  </Rewrite>
+
+  <!-- ********************************************** -->
+  <!-- Authorization communication (Xstore<->EFTLink) appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="EFTLINK.file" fileName="${sys:user.dir}/${sys:log.dir.name}/eftlink.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/eftlink.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%X{wkstn_id} %d %c %-5p %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <!-- ********************************************** -->
+  <!-- Dataloader appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="DATALOAD.file" fileName="${sys:user.dir}/${sys:log.dir.name}/dataloader.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/dataloader.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d %5p [%t] %c - %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+  <XstRollingRandomAccessFile name="DATALOAD.file.failure" fileName="${sys:user.dir}/download/failures.dat"
+    filePattern="${sys:user.dir}/download/failures.%d{yyyy-MM-dd}.dat">
+    <PatternLayout charset="UTF8" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+  <XstRollingRandomAccessFile name="DATALOAD.file.success" fileName="${sys:user.dir}/download/success.dat"
+    filePattern="${sys:user.dir}/download/success.%d{yyyy-MM-dd}.dat">
+    <PatternLayout pattern="%d %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <!-- ********************************************** -->
+  <!-- Data access/modification appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="PERSIST.file.failure" fileName="${sys:user.dir}/${sys:log.dir.name}/failedPersistence.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/failedPersistence.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d [%t] %-5p %-70l %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+  <XstRollingRandomAccessFile name="REPLICATION.file" fileName="${sys:user.dir}/${sys:log.dir.name}/repl.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/repl.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d %5p [%t] %c - %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+  <XstRollingRandomAccessFile name="REPLICATION.file.audit" fileName="${sys:user.dir}/${sys:log.dir.name}/replicationAudit.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/replicationAudit.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d %5p [%t] %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <!-- ********************************************** -->
+  <!-- Hardware appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="BIOMETRIC.file" fileName="${sys:user.dir}/${sys:log.dir.name}/biometric.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/biometric.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d [%t] %-5p %-70l %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+  <XstRollingRandomAccessFile name="CASHDRAWER.file" fileName="${sys:user.dir}/${sys:log.dir.name}/cashdrawer.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/cashdrawer.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+  <XstRollingRandomAccessFile name="RECEIPT_PRINTER.file" fileName="${sys:user.dir}/${sys:log.dir.name}/ejournal.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/ejournal.%d{yyyy-MM-dd}.log">
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <!-- ********************************************** -->
+  <!-- JMX console access/processing appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="JMX_ACCESS.file" fileName="${sys:user.dir}/${sys:log.dir.name}/jmxHttpAccess.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/jmxHttpAccess.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <!-- ********************************************** -->
+  <!-- Email Templating appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="EMAIL.file" fileName="${sys:user.dir}/${sys:log.dir.name}/email.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/email.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%d %m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <!-- ********************************************** -->
+  <!-- Miscellaneous appenders -->
+  <!-- ********************************************** -->
+  <XstRollingRandomAccessFile name="TRANSACTION_REPLICATOR.file" fileName="${sys:user.dir}/${sys:log.dir.name}/transreplicate.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/transreplicate.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%-5p %-25d %m :: %c [%t]%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+  <Console name="ConfigConverter" target="SYSTEM_OUT">
+    <PatternLayout pattern="%highlight{%-7p%m%n}" />
+  </Console>
+
+  <XstRollingRandomAccessFile name="ConfigConverterFile" fileName="${sys:user.dir}/${sys:log.dir.name}/configConverter.log"
+    filePattern="${sys:user.dir}/${sys:log.dir.name}/configConverter.%d{yyyy-MM-dd}.log">
+    <PatternLayout pattern="%-7p%m%n" />
+    <TimeBasedTriggeringPolicy />
+    <DefaultRolloverStrategy max="14" />
+  </XstRollingRandomAccessFile>
+
+</Appenders>

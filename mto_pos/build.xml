@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="customer-xstore" default="generation" basedir=".">
+  <!-- import the core script -->
+  <property name="core.project" location="${basedir}/../mto" />
+  <import file="${core.project}/core.xml"/>
+
+  <!-- set properties that are not overridden in properties file or from a call into this file -->
+  <property name="jar.file" location="${basedir}/${build.customerId.lc}-pos.jar" />
+  <property name="config.jar.file" location="${basedir}/${build.customerId.lc}-config.jar" />
+  <property name="zip.file" location="${build.customerId.lc}.zip" />
+  <property name="config" location="${basedir}/config" />
+  <property name="database" location="${basedir}/database" />
+  <property name="dist" location="${basedir}/dist" />
+  <property name="gen" location="${basedir}/gen" />
+  <property name="gen.temp" location="${basedir}/gen-temp" />
+  <property name="src" location="${basedir}/src" />
+  <property name="version.file.path" location="${src}/${build.customerId.lc}/pos/Version.java" />
+  <property name="src.test" location="${basedir}/src-test" />
+  <property name="classes" location="${basedir}/classes" />
+  <property name="classes.test" location="${basedir}/classes-test" />
+  <property name="res" location="${basedir}/res" />
+  <property name="res.graphics.receipt" location="${res}/graphics/receipt" />
+  <property name="root" location="${basedir}/root" />
+  <property name="cust_config" location="${basedir}/cust_config" />
+  <property name="base.lib" location="${xstore.artifact.dir}/xstore/lib" />
+  <property name="base.lib.ext" location="${base.lib}/ext" />
+  <property name="cust.lib" location="${basedir}/lib" />
+  <property name="cust.lib.ext" location="${cust.lib}/ext" />
+  <property name="cust.lib.ext.build" location="${cust.lib}/ext/build" />
+  <property name="cust.hotfix.lib" location="${basedir}/hotfix-lib" />
+  <property name="workspace" location="${basedir}/.." />
+  <property name="ixwork" location="${workspace}/../ixwork" />
+  <property name="distro.installx" location="${ixwork}/distro" />
+  <property name="distro" location="${workspace}/distro-full" />
+  <property name="download" location="${basedir}/download" />
+  <property name="schema.dir" location="${basedir}/cust_config/version1" />
+  <property name="xstore.properties.overlay" location="${basedir}/xstore.properties" />
+  <condition property="full.version" value="${build.baseversion}_${build.custversion}" else="${build.baseversion}_${build.custversion}_${build.patchversion}">
+    <equals arg1="0.0" arg2="${build.patchversion}" />
+  </condition>
+
+  <!-- define a patternset representing content needed in the working directory -->
+  <patternset id="working.dir.files">
+    <include name="download/**" unless="should.zip.mnts" />
+    <include name="log/**" />
+    <include name="res/**" />
+    <include name="sequence/**" />
+  </patternset>
+
+  <!-- define resource collections that will be used for various parts of the build process -->
+  <fileset id="hotfix.jars" dir="${cust.hotfix.lib}" includes="*.jar" erroronmissingdir="false"  />
+  <fileset id="xpay.xsd.files" dir="${schema.dir}" includes="XpayRequest.xsd,XpayResponse.xsd" />
+  <fileset id="overlay.working.dir.files" dir="." >
+    <patternset refid="working.dir.files" />
+  </fileset>
+  <path id="build.classpath" description="A path including all dependency libraries needed to build main application classes in this project.">
+    <fileset refid="hotfix.jars" />
+    <fileset dir="${cust.lib}" includes="*.jar" />
+    <fileset dir="${base.lib}" includes="*.jar" />
+    <fileset dir="${cust.lib.ext}" includes="*.jar" />
+    <fileset dir="${base.lib.ext}" includes="*.jar" />
+  </path>
+  <path id="runtime.classpath" description="A path including all jars, classes, and configs that will be available at runtime.">
+    <pathelement location="${classes}" />
+    <pathelement location="${cust_config}" />
+    <path refid="build.classpath" />
+  </path>
+  <path id="config.validation.classpath" description="A classpath for config validation.">
+    <path refid="runtime.classpath" />
+    <fileset dir="${cust.lib.ext.build}" includes="*.jar" />
+  </path>
+
+
+  <!-- detect if conditional sections should be executed -->
+  <condition property="has.xpay.xsd.files">
+    <resourcecount refid="xpay.xsd.files" when="greater" count="0" />
+  </condition>
+  <condition property="has.test">
+    <resourcecount count="0" when="greater">
+      <fileset dir="${src.test}" includes="**/*.java" />
+    </resourcecount>
+  </condition>
+  <condition property="should.zip.mnts">
+    <!-- MNT files should be zipped if the following conditions are true: -->
+    <!-- a. MNT files exist -->
+    <!-- b. No download.zip has been checked in. -->
+    <!-- c. MNT file zipping has been explicitly disabled -->
+    <and>
+      <resourcecount when="greater" count="0">
+        <fileset dir="${download}" includes="**/*.mnt" />
+      </resourcecount>
+      <not>
+        <available file="${download}/download.zip" type="file" />
+      </not>
+      <not>
+        <isset property="${disable.mnt.to.download.zip}" />
+      </not>
+    </and>
+  </condition>
+
+  <condition property="xstelectron.executable"
+      value="${basedir}/../release/xstore-electron/windows_64/electron/xstore-electron.exe"
+      else="${basedir}/../release/xstore-electron/linux_64/electron/xstore-electron">
+    <os family="windows" />
+  </condition>
+
+  <!-- dump some basic environment-related info -->
+  <echo message="Building for customer: ${build.customerId}" />
+  <echo message="JAVA_HOME=${env.JAVA_HOME}" />
+  <echo message="classes=${classes}" />
+  <echo message="cust.lib=${cust.lib}" />
+  <echo message="cust_config=${cust_config}" />
+  <echo message="base.lib=${base.lib}" />
+
+  <!-- extensible sections of the build process -->
+  <extension-point name="clean" description="Cleans everything except DTX" />
+  <extension-point name="clean-all" description="Cleans everything" depends="clean" />
+  <extension-point name="generation" description="Performs any source generation tasks" />
+  <extension-point name="distribute" description="Performs tasks related to distributing artifacts." />
+
+  <!-- now that conditions, extension-points, properties, paths, etc. have been defined, import customizations -->
+  <import file="build-custom.xml" />
+
+  <!-- build targets -->
+  <target name="clean-classes" description="Cleans classes generated by this script" extensionOf="clean">
+    <delete dir="${classes}" />
+  </target>
+
+  <target name="clean-test-classes" description="Cleans test classes generated by this script" extensionOf="clean">
+    <delete dir="${classes.test}" />
+  </target>
+
+  <target name="clean-dist" description="Cleans the 'dist' location, which contains files to be included in the overlay package, and the dist zip file." extensionOf="clean">
+    <delete dir="${dist}" />
+    <delete file="${zip.file}" />
+  </target>
+
+  <target name="clean-distro" description="Cleans the 'distro' location, which contains installation artifacts" extensionOf="clean">
+    <delete dir="${distro}" />
+  </target>
+
+  <target name="clean-jar" description="Removes jar files generated by this script" extensionOf="clean">
+    <delete file="${jar.file}" />
+    <delete file="${config.jar.file}" />
+  </target>
+
+  <target name="clean-dtx" description="Cleans up generated DTX objects" extensionOf="clean-all">
+    <delete dir="${gen.temp}" />
+    <delete includeemptydirs="true">
+      <fileset dir="${gen}" includes="**/*" />
+    </delete>
+  </target>
+
+  <target name="update-version-class" description="Set various details in the Version.java file">
+    <tstamp>
+      <format pattern="yyyy-MM-dd&apos;T&apos;HH:mm:ssZ" property="build-date-time" />
+    </tstamp>
+    <replaceregexp byline="true" file="${version.file.path}" match="String BUILD_DATE =(.)+" replace="String BUILD_DATE = &quot;${build-date-time}&quot;;" />
+    <replaceregexp byline="true" file="${version.file.path}" match="String CUSTOMER_VERSION =(.)+" replace="String CUSTOMER_VERSION = &quot;${build.custversion}&quot;;" />
+    <replaceregexp byline="true" file="${version.file.path}" match="String PATCH_VERSION =(.)+" replace="String PATCH_VERSION = &quot;${build.patchversion}&quot;;" />
+    <echo message="updated ${version.file.path} to BUILD_DATE = &quot;${build-date-time}&quot;, CUSTOMER_VERSION = &quot;${build.custversion}&quot;, and PATCH_VERSION = &quot;${build.patchversion}&quot;" />
+  </target>
+
+  <target name="compile-test" description="Compiles test source if necessary" if="has.test" depends="compile,clean-test-classes">
+    <compilejava srcdir="${src.test}" destdir="${classes.test}" classpathref="runtime.classpath" />
+    <!-- copy over test resources like eclipse does -->
+    <copy todir="${classes.test}">
+      <fileset dir="${src.test}" excludes="**/*.java" />
+    </copy>
+  </target>
+
+  <target name="dtx-generation" description="Generates DTX objects" depends="clean-dtx" extensionOf="generation">
+    <mkdir dir="${gen}" />
+    <mkdir dir="${gen.temp}" />
+    <taskdef name="dao-generation" classname="dtv.data2.access.impl.daogen.DAOGenAnt" classpathref="runtime.classpath" />
+    <dao-generation dest="${gen}" dir="${config}" tempdir="${gen.temp}" overrideMode="true" />
+    <delete dir="${gen.temp}" />
+  </target>
+
+  <target name="compile" description="Performs any pre-requisite steps, then compiles the java sources that will be included in the build" depends="generation,clean-classes">
+    <mkdir dir="${classes}" />
+    <compilejava srcdir="${src}:${gen}" destdir="${classes}" classpathref="build.classpath" />
+  </target>
+
+  <target name="prepare-working-dir-project" description="Prepares the project which will house the working directory used in a development workspace.">
+    <property name="working.dir.project.name" value="${build.customerId.lc}_xstore" />
+    <property name="working.dir.project" location="${basedir}/../${working.dir.project.name}" />
+    <fail message="Expected to find a project named ${working.dir.project.name} next to this project, but couldn't find it.  Please create a project with that name in your workspace.">
+      <condition>
+        <not>
+          <available file="${working.dir.project}" />
+        </not>
+      </condition>
+    </fail>
+    <sync todir="${working.dir.project}" includeemptydirs="true">
+      <fileset dir="${xstore.artifact.dir}/xstore">
+        <patternset refid="working.dir.files" />
+        <include name="root/**"/>
+      </fileset>
+      <fileset refid="overlay.working.dir.files" />
+    	<fileset file="configPath.properties" />
+      <preserveintarget includes="**" />
+    </sync>
+  </target>
+
+  <target name="make" description="Compiles and assembles distribution artifacts, then creates a zip file" depends="clean-dist,-zip-mnts-if,jar">
+    <!-- copy files to dist directory -->
+    <copy todir="${dist}/xstore">
+      <fileset refid="overlay.working.dir.files" />
+      <fileset dir=".">
+        <include name="database/**/*.sql" />
+        <include name="installx/**" />
+        <include name="lib/**" />
+        <include name="updates/**" />
+        <exclude name="lib/src/**" />
+        <exclude name="lib/ext/build/**" />
+      </fileset>
+      <fileset dir="${root}" />
+      <file file="${xstore.properties.overlay}" />
+    </copy>
+    <copy todir="${dist}/xstore/lib">
+      <file file="${jar.file}" />
+      <file file="${config.jar.file}" />
+    </copy>
+
+    <!-- zip target contents into the distro zip -->
+    <zip file="${zip.file}" basedir="${dist}" />
+  </target>
+
+  <target name="-zip-mnts-if" description="Creates a zip containing MNT files if appropriate" if="should.zip.mnts">
+    <zip destfile="${dist}/xstore/download/download.zip">
+      <fileset dir="${download}" includes="**/*.mnt" />
+    </zip>
+  </target>
+
+  <target name="contribute-hotfixes" description="Contributes the contents of hotfix jar files to the classes directory">
+    <unjar dest="${classes}" >
+      <fileset refid="hotfix.jars" />
+    </unjar>
+  	<pathconvert property="hotfix.list" pathsep="${line.separator}">
+  	  <fileset refid="hotfix.jars" />
+  	  <flattenmapper/>
+  	</pathconvert>
+  	<echo file="${classes}/hotfix.manifest" message="${hotfix.list}" />
+  </target>
+
+  <target name="jar" description="Creates jar files that will be delivered with the application" depends="update-version-class,clean-jar,compile,contribute-hotfixes,check-configs-wellformed">
+    <createjar jarfile="${jar.file}">
+      <jarcontents>
+        <!-- include classes generated by this project -->
+        <fileset dir="${classes}" />
+
+        <!-- include customer logos so they are available in Xadmin for receipts. -->
+        <zipfileset dir="${res.graphics.receipt}" prefix="res/graphics/receipt" />
+
+      </jarcontents>
+    </createjar>
+    <createjar jarfile="${config.jar.file}">
+      <jarcontents>
+        <fileset dir="${cust_config}" excludes="localconfig/**" />
+      </jarcontents>
+    </createjar>
+  </target>
+
+  <target name="check-configs-wellformed" description="Checks configuration XML files for structural integrity">
+    <xmlvalidate failonerror="yes" lenient="yes" warn="yes">
+      <fileset dir="${cust_config}" includes="**/*.xml" />
+    </xmlvalidate>
+  </target>
+
+  <target name="installx" description="Creates an Installx build appropriate" >
+  <!-- copy the installx jar to the ixwork dir (this will create that dir if it doesn't exist) -->
+  <local name="ixwork.installx.jar.file" />
+  <property name="ixwork.installx.jar.file" location="${ixwork}/installx.jar" />
+    <copy tofile="${ixwork.installx.jar.file}" file="${installx.jar.file}" overwrite="true" />
+    <!-- copy the ant.install.properties file -->
+    <copy file="${builder.ant.install.properties.file}" tofile="${ixwork}/ant.install.properties" overwrite="true" />
+    <!-- execute installx builder -->
+    <java dir="${ixwork}" jar="${ixwork.installx.jar.file}" fork="true" failonerror="true" />
+    <move todir="${distro}">
+    <fileset dir="${distro.installx}" includes="**" />
+  </move>
+  </target>
+
+  <target name="generate-sources" extensionOf="generation" description="Generates sources used by the library" if="has.xpay.xsd.files">
+    <!-- create the generated sources dir -->
+    <mkdir dir="${generated.sources.dir}" />
+    <pathconvert pathsep=" " refid="xpay.xsd.files" property="xpay.xsd.files.list" />
+    <java classname="com.sun.tools.internal.xjc.XJCFacade" fork="true" failonerror="true">
+      <classpath path="${java.class.path}" />
+      <arg line="-verbose -extension -encoding UTF-8 -enableIntrospection ${xpay.xsd.files.list} -d ${gen}" />
+      <sysproperty key="javax.xml.accessExternalSchema" value="all" />
+      <sysproperty key="javax.xml.accessExternalStylesheet" value="all" />
+    </java>
+  </target>
+
+  <target name="run-newdesktop-client" description="Run the NewDesktop Electron client application">
+    <echo message="${xstelectron.executable}"/>
+    <exec executable="${xstelectron.executable}" dir="." failonerror="true">
+      <arg line="install-dir=${basedir}" />
+    </exec>
+  </target>
+
+  <target name="run-thinclient-client" description="Run the Thin Client Electron client application">
+    <echo message="${xstelectron.executable}"/>
+    <exec executable="${xstelectron.executable}" dir="." failonerror="true">
+      <arg line="install-dir=${basedir}/thinclient-inst-dir" />
+    </exec>
+  </target>
+
+  <!-- build macros -->
+  <macrodef name="compilejava" description="Compiles java sources">
+    <attribute name="srcdir" />
+    <attribute name="destdir" />
+    <attribute name="classpathref" />
+    <sequential>
+      <mkdir dir="@{destdir}" />
+      <javac srcdir="@{srcdir}" destdir="@{destdir}" classpathref="@{classpathref}" deprecation="true" debug="true" fork="true" memoryMaximumSize="256m" includeantruntime="false" />
+    </sequential>
+  </macrodef>
+  <macrodef name="createjar" description="Creates a jar file with the provided contents and standard manifest details.">
+    <attribute name="jarfile" />
+    <element name="jarcontents" optional="false" />
+    <sequential>
+      <jar jarfile="@{jarfile}" compress="true">
+        <manifest>
+          <attribute name="Built-By" value="${user.name}" />
+          <attribute name="Build-Time" value="${env.BUILD_ID}" />
+          <attribute name="Build-VM-Vendor" value="${java.vm.vendor}" />
+          <attribute name="Build-VM-Name" value="${java.vm.name}" />
+          <attribute name="Build-VM-Version" value="${java.vm.version}" />
+          <attribute name="Build-OS" value="${os.name} (${os.arch}) version ${os.version}" />
+          <attribute name="Jenkins-Job-Name" value="${env.JOB_NAME}" />
+          <attribute name="Jenkins-Build-Number" value="${env.BUILD_NUMBER}" />
+          <attribute name="SVN-Revision" value="${env.SVN_REVISION}" />
+          <attribute name="Xstore-Target-Version" value="${xstore.version}" />
+        </manifest>
+        <jarcontents />
+      </jar>
+    </sequential>
+  </macrodef>
+  
+</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DtxReplicationConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/DtxReplicationConfig.xsd">
+<!--  <service name="Local->StorePrimary" enabled="false" expireAfter="never"/> -->
+  <service name="Local->Xcenter" enabled="false" expireAfter="never"/>
+  <service name="Local->StoreBackup" enabled="false" expireAfter="never" />
+  <service name="StorePrimary->StoreBackup" enabled="false" expireAfter="never" />
+  <service name="EventLogReplicationCritical" enabled="false" expireAfter="never"/>
+  <service name="EventLogReplication" enabled="false" expireAfter="immediately"/>
+</DtxReplicationConfig>

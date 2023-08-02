@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Environment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../pos/config/dtv/res/config/EnvironmentConfig.xsd">
+  <Options name="XSTORE">
+    <Enabled dtype="Boolean">false</Enabled>
+    <Address dtype="String">https://localhost</Address>
+    <Port dtype="Integer">9096</Port>
+  </Options>
+</Environment>

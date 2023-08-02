@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/mto_pos"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
+    <stringAttribute key="org.eclipse.debug.ui.ATTR_CONSOLE_ENCODING" value="UTF-8"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="oracle.retail.xstore.rest.helidon.RestServiceApp"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="mto_pos"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="mto_pos"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Ddtv.util.config.ConfigPathPropertySourceImpl=dtv.xst.config.XstConfigPathPropertySource -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager -Duser.dir.local=${workspace_loc:mto_pos} -Ddtv.system.properties.location=${workspace_loc:mto_pos}/xstore.properties -Ddtv.util.crypto.SecretKeyCipherManager.keyStoreDirectory=${workspace_loc:mto_xstore}/res/keys -Ddtv.util.crypto.DtvKeyStoreManager.keyStoreDirectory=${workspace_loc:mto_pos}/res/keys -Xms512m -Xmx1024m  -XX:+ForceTimeHighResolution -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -Dspring.profiles.active=restserver"/>
+    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:mto_xstore}"/>
+</launchConfiguration>

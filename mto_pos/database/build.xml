@@ -1,0 +1,329 @@
+<project name="database-dist" basedir=".">
+  <!-- this script requires parameters when it is called, fail if they aren't provided -->
+  <fail unless="db.platform" message="A db.platform parameter (mssql, mssql-unicode, oracle, etc.) is required when calling this build, but none appears to have been provided." />
+  <fail unless="db.custId" message="A db.custId parameter is required when calling this build, but none appears to have been provided." />
+  <fail unless="build.type" message="A build.type parameter (installx or eclipse) is required when calling this build, but none appears to have been provided." />
+  <fail message="A db.data.orgId is required when build.type is eclipse, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><not><isset property="db.data.orgId"/></not></and></condition></fail>
+  <fail message="A db.data.rtlLocId is required when build.type is eclipse, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><not><isset property="db.data.rtlLocId"/></not></and></condition></fail>
+  <fail message="A db.data.countryId is required when build.type is eclipse, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><not><isset property="db.data.countryId"/></not></and></condition></fail>
+  <fail message="A db.data.currencyId is required when build.type is eclipse, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><not><isset property="db.data.currencyId"/></not></and></condition></fail>
+  <fail message="A db.server is required when build.type is eclipse, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><not><isset property="db.server"/></not></and></condition></fail>
+  <fail message="A db.name is required when build.type is eclipse, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><not><isset property="db.name"/></not></and></condition></fail>
+  <fail message="A db.user is required when build.type is eclipse and the db.platform is oracle, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><equals arg1="${db.platform}" arg2="oracle" /><not><isset property="db.user"/></not></and></condition></fail>
+  <fail message="A db.password is required when build.type is eclipse and the db.platform is oracle, but none was provided."><condition><and><equals arg1="${build.type}" arg2="eclipse" /><equals arg1="${db.platform}" arg2="oracle" /><not><isset property="db.password"/></not></and></condition></fail>
+
+  <!-- the location of this script -->
+  <dirname property="overlay.database.directory" file="${ant.file.database-dist}" />
+	
+  <!-- import the core script -->
+  <property name="core.project" location="${overlay.database.directory}/../../mto" />
+  <import file="${core.project}/core.xml"/>
+	
+  <!-- add a file path mapping -->
+  <property name="db.data.file.path" value="${db.path.data}" />
+	
+  <!-- input/output directories -->
+  <property name="output.dir" location="${basedir}/database/output" />
+  <property name="common.input.dir" location="${overlay.database.directory}" />
+
+  <!-- output script names -->
+  <property name="base.data.script" value="ClientData.sql" />
+  <property name="test.data.script" value="ClientTestData.sql" />
+  <property name="test.store.data.script" value="ClientTestStoreData.sql" />
+  <property name="cust.schema.script" value="ClientSchema.sql" />
+
+  <!-- fully qualified script locations -->
+  <property name="db.create.script.file" location="${output.dir}/build/${db.platform}/db-create.sql" />
+  <property name="db.schema.script.file" value="${output.dir}/build/${db.platform}/db-define.sql" />
+  <property name="db.schema.upgrade.script.file" value="${output.dir}/build/${db.platform}/db-upgrade.sql" />
+  <property name="db.schema.synonym.script.file" value="${output.dir}/build/${db.platform}/etc/Synonyms.sql" />
+  <property name="db.schema.dbausersynonym.script.file" value="${output.dir}/build/${db.platform}/etc/DBAUserSynonyms.sql" />
+  <property name="base.data.script.file" value="${output.dir}/${base.data.script}" />
+  <property name="test.data.script.file" value="${output.dir}/${test.data.script}" />
+  <property name="db.cust.schema.script.file" value="${output.dir}/${cust.schema.script}" />
+  <property name="test.store.data.script.file" value="${output.dir}/${test.store.data.script}" />
+  <property name="oracle.clean.script.file" location="${output.dir}/build/${db.platform}/etc/clean.sql" />
+  <property name="rep.script.file" location="${output.dir}/build/${db.platform}/Replication/xstore-replication-db-define.sql" />
+  <property name="pdb.copy.script.file" value="${output.dir}/build/${db.platform}/etc/pdbcopy.sql" />
+  
+  <!-- make some lower-case username variants -->
+  <script language="javascript">project.setProperty("db.schema.lower", project.getProperty("db.schema") != null ? project.getProperty("db.schema").toLowerCase() : "");</script>
+  <script language="javascript">project.setProperty("db.posuser.lower", project.getProperty("db.posuser") != null ? project.getProperty("db.posuser").toLowerCase() : "");</script>
+  <script language="javascript">project.setProperty("db.backupuser.lower", project.getProperty("db.backupuser") != null ? project.getProperty("db.backupuser").toLowerCase() : "");</script>
+  <script language="javascript">project.setProperty("db.admpwd.lower", project.getProperty("db.admpwd") != null ? project.getProperty("db.admpwd").toLowerCase() : "");</script>
+
+  
+  <!-- platform conditions -->
+  <condition property="isoraclepdb">
+    <equals arg1="${db.platform}" arg2="oraclepdb" />
+  </condition>
+  <condition property="isoracle">
+    <equals arg1="${db.platform}" arg2="oracle" />
+  </condition>
+  <condition property="ismssqlunicode">
+    <equals arg1="${db.platform}" arg2="mssql-unicode" />
+  </condition>
+  <condition property="ismssql">
+    <equals arg1="${db.platform}" arg2="mssql" />
+  </condition>
+  
+  <!-- other misc properties -->
+  <property name="db.backupuser" value="dbauser" />
+
+  <!-- file token filters -->
+  <filterchain id="mssql.token.filter">
+    <tokenfilter>
+      <replacestring from="$(BaseVersion)" to="${ddl.version}" />
+      <replacestring from="$(DFUNC)" to="getDate()" />
+      <replacestring from="$(EFUNC)" to="GO" />
+      <replacestring from="$(CFUNC)" to="+" />
+      <replacestring from="$(NSFUNC)" to="" />
+    </tokenfilter>
+  </filterchain>
+  <filterchain id="mssql-unicode.token.filter" refid="mssql.token.filter" />
+  <filterchain id="oraclepdb.token.filter" refid="oracle.token.filter" />
+  <filterchain id="oracle.token.filter">
+    <tokenfilter>
+      <replacestring from="$(BaseVersion)" to="${ddl.version}" />
+      <replacestring from="$(DFUNC)" to="SYSDATE" />
+      <replacestring from="$(EFUNC)" to="COMMIT;" />
+      <replacestring from="$(CFUNC)" to="||" />
+      <replacestring from="$(NSFUNC)" to=" FROM DUAL " />
+    </tokenfilter>
+  </filterchain>
+  <filterchain id="installx.token.filter">
+    <tokenfilter>
+      <replacestring from="$(OrgID)" to="${db.data.orgId}" />
+      <replacestring from="$(StoreID)" to="${db.data.rtlLocId}" />
+      <replacestring from="$(CountryID)" to="'${db.data.countryId}'" />
+      <replacestring from="$(CurrencyID)" to="'${db.data.currencyId}'" />
+    </tokenfilter>
+  </filterchain>
+
+  <!-- primary targets -->
+  <target name="make-scripts" description="Creates data scripts for the target platform." depends="clean,prepare,filter-schema-script,make-data-update-script,touch-unused-scripts" />
+  <target name="make" description="Creates all necessary scripts and runs them against the target platform/database" depends="remove-output-dir,prepare,filter-schema-script,make-data-update-script,prep-base-scripts,load-scripts,remove-output-dir-post" />
+  <target name="make-replication" description="Creates all necessary scripts and creates the replication pdb" depends="remove-output-dir,prepare,prep-base-scripts,drop-database,create-database,create-replication,remove-output-dir-post" />
+  <target name="make-clone" description="Creates all necessary scripts and creates a cloned PDB used on Oracle 12c+" depends="remove-output-dir,prepare,prep-base-scripts,copy-pdb-training,remove-output-dir-post" />
+
+  <!-- other misc targets -->
+  <!-- deletes the output files -->
+  <target name="clean">
+    <delete file="${base.data.script.file}" />
+    <delete file="${test.data.script.file}" />
+    <delete file="${test.store.data.script.file}" />
+  </target>
+
+  <!-- deletes the output directory (there are two since one target can't appear twice in one list of depends) -->
+  <target name="remove-output-dir-post">
+    <delete dir="${output.dir}" />
+  </target>
+  <target name="remove-output-dir">
+    <delete dir="${output.dir}" />
+  </target>
+
+  <!-- creates an output directory -->
+  <target name="prepare">
+    <mkdir dir="${output.dir}" />
+  </target>
+
+  <!-- prepares base scripts for creating a database -->
+  <target name="prep-base-scripts" depends="copy-dbmake-scripts,replace-tokens-in-base-scripts" />
+
+  <!-- loads DDL and data scripts to create and populate a new database -->
+  <target name="load-scripts" depends="drop-database,create-database">
+    <!-- run the schema script -->
+    <executescript script="${db.schema.script.file}" />
+    <!-- run the schema upgrade script -->
+    <executescript script="${db.schema.upgrade.script.file}" />
+    <!-- run the schema DBAUser synonym script -->
+    <executescript script="${db.schema.dbausersynonym.script.file}" />
+    <!-- run the client schema script -->
+    <executescript script="${db.cust.schema.script.file}" />
+    <!-- run the schema synonym script -->
+    <executescript script="${db.schema.synonym.script.file}" isdata="true" />
+    <!-- run the data script -->
+    <executescript script="${base.data.script.file}" isdata="true" />
+  </target>
+
+  <!-- appends all relevent data script parts to the main data update script -->
+  <target name="make-data-update-script">
+    <concat destfile="${base.data.script.file}" append="true" encoding="UTF-8">
+      <fileset file="${common.input.dir}/ClientData.sql" />
+      <fileset file="${common.input.dir}/ClientTestData.sql" />
+      <filterchain refid="${db.platform}.token.filter" />
+      <filterchain refid="installx.token.filter" />
+    </concat>
+  </target>
+  
+  <!-- replaces tokens in the schema script -->
+  <target name="filter-schema-script">
+    <copy file="${common.input.dir}/${cust.schema.script}" tofile="${db.cust.schema.script.file}">
+      <filterchain refid="${db.platform}.token.filter" />
+      <filterchain refid="installx.token.filter" />
+    </copy>
+  </target>
+  
+  <!-- creates empty files for scripts that are unused in the XST  -->
+  <target name="touch-unused-scripts">
+    <touch file="${test.data.script.file}" />
+    <touch file="${test.store.data.script.file}" />
+  </target>
+
+  <!-- copies DDL scripts for the target platform -->
+  <target name="copy-dbmake-scripts">
+  	<copy todir="${output.dir}/build">
+  	 <fileset dir="${dbmake.artifact.dir}" includes="${db.platform}/**" />
+  	</copy>
+  </target>
+
+  <!-- replaces system-specific tokens in scripts with  -->
+  <target name="replace-tokens-in-base-scripts">
+    <replace dir="${output.dir}" summary="true" casesensitive="false" encoding="UTF-8">
+      <include name="**/*.sql" />
+      <replacefilter token="$(OrgID)" value="${db.data.orgId}" />
+      <replacefilter token="$(StoreID)" value="${db.data.rtlLocId}" />
+      <replacefilter token="$(DbName)" value="${db.name}" />
+      <replacefilter token="$(DbOriginName)" value="${origin.db.name}" />
+      <replacefilter token="$(DbOriginDataFilePath)" value="${origin.db.data.file.path}" />
+      <replacefilter token="$(DbDataFilePath)" value="${db.data.file.path}" />
+      <replacefilter token="$(DbIndexFilePath)" value="${db.data.file.path}" />
+      <replacefilter token="$(DbSeedFilePath)" value="${db.path.seed}" />
+      <replacefilter token="$(DbTblspace)" value="${db.name}" />
+      <replacefilter token="$(DbSchema)" value="${db.schema}" />
+      <replacefilter token="$(DbSchemaPwd)" value="${db.schema.lower}" />
+      <replacefilter token="$(DbUser)" value="${db.posuser}" />
+      <replacefilter token="$(DbUserPwd)" value="${db.posuser.lower}" />
+      <replacefilter token="$(DbBackup)" value="${db.backupuser}" />
+      <replacefilter token="$(DbBackupPwd)" value="${db.backupuser.lower}" />
+      <replacefilter token="$(DbServer)" value="${db.server}" />
+      <replacefilter token="$(DbAdmin)" value="${db.admuser}" />
+      <replacefilter token="$(DbAdmpwd)" value="${db.admpwd.lower}" />
+    </replace>
+  </target>
+
+  <!-- database script execution macro -->
+  <macrodef name="executescript">
+    <attribute name="script" />
+    <attribute name="containerdb" default="false" /><!-- used to indicate that this is an Oracle container DB on a PDB-enabled Oracle instance -->
+    <attribute name="isdata" default="false" />
+    <attribute name="failonerror" default="true" />
+    <sequential>
+      <local name="execute.sql.command" />
+      <local name="execute.sql.arguments" />
+      <local name="execute.sql.oraclepdb.credentials" />
+      <local name="execute.sql.oracle.userpass" />
+      <local name="execute.sql.oracle.credentials" />
+      <condition property="execute.sql.command" value="sqlcmd" else="sqlplus">
+        <or>
+          <equals arg1="${db.platform}" arg2="mssql" />
+          <equals arg1="${db.platform}" arg2="mssql-unicode" />
+        </or>
+      </condition>
+      <condition property="execute.sql.oraclepdb.credentials" value="${sysdba.user}/${sysdba.password}@${db.server}/${cdb.name} as sysdba" else="${db.user}/${db.password}@${db.server}/${db.name}">
+        <istrue value="@{containerdb}" />
+      </condition>
+      <condition property="execute.sql.oracle.userpass" value="${db.posuser}/${db.posuser.lower}" else="${db.user}/${db.password}">
+        <istrue value="@{isdata}" />
+      </condition>
+      <condition property="execute.sql.oracle.credentials" value="${execute.sql.oraclepdb.credentials}" else="${execute.sql.oracle.userpass}@${db.server}/${cdb.name}">
+        <equals arg1="${db.platform}" arg2="oraclepdb" />
+      </condition>
+      <condition property="execute.sql.arguments" value="-r 1 -V 1 -S ${db.server} -d ${db.name} -i &quot;@{script}&quot;" else="${execute.sql.oracle.credentials} @@@{script}">
+        <or>
+          <equals arg1="${db.platform}" arg2="mssql" />
+          <equals arg1="${db.platform}" arg2="mssql-unicode" />
+        </or>
+      </condition>
+      <echo message="Executing '@{script}' with command '${execute.sql.command} ${execute.sql.arguments}'" />
+      <exec executable="${execute.sql.command}" failonerror="@{failonerror}">
+        <arg line="${execute.sql.arguments}" />
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <!-- database drop targets -->
+  <extension-point name="drop-database" />
+  <target name="drop-database-oracle" extensionOf="drop-database" if="isoracle">
+    <droporacledatabase />
+  </target>
+  <target name="drop-database-oraclepdb" extensionOf="drop-database" if="isoraclepdb">
+    <droporacledatabase containerdb="true" />
+  </target>
+  <macrodef name="droporacledatabase">
+    <attribute name="containerdb" default="false" />
+    <sequential>
+      <echo message="Executing SQLPlus command to drop the ${db.name} database on server '${db.server}'." />
+      <executescript failonerror="false" script="${oracle.clean.script.file}" containerdb="@{containerdb}" />
+    </sequential>
+  </macrodef>
+  <target name="drop-database-mssql-unicode" extensionOf="drop-database" if="ismssqlunicode">
+    <dropmssqldatabase />
+  </target>
+  <target name="drop-database-mssql" extensionOf="drop-database" if="ismssql">
+    <dropmssqldatabase />
+  </target>
+  <macrodef name="dropmssqldatabase">
+    <sequential>
+      <echo message="Executing SQLCMD command to drop the database named '${db.name}' on server '${db.server}'." />
+      <!-- errors are initially ignored here to avoid failing on initial creation -->
+      <exec executable="sqlcmd" failonerror="false">
+        <arg value="-S" />
+        <arg value="${db.server}" />
+        <arg value="-d" />
+        <arg value="master" />
+        <arg value="-Q" />
+        <arg value="&quot;ALTER DATABASE [${db.name}] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE&quot;" />
+      </exec>
+      <exec executable="sqlcmd" failonerror="false">
+        <arg value="-S" />
+        <arg value="${db.server}" />
+        <arg value="-d" />
+        <arg value="master" />
+        <arg value="-Q" />
+        <arg value="&quot;DROP DATABASE [${db.name}]&quot;" />
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <!-- database creation targets -->
+  <extension-point name="create-database" />
+  <target name="create-database-oracle" extensionOf="create-database" if="isoracle">
+    <echo message="Executing SQLPlus command to create a database for schema '${db.schema}' and user '${db.posuser}' on server '${db.server}'." />
+    <executescript script="${db.create.script.file}" />
+  </target>
+  <target name="create-database-oraclepdb" extensionOf="create-database" if="isoraclepdb">
+    <echo message="Executing SQLPlus command to create a database named '${db.name}' on server '${db.server}'." />
+    <executescript script="${db.create.script.file}" containerdb="true" />
+  </target>
+  <target name="create-database-mssql-unicode" extensionOf="create-database" if="ismssqlunicode">
+  <createmssqldatabase />
+  </target>
+  <target name="create-database-mssql" extensionOf="create-database" if="ismssql">
+  <createmssqldatabase />
+  </target>
+  <macrodef name="createmssqldatabase">
+    <sequential>
+      <echo message="Executing SQLCMD command to create a database named '${db.name}' on server '${db.server}'." />
+      <exec executable="sqlcmd" failonerror="true">
+        <arg value="-S" />
+        <arg value="${db.server}" />
+        <arg value="-d" />
+        <arg value="master" />
+        <arg value="-i" />
+        <arg value="&quot;${db.create.script.file}&quot;" />
+      </exec>
+    </sequential>
+  </macrodef>
+  <target name="create-replication">
+    <executescript script="${rep.script.file}" />
+  </target>
+
+  <!-- pluggable database copy targets -->
+  <extension-point name="copy-pdb-training" />
+  <target name="copy-pdb-training-oraclepdb" extensionOf="copy-pdb-training" if="isoraclepdb">
+    <droporacledatabase containerdb="true" />
+    <echo message="Executing SQLPlus command to create an Xstore database on server '${db.server}'." />
+    <executescript script="${pdb.copy.script.file}" containerdb="true" />
+  </target>
+</project>

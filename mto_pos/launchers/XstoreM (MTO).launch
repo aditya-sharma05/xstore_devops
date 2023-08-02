@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/mto_pos"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.jetty.start.Main"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="mto_pos"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="${workspace_loc:mto_pos}/jetty-mobile.xml"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="mto_pos"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djetty.keystore.file=${workspace_loc:mto_pos}/mobile.keystore -Dspring.profiles.active=xstore -Dexternal.properties.file=jetty.mobile.properties -Ddtv.system.properties.location=${workspace_loc:mto_pos}/xstorem.properties -Ddtv.util.crypto.SecretKeyCipherManager.keyStoreDirectory=${workspace_loc:mto_pos}/res/keys -Ddtv.util.crypto.DtvKeyStoreManager.keyStoreDirectory=${workspace_loc:mto_pos}/res/keys -Xms512m -Xmx1024m  -XX:+ForceTimeHighResolution -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m  -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"/>
+    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:mto_xstore}"/>
+</launchConfiguration>

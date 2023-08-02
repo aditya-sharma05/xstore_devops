@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../pos/config/dtv/res/config/ServiceHandlers.xsd">
+
+  <Service name="RELATE_CUSTOMER_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.CustomerWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_CARD_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.CardWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_LOYALTY_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.LoyaltyWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_AWARD_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.AwardWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_PROMOTION_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.PromotionWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_REGISTRY_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.RegistryWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_ATTRIBUTE_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.AttributeWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_TASK_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.TaskWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">30</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_GIFT_CARD_SVC_TRANSACTION_WS">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.relate.SvcTransactionWs}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <CardPrefix dtype="String">${dtv.relate.LoyaltyCardPrefix}</CardPrefix>
+      <CardSeries dtype="String">${dtv.relate.LoyaltyCardSeries}</CardSeries>
+    </Parameters>
+  </Service>
+  <Service name="RELATE_PROMOTE_SERVICES">
+    <Parameters dtype="Map">
+      <TargetUri dtype="String">${dtv.relate.PromoteWs}</TargetUri>
+      <ReadTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ReadTimeout>
+      <ConnectTimeout dtype="Integer">${dtv.relate.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="LOCATE">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.locate.WsdlLocation}</WsdlLocation> 
+      <ConnectTimeout dtype="Integer">${dtv.locate.ServiceTimeout}</ConnectTimeout>
+      <Destination dtype="String">${dtv.locate.Destination}</Destination>
+      <LocateVersion dtype="String">15.0</LocateVersion>
+      <AllowSplitOrder dtype="String">true</AllowSplitOrder>
+      <AllowPartialUpdates dtype="String">false</AllowPartialUpdates>
+    </Parameters>
+  </Service>
+  <Service name="SERENADE">
+    <Parameters dtype="Map">
+      <TargetUri dtype="String">${oracle.retail.xstore.oms.rest.targetUri}</TargetUri>
+      <ReadTimeout dtype="Integer">30</ReadTimeout>
+      <ConnectTimeout dtype="Integer">${dtv.serenade.ServiceTimeout}</ConnectTimeout>
+      <XchReturnDefaultDisposition dtype="String">40</XchReturnDefaultDisposition>
+      <XchReturnDefaultReasonCode dtype="Integer">80</XchReturnDefaultReasonCode>  
+      <!-- XchReturnXstoreItemIdField has 4 options: item_id or retail_ref_number or sku or short_sku_number -->
+      <XchReturnXstoreItemIdField dtype="String">item_id</XchReturnXstoreItemIdField>
+    </Parameters>
+  </Service>
+  <Service name="SIM_STORE_INVENTORY">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${oracle.retail.xstore.sim.inventory.WsdlLocation}</WsdlLocation>
+      <ReadTimeout dtype="Integer">${oracle.retail.xstore.sim.ServiceTimeout}</ReadTimeout>
+      <ConnectTimeout dtype="Integer">${oracle.retail.xstore.sim.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="SIM_UIN_STORE_INVENTORY">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${oracle.retail.xstore.sim.uin.WsdlLocation}</WsdlLocation>
+      <ReadTimeout dtype="Integer">${oracle.retail.xstore.sim.ServiceTimeout}</ReadTimeout>
+      <ConnectTimeout dtype="Integer">${oracle.retail.xstore.sim.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="SIM_POS_TRANSACTION">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${oracle.retail.xstore.sim.posTransaction.WsdlLocation}</WsdlLocation>
+      <ReadTimeout dtype="Integer">${oracle.retail.xstore.sim.ServiceTimeout}</ReadTimeout>
+      <ConnectTimeout dtype="Integer">${oracle.retail.xstore.sim.ServiceTimeout}</ConnectTimeout>
+    </Parameters>
+  </Service>
+  <Service name="ADDRESS_VERIFICATION">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${oracle.retail.xstore.avs.WsdlLocation}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${oracle.retail.xstore.avs.ServiceTimeout}</ConnectTimeout>
+      <QasEngineTimeout dtype="Integer">10000</QasEngineTimeout>
+      <QasResponseLimit dtype="Integer">30</QasResponseLimit>
+    </Parameters>
+  </Service>
+  <Service name="OPERA">
+    <Parameters dtype="Map">
+      <WsdlLocation dtype="String">${dtv.opera.ConnectionURL}</WsdlLocation>
+      <ConnectTimeout dtype="Integer">${dtv.datasource.opera.Timeout}</ConnectTimeout>
+      <InConnectStr dtype="String">${dtv.datasource.opera.ConnectionString}</InConnectStr>
+      <InResort dtype="String">${dtv.datasource.opera.Resort}</InResort>
+      <InRowId dtype="Integer">${dtv.datasource.opera.RowId}</InRowId>
+    </Parameters>
+  </Service>
+</Services>
