@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<DataLoaderConfig xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
-                  xmlns="http://micros.com/xstore/config/dataloader" xs:noNamespaceSchemaLocation="DataLoaderConfig.xsd">
-
-</DataLoaderConfig>

@@ -1,7 +1,0 @@
-bin
-log
-target
-xcenterwar
-xcenter-config
-xcenter.keystore
-download

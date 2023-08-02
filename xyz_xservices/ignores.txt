@@ -1,8 +1,0 @@
-bin
-log
-target
-tmp
-xservices-config-dev
-xserviceswar
-xservices.keystore
-res
